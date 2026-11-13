@@ -20,8 +20,8 @@ Touch Y-,UNKNOWN,NOT_ASSIGNED,Not enabled,UNKNOWN,DEFERRED,Shared LCD net remain
 Debug LED,N/A,GPIO2,Output,3.3V,REFERENCE_SCHEMATIC_AND_CODE,Active HIGH on reference NodeMCU-32 V1.3; actual board not tested
 UART2 TX,N/A,GPIO25,Output,3.3V,CODE_AND_LOG,
 UART2 RX,N/A,GPIO26,Input,3.3V,CODE_AND_LOG,
-HC05 UART1 TX,HC05 RXD,GPIO32,OUT,3.3V required,PLANNED_ESP32_ONLY,First stage; no firmware UART1 implementation yet
-HC05 UART1 RX,HC05 TXD,GPIO34,IN,UNKNOWN,PLANNED_ESP32_ONLY,First stage; input-only with no internal pull resistors; verify TXD voltage
+HC05 UART1 TX,HC05 RXD,GPIO32,OUT,3.3V required,CODE_WIRING_UNVERIFIED,v0.1.11 UART1 driver implemented at confirmed 115200; physical test pending
+HC05 UART1 RX,HC05 TXD,GPIO34,IN,UNKNOWN,CODE_WIRING_UNVERIFIED,v0.1.11 UART1 driver; input-only with no internal pull resistors; verify TXD voltage
 HC05 STATE,HC05 STATE,GPIO35,IN optional,UNKNOWN,RESERVED_UNVERIFIED,Later; confirm polarity and voltage; no direct LED load
 HC05 EN_KEY,HC05 EN,GPIO12,OUT optional,UNKNOWN,RESERVED_CONDITIONAL,ZS-040 AT via EN confirmed by user; do not connect now; preserve VDD_SDIO strap and isolate if needed
 PSRAM reserved,N/A,GPIO16,Reserved,3.3V,HARDWARE,Do not use

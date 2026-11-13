@@ -1,5 +1,15 @@
 # Faktyczny stan projektu / handoff
 
+## 13.11.2026 — końcowe kontrole v0.1.11 po pushu źródeł
+
+- Kod opublikowano **przed końcowymi testami**, zgodnie z poleceniem: [46ea0fa](https://github.com/Daniel99999999999/Terminal/commit/46ea0fae02ec845b2c58fccabec2426289e6fb40). Po tym commicie nie zmieniano C/H ani logiki testów; drugi commit zapisuje wyniki i wygenerowany `sdkconfig.esp32dev` bez nieużywanych komponentów.
+- Testy hosta **PASS**: 6 zestawów (terminal 22 scenariusze, LED 11, HC-05 policy/GPIO, raster oraz archiwalne BT 16 / HCI 13) i 2 warianty archiwalnego adaptera HCI. Archiwalne testy używają `baseline/v0.1.10/src`, nie kodu linkowanego do nowego firmware. To nie jest test współbieżności UART/FreeRTOS ani RF.
+- Domyślny `esp32dev`: **SUCCESS**, kod 0, 57,18 s, espressif32 7.0.1 / ESP-IDF 6.0.1. Flash **232 284 B**, statyczny RAM **14 216 B**, bin **232 720 B**, ELF SHA256 `fbacee5765fc5543c51d407920d9681c7d6748cff85346a63cfe2f74175e20ff`. HC-05 115200; TFT/STATE/KEY OFF.
+- Osobny wariant testowy: **SUCCESS**, kod 0, 58,35 s. TFT, STATE, KEY, wzór kolorów i inwersja ON, obrót 1. Flash **233 784 B**, statyczny RAM **14 232 B**, bin **234 208 B**, ELF SHA256 `ed75d89d9369bfac112d0051ba1b71d53cd355c40e67c24d27fadab5d77838a1`. Potwierdzono efektywne flagi i symbole I80/ILI9341/rastera/przełączania AT. Konfiguracja i build są izolowane w `.pio/`; nie włączono tych opcji w domyślnym firmware.
+- Cppcheck: **10 plików C aplikacji, obie konfiguracje, bez zgłoszeń warning/performance/portability**, kod 0. W obu buildach brak komponentów `bt`, `esp_wifi`, `esp_phy`, `esp_coex`, `wpa_supplicant`, brak ich archiwów w `Terminal.map` i implementacji API radiowych w ELF (stałe adresy funkcji ROM nie są implementacjami dołączonymi do aplikacji).
+- Sprawdzono 65 sum SHA256 manifestów baz, niezmienione bloby upstream ILI9341/licencji, niezmienione bajty glifów fontu oraz zachowanie parametrów PSRAM/Flash/konsoli. Artefakty lokalne: `.pio/audit/hc05_tft_default.json`, `hc05_tft_features.json`, logi buildów/Cppcheck oraz `.pio/host-tests/result.txt`.
+- **Bez uploadu i bez próby sprzętowej.** Płytka nie została tym zadaniem przeprogramowana; ostatni znany obraz na niej nadal to stara referencja `ref-fullcal-6.0.1`. Wykluczenie natywnego radia dotyczy nowego firmware. Nie potwierdzono obrazu TFT, transferu fizycznego HC-05 ani elektrycznej poprawności shielda.
+
 ## 13.11.2026 — źródła v0.1.11: HC-05, I80/ILI9341 i usunięcie natywnego radia
 
 - Użytkownik zlecił dodanie HC-05 i TFT, doprecyzował klon ILI9341 oraz potwierdził UART HC-05 **115200**. Nowy most i renderer są opisane w [instrukcji](HC05_TFT_v0.1.11.md). STATE/KEY/TFT są opcjonalne i domyślnie nie konfigurują swoich GPIO.

@@ -1,6 +1,17 @@
 # v0.1.11 — końcowe kontrole po commicie źródeł
 
-Na polecenie użytkownika kod v0.1.11 jest commitowany i wysyłany przed końcowymi testami. Do wykonania: wszystkie zestawy hosta (nowe HC-05/raster i aktywny heartbeat; stare BT/HCI na źródłach baseline), build domyślny, build z TFT/STATE/EN i kontrola ELF/mapy/komponentów pod kątem braku natywnego radia. Bez uploadu i bez deklaracji fizycznego obrazu TFT. Wyniki zostaną dopisane po wykonaniu kontroli.
+Na polecenie użytkownika kod v0.1.11 wysłano w commicie [46ea0fa](https://github.com/Daniel99999999999/Terminal/commit/46ea0fae02ec845b2c58fccabec2426289e6fb40) **przed końcowymi testami**. Następnie wykonano:
+
+| Kontrola | Wynik |
+|---|---|
+| Testy hosta | 6 zestawów PASS i 2 warianty adaptera HCI PASS; BT/HCI korzystają z archiwum v0.1.10 |
+| Build domyślny, TFT/STATE/KEY OFF | SUCCESS, Flash 232 284 B / statyczny RAM 14 216 B |
+| Osobny build, TFT/STATE/KEY/wzór/inwersja ON | SUCCESS, Flash 233 784 B / statyczny RAM 14 232 B |
+| Cppcheck, 10 C, oba warianty | Bez zgłoszeń warning/performance/portability, kod 0 |
+| Komponenty + mapa + ELF | Brak natywnego BT/Wi-Fi/PHY/coexistence; brak implementacji API radiowych |
+| Manifesty baz i dostawcy | 65 SHA256 baz zgodnych; driver/licencja ILI9341 i glify zgodne z upstream |
+
+Oba buildy: espressif32 7.0.1 / ESP-IDF 6.0.1. Domyślne opcje pozostają wyłączone, wariant aktywny był tylko kompilowany. **Nie wykonano uploadu, testu UART/FreeRTOS na urządzeniu ani fizycznego obrazu TFT.** Szczegóły i sumy ELF w [STATUS](STATUS.md).
 
 Polecenia: `python tests/run_host_tests.py`, `pio run -e esp32dev`; opcje w `menuconfig → RetroTerminal`. Szczegóły i testy sprzętowe: [HC05_TFT_v0.1.11.md](HC05_TFT_v0.1.11.md).
 
