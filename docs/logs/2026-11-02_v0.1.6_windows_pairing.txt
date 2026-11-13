@@ -1,0 +1,113 @@
+I (1333) heap_init: Initializing. RAM available for dynamic allocation:
+I (1339) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM
+I (1344) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM
+I (1350) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM
+I (1355) heap_init: At 3FFC8F20 len 000170E0 (92 KiB): DRAM
+I (1360) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+I (1366) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+I (1371) heap_init: At 40098A54 len 000075AC (29 KiB): IRAM
+I (1377) esp_psram: Adding pool of 4096K of PSRAM memory to heap allocator
+I (1384) spi_flash: detected chip: generic
+I (1387) spi_flash: flash io: dio
+I (1391) coexist: coex firmware version: b00e8cb
+I (1395) main_task: Started on CPU0
+I (1405) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations
+I (1405) main_task: Calling app_main()
+I (1405) DEBUG_LED: GPIO2 active=1; toggle 500/1000 ms; reset_reason=1 latched=0
+I (1415) RetroTerminal: Starting ESP32 RetroTerminal v0.1.6 WROVER; SDK: 6.0.1; echo=1
+I (1415) MEM: === Before initialization ===
+I (1425) MEM: Internal heap total: 280287 B
+I (1425) MEM: Internal heap free:  226359 B
+I (1435) MEM: Largest internal block: 110592 B
+I (1435) MEM: External PSRAM heap total: 4194304 B
+I (1435) MEM: External PSRAM heap free:  4192024 B
+I (1445) MEM: Largest PSRAM block:       4128768 B
+I (1445) uart: queue free spaces: 32
+I (1455) RetroTerminal: UART2 ready: TX=GPIO25 RX=GPIO26, 115200 8N1
+I (1505) RetroTerminal: BT controller configured mode: 2 (Classic=2, Dual=3)
+I (1505) BTDM_INIT: BT controller compile version [a5d37fe]
+I (1505) BTDM_INIT: Using main XTAL as clock source
+I (1515) BTDM_INIT: Bluetooth MAC: 7c:87:ce:2f:de:da
+I (1525) phy_init: phy_version 4863,a3a4459,Oct 28 2025,14:30:06
+I (2145) RetroTerminal: BT local address: 7C:87:CE:2F:DE:DA
+I (2155) RetroTerminal: BT SSP IO_CAP_NONE request=ESP_OK
+I (2155) RetroTerminal: SPP INIT status=0
+I (2155) RetroTerminal: BT set_name requested='ESP32-RetroTerminal' result=ESP_OK
+I (2165) RetroTerminal: BT scan_mode connectable/general result=ESP_OK (request accepted only)
+I (2175) RetroTerminal: BT get_name request result=ESP_OK
+I (2175) RetroTerminal: SPP start_server request=ESP_OK
+I (2195) RetroTerminal: GAP GET_DEV_NAME status=0 name='ESP32-RetroTerminal'
+I (2195) RetroTerminal: SPP START status=0 handle=129 scn=1
+I (2195) RetroTerminal: SPP listening as 'ESP32-RetroTerminal'; RF discoverability not verified
+I (2205) MEM: === After Bluetooth init request ===
+I (2215) MEM: Internal heap total: 285459 B
+I (2215) MEM: Internal heap free:  175759 B
+I (2225) MEM: Largest internal block: 110592 B
+I (2225) MEM: External PSRAM heap total: 4194304 B
+I (2225) MEM: External PSRAM heap free:  4186088 B
+I (2235) MEM: Largest PSRAM block:       4128768 B
+I (2235) RetroTerminal: SPP initialization requested; await INIT/START for 'ESP32-RetroTerminal'
+I (2245) main_task: Returned from app_main()
+I (2255) RetroTerminal: UART RX session boundary: handle=0 buffered_discard=0
+I (6455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (6455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (11455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (11455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (16455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (16455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (21455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (21455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (26455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (26455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (31455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (31455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (36455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (36455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (41455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (41455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (46455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (46455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (51455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (51455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (56455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (56455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (61455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (61455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (66455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (66455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (71455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (71455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (76455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (76455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (81455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (81455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (86455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (86455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (91455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (91455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+W (96105) BT_HCI: hcif conn complete: hdl 0x80, st 0x0
+I (96115) RetroTerminal: GAP ACL connect status=0 handle=128
+I (96455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (96455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (101455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (101455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (106455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (106455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (111455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (111455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (116455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (116455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (121455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (121455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+W (126205) BT_HCI: hcif disc complete: hdl 0x80, rsn 0x22 dev_find 1
+I (126205) RetroTerminal: GAP ACL disconnect reason=290 handle=128
+I (126455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (126455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+W (131095) BT_HCI: hcif conn complete: hdl 0x81, st 0x0
+I (131105) RetroTerminal: GAP ACL connect status=0 handle=129
+I (131455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (131455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (136455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (136455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (141455) IO: UART RX=0 offline=0 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (141455) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0

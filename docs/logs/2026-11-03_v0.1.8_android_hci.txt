@@ -1,0 +1,215 @@
+ *  Executing task: C:\Users\Daniel\.platformio\penv\Scripts\platformio.exe device monitor 
+
+--- Terminal on COM10 | 115200 8-N-1
+--- Available filters and text transformations: debug, default, direct, esp32_exception_decoder, hexlify, log2file, nocontrol, printable, send_on_enter, time
+--- More details at https://bit.ly/pio-monitor-filters
+--- Quit: Ctrl+C | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0040,len:6272
+load:0x40078000,len:15848
+load:0x40080400,len:3920
+entry 0x4008063c
+I (27) boot: ESP-IDF 6.0.1 2nd stage bootloader
+I (27) boot: compile time Nov  2 2026 18:53:55
+I (28) boot: Multicore bootloader
+I (29) boot: chip revision: v3.0
+I (31) boot.esp32: SPI Speed      : 40MHz
+I (35) boot.esp32: SPI Mode       : DIO
+I (39) boot.esp32: SPI Flash Size : 4MB
+I (42) boot: Enabling RNG early entropy source...
+I (47) boot: Partition Table:
+I (49) boot: ## Label            Usage          Type ST Offset   Length
+I (56) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+I (62) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+I (69) boot:  2 factory          factory app      00 00 00010000 00100000
+I (75) boot: End of partition table
+I (79) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=20bb4h (134068) map
+I (134) esp_image: segment 1: paddr=00030bdc vaddr=3ffbdb60 size=051ach ( 20908) load
+I (142) esp_image: segment 2: paddr=00035d90 vaddr=40080000 size=0a288h ( 41608) load
+I (159) esp_image: segment 3: paddr=00040020 vaddr=400d0020 size=6b4dch (439516) map
+I (316) esp_image: segment 4: paddr=000ab504 vaddr=4008a288 size=0e7cch ( 59340) load
+I (341) esp_image: segment 5: paddr=000b9cd8 vaddr=50000000 size=00028h (    40) load
+I (353) boot: Loaded app from partition at offset 0x10000
+I (353) boot: Disabling RNG early entropy source...
+I (364) quad_psram: This chip is ESP32-D0WD
+I (366) esp_psram: Found 8MB PSRAM device
+I (366) esp_psram: Speed: 40MHz
+I (366) esp_psram: PSRAM initialized, cache is in low/high (2-core) mode.
+W (371) esp_psram: Virtual address not enough for PSRAM, map as much as we can. 4MB is mapped
+I (379) cpu_start: Multicore app
+I (1287) esp_psram: SPI SRAM memory test OK
+I (1295) cpu_start: GPIO 3 and 1 are used as console UART I/O pins
+I (1295) cpu_start: Pro cpu start user code
+I (1295) cpu_start: cpu freq: 160000000 Hz
+I (1298) app_init: Application information:
+I (1301) app_init: Project name:     Terminal
+I (1306) app_init: App version:      0.1.8
+I (1309) app_init: Compile time:     Nov  2 2026 18:52:33
+I (1314) app_init: ELF file SHA256:  492fe63bf...
+I (1319) app_init: ESP-IDF:          6.0.1
+I (1323) efuse_init: Min chip rev:     v0.0
+I (1327) efuse_init: Max chip rev:     v3.99 
+I (1331) efuse_init: Chip rev:         v3.0
+I (1335) heap_init: Initializing. RAM available for dynamic allocation:
+I (1341) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM
+I (1346) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM
+I (1351) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM
+I (1357) heap_init: At 3FFC8F60 len 000170A0 (92 KiB): DRAM
+I (1362) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+I (1367) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+I (1373) heap_init: At 40098A54 len 000075AC (29 KiB): IRAM
+I (1379) esp_psram: Adding pool of 4096K of PSRAM memory to heap allocator
+I (1386) spi_flash: detected chip: generic
+I (1389) spi_flash: flash io: dio
+I (1393) coexist: coex firmware version: b00e8cb
+I (1397) main_task: Started on CPU0
+I (1407) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations
+I (1407) main_task: Calling app_main()
+I (1407) DEBUG_LED: GPIO2 active=1; toggle 500/1000 ms; reset_reason=1 latched=0
+I (1417) RetroTerminal: Starting ESP32 RetroTerminal v0.1.8 WROVER; SDK: 6.0.1; echo=1 identity_test=2 hci_scan_diag=1
+I (1427) MEM: === Before initialization ===
+I (1427) MEM: Internal heap total: 280223 B
+I (1427) MEM: Internal heap free:  226295 B
+I (1437) MEM: Largest internal block: 110592 B
+I (1437) MEM: External PSRAM heap total: 4194304 B
+I (1447) MEM: External PSRAM heap free:  4192024 B
+I (1447) MEM: Largest PSRAM block:       4128768 B
+I (1457) HCI_SCAN: passive observer enabled; scan/reset metadata only; awaiting Bluedroid
+I (1457) uart: queue free spaces: 32
+I (1467) RetroTerminal: UART2 ready: TX=GPIO25 RX=GPIO26, 115200 8N1
+I (1517) RetroTerminal: BT controller configured mode: 2 (Classic=2, Dual=3)
+I (1517) BTDM_INIT: BT controller compile version [a5d37fe]
+I (1517) BTDM_INIT: Using main XTAL as clock source
+I (1527) BTDM_INIT: Bluetooth MAC: 7c:87:ce:2f:de:da
+I (1527) phy_init: phy_version 4863,a3a4459,Oct 28 2025,14:30:06
+I (2097) RetroTerminal: Bluedroid config: SSP=1 SC=0
+I (2187) RetroTerminal: BT local address: 7C:87:CE:2F:DE:DA
+I (2187) RetroTerminal: BT saved bonds=0 (read only)
+I (2187) RetroTerminal: BT SSP IO_CAP_NONE request=ESP_OK
+I (2197) RetroTerminal: SPP INIT status=0
+I (2197) RetroTerminal: BT set_name requested='ESP32-RetroTerminal' result=ESP_OK
+I (2207) RetroTerminal: BT scan_mode connectable/general result=ESP_OK (request accepted only)
+I (2217) RetroTerminal: BT get_name request result=ESP_OK
+I (2217) RetroTerminal: SPP start_server request=ESP_OK
+I (2247) BT_DISC: CONFIG_EIR status=0
+I (2247) BT_DISC: EIR types=4
+I (2247) BT_DISC: EIR type=0x09
+I (2247) BT_DISC: EIR type=0x03
+I (2247) BT_DISC: EIR type=0x05
+I (2247) BT_DISC: EIR type=0x07
+I (2247) BT_DISC: EIR local summary: name_type=1 uuid16_type=1; remote reception unverified
+I (2257) RetroTerminal: GAP GET_DEV_NAME status=0 name='ESP32-RetroTerminal'
+I (2267) BT_DISC: CoD[name-callback] local=0x001F00 major=31 minor=0 service=0x000
+I (2267) RetroTerminal: SPP START status=0 handle=129 scn=1
+I (2277) RetroTerminal: SPP listening as 'ESP32-RetroTerminal'; RF discoverability not verified
+I (2287) BT_DISC: CoD[server-start] local=0x001F00 major=31 minor=0 service=0x000
+I (2297) BT_DISC: identity_test=2 (0=observe 1=Computer 2=Computer+EIR)
+I (2297) BT_DISC: set_cod Computer request=ESP_OK
+I (2307) BT_DISC: config_eir name+registered_UUIDs request=ESP_OK
+I (2307) BT_DISC: identity readback request=ESP_OK
+I (2317) BT_DISC: CONFIG_EIR status=0
+I (2317) BT_DISC: EIR types=5
+I (2317) BT_DISC: EIR type=0x09
+I (2327) BT_DISC: EIR type=0x03
+I (2327) BT_DISC: EIR type=0x05
+I (2327) BT_DISC: EIR type=0x07
+I (2327) BT_DISC: EIR type=0x01
+I (2337) BT_DISC: EIR local summary: name_type=1 uuid16_type=1; remote reception unverified
+I (2347) RetroTerminal: GAP GET_DEV_NAME status=0 name='ESP32-RetroTerminal'
+I (2347) BT_DISC: CoD[name-callback] local=0x000100 major=1 minor=0 service=0x000
+I (2357) MEM: === After Bluetooth init request ===
+I (2357) MEM: Internal heap total: 285395 B
+I (2367) MEM: Internal heap free:  175015 B
+I (2367) MEM: Largest internal block: 110592 B
+I (2377) RetroTerminal: UART RX session boundary: handle=0 buffered_discard=0
+I (2377) MEM: External PSRAM heap total: 4194304 B
+I (2387) MEM: External PSRAM heap free:  4186088 B
+I (2387) MEM: Largest PSRAM block:       4128768 B
+I (2397) RetroTerminal: SPP initialization requested; await INIT/START for 'ESP32-RetroTerminal'
+I (2397) main_task: Returned from app_main()
+I (6477) HCI_SCAN: TX opcode=0x0C03 RESET
+I (6477) HCI_SCAN: RX COMMAND_COMPLETE opcode=0x0C03 status=0x00 value_present=0 value=0x00
+I (6477) HCI_SCAN: TX opcode=0x0C1A WRITE_SCAN_ENABLE value=0x01
+I (6477) HCI_SCAN: RX COMMAND_COMPLETE opcode=0x0C1A status=0x00 requested=0x01
+I (6487) HCI_SCAN: TX opcode=0x0C1A WRITE_SCAN_ENABLE value=0x03
+I (6487) HCI_SCAN: RX COMMAND_COMPLETE opcode=0x0C1A status=0x00 requested=0x03
+I (6497) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+I (6507) IO: UART RX=41 offline=41 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (6517) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (11527) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+I (11527) IO: UART RX=41 offline=41 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (11527) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (16537) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+I (16537) IO: UART RX=41 offline=41 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (16537) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (21547) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+I (21547) IO: UART RX=41 offline=41 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (21547) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (26557) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+I (26557) IO: UART RX=41 offline=41 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (26557) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (31567) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+I (31567) IO: UART RX=41 offline=41 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (31567) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (36577) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+I (36577) IO: UART RX=41 offline=41 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (36577) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (41587) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+I (41587) IO: UART RX=41 offline=41 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (41587) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (46597) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+I (46597) IO: UART RX=41 offline=41 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (46597) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (51607) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+I (51607) IO: UART RX=41 offline=41 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (51607) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (56617) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+I (56617) IO: UART RX=41 offline=41 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (56617) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (61627) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+I (61627) IO: UART RX=41 offline=41 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (61627) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (66637) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+I (66637) IO: UART RX=41 offline=41 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (66637) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (71647) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+I (71647) IO: UART RX=41 offline=41 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (71647) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (76657) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+I (76657) IO: UART RX=41 offline=41 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (76657) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (81667) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+I (81667) IO: UART RX=41 offline=41 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (81667) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (86677) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+I (86677) IO: UART RX=41 offline=41 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (86677) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (91687) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+I (91687) IO: UART RX=41 offline=41 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (91687) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (96697) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+I (96697) IO: UART RX=41 offline=41 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (96697) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (101707) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+I (101707) IO: UART RX=41 offline=41 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (101707) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (106717) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+I (106717) IO: UART RX=41 offline=41 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (106717) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (111727) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+I (111727) IO: UART RX=41 offline=41 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (111727) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (116737) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+I (116737) IO: UART RX=41 offline=41 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (116737) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (121747) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+I (121747) IO: UART RX=41 offline=41 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (121747) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+I (126757) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+I (126757) IO: UART RX=41 offline=41 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (126757) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0

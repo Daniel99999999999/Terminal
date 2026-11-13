@@ -1,0 +1,20 @@
+* text=auto
+*.c text eol=lf
+*.h text eol=lf
+*.md text eol=lf
+*.ini text eol=lf
+*.txt text eol=lf
+*.json text eol=lf
+*.py text eol=lf
+*.cmake text eol=lf
+*.jpg binary
+*.png binary
+*.a binary
+
+# Preserve exact bytes of rollback snapshots and upstream files (SHA256 manifests).
+baseline/** -text
+diagnostics/esp_idf_spp_acceptor/main/** -text
+diagnostics/esp_idf_spp_acceptor/UPSTREAM_README.md -text
+diagnostics/esp_idf_spp_acceptor/ESP32_SSP.md -text
+diagnostics/esp_idf_spp_acceptor/LICENSE -text
+vendor/** -text

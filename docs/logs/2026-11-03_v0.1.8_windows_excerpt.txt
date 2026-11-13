@@ -1,0 +1,15 @@
+Wyciag z logu Windows wklejonego przez uzytkownika 2026-11-03.
+To wybrane linie, nie pelny log od resetu. Uzytkownik: komputer widzi
+urzadzenie, ale dodawanie/parowanie konczy komunikatem o braku odpowiedzi.
+
+I (382267) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+W (405017) BT_HCI: hcif disc complete: hdl 0x80, rsn 0x22 dev_find 1
+I (405017) RetroTerminal: GAP ACL disconnect reason=290 (0x122) hci=0x22 LMP_RESPONSE_TIMEOUT handle=128
+W (412847) BT_HCI: hcif conn complete: hdl 0x81, st 0x0
+I (412847) RetroTerminal: GAP ACL connect status=0 handle=129
+I (422347) HCI_SCAN: observer attached=1 drops=0 trace_complete=1 pending=0 confirmed=1 scan=0x03 (last observation; RF unverified)
+I (422347) IO: UART RX=41 offline=41 boundary_discard=0; dropped BT=0 UART=0 stale=0 bytes
+I (422347) IO: UART errors FIFO_OVF=0 BUFFER_FULL=0 FRAME=0 PARITY=0 READ=0; SPP DATA_IND=0 WRITE=0 CONG=0 recovery=0
+
+Nie pokazano poczatku lacza handle=128. Drugie lacze handle=129 ma tylko
+9,5 s obserwacji po connect; jego koncowego wyniku nie dostarczono.

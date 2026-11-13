@@ -1,0 +1,16 @@
+{
+  "repository": "https://github.com/espressif/esp-idf",
+  "tag": "v6.0.1",
+  "example": "examples/bluetooth/bluedroid/classic_bt/bt_spp_acceptor",
+  "source_files_unchanged_sha256": {
+    "main/main.c": "dbd5b141e9dc576599ade2e3a3c7ccf215f9aa10f37e972ddc91087124f7a117",
+    "main/CMakeLists.txt": "7934c845b84c023c5e19f3d9b5393dadbab3b5e65954973ea487cddc8c4bdb8e",
+    "main/Kconfig.projbuild": "3d04626f44bfc17217f9a061f3547ab05c5305106cb83cd43ac81dd4bd31d71e"
+  },
+  "wrapper_changes": [
+    "PlatformIO entrypoint and COM10",
+    "Explicit project version for repository without commits",
+    "WROVER SDK configuration copied from baseline v0.1.8; original example options enabled"
+  ],
+  "controller": "Unmodified shared ESP-IDF 6.0.1 controller; no root project backport, HCI observer, UART2 bridge or LED modules"
+}

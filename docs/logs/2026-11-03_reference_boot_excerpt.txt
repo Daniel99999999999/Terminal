@@ -1,0 +1,25 @@
+Wybrane linie odczytane przez agenta z COM10 / 115200 po wgraniu referencji.
+To przepisany wyciag z konsoli, nie pelny surowy log; usunieto sekwencje ANSI.
+
+Upload: platformio.exe run -d diagnostics/esp_idf_spp_acceptor -e esp32dev -t upload
+Wrote 655888 bytes (384418 compressed) at 0x00010000 in 9.2 seconds (effective 572.4 kbit/s)...
+Hash of data verified.
+Hard resetting via RTS pin...
+========================= [SUCCESS] Took 17.04 seconds =========================
+
+I (1287) app_init: Project name:     bt_spp_acceptor_demo
+I (1292) app_init: App version:      ref-idf-6.0.1
+I (1297) app_init: Compile time:     Nov  3 2026 16:50:46
+I (1302) app_init: ELF file SHA256:  f54c58dd7...
+I (1306) app_init: ESP-IDF:          6.0.1
+I (1445) BTDM_INIT: BT controller compile version [a5d37fe]
+I (1445) BTDM_INIT: Using main XTAL as clock source
+I (1445) BTDM_INIT: Bluetooth MAC: 7c:87:ce:2f:de:da
+I (2095) SPP_ACCEPTOR_DEMO: ESP_SPP_INIT_EVT
+I (2095) SPP_ACCEPTOR_DEMO: ESP_SPP_START_EVT handle:129 sec_id:55 scn:1
+I (2105) SPP_ACCEPTOR_DEMO: event: 10
+I (2105) SPP_ACCEPTOR_DEMO: Own address:[7c:87:ce:2f:de:da]
+I (2105) main_task: Returned from app_main()
+
+Monitor agenta zakonczony przez Ctrl+C, kod 0; COM10 zwolniony.
+Widocznosc na Androidzie, parowanie i SPP pozostaja do sprawdzenia przez uzytkownika.

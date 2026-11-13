@@ -1,0 +1,11 @@
+{
+  "C_Cpp.default.configurationProvider": "platformio.platformio-ide",
+  "files.associations": {
+    "sdkconfig*": "ini",
+    "*.defaults": "ini"
+  },
+  "cmake.configureOnOpen": false,
+  "files.exclude": {
+    "**/.pio": true
+  }
+}

@@ -1,0 +1,19 @@
+Test,From,To,Power_state,Mode,Value,Unit,Status,Notes
+P01,U2 pin20 VCC,Shield 3V3,OFF,Resistance,UNKNOWN,ohm,TODO,Identify pin1 before counting
+P02,U2 pin20 VCC,Shield 5V,OFF,Resistance,UNKNOWN,ohm,TODO,Record stable value or changing reading
+P03,U3 pin20 VCC,Shield 3V3,OFF,Resistance,UNKNOWN,ohm,TODO,Identify pin1 before counting
+P04,U3 pin20 VCC,Shield 5V,OFF,Resistance,UNKNOWN,ohm,TODO,Record stable value or changing reading
+G01,U2 pin10 GND,Shield GND,OFF,Resistance,UNKNOWN,ohm,TODO,
+G02,U3 pin10 GND,Shield GND,OFF,Resistance,UNKNOWN,ohm,TODO,
+B01,U2 pin1 DIR,Connected net,OFF,Continuity,UNKNOWN,,TODO,Trace to rail or connector
+B02,U2 pin19 nOE,Connected net,OFF,Continuity,UNKNOWN,,TODO,Trace to rail or connector
+B03,U3 pin1 DIR,Connected net,OFF,Continuity,UNKNOWN,,TODO,Trace to rail or connector
+B04,U3 pin19 nOE,Connected net,OFF,Continuity,UNKNOWN,,TODO,Trace to rail or connector
+T01,Touch X+,Shield connector net,OFF,Resistance,UNKNOWN,ohm,TODO,Do not copy UNO defaults
+T02,Touch X-,Shield connector net,OFF,Resistance,UNKNOWN,ohm,TODO,Do not copy UNO defaults
+T03,Touch Y+,Shield connector net,OFF,Resistance,UNKNOWN,ohm,TODO,Do not copy UNO defaults
+T04,Touch Y-,Shield connector net,OFF,Resistance,UNKNOWN,ohm,TODO,Do not copy UNO defaults
+T05,Touch X+,Touch X-,OFF,Resistance,UNKNOWN,ohm,TODO,Measure at stable accessible pads
+T06,Touch Y+,Touch Y-,OFF,Resistance,UNKNOWN,ohm,TODO,Measure at stable accessible pads
+V01,U2 pin20 VCC,Shield GND,ON_AFTER_RAILS_VERIFIED,DC voltage,UNKNOWN,V,TODO,Shield only; ESP32 signals disconnected
+V02,U3 pin20 VCC,Shield GND,ON_AFTER_RAILS_VERIFIED,DC voltage,UNKNOWN,V,TODO,Shield only; ESP32 signals disconnected

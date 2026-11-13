@@ -1,0 +1,16 @@
+{
+  "repository": "https://github.com/espressif/esp32-bt-lib",
+  "commit": "10f4e9ad6260788765863ed7f05e0e649b288e36",
+  "path": "esp32/libbtdm_app.a",
+  "git_blob_sha1": "4600c8f40b4ec887570ccf7defc40241ea306f12",
+  "sha256": "dc4d03d1ace55a3399cb3104284b3d1c5b76fc0931212ed999d4d8f59414bb19",
+  "size": 896358,
+  "license": "Apache-2.0 (upstream LICENSE included unchanged)",
+  "idf_fix_commit": "83ede087025eb3edc5ccad83bfa4cf064ca6b8cc",
+  "idf_fix_url": "https://github.com/espressif/esp-idf/commit/83ede087025eb3edc5ccad83bfa4cf064ca6b8cc",
+  "issue": "https://github.com/espressif/esp-idf/issues/18145",
+  "replaces_idf_tag": "v6.0.1",
+  "replaces_submodule_commit": "6a3c709f402f5a39a056a2097f3997dc4b8436cd",
+  "replaces_git_blob_sha1": "c010e165274ddbeca2ec45030cf273cc227676ac",
+  "replaces_sha256": "9552f29e7e58823d3d62ecf6310d89c110239da41655d0783be80ac77829e7db"
+}

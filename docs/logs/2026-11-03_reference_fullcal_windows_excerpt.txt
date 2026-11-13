@@ -1,0 +1,28 @@
+Selected lines from the user's Windows pairing report, 2026-11-03.
+This is an excerpt, not the complete UART log.
+User result: Windows reports no response from device while pairing.
+
+I (1286) app_init: Project name:     bt_spp_acceptor_demo
+I (1291) app_init: App version:      ref-fullcal-6.0.1
+I (1296) app_init: Compile time:     Nov  3 2026 17:14:22
+I (1301) app_init: ELF file SHA256:  3769a91ad...
+I (1306) app_init: ESP-IDF:          6.0.1
+I (1444) BTDM_INIT: BT controller compile version [a5d37fe]
+I (1444) BTDM_INIT: Bluetooth MAC: 7c:87:ce:2f:de:da
+I (1444) phy_init: phy_version 4863,a3a4459,Oct 28 2025,14:30:06
+I (2074) SPP_ACCEPTOR_DEMO: ESP_SPP_INIT_EVT
+I (2074) SPP_ACCEPTOR_DEMO: ESP_SPP_START_EVT handle:129 sec_id:55 scn:1
+I (2074) SPP_ACCEPTOR_DEMO: event: 10
+I (2084) SPP_ACCEPTOR_DEMO: Own address:[7c:87:ce:2f:de:da]
+I (2084) main_task: Returned from app_main()
+W (197984) BT_HCI: hcif conn complete: hdl 0x80, st 0x0
+I (197994) SPP_ACCEPTOR_DEMO: event: 16
+W (227994) BT_BTM: btm_read_remote_ext_features_failed (status 0x02) for handle 128
+
+W (228004) BT_HCI: opcode=0x040f, status= 02: No Connection
+W (228114) BT_HCI: hcif disc complete: hdl 0x80, rsn 0x22 dev_find 1
+I (228114) SPP_ACCEPTOR_DEMO: event: 17
+
+Elapsed ACL connection -> disconnection: 228114 - 197984 = 30130 ms.
+No authentication success or SPP server open in the supplied log.
+Internal Bluetooth diagnosis stopped per user's instruction; next: TFT / external HC-05.

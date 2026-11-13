@@ -1,0 +1,25 @@
+Selected lines from the user's UART log, supplied 2026-11-12.
+This is an excerpt, not the complete log.
+User clarification: connection attempt from the computer; Android does not discover the ESP32.
+
+--- Terminal on COM5 | 115200 8-N-1
+I (1286) app_init: Project name:     bt_spp_acceptor_demo
+I (1291) app_init: App version:      ref-fullcal-6.0.1
+I (1296) app_init: Compile time:     Nov  3 2026 17:14:22
+I (1301) app_init: ELF file SHA256:  3769a91ad...
+I (1306) app_init: ESP-IDF:          6.0.1
+I (1444) BTDM_INIT: BT controller compile version [a5d37fe]
+I (1444) BTDM_INIT: Bluetooth MAC: 7c:87:ce:2f:de:da
+I (2074) SPP_ACCEPTOR_DEMO: ESP_SPP_INIT_EVT
+I (2074) SPP_ACCEPTOR_DEMO: ESP_SPP_START_EVT handle:129 sec_id:55 scn:1
+W (20964) BT_HCI: hcif conn complete: hdl 0x80, st 0x0
+I (20964) SPP_ACCEPTOR_DEMO: event: 16
+W (50994) BT_BTM: btm_read_remote_ext_features_failed (status 0x02) for handle 128
+
+W (51004) BT_HCI: opcode=0x040f, status= 02: No Connection
+W (51114) BT_HCI: hcif disc complete: hdl 0x80, rsn 0x22 dev_find 1
+I (51124) SPP_ACCEPTOR_DEMO: event: 17
+
+ACL connection -> disconnection: 51114 - 20964 = 30150 ms.
+No authentication success or SPP server open in the supplied log.
+This log does not show an Android connection attempt.

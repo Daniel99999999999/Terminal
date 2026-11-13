@@ -1,0 +1,71 @@
+# ESP32 RetroTerminal — VS Code / Codex
+
+Projekt terminala szeregowego DIY opartego na **ESP32-WROVER (ESP32-D0WD-V3)**. Natywny **ESP-IDF 6.0.1 w PlatformIO**, język **C**, bez Arduino.
+
+Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.1.10**, etap rozwojowy. [Opis wersji i wyniki kontroli](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
+
+> **Stan:** próby wbudowanego Bluetooth zakończono na polecenie użytkownika. Oryginalny akceptor Espressif i ostatni wariant pełnej kalibracji RF były niewidoczne na Samsungu; Windows również nie sparował ostatniego wariantu (ACL → LMP 0x22). Przyczyna pozostaje nieustalona. Priorytetem jest teraz [TFT LCD — pomiary i identyfikacja](docs/TFT_BRINGUP.md); Bluetooth docelowo przez [HC-05](docs/HC05_INTEGRATION.md). Użytkownik ma multimetr. Główny **v0.1.10** ma model ANSI/VT100 w pamięci i testy; obraz TFT jeszcze nie jest uruchomiony. Zachowano także bazę v0.1.9 oraz wcześniejsze bazy. [Wyniki](docs/STATUS.md).
+
+## Szybki start — Windows / VS Code
+
+1. Sklonuj `git clone https://github.com/Daniel99999999999/Terminal.git` do wybranego katalogu roboczego.
+2. W VS Code wybierz **File → Open Folder** i otwórz **folder zawierający `platformio.ini`**.
+3. Upewnij się, że jest zainstalowane rozszerzenie **PlatformIO IDE**; opcjonalnie rozszerzenie Codex.
+4. Otwórz projekt w Codex i poleć przeczytać `AGENTS.md` i `docs/STATUS.md` (gotowy prompt w `CODEX_START.md`).
+5. Zbuduj projekt przez PlatformIO: `pio run -e esp32dev` lub **Terminal → Run Task → PIO: Build**.
+6. Wgraj: `pio run -e esp32dev -t upload`.
+7. Monitor portu: `pio device monitor -b 115200` (ostatni log z 12.11.2026: COM5; port może się zmienić).
+
+Zweryfikowane środowisko v0.1.10: **PlatformIO espressif32 7.0.1 / ESP-IDF 6.0.1**. `platformio.ini` nie przypina wersji platformy; przed pierwszą kompilacją sprawdź wersję zależności w logu. Do odtworzenia tego środowiska ustaw lokalnie `platform = espressif32 @ 7.0.1`. Porty `upload_port` i `monitor_port` dostosuj do swojego komputera. Do testów bez ESP32: `python tests/run_host_tests.py` (kompilator C11: GCC, Clang lub bcc64x; opcjonalnie `--cc ścieżka`).
+
+**Uwaga na konfigurację:** `sdkconfig.defaults` ustala żądane opcje, ale jeśli projekt ma już wygenerowany `sdkconfig`, może on mieć pierwszeństwo. W istniejącym działającym projekcie zachowaj `sdkconfig`, porównaj z `sdkconfig.defaults` i w razie potrzeby użyj `pio run -t menuconfig`. Jeśli konfiguracja jest świeża i nie zawiera własnych zmian, można ją wygenerować od nowa. Nie usuwaj w ciemno konfiguracji projektu źródłowego.
+
+**Uwaga na rozmiar kompilacji:** pierwszy pełny build ESP-IDF kompiluje setki plików bibliotek statycznych. To normalne i nie znaczy, że każdy zostanie dołączony do pliku wynikowego. Następne buildy korzystają z cache `.pio/build`. Nie wprowadzaj optymalizacji `COMPONENTS` kosztem działającej konfiguracji bez pomiaru skutków.
+
+## Pliki
+
+- `src/main.c` — firmware v0.1.10, Bluetooth SPP / UART2 / FreeRTOS / diagnostyka i kolejka modelu terminala.
+- `src/ansi_parser.c/.h`, `src/terminal.c/.h`, `src/terminal_view.c/.h` — domyślnie biały tekst na czarnym tle, automatyczny podzbiór ANSI/VT100 i rozszerzeń xterm; [zakres i ograniczenia](docs/TERMINAL_EMULATION.md). Model w pamięci, fizyczny TFT nadal do uruchomienia.
+- `diagnostics/esp_idf_spp_acceptor/` — niezależny projekt z oryginalnym C Espressif do porównania na Androidzie; osobne zadania VS Code.
+- `cmake/bt_controller_compat.cmake`, `vendor/esp32-bt-lib/` — lokalny backport oficjalnej poprawki #18145, z kontrolą wersji/haszy, pochodzeniem i licencją.
+- `src/bt_hci_diag.c/.h`, `src/bt_hci_scan.c/.h` — pasywna obserwacja HCI, filtr i dopasowanie odpowiedzi, domyślnie `BT_HCI_SCAN_DIAG=1`.
+- `src/bt_discovery_diag.c/.h` — porównanie CoD/EIR, obecnie domyślnie `BT_DISCOVERY_TEST=2`.
+- `src/bt_tx_state.c/.h` — stan zapisu SPP, generacje sesji i obsługa congestion/błędów.
+- `src/debug_led.c/.h`, `src/debug_led_logic.c/.h` — LED, heartbeat, reakcja na TWDT / abort i testowalna logika czasu.
+- `baseline/v0.1.4/` — niezmieniona baza z konfiguracją i instrukcją powrotu.
+- `baseline/v0.1.6/` — kopia wersji z ostatniego testu sprzętowego użytkownika.
+- `baseline/v0.1.7/` — dokładna kopia trybu 2 sprzed dodania HCI wraz z sumami plików.
+- `baseline/v0.1.8/` — dokładna kopia 18 plików sprzed podmiany linkowanej biblioteki kontrolera.
+- `baseline/v0.1.9/` — kopia 7 plików sprzed dodania modelu terminala, z manifestem SHA256; korzysta również ze wspólnych modułów w `src/`.
+- `CHANGELOG.md` — opis v0.1.10, wyniki weryfikacji i ograniczenia pierwszego importu do Git.
+- `tests/run_host_tests.py` — testy na komputerze; `--suite bt` / `--suite led` / `--suite hci` / `--suite terminal` wybiera zestaw, domyślnie wszystkie.
+- `docs/LED_AND_PIN_PLAN.md` — LED zasilania/statusu, możliwości wykrywania zawieszeń, propozycja LCD i ADC1 dla dotyku.
+- `docs/FIXES_v0.1.5.md` — mapowanie napraw A1–A5, zachowanie na granicy sesji i ograniczenia.
+- `platformio.ini` — PlatformIO, `esp32dev`, ESP-IDF, monitor 115200.
+- `sdkconfig.defaults` — Bluetooth Classic, PSRAM i 4 MB Flash.
+- `AGENTS.md` — nadrzędne reguły pracy dla Codex.
+- `CODEX_START.md` — gotowy prompt do rozpoczęcia sesji Codex.
+- `docs/STATUS.md` — fakty potwierdzone oraz niepotwierdzone.
+- `docs/HARDWARE.md` — sprzęt, ograniczenia pinów, LCD i panel dotykowy.
+- `docs/NEXT_STEPS.md` — kolejność prac i kryteria odbioru.
+- `docs/TESTS.md` — procedury testowania; nie wprowadzaj zmian w RF bez diagnozy.
+- `docs/photos/` — wybrane fotografie modułu, LCD, taśm i oznaczeń.
+
+## Co robi obecny firmware?
+
+- Inicjalizacja PSRAM i raportowanie wolnego heapu.
+- UART2, **GPIO25 TX**, **GPIO26 RX**, 115200 8N1 TTL 3,3 V.
+- Bluetooth Classic SPP (`ESP32-Terminal`), uruchomienie serwera i diagnostyka; to obecny kod główny, jeszcze bez integracji HC-05.
+- Cztery zadania FreeRTOS, w tym osobne zadanie modelu terminala; bez aktywnego oczekiwania na znaki.
+- RX UART odczytuje dostępne dane po zdarzeniu, z kontrolnym oczekiwaniem do 100 ms przy utracie zdarzenia. Nie czeka na dopełnienie 128 B.
+- Zapis SPP ma limit 3 s. Błąd, timeout lub rozłączenie podczas zapisu wywołują restart profilu SPP; telefon musi wtedy połączyć się ponownie.
+- Pakiety mają identyfikator sesji. Na jej granicy RX UART odrzuca zaległe dane; szczegóły i test oczekiwania na log granicy są w `docs/TESTS.md`.
+- Debug LED GPIO2 (active HIGH według schematu NodeMCU-32 v1.3): zmiana stanu co 500 ms bez SPP, co 1000 ms z SPP; wykryty błąd oznacza ON. Heartbeat, TWDT i zapamiętana przyczyna resetu rozszerzają diagnostykę; całkowitego zatrzymania CPU nie da się niezawodnie zasygnalizować samym kodem.
+- `#define SPP_TEST_ECHO 1`: w razie faktycznego połączenia Bluetooth **echo** znaków z telefonu; do pracy jako most UART ↔ Bluetooth ustawić `0` po potwierdzeniu testów.
+- **Model ANSI/VT100 jest zaimplementowany i przyjmuje kopię danych UART2 także offline. Sterownik LCD i dotyk nie są jeszcze uruchomione.** Formatowane dane zmieniają komórki, kolory, kursor i przewijanie; [dokładny podzbiór](docs/TERMINAL_EMULATION.md). Zwykły tekst zaczyna od białego na czarnym tle.
+
+**Nie zakładaj**, że SPP działa radiowo tylko dlatego, że w logu wypisano `SPP listening`. Bluetooth nie został jeszcze wykryty przez telefon.
+
+Nowszy log potwierdza podstawowe połączenie ACL z odbiornikiem, lecz nie zakończenie uwierzytelniania ani otwarcie SPP. Nie jest to dowód całkowitej niesprawności radia ani potwierdzenie stabilnego transferu.
+
+Wyniki aktualnych kontroli i testy wymagające sprzętu są w `docs/STATUS.md` oraz `docs/TESTS.md`. Logi v0.1.7 / tryby 1 i 2 potwierdzają lokalną inicjalizację; obie próby zakończyły się niewidocznością na Samsungu.

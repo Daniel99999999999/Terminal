@@ -1,0 +1,16 @@
+{
+  "CMakeLists.txt": "a3a3785ea2e86f461600e4b8127b5c25a03fa6d2f1d841c3e33fe8c86234f688",
+  "platformio.ini": "bfee0715142b919b5fc5c094d38cfc893b3da71b065b3a97b7d51c0a425aa62d",
+  "sdkconfig.defaults": "857425b9eabcee38795321cacac0c5634cc7b40c46150adf2c7a5686f1df1345",
+  "sdkconfig.esp32dev": "9ecc18c848f1588051043e77bcf182d868daf9d6e7a796e7591cd5b215e317bd",
+  "src/bt_discovery_diag.c": "d627cdef20fa3a509d716033e39e2aa61d06f5375a43e92eb1c8fc9b2ab89d1e",
+  "src/bt_discovery_diag.h": "be1c4980c3e3fd897e3c2aa5ed735dbc374bdaa928ccbd32b9bfdc5bda133db9",
+  "src/bt_tx_state.c": "de8c701f1b661b3e9f0b64db6e68a97f218d2827e56c2dc92cf586b026bcbffd",
+  "src/bt_tx_state.h": "d733a2ba6f05f5a76ecda1a9e9063fe1eda736531c4b854731828d143e7bebdf",
+  "src/CMakeLists.txt": "f10a0e6833ed00a1aedc527af640313e82177735a809f8bf90dd339ec27ba919",
+  "src/debug_led.c": "2e73e02d24bb9eab89b1a29f710a9a7e4c1fe1b4f378a0f759873dc93b5b9eb9",
+  "src/debug_led.h": "2ec6565cb904316638370b9727cc33b5ec4a1e69837551ed2a358158486e92f6",
+  "src/debug_led_logic.c": "0282f0baabe878a7f9a2d1dd42d67910e5b7c7c5fd0af5c7f5f037f0d784060c",
+  "src/debug_led_logic.h": "9abe96a4473e24466e07a8597722c84d75d606e3c22f987e7871026a3abf8bf3",
+  "src/main.c": "d3d1f48ce9e25e2b74e8c85255d9a09c3efae72e0ea7f7188006040654656226"
+}

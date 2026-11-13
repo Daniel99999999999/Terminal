@@ -1,0 +1,155 @@
+# Faktyczny stan projektu / handoff
+
+## 13.11.2026 — v0.1.10: automatyczny model ANSI/VT100
+
+- Nowe wymaganie: domyślnie biały tekst na czarnym tle, automatyczna interpretacja sterowania terminalowego. Dodano parser strumienia `ansi_parser`, czysty model `terminal` i adapter kolejki `terminal_view`. Obsługiwany podzbiór obejmuje kolory 16/256/RGB, atrybuty, pozycję kursora, czyszczenie/edycję, regiony przewijania, ramki DEC i ekran alternatywny ?1049. UTF-8 i komendy zachowują stan między porcjami. [Zakres i ograniczenia](TERMINAL_EMULATION.md).
+- UART2 RX wysyła kopię danych do modelu przed warunkiem aktywnego BT; kolejka send=0, parser w osobnym zadaniu. Dwie strony logiczne 80×24 zajmują 46 080 B PSRAM. Renderer ma API kopiowania wierszy; nie dodano sterownika ani GPIO LCD. Błędy/utraty są liczone, a częściowy parser resetuje się przy przerwie strumienia. Nowe zadanie jest objęte heartbeat LED 2 s, również przy pustej kolejce.
+- Główny firmware ma wersję **0.1.10**. Zapisano bazę v0.1.9 z nazwami użytkownika i COM5, manifest 7 plików; wcześniejsze bazy zachowane. UART2 TX25/RX26, konfiguracja SDK, transport i ustawienia BT pozostają zachowane. Nie wykonywano nowego eksperymentu BT. Autobaud potwierdzony w sprzęcie/API, lecz nie jest jeszcze włączony w aplikacji.
+- Końcowy build **SUCCESS**, kod 0, 11,24 s po pełnym buildzie 204,38 s; platform 7.0.1 / ESP-IDF 6.0.1. Flash **702 260 B**, statyczny RAM **46 692 B**, bin **702 688 B**, ELF `b83766c96663abc8b7922043fbe3cbe978cf4c59d529dcdb905a9ec8f6b8cc79`. W końcowym ELF są funkcje modelu/parsera; hooki LED/abort/TWDT nadal w IRAM.
+- Testy hosta: **16 BT + 11 LED + 13 HCI + 22 terminal = 62 scenariusze PASS**, plus 2 warianty adaptera HCI PASS. Terminal: wszystkie punkty podziału strumienia, UTF-8, sekwencje błędne/długie, kolory, scroll/alt, bufory z wartownikami i 20 000 bajtów strumienia adversarial. Cppcheck 10 C projektu, unix32/C11 z bazą kompilacji: bez zgłoszeń warning/performance/portability, kod 0.
+- **Nie wykonano uploadu ani testu na TFT/UART2.** To wdrożony model ekranu w pamięci, nie potwierdzony obraz na shieldzie. Ostatni potwierdzony program na płytce to ref-fullcal-6.0.1 z logu COM5. Pomiary TFT/HC245, identyfikacja kontrolera, font/viewport, renderer i integracja HC-05 pozostają do wykonania. Artefakty: `.pio/audit/terminal_v0110.json`, `terminal_v0110_cppcheck.txt`, `.pio/host-tests/result.txt`.
+
+## 12.11.2026 — ponowny log połączenia z komputerem, COM5
+
+- Użytkownik wyjaśnił, że [nowy log](logs/2026-11-12_reference_fullcal_windows_excerpt.txt) dotyczy **połączenia z komputerem**. **Android nadal nie wykrywa ESP32**; nie przypisywać mu zdarzeń ACL z tego logu.
+- Nadal uruchomiona referencja `ref-fullcal-6.0.1`, ELF `3769a91ad...`, kontroler `a5d37fe`, zgodny adres BT. COM5 / 115200; główny platformio.ini użytkownika ma już COM5.
+- ACL status=0 / handle128 przy 20964 ms; błąd odczytu remote extended features/status=0x02 przy 50994 ms, No Connection przy 51004 ms; disconnect 0x22 przy 51114 ms. Od zestawienia ACL do rozłączenia **30,15 s**, brak AUTH success i SRV_OPEN w dostarczonym logu. Wynik ponawia wcześniejsze niepowodzenie, nie ustala przyczyny.
+- Bez nowych prób BT, uploadu lub zmian firmware. Priorytet nadal TFT i zewnętrzny HC-05. Pierwsze pomiary zasilania U2/U3 pozostają do uzyskania.
+
+## Decyzja użytkownika — koniec prób wbudowanego BT; priorytet TFT i HC-05
+
+- Użytkownik dopuścił jedną ostatnią próbę i po niej wybrał **TFT LCD** oraz **zewnętrzny HC-05** do Bluetooth. Ostatnią próbę wykonano; **Samsung nadal nie widzi urządzenia**. Nie kontynuować eksperymentów z wbudowanym BT bez nowego polecenia użytkownika. Przyczyna nie została rozpoznana; nie deklarować awarii sprzętu.
+- Ostatni wariant: `rf_fullcal`, oryginalne C Espressif i SDK 6.0.1, wyłączone ładowanie/zapis kalibracji PHY z NVS. SDK wykonuje pełną kalibrację przy starcie. Bez kasowania NVS, bez zmiany GPIO, SSP, mocy, ERTM lub kontrolera. Jedyna dodatkowa różnica konfiguracji to wersja aplikacji i jej źródło w Kconfig.
+- Build **SUCCESS**, kod 0, 142,57 s; Flash **653 824 B**, RAM **45 812 B**, bin **654 256 B**. SHA źródeł upstream oraz głównego kodu/config i globalnego kontrolera sprawdzone. Efektywna konfiguracja potwierdzona w wygenerowanym sdkconfig.json. Audyt: `.pio/audit/fullcal_reference_build.json`.
+- Upload na COM10 **SUCCESS**, kod 0, 18,92 s; hash flash zgodny. Boot odczytany: **ref-fullcal-6.0.1**, ELF **3769a91ad...**, INIT/START. [Odczyt UART](logs/2026-11-03_reference_fullcal_boot.txt). Użytkownik następnie potwierdził niewidoczność. Monitor agenta zamknięto, COM10 zwolniono. Ten wariant pozostaje na płytce do czasu następnego uploadu.
+- **Windows na ostatniej referencji także nie paruje**, komunikat użytkownika o braku odpowiedzi. [Wyciąg z jego logu](logs/2026-11-03_reference_fullcal_windows_excerpt.txt): ACL handle=128/status=0 przy 197984 ms; błąd odczytu remote extended features/status=0x02 przy 227994 ms, No Connection przy 228004 ms; rozłączenie tego samego handle z 0x22 przy 228114 ms. Czas ACL → disconnect **30,13 s**. Brak AUTH success i SRV_OPEN w dostarczonym logu. Sekwencja nie ustala konkretnej przyczyny timeoutu. To oryginalny kontroler `a5d37fe`, nie wariant poprawki Realtek z głównego v0.1.9. Nie otwierać kolejnej serii prób wbudowanego BT.
+- **TFT:** przejrzano istniejące zdjęcia shielda, HC245 i styków dotyku. Brak pomiarów sieci/napięć i ID kontrolera. Użytkownik ma multimetr. Pierwsza partia to ciągłość zasilania U2/U3 do szyn 3V3/5V przy całkowicie odłączonym zasilaniu i ESP32. [Procedura](TFT_BRINGUP.md), [arkusz pomiarów](TFT_MEASUREMENTS.csv). Nie przypisano nowych pinów LCD ani nie uruchomiono jego GPIO.
+- **HC-05:** docelowo osobny UART1; UART2 TX25/RX26 oraz konsola USB zostają. Potrzebne dodatkowe wyjście oznacza, że dotychczasowa tabela samego LCD nie mieści już całego zestawu bez zmiany sterowania. [Plan integracji](HC05_INTEGRATION.md). Dokładny wariant modułu, zasilanie, baud i STATE niepotwierdzone.
+
+## 03.11.2026 — referencja wgrana i potwierdzona na COM10
+
+- Ostatni negatywny wynik Androida użytkownika dotyczył **Terminal v0.1.9 / ESP32-Terminal**, ELF `371e4d797...`, kontroler `003f89d`, marker `btfix=83ede08`. Log potwierdza INIT/START i HCI 0x03, bez ACL/AUTH/SPP. Nie był to wynik oryginalnego przykładu Espressif. Zmienione przez użytkownika nazwy w głównym kodzie zachowano.
+- Agent wykonał upload z jawnym `-d diagnostics/esp_idf_spp_acceptor` na COM10: **SUCCESS**, kod 0, 17,04 s; zapis 655 888 B aplikacji, hash flash zweryfikowany. Bez kasowania całej flash/NVS.
+- Odczyt UART potwierdza **bt_spp_acceptor_demo / ref-idf-6.0.1**, ELF `f54c58dd7...`, oryginalny kontroler `a5d37fe`, ten sam adres BT oraz `ESP_SPP_INIT_EVT` / `ESP_SPP_START_EVT`. [Wyciąg z odczytu](logs/2026-11-03_reference_boot_excerpt.txt). Monitor agenta zamknięto, COM10 zwolniono.
+- **Wynik zwykłej referencji: nadal niewidoczna na Samsungu**, według odpowiedzi użytkownika po potwierdzonym uploadzie i starcie. Brak potwierdzonego parowania/transferu. To wynik odrębny od wcześniejszej próby Terminal v0.1.9. Późniejsza ostatnia próba pełnej kalibracji także negatywna, jak opisano wyżej.
+
+## 03.11.2026 — porównanie publicznego kodu, referencja Androida, poprawka Realtek
+
+- Użytkownik żąda porównania z opublikowanym kodem i diagnozy Androida, nie kolejnych samych logów ustawień. Przeczytano oficjalny akceptor SPP v6.0.1 oraz `nopnop2002/esp-idf-uart2bt`, commit `397a1138bfa2f5680be18f4e5f9d85ab2a422751` (Classic C, instrukcja Androida ze zrzutami). [Raport i linki do kodu](BT_CODE_COMPARISON_2026-11-03.md).
+- **Android — następny konkretny krok:** [niezmieniony akceptor Espressif](../diagnostics/esp_idf_spp_acceptor/README.md) w osobnym projekcie. Zadanie **BT reference: Upload**, nazwa **ESP_SPP_ACCEPTOR**, app version **ref-idf-6.0.1**. Kod C, komponent CMake i Kconfig są identyczne bajtowo z przykładem; wrapper PlatformIO i config dopasowano do WROVER. Używa oryginalnego kontrolera 6.0.1, tak jak przetestowany v0.1.8; nie dołącza poprawki Realtek ani naszych modułów UART2/LED/HCI.
+- Build referencji: **SUCCESS**, kod 0, 177,63 s; Flash **655 460 B**, statyczny RAM **45 812 B**. W chwili przygotowania bez uploadu; późniejsze wgranie i boot opisano wyżej. Kryteria: widoczność, AUTH success i SRV_OPEN; oryginalny przykład nie implementuje echa. Nie kopiowano GPIO16/17 z projektu społecznościowego.
+- **Główny terminal v0.1.9 — Windows:** znaleziono znaną regresję biblioteki kontrolera (#18145) i brak oficjalnej poprawki 83ede08 w zainstalowanym SDK. Git blob starego archiwum `c010e165274ddbeca2ec45030cf273cc227676ac` potwierdzono z wszystkich bajtów i porównano z GitHub API. Lokalny adapter komputera: Realtek Bluetooth Adapter, VID_0BDA/PID_4853. Zgodny producent jest poszlaką, nie dowodem identycznej przyczyny.
+- Do projektu dodano oryginalne archiwum `esp32-bt-lib@10f4e9ad6260788765863ed7f05e0e649b288e36`, blob `4600c8f40b4ec887570ccf7defc40241ea306f12`, licencję i metadane. CMake po `project()` zmienia tylko IMPORTED_LOCATION targetu `bt_btdm_app`, z weryfikacją SDK 6.0.1 oraz obu hashy. Globalna instalacja nie została nadpisana; jej archiwum nadal ma SHA256 `9552f29e...29e7db`.
+- Build v0.1.9: **SUCCESS**, kod 0, 63,93 s; Flash **695 916 B**, statyczny RAM **46 076 B**. Mapa linkowania zawiera tylko poprawione archiwum z vendor. Sprawdzono 18 hashy bazy v0.1.8, niezmienność SDK/config/modułów i fakt, że pierwotny diff main.c ograniczał się do wersji/markera btfix. Nie powtarzano testów hostowych dla podmiany binarnego kontrolera. Później użytkownik zmienił nazwy na Terminal / ESP32-Terminal i uruchomił program; Android nadal niewidoczny. [Pełny log](logs/2026-11-03_v0.1.9_android_not_reference.txt). Wyniku Windows po poprawce nie dostarczono.
+- **Granica wniosków:** poprawka upstream dotyczy części problemów Realtek/Windows; nie rozpoznano nią przyczyny niewidoczności Samsunga. Poważnego błędu aplikacyjnego C wyjaśniającego oba objawy nie dowiedziono. Różnice START/nazwa/scan i obsługa interakcji parowania są opisane w raporcie; nie zmieniano ich razem z biblioteką.
+
+## 03.11.2026 — otrzymane wyniki v0.1.8
+
+- [Pełny log Androida](logs/2026-11-03_v0.1.8_android_hci.txt) ma właściwy ELF `492fe63bf...`, v0.1.8 / identity_test=2 / hci_scan_diag=1. Kontroler potwierdził WRITE_SCAN_ENABLE=0x01, potem **0x03**, oba status=0. Do 126757 ms attached=1/drops=0/trace_complete=1/pending=0/confirmed=1/scan=0x03, bez kolejnych zmian/resetu/ACL/AUTH/SRV_OPEN. To pozytywny wynik konfiguracji HCI, nie odbioru RF ani niezależnego READ.
+- Telefon zgłasza „Nie znaleziono żadnych urządzeń”, ale użytkownik potwierdził w osobnym teście kontrolnym, że inne znane urządzenie Bluetooth jest widoczne. Nie proponować ponownego sprawdzania samego Scan_Enable ani zakładać ogólnej niesprawności skanowania telefonu.
+- [Wyciąg Windows](logs/2026-11-03_v0.1.8_windows_excerpt.txt): timeout handle=128 przy 405017 ms; początku tego łącza nie pokazano. Nowe ACL status=0 / handle=129 przy 412847 ms; koniec wycinka 422347 ms, dalszy wynik nieznany. Nie scalać dwóch handle ani nie wyliczać z nich czasu jednego połączenia. Windows zgłasza brak odpowiedzi przy dodawaniu/parowaniu, nie przy otwieraniu COM.
+- Udane ACL potwierdza przynajmniej chwilową wymianę radiową; poprzednie sugestie uszkodzenia płytki były zbyt mocne. Nadal nie dowiedziono sprawności stabilnego transferu, przyczyny LMP 0x22 ani zakończenia parowania. UART RX=41/offline=41, błędy=0; brak wiedzy o źródle/payloadzie nie pozwala zaliczyć testu UART.
+
+## Przygotowany v0.1.8 — pasywny test HCI, 02.11.2026
+
+- Dodano `bt_hci_diag.c/.h` oraz testowalny filtr/FIFO `bt_hci_scan.c/.h`. Linkerowe wrappery obserwują istniejącą ścieżkę Bluedroid ↔ kontroler. Nie dodają nadawcy HCI, nie modyfikują pakietów ani ustawień parowania. `identity_test=2` pozostaje taki jak w ostatnim teście.
+- Obserwujemy RESET / READ_SCAN_ENABLE / WRITE_SCAN_ENABLE i ich odpowiedzi, bez kluczy/payloadów. Kolejka 32 elementów, send timeout=0; wydruk z istniejącego UART RX co 5 s. Dopasowanie WRITE FIFO do 16 żądań. Brak pasującego żądania, overflow lub błąd unieważniają potwierdzenie; utrata śladu pozostaje widoczna do resetu. Cisza na HCI w stanie bezczynności nie kasuje ostatniej obserwacji.
+- Build końcowego kodu: **SUCCESS**, kod 0, 15,87 s po wcześniejszym pełnym buildzie bibliotek; Flash **695 164 B**, statyczny RAM **46 076 B**, ESP-IDF **6.0.1**, espressif32 **7.0.1**. Pierwsza próba buildu wykryła nieobsługiwane założenie o atomowym RMW; liczniki obserwatora chronią teraz krótkie sekcje portMUX, bez wywołań API pod blokadą.
+- Testy: **16 BT + 10 LED + 13 HCI PASS**, adapter produkcyjny ze stubami hosta/RTOS w trybach 1 i 0 PASS (przekazywanie pakietów/callbacków/zwrotów, brak logów w transporcie, pełna kolejka, błąd rejestracji). To nie jest test współbieżności kontrolera/FreeRTOS ani RF. Wariant wyłączony sprawdzono także Xtensą `-fsyntax-only`; Cppcheck 7 plików C bez zgłoszeń warning/performance/portability.
+- Końcowa mapa linkowania potwierdza referencje Bluedroid do obu wrapperów i wrapperów do realnych API kontrolera. Zachowano hooki LED w IRAM. SDK/config/GPIO oraz moduły BT TX/LED i CoD/EIR pozostały zachowane. Dokładna kopia poprzedniej wersji jest w `baseline/v0.1.7`, manifest SHA256 zawiera 14 plików.
+- W chwili przygotowania agent nie wykonał uploadu ani testu sprzętowego v0.1.8. Późniejszy wynik użytkownika z 03.11 opisano wyżej; kryterium HCI z [procedury](BT_HCI_TEST_v0.1.8.md) zostało spełnione. Nie jest to niezależny READ ani test anteny.
+
+## Najnowszy wynik v0.1.7 / tryb 2 — 02.11.2026
+
+- Użytkownik potwierdza: **BT nadal niewidoczne na Androidzie**. [Pełny log trybu 2](logs/2026-11-02_v0.1.7_identity2_samsung.txt) zawiera `identity_test=2`, INIT status=0 przy 2156 ms, START status=0 / SCN=1 przy 2236 ms, CoD Computer 0x000100 przy 2316 ms.
+- Żądanie `scan_mode connectable/general` otrzymało ESP_OK przy 2166 ms. SSP=1, IO_CAP_NONE request=ESP_OK, zapisanych bondów=0. Kod oczekuje na przychodzące połączenia i SSP Just Works, bez przycisku/parowania ograniczonego czasowo w aplikacji. W lokalnym SDK Just Works jest potwierdzane automatycznie w `btc_dm_sp_cfm_req_evt`; nie należy mylić braku CFM w logu aplikacji z wyłączonym parowaniem.
+- Jawne `config_eir` otrzymało ESP_OK przy 2266 ms; późniejszy CONFIG_EIR status=0 przy 2286 ms zawiera 0x09/0x03/0x05/0x07/0x01. Ostatni typ to pole flags dodane w tej próbie. Nie ma dowodu zawartości UUID16 ani odbioru przez telefon.
+- Do 326456 ms brak ACL/AUTH/SRV_OPEN, brak resetu/panic/heartbeat stale, dane/błędy/recovery=0. Tryby CoD 1 i jawnego EIR 2 nie usunęły niewidoczności. Wcześniejszy Windows ACL/timeout dotyczy v0.1.6, nie tej sesji.
+- **Potwierdzone:** ustawienia aplikacji i lokalne zdarzenia. **Niepotwierdzone:** rzeczywisty Scan_Enable kontrolera i odbiór RF przez telefon. ESP_OK z GAP jest akceptacją żądania do kolejki, nie odczytem HCI ani testem radiowym.
+- Następny test: ślad HCI z `Write Scan Enable` (0x0C1A), ostatnim parametrem 0x03 i Command Complete status=0; docelowo również `Read Scan Enable` (0x0C19), status=0 / wartość=0x03. To włączenie Inquiry Scan + Page Scan, a nie dowód działania anteny. Nie ma publicznego `esp_bt_gap_get_scan_mode()` w lokalnym 6.0.1; nie zastępować pomiaru ponownym logowaniem żądanych stałych. [Specyfikacja HCI](https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Core-54/out/en/host-controller-interface/host-controller-interface-functional-specification.html).
+- W tej analizie zachowano log i zaktualizowano dokumentację. Nie zmieniono firmware/SDK, nie wykonano buildu ani uploadu. Przyczyna problemu pozostaje nieustalona.
+
+## Wynik v0.1.7 / tryb 1 i przygotowanie trybu 2 — 02.11.2026
+
+- Użytkownik dostarczył [pełny log v0.1.7 / identity_test=1](logs/2026-11-02_v0.1.7_identity1_samsung.txt) i potwierdził, że Samsung nadal nie widzi ESP32. CoD Computer nie usunął objawu w tej próbie.
+- INIT status=0 przy 2266 ms, START status=0 / SCN=1 przy 2346 ms. Nazwa/adres są zgodne z poprzednim logiem; po zmianie klasy lokalny CoD=0x000100, major=1/minor=0 przy 2396 ms. Inicjalizacja nie pozostała w oczekiwaniu; linia `initialization requested` została wypisana już po callbackach.
+- Automatyczny CONFIG_EIR status=0, typy 0x09/0x03/0x05/0x07. Typ pola UUID16 nie potwierdza jego zawartości 0x1101 ani odbioru przez telefon. Brak ACL/AUTH/SRV_OPEN w całym fragmencie do 261486 ms; IO, błędy i recovery pozostają zerowe, brak resetu/panic/heartbeat stale.
+- W źródłach zmieniono wyłącznie domyślny wybór `BT_DISCOVERY_TEST` z 1 na **2**, uruchamiając wcześniej przygotowaną jawną konfigurację EIR po START. Nie zmieniono parametrów bezpieczeństwa, mocy RF, pinów ani danych NVS. To kolejna próba porównawcza, nie potwierdzona naprawa.
+- Pełny build trybu 2: **SUCCESS**, kod 0; Flash 692 972 B, statyczny RAM 46 012 B; 9,66 s. Agent nie wykonał uploadu; późniejszy test użytkownika opisano wyżej. Testów hostowych nie powtarzano dla samej zmiany wyboru wariantu; wcześniejsze wyniki poniżej.
+- Zaplanowany wtedy test trybu 2 jest już zakończony wynikiem negatywnym. [Instrukcja i wyniki](BT_DISCOVERY_TEST_v0.1.7.md). Wynik Windows z poprzedniej wersji pozostaje oddzielnym, nierozwiązanym problemem parowania.
+
+## Przygotowanie v0.1.7 — test identyfikacji CoD/EIR, 02.11.2026
+
+- Użytkownik potwierdził, że Samsung nadal nie widzi ESP32 przy wyłączonym Bluetooth Windows, po resecie ESP32 i skanowaniu z 30–50 cm. To eliminuje niedokończone połączenie PC jako wyjaśnienie tej konkretnej próby. Nie dostarczono nowego logu UART z izolowanego skanu.
+- Przygotowano trzy tryby w `bt_discovery_diag.h`: 0 obserwacja, **1 pierwotnie domyślnie Computer CoD**, 2 Computer + jawne EIR z nazwą/UUID profili. To test hipotezy, nie dowód przyczyny niewidoczności i nie potwierdzona poprawka timeoutu LMP.
+- CoD jest ustawiany po SPP START; log pokazuje klasę przed zmianą i późniejszy odczyt lokalnego stosu. Dodano wynik konfiguracji EIR/typy pól, zdarzenia szyfrowania, jawny kod HCI przy rozłączeniu, flagi SSP/SC i odczyt liczby bondów bez ich modyfikacji.
+- SSP/Just Works, SC, ERTM, moc RF, nazwa/MAC, piny, LED, UART i konfiguracja SDK pozostają takie jak w bazie v0.1.6. Pełną kopię tej bazy zapisano w `baseline/v0.1.6`; v0.1.4 także jest zachowany.
+- Pełny build trybu 1: **SUCCESS**, Flash 692 704 B, statyczny RAM 46 012 B. Kompilator Xtensa sprawdził tryby 0/1/2 (`-fsyntax-only`); 26 testów hostowych PASS, Cppcheck dla 5 plików C bez zgłoszeń w sprawdzanych kategoriach. Wtedy nie wykonano uploadu; późniejszy test użytkownika opisano wyżej.
+- [Dokładny test v0.1.7](BT_DISCOVERY_TEST_v0.1.7.md). Pierwsza próba z trybem 1 jest zakończona; kolejną oddzielną próbą jest tryb 2.
+
+## Najnowszy wynik sprzętowy v0.1.6 — log użytkownika, 02.11.2026
+
+- Użytkownik uruchomił v0.1.6 na ESP32; log potwierdza SDK 6.0.1, pulę PSRAM 4 MB, inicjalizację UART2 i LED, własny adres **7C:87:CE:2F:DE:DA**, poprawny odczyt nazwy oraz SPP START na kanale 1. Sam log nie potwierdza fizycznego działania LED ani przesyłania danych UART.
+- **Windows widzi urządzenie**, lecz zgłasza brak odpowiedzi podczas dodawania/parowania. Log pokazuje dwa udane ACL connect. Pierwsze łącze zerwano po ok. 30,09 s z HCI **0x22 — LMP Response Timeout**; GAP reason=290 to ten sam kod z offsetem 0x100. Druga próba nie ma w pokazanym fragmencie końcowego wyniku.
+- Samsung **Galaxy A55 5G SM-A556B/DS, Android 16** nie widzi ESP32 w systemowym ekranie Bluetooth, nie tylko w aplikacji terminala.
+- Brak AUTH completion, SRV_OPEN i jakichkolwiek DATA_IND/WRITE/CONG. Echo SPP i stabilna komunikacja nadal niepotwierdzone. Brak restartów / heartbeat stale w tym fragmencie; recovery=0.
+- Udane ACL wskazuje na przynajmniej chwilową dwukierunkową wymianę radiową; nie rozstrzyga jakości RF ani źródła timeoutu LMP. Późniejszy izolowany skan Samsunga przy wyłączonym Windows BT i po resecie ESP32 także zakończył się niewidocznością, według odpowiedzi użytkownika.
+- [Pełna analiza i plan testu](BT_LOG_ANALYSIS_2026-11-02.md), [oryginalny log](logs/2026-11-02_v0.1.6_windows_pairing.txt). W ramach analizy nie zmieniono źródeł firmware, ustawień SDK ani NVS.
+
+## Firmware v0.1.6 — debug LED i plan GPIO, 02.11.2026
+
+- Dodano debug LED domyślnie GPIO2 active HIGH według schematu referencyjnego NodeMCU-32 v1.3. Czerwona LED2 na schemacie jest PWR; niebieska LED1 jest sterowana GPIO2. Egzemplarz użytkownika nie został sprawdzony pomiarem ani nowym uploadem.
+- Zmiana ON/OFF co 500 ms bez SPP, co 1000 ms z aktywnym SPP. Błąd/odzyskiwanie SPP daje ON do powrotu usługi; zawieszony heartbeat, błąd UART, TWDT i abort zatrzaskują ON do resetu. Po restarcie z przyczyny panic/watchdog sygnalizacja błędu pozostaje do ręcznego resetu. Całkowitego zatrzymania CPU nie można objąć gwarancją programową.
+- Rezerwy dotyku: X+ GPIO32 / ADC1_CH4, Y+ GPIO33 / ADC1_CH5; X− GPIO13 i Y− GPIO14 warunkowo. Wymagają mapowania wspólnych sieci z LCD i toru analogowego przez/obok HC245. Robocza tabela LCD w [LED_AND_PIN_PLAN.md](LED_AND_PIN_PLAN.md) podlega permutacji po pomiarach; nie uruchomiono LCD ani ADC.
+- Testy hostowe: 16 scenariuszy BT oraz 10 scenariuszy LED/heartbeat — PASS. Wynik kompilacji, sprawdzenie IRAM/wrappera i testy wymagające urządzenia zapisano w [TESTS.md](TESTS.md).
+- Ustawiono jawne `PROJECT_VER=0.1.6` w CMake, ponieważ obecne puste repozytorium Git nie ma jeszcze commitów, a automatyczne wykrywanie wersji ESP-IDF zatrzymywało konfigurację. Nie zmieniano historii ani ustawień Git.
+- Baza v0.1.4 i aktywne ustawienia SDK/UART2/PSRAM pozostały zachowane. W środowisku agenta nie wykonywano uploadu; późniejszy test użytkownika opisano wyżej. LCD i dotyk nie są uruchomione.
+
+## Firmware v0.1.5 — naprawy P1/P2, 01.11.2026
+
+- Wprowadzono naprawy pięciu ustaleń A1–A5: krótkie odczyty UART, trwały stan zapisu SPP z timeoutem i restartem profilu, generacje sesji, logi GAP/SPP oraz zdarzenia/liczniki UART. Szczegóły: [FIXES_v0.1.5.md](FIXES_v0.1.5.md).
+- Zachowano oryginalną bazę wraz z konfiguracją w `baseline/v0.1.4`. Aktywny `sdkconfig.esp32dev`, `sdkconfig.defaults`, przypisania GPIO25/26 oraz ustawienia platformy pozostały bez zmian. LCD/dotyk/RF nie były modyfikowane.
+- Testy na komputerze: **16/16 PASS** dla produkcyjnego modułu stanu nadajnika; C11, `-Wall -Wextra -Werror`. Cppcheck 2.11: kod 0 dla obu plików `.c`, bez zgłoszeń warning/performance/portability. To nie są testy współbieżności FreeRTOS ani sprzętu.
+- Pełny build `SPP_TEST_ECHO=1`: **SUCCESS** na `espressif32 7.0.1` / ESP-IDF `6.0.1`. Końcowe rozmiary są zapisane w sekcji kontroli v0.1.5 w [TESTS.md](TESTS.md). Wariant `SPP_TEST_ECHO=0` dodatkowo sprawdzono kompilatorem Xtensa przez `-fsyntax-only`; nie wykonano osobnego pełnego linkowania tego wariantu.
+- **Nie wgrano v0.1.5 na ESP32.** Wykrywalność Android, echo, rzeczywisty transfer UART i odzyskiwanie profilu SPP wymagają testów z TESTS. Nie stwierdzono przyczyny niewykrywalności ani uszkodzenia RF.
+
+## Potwierdzone w logu użytkownika (v0.1.4, 18.10.2026)
+
+- ESP-IDF **6.0.1**, PlatformIO `espressif32 7.0.1`, platform `esp32dev`.
+- Układ ESP32-D0WD rev 3.0; bootloader zgłasza Flash **4 MB**.
+- `esp_psram`: **Found 8MB PSRAM device**, `4MB is mapped`, `SPI SRAM memory test OK`.
+- Po starcie aplikacji: internal heap total **280 447 B**, wolne **226 555 B**; PSRAM total **4 194 304 B**, wolne **4 192 024 B**.
+- Po inicjalizacji Bluetooth: internal heap total **285 619 B**, wolne **177 579 B**; PSRAM wolne **4 186 564 B**, największy blok **4 128 768 B**.
+- UART2 uruchomiony: `TX=GPIO25 RX=GPIO26, 115200 8N1`.
+- Kontroler BT skonfigurowany w trybie Classic=2; serwer SPP: `SPP listening as 'ESP32-RetroTerminal'`.
+- `main_task: Returned from app_main()` to normalny koniec zadania inicjującego — nie oznacza resetu.
+
+## Potwierdzone przez użytkownika (stan po uruchomieniu v0.1.4)
+
+- Android **nie widzi** `ESP32-RetroTerminal`. Widziany wcześniej MAC `60:D6:A9:E3:99:87` należy do **innego urządzenia**; nie przypisywać go ESP32.
+- Wi-Fi tego modułu jest niesprawne według wcześniejszych doświadczeń użytkownika (przyczyna sprzętowa jeszcze nieustalona).
+- Na płytce ESP32 widać czerwoną diodę zasilania; druga LED przypisywana do GPIO2 na podstawie schematu wersji NodeMCU-32 v1.3 — przed użyciem sprawdzić zgodność konkretnego egzemplarza.
+- Shield TFT 2,4" (czerwona płytka, Arduino UNO-like), nadruk `2.4" TFT LCD SHIELD`, FPC `CK241 REV0.1 2009.03.27`, dwa układy z oznaczeniem rodziny `HC245`.
+- Fotografie mikroskopowe pokazują cztery wyprowadzenia rezystancyjnego panelu: **X+, X−, Y+, Y−**. **Nie** potwierdzono mapowania na piny shielda.
+
+## Nieustalone / nie testowane
+
+- Fizyczny stan toru RF, anteny i skuteczność komunikacji BT na odległość.
+- Faktyczny model kontrolera LCD: **ILI9341 to założenie, nie wynik odczytu ID**.
+- Napięcia i poziomy kierunków buforów HC245 na shieldzie.
+- Pinout wszystkich linii LCD oraz dotyku i ich zgodność z ESP32-WROVER.
+- Fizyczne wyświetlanie na LCD i praca touch; model ANSI/VT100 dodano w v0.1.10, integracja renderera nadal nie jest wykonana.
+- Dwukierunkowy transfer z rzeczywistym urządzeniem UART oraz Bluetooth echo — brak potwierdzenia połączenia telefonu.
+
+## Historia
+
+- v0.1.2: program restartował się na `esp_bt_controller_enable(ESP_BT_MODE_CLASSIC_BT)` z `ESP_ERR_INVALID_ARG`; nieodpowiednie GPIO16/17 dla WROVER.
+- v0.1.4: poprawiono tryb inicjalizacji kontrolera i UART na GPIO25/26; boot i SPP listening działają, ale Android nie znajduje urządzenia.
+- Ta paczka zachowuje źródło **v0.1.4**, bez nowej wersji firmware i bez przeprowadzenia buildu podczas pakowania.
+
+## Audyt lokalny — 01.11.2026
+
+- [Raport audytu](AUDIT_2026-11-01.md) zawiera ustalenia, propozycję małego patcha diagnostycznego BT oraz testy regresji. Firmware v0.1.4 i konfiguracja pozostały bez zmian.
+- Potwierdzono zainstalowane PlatformIO `espressif32 7.0.1` i ESP-IDF `6.0.1`; kompilacja `run -e esp32dev` zakończyła się **SUCCESS**. Flash według PlatformIO: 677 104 B; statyczny RAM: 45 852 B. Nie są to pomiary heapu działającego urządzenia.
+- Analiza kodu wykazała oczekiwanie UART na pełne 128 B oraz ryzyko zatrzymania TX i przekazania starych danych przy zmianie sesji SPP. Te ścieżki nie zostały odtworzone na sprzęcie.
+- Nie wykonano nowego wgrywania ani testów UART/Android/RF. Przyczyna niewykrywalności Bluetooth nadal jest nieustalona; start SPP nie potwierdza sprawności radia.

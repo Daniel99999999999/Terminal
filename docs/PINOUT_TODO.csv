@@ -1,0 +1,27 @@
+Signal,Shield pin,ESP32 GPIO,Direction,Voltage,Confidence,Notes
+LCD D0,UNKNOWN,UNKNOWN,Bidirectional?,UNKNOWN,UNVERIFIED,Map physical net and HC245
+LCD D1,UNKNOWN,UNKNOWN,Bidirectional?,UNKNOWN,UNVERIFIED,Map physical net and HC245
+LCD D2,UNKNOWN,UNKNOWN,Bidirectional?,UNKNOWN,UNVERIFIED,Map physical net and HC245
+LCD D3,UNKNOWN,UNKNOWN,Bidirectional?,UNKNOWN,UNVERIFIED,Map physical net and HC245
+LCD D4,UNKNOWN,UNKNOWN,Bidirectional?,UNKNOWN,UNVERIFIED,Map physical net and HC245
+LCD D5,UNKNOWN,UNKNOWN,Bidirectional?,UNKNOWN,UNVERIFIED,Map physical net and HC245
+LCD D6,UNKNOWN,UNKNOWN,Bidirectional?,UNKNOWN,UNVERIFIED,Map physical net and HC245
+LCD D7,UNKNOWN,UNKNOWN,Bidirectional?,UNKNOWN,UNVERIFIED,Map physical net and HC245
+LCD WR,UNKNOWN,UNKNOWN,Input to LCD,UNKNOWN,UNVERIFIED,
+LCD RD,UNKNOWN,UNKNOWN,Input to LCD,UNKNOWN,UNVERIFIED,
+LCD CS,UNKNOWN,UNKNOWN,Input to LCD,UNKNOWN,UNVERIFIED,
+LCD DC_RS,UNKNOWN,UNKNOWN,Input to LCD,UNKNOWN,UNVERIFIED,
+LCD RST,UNKNOWN,UNKNOWN,Input to LCD,UNKNOWN,UNVERIFIED,
+LCD Backlight,UNKNOWN,UNKNOWN,UNKNOWN,UNKNOWN,UNVERIFIED,
+Touch X+,UNKNOWN,GPIO32,ADC1_CH4 and drive,UNKNOWN,RESERVED_UNVERIFIED,Target role only; shared LCD net and buffer path must be measured
+Touch X-,UNKNOWN,GPIO13,Drive or Hi-Z,UNKNOWN,RESERVED_UNVERIFIED,Conditional shared LCD role; continuity not confirmed
+Touch Y+,UNKNOWN,GPIO33,ADC1_CH5 and drive,UNKNOWN,RESERVED_UNVERIFIED,Target role only; shared LCD net and buffer path must be measured
+Touch Y-,UNKNOWN,GPIO14,Drive or Hi-Z,UNKNOWN,RESERVED_UNVERIFIED,Conditional shared LCD role; continuity not confirmed
+Debug LED,N/A,GPIO2,Output,3.3V,REFERENCE_SCHEMATIC_AND_CODE,Active HIGH on reference NodeMCU-32 V1.3; actual board not tested
+UART2 TX,N/A,GPIO25,Output,3.3V,CODE_AND_LOG,
+UART2 RX,N/A,GPIO26,Input,3.3V,CODE_AND_LOG,
+HC05 UART1 TX,HC05 RXD,UNKNOWN,Output,3.3V required,PLANNED_UNVERIFIED,Allocate after LCD pin budget and measured interface levels
+HC05 UART1 RX,HC05 TXD,UNKNOWN,Input,UNKNOWN,PLANNED_UNVERIFIED,Input-only GPIO may be used after checking levels
+HC05 STATE,HC05 STATE,UNKNOWN,Input optional,UNKNOWN,PLANNED_UNVERIFIED,Verify module pin behavior before using for debug LED
+PSRAM reserved,N/A,GPIO16,Reserved,3.3V,HARDWARE,Do not use
+PSRAM reserved,N/A,GPIO17,Reserved,3.3V,HARDWARE,Do not use

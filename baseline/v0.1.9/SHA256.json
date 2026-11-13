@@ -1,0 +1,9 @@
+{
+  "src/main.c": "88823473b49736be111dd5291f72e7c1e6730be846a83fb6288cd05cb8146e5b",
+  "src/CMakeLists.txt": "301c20d803924beb149cd7ad544c0e9d4667689795a82e4b638e67c3dd016751",
+  "src/debug_led_logic.h": "9abe96a4473e24466e07a8597722c84d75d606e3c22f987e7871026a3abf8bf3",
+  "CMakeLists.txt": "c24d4eed7c49508dd06aa28a4af76c52e1ff2387c3372524be6aaee1285a7b0b",
+  "platformio.ini": "3c42d45dbc9eb3a7fc7fac6d5fbb367cf865f6871ee953909fea06ebce5eaf72",
+  "sdkconfig.defaults": "857425b9eabcee38795321cacac0c5634cc7b40c46150adf2c7a5686f1df1345",
+  "sdkconfig.esp32dev": "9ecc18c848f1588051043e77bcf182d868daf9d6e7a796e7591cd5b215e317bd"
+}
