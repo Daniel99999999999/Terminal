@@ -1,5 +1,7 @@
 # Debug LED i propozycja GPIO LCD / dotyku — 02.11.2026
 
+**Aktualizacja 13.11.2026:** użytkownik wybrał na teraz TFT **bez dotyku** i HC-05 z przyszłym EN/STATE. Obowiązuje [nowy wspólny przydział](PIN_ASSIGNMENT_HC05_TFT.md): UART1 TX32/RX34, STATE35, warunkowe KEY12; GPIO2 nadal debug LED. Poniższe rezerwacje ADC i tabela samego LCD są historyczne i nie obowiązują w nowym wariancie. Nie łączyć obu tabel.
+
 ## Dwie diody na PCB
 
 Na schemacie **Ai-Thinker NodeMCU-32 v1.3**, strona 13, czerwona **LED2** jest wskaźnikiem zasilania, a niebieska **LED1** jest połączona GPIO2 → R8 470 Ω → LED → GND, czyli aktywna stanem wysokim. Nazwy LED1/LED2 są oznaczeniami schematu, nie kolejnością na zdjęciu. Zdjęcie spodu płytki użytkownika pokazuje NodeMCU-32 v1.3; zgodność konkretnego egzemplarza i polaryzację należy potwierdzić testem LED lub pomiarem. Nie jest to wynik pomiaru PCB.

@@ -91,7 +91,7 @@ static void update_led(void *arg)
         debug_led_fault();
         portEXIT_CRITICAL(&s_lock);
         if (first_fault) {
-            ESP_LOGE("DEBUG_LED", "Heartbeat stale mask=0x%lx (TX=1 RX=2 BT=4); LED latched ON",
+            ESP_LOGE("DEBUG_LED", "Heartbeat stale mask=0x%lx (UART_TX=1 UART_RX=2 TERM=4 HC_RX=8 HC_TX=16 HC_CTRL=32 LCD=64); LED ON",
                      (unsigned long)stale);
         }
         portENTER_CRITICAL(&s_lock);

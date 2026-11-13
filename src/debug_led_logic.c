@@ -36,10 +36,8 @@ uint32_t debug_led_health_stale(const debug_led_health_t *health, uint32_t now_m
 {
     uint32_t stale = 0;
     for (unsigned channel = 0; channel < DEBUG_LED_CHANNEL_COUNT; ++channel) {
-        /* SPP recovery can legitimately wait up to 5 s for a lifecycle event. */
-        uint32_t timeout_ms = channel == DEBUG_LED_BT_TX ? 6000 : 2000;
         if ((health->watched & (1U << channel)) &&
-            (uint32_t)(now_ms - health->last_ms[channel]) >= timeout_ms) {
+            (uint32_t)(now_ms - health->last_ms[channel]) >= 2000) {
             stale |= 1U << channel;
         }
     }

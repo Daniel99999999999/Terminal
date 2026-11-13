@@ -8,11 +8,13 @@ Oryginalny akceptor Espressif i ostatni wariant pełnej kalibracji RF pozostają
 
 ## Etap B — identyfikacja shielda LCD (bieżący priorytet)
 
+**Decyzja 13.11.2026:** TFT na razie bez dotyku. Obowiązuje [wspólny przydział HC-05 + LCD](PIN_ASSIGNMENT_HC05_TFT.md), nadal wymagający pomiarów PCB i napięć. Dawne rezerwy ADC oraz tabela samego LCD są historyczne.
+
 - Użytkownik ma multimetr. Wykonać pierwsze cztery pomiary VCC U2/U3 → 3V3/5V na odłączonym shieldzie, zgodnie z [procedurą](TFT_BRINGUP.md). Wyniki w [arkuszu](TFT_MEASUREMENTS.csv).
-- Przy planowaniu GPIO uwzględnić UART1 dla HC-05. Stara tabela samego LCD zużywa wszystkie dostępne wyjścia i nie obejmuje dodatkowego TX; nie stosować jej jako gotowego połączenia.
-- Wstępny plan GPIO oraz rezerwy ADC1 dla dotyku są w `docs/LED_AND_PIN_PLAN.md`. Nie łączyć przykładowych LCD_D0/D1/WR/RS z osiami bez pomiaru; GPIO32/33 mają ostatecznie trafić na rzeczywiste sieci X+/Y+.
+- Zweryfikować stany startowe GPIO0/5/15 nowego planu, w szczególności CS nieaktywne podczas BOOT/uploadu przy RD0=LOW. Nie łączyć niezbadanych poziomów shielda z ESP32.
+- Nie uruchamiać dotyku ani nie dokładać przewodów osi. Jeśli osie są fabrycznie wspólne z LCD, uwzględnić to przy mapowaniu i przyszłym powrocie do dotyku.
 - Odczytać dostępne oznaczenia układu LCD lub bezpiecznie odczytać ID po określeniu torów 8080 i poziomów napięć.
-- Rozrysować D0–D7, WR, RD, CS, DC/RS, RST, podświetlenie, VCC/GND oraz sterowanie HC245; dopiero potem ustalić GPIO ESP32-WROVER.
+- Rozrysować D0–D7, WR, RD, CS, DC/RS, RST, podświetlenie, VCC/GND oraz sterowanie HC245; dopiero potem zatwierdzić fizyczne połączenia według planu GPIO ESP32-WROVER.
 - **Kryterium odbioru:** potwierdzony kontroler, tabela połączeń poparta pomiarem, brak 5 V na GPIO ESP32.
 
 ## Etap C — test grafiki I80 (w ESP-IDF)
@@ -24,6 +26,8 @@ Oryginalny akceptor Espressif i ostatni wariant pełnej kalibracji RF pozostają
 
 ## Etap D — dotyk 4-wire
 
+Odłożony decyzją z 13.11.2026. Nowy wariant nie rezerwuje GPIO32/33 dla panelu; wznowienie wymaga ponownego bilansu, ewentualnie zewnętrznego kontrolera.
+
 - Pomierzyć X+/X−, Y+/Y−, zmapować do shielda i sprawdzić potencjalny współdział z magistralą LCD.
 - Zaimplementować stan wyjść i odczyt ADC z filtrowaniem, kalibrację i wykrywanie kliknięcia / gestów.
 - **Kryterium odbioru:** poprawne i powtarzalne współrzędne w testowym UI.
@@ -31,7 +35,8 @@ Oryginalny akceptor Espressif i ostatni wariant pełnej kalibracji RF pozostają
 ## Etap E — HC-05 na osobnym UART1
 
 - Zidentyfikować moduł i płytkę nośną, poziomy UART/zasilanie, nastawy baud oraz ewentualny STATE.
-- Zatwierdzić wspólny budżet GPIO z TFT i dotykiem, zachować UART2 TX25/RX26 oraz konsolę USB; nie używać GPIO16/17.
+- Pierwszy etap: RXD→GPIO32, TXD→GPIO34, GND i zasilanie dobrane do nośnika. Plan obejmuje późniejszy STATE35 i warunkowy KEY12, przy zachowaniu UART2 TX25/RX26, konsoli USB i debug LED na GPIO2; GPIO16/17 zajęte PSRAM.
+- Użytkownik potwierdził ZS-040 i AT przez EN. Przed EN/KEY12 zabezpieczyć fabryczny strap VDD_SDIO; określić obciążenie, poziomy oraz sekwencję sterowania z ESP32 i potrzebę restartu/zasilania do pełnego AT. STATE i dodatkową LED sprawdzić oddzielnie; nie obciążać wyjścia STATE diodą bezpośrednio.
 - Wydzielić transport nieblokujący UART1 i sprawdzić telefon ↔ UART2 oraz sygnalizację LED. [Szczegóły](HC05_INTEGRATION.md).
 - **Kryterium odbioru:** sparowanie HC-05 i stabilny przesył w obu kierunkach przy równoległej pracy TFT.
 

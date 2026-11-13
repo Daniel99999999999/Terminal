@@ -14,7 +14,7 @@ import subprocess
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--cc", help="C compiler (GCC, Clang, or bcc64x)")
-    parser.add_argument("--suite", choices=("all", "bt", "led", "hci", "terminal"), default="all")
+    parser.add_argument("--suite", choices=("all", "bt", "led", "hci", "terminal", "hc05", "raster"), default="all")
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
     output = root / ".pio" / "host-tests"
@@ -29,15 +29,22 @@ def main():
     flags = ["-tWC"] if Path(compiler).stem.lower() == "bcc64x" else []
     log = []
     for suite, stem in (("bt", "bt_tx_state"), ("led", "debug_led_logic"),
-                        ("hci", "bt_hci_scan"), ("terminal", "terminal")):
+                        ("hci", "bt_hci_scan"), ("terminal", "terminal"),
+                        ("hc05", "hc05_link"), ("raster", "terminal_raster")):
         if args.suite not in ("all", suite):
             continue
+        source = root / ("baseline/v0.1.10/src" if suite in ("bt", "hci") else "src")
+        if suite in ("bt", "hci"):
+            print("Archived v0.1.10 regression (excluded from current firmware): " + suite)
         executable = output / ("test_" + stem + (".exe" if os.name == "nt" else ""))
         command = [compiler, *flags, "-std=c11", "-Wall", "-Wextra", "-Werror",
-                   "-I" + str(root / "src"), str(root / ("tests/test_" + stem + ".c")),
-                   str(root / ("src/" + stem + ".c")), "-o", str(executable)]
+                   "-I" + str(source), str(root / ("tests/test_" + stem + ".c")),
+                   str(source / (stem + ".c")), "-o", str(executable)]
         if suite == "terminal":
             command.insert(command.index("-o"), str(root / "src/ansi_parser.c"))
+        if suite == "raster":
+            command[command.index("-o"):command.index("-o")] = [
+                str(root / "src/terminal.c"), str(root / "src/ansi_parser.c")]
         for operation in (command, [str(executable)]):
             result = subprocess.run(operation, cwd=output, capture_output=True, text=True)
             log.append(result.stdout + result.stderr)
@@ -46,14 +53,15 @@ def main():
                 (output / "result.txt").write_text("".join(log), encoding="utf-8")
                 return result.returncode
     if args.suite in ("all", "hci"):
+        source = root / "baseline/v0.1.10/src"
         for enabled in (1, 0):
             executable = output / ("test_bt_hci_diag_" + str(enabled) +
                                    (".exe" if os.name == "nt" else ""))
             command = [compiler, *flags, "-std=c11", "-Wall", "-Wextra", "-Werror",
                        "-DBT_HCI_SCAN_DIAG=" + str(enabled),
-                       "-I" + str(root / "tests/hci_stubs"), "-I" + str(root / "src"),
+                       "-I" + str(root / "tests/hci_stubs"), "-I" + str(source),
                        str(root / "tests/test_bt_hci_diag.c"),
-                       str(root / "src/bt_hci_diag.c"), str(root / "src/bt_hci_scan.c"),
+                       str(source / "bt_hci_diag.c"), str(source / "bt_hci_scan.c"),
                        "-o", str(executable)]
             for operation in (command, [str(executable)]):
                 result = subprocess.run(operation, cwd=output, capture_output=True, text=True)

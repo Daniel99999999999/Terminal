@@ -1,0 +1,11 @@
+{
+  "repository": "https://github.com/dhepper/font8x8",
+  "commit": "8e279d2d864e79128e96188a6b9526cfa3fbfef9",
+  "license": "Public Domain; notices retained",
+  "files_original_git_blob_sha1": {
+    "font8x8_basic.h": "125cf165c93f0bcf954d570aa6e3c84d9b6bacf4",
+    "font8x8_box.h": "c3d3b57f88af62a0bd4d1c18788ca13eb947a7a5",
+    "font8x8_ext_latin.h": "75896a582677a89d505c717f2cf008983483e88d"
+  },
+  "changes": "Array declarations changed from char to static const uint8_t for unsigned bitmaps in flash; glyph bytes unchanged."
+}

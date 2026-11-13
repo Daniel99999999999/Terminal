@@ -17,7 +17,7 @@
 
 **Uwaga:** GPIO0, GPIO2, GPIO5, GPIO12, GPIO15 mają funkcje strapujące boot ESP32; ich obciążenie może zmienić start układu. Nie przydzielaj ich przypadkowo. Wspólna masa z urządzeniem UART jest wymagana. Bezpośrednio do GPIO nie wolno podłączać sygnałów RS-232/5 V.
 
-Debug LED w v0.1.6 oraz propozycja LCD i rezerwacja ADC1 dla dotyku: [LED_AND_PIN_PLAN.md](LED_AND_PIN_PLAN.md). GPIO32/33 są docelowo zarezerwowane na X+/Y+, GPIO13/14 warunkowo na X−/Y−. LCD musi uwzględniać rzeczywiste współdzielenie tych linii, którego jeszcze nie zmierzono. Roboczy przykład tabeli LCD nie jest gotowym połączeniem LCD+touch.
+**Przydział z 13.11.2026:** [HC-05 + TFT bez dotyku](PIN_ASSIGNMENT_HC05_TFT.md). UART1 TX32/RX34, przyszły STATE35 i warunkowy EN/KEY12; LCD ma pełne 13 linii. HC-05 to **ZS-040, wejście AT przez EN sprawdzone przez użytkownika**. Wymagane sprawdzenie strapów GPIO0/5/15 i zasilania/buforów shielda. GPIO12 nie jest zatwierdzone do połączenia bez zachowania fabrycznego strapa i sprawdzenia obciążenia EN. W tym wariancie dawne rezerwacje ADC dla dotyku nie obowiązują. [Opis debug LED i historyczny plan dotyku](LED_AND_PIN_PLAN.md).
 
 ## LCD 2,4" — stan identyfikacji
 

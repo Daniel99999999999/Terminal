@@ -1,27 +1,28 @@
 Signal,Shield pin,ESP32 GPIO,Direction,Voltage,Confidence,Notes
-LCD D0,UNKNOWN,UNKNOWN,Bidirectional?,UNKNOWN,UNVERIFIED,Map physical net and HC245
-LCD D1,UNKNOWN,UNKNOWN,Bidirectional?,UNKNOWN,UNVERIFIED,Map physical net and HC245
-LCD D2,UNKNOWN,UNKNOWN,Bidirectional?,UNKNOWN,UNVERIFIED,Map physical net and HC245
-LCD D3,UNKNOWN,UNKNOWN,Bidirectional?,UNKNOWN,UNVERIFIED,Map physical net and HC245
-LCD D4,UNKNOWN,UNKNOWN,Bidirectional?,UNKNOWN,UNVERIFIED,Map physical net and HC245
-LCD D5,UNKNOWN,UNKNOWN,Bidirectional?,UNKNOWN,UNVERIFIED,Map physical net and HC245
-LCD D6,UNKNOWN,UNKNOWN,Bidirectional?,UNKNOWN,UNVERIFIED,Map physical net and HC245
-LCD D7,UNKNOWN,UNKNOWN,Bidirectional?,UNKNOWN,UNVERIFIED,Map physical net and HC245
-LCD WR,UNKNOWN,UNKNOWN,Input to LCD,UNKNOWN,UNVERIFIED,
-LCD RD,UNKNOWN,UNKNOWN,Input to LCD,UNKNOWN,UNVERIFIED,
-LCD CS,UNKNOWN,UNKNOWN,Input to LCD,UNKNOWN,UNVERIFIED,
-LCD DC_RS,UNKNOWN,UNKNOWN,Input to LCD,UNKNOWN,UNVERIFIED,
-LCD RST,UNKNOWN,UNKNOWN,Input to LCD,UNKNOWN,UNVERIFIED,
+LCD D0,UNKNOWN,GPIO13,OUT write / IN read,UNKNOWN,PLANNED_ESP32_ONLY,Net and HC245 path unverified; no touch in this plan
+LCD D1,UNKNOWN,GPIO14,OUT write / IN read,UNKNOWN,PLANNED_ESP32_ONLY,Net and HC245 path unverified
+LCD D2,UNKNOWN,GPIO18,OUT write / IN read,UNKNOWN,PLANNED_ESP32_ONLY,Net and HC245 path unverified
+LCD D3,UNKNOWN,GPIO19,OUT write / IN read,UNKNOWN,PLANNED_ESP32_ONLY,Net and HC245 path unverified
+LCD D4,UNKNOWN,GPIO21,OUT write / IN read,UNKNOWN,PLANNED_ESP32_ONLY,Net and HC245 path unverified
+LCD D5,UNKNOWN,GPIO22,OUT write / IN read,UNKNOWN,PLANNED_ESP32_ONLY,Net and HC245 path unverified
+LCD D6,UNKNOWN,GPIO23,OUT write / IN read,UNKNOWN,PLANNED_ESP32_ONLY,Net and HC245 path unverified
+LCD D7,UNKNOWN,GPIO27,OUT write / IN read,UNKNOWN,PLANNED_ESP32_ONLY,Net and HC245 path unverified
+LCD WR,UNKNOWN,GPIO33,OUT,UNKNOWN,PLANNED_ESP32_ONLY,Keep inactive HIGH during reset; check levels
+LCD RD,UNKNOWN,GPIO0,OUT,UNKNOWN,PLANNED_CONDITIONAL,Strap HIGH for normal boot; BOOT drives LOW so CS must disable LCD outputs
+LCD CS,UNKNOWN,GPIO5,OUT,UNKNOWN,PLANNED_CONDITIONAL,Strap HIGH; must stay inactive during reset and upload
+LCD DC_RS,UNKNOWN,GPIO15,OUT,UNKNOWN,PLANNED_CONDITIONAL,Preserve strap HIGH and ROM boot messages
+LCD RST,UNKNOWN,GPIO4,OUT,UNKNOWN,PLANNED_ESP32_ONLY,Active LOW; net and voltage unverified
 LCD Backlight,UNKNOWN,UNKNOWN,UNKNOWN,UNKNOWN,UNVERIFIED,
-Touch X+,UNKNOWN,GPIO32,ADC1_CH4 and drive,UNKNOWN,RESERVED_UNVERIFIED,Target role only; shared LCD net and buffer path must be measured
-Touch X-,UNKNOWN,GPIO13,Drive or Hi-Z,UNKNOWN,RESERVED_UNVERIFIED,Conditional shared LCD role; continuity not confirmed
-Touch Y+,UNKNOWN,GPIO33,ADC1_CH5 and drive,UNKNOWN,RESERVED_UNVERIFIED,Target role only; shared LCD net and buffer path must be measured
-Touch Y-,UNKNOWN,GPIO14,Drive or Hi-Z,UNKNOWN,RESERVED_UNVERIFIED,Conditional shared LCD role; continuity not confirmed
+Touch X+,UNKNOWN,NOT_ASSIGNED,Not enabled,UNKNOWN,DEFERRED,Old ADC reservation superseded by no-touch plan 2026-11-13
+Touch X-,UNKNOWN,NOT_ASSIGNED,Not enabled,UNKNOWN,DEFERRED,Shared LCD net remains unverified
+Touch Y+,UNKNOWN,NOT_ASSIGNED,Not enabled,UNKNOWN,DEFERRED,Old ADC reservation superseded by no-touch plan 2026-11-13
+Touch Y-,UNKNOWN,NOT_ASSIGNED,Not enabled,UNKNOWN,DEFERRED,Shared LCD net remains unverified
 Debug LED,N/A,GPIO2,Output,3.3V,REFERENCE_SCHEMATIC_AND_CODE,Active HIGH on reference NodeMCU-32 V1.3; actual board not tested
 UART2 TX,N/A,GPIO25,Output,3.3V,CODE_AND_LOG,
 UART2 RX,N/A,GPIO26,Input,3.3V,CODE_AND_LOG,
-HC05 UART1 TX,HC05 RXD,UNKNOWN,Output,3.3V required,PLANNED_UNVERIFIED,Allocate after LCD pin budget and measured interface levels
-HC05 UART1 RX,HC05 TXD,UNKNOWN,Input,UNKNOWN,PLANNED_UNVERIFIED,Input-only GPIO may be used after checking levels
-HC05 STATE,HC05 STATE,UNKNOWN,Input optional,UNKNOWN,PLANNED_UNVERIFIED,Verify module pin behavior before using for debug LED
+HC05 UART1 TX,HC05 RXD,GPIO32,OUT,3.3V required,PLANNED_ESP32_ONLY,First stage; no firmware UART1 implementation yet
+HC05 UART1 RX,HC05 TXD,GPIO34,IN,UNKNOWN,PLANNED_ESP32_ONLY,First stage; input-only with no internal pull resistors; verify TXD voltage
+HC05 STATE,HC05 STATE,GPIO35,IN optional,UNKNOWN,RESERVED_UNVERIFIED,Later; confirm polarity and voltage; no direct LED load
+HC05 EN_KEY,HC05 EN,GPIO12,OUT optional,UNKNOWN,RESERVED_CONDITIONAL,ZS-040 AT via EN confirmed by user; do not connect now; preserve VDD_SDIO strap and isolate if needed
 PSRAM reserved,N/A,GPIO16,Reserved,3.3V,HARDWARE,Do not use
 PSRAM reserved,N/A,GPIO17,Reserved,3.3V,HARDWARE,Do not use

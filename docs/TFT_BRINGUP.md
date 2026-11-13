@@ -2,6 +2,8 @@
 
 Decyzja użytkownika z 03.11.2026: zakończyć próby wbudowanego BT, uruchomić TFT; Bluetooth docelowo przez HC-05. Użytkownik ma multimetr. Na razie nie włączamy żadnych GPIO LCD ani ADC.
 
+**Aktualizacja 13.11.2026:** [zaplanowano numery GPIO ESP32 dla HC-05 i TFT bez dotyku](PIN_ASSIGNMENT_HC05_TFT.md). Pomiary zasilania, buforów, mapowania i stanów startowych nadal poprzedzają fizyczne połączenie. Pomiary osi/obsługę dotyku odłożono; ich dawne rezerwy ADC nie obowiązują. Nie jest to potwierdzenie kontrolera LCD ani napięć.
+
 ## Co wynika ze zdjęć
 
 - [Spód shielda](photos/lcd_shield_back.jpg): złącza w układzie shielda UNO, U2/U3 w obudowach 20-pin, regulator U1, gniazdo SD, nadruk 2.4 TFT LCD SHIELD. Przewody częściowo zasłaniają ścieżki i opisy.
@@ -53,4 +55,4 @@ Ten backend nie implementuje `rx_param`; ogólny `esp_lcd_panel_io_rx_param()` z
 
 Po zamknięciu pomiarów: moduł magistrali `lcd_bus.c/.h`, następnie `lcd_panel.c/.h` dla zidentyfikowanego kontrolera. DMA przesyła porcje z buforów INTERNAL; opcjonalny framebuffer i historia terminala mogą być w PSRAM. Kolejka transferów z callbackiem zakończenia, bez ciągłego pełnoekranowego odświeżania i blokowania UART. Dotyk przejmuje wspólne linie dopiero po zakończeniu transferu LCD i odłączeniu jego wyjść/buforów.
 
-Kryterium pierwszego testu obrazu: powtarzalny reset/inicjalizacja, jednolite kolory i wzór, poprawny wymiar/obrót, brak resetów ESP32. Karta SD i UI dotyku są kolejnymi etapami. Przed przypisaniem GPIO trzeba uwzględnić [UART dla HC-05](HC05_INTEGRATION.md); stara tabela samego LCD nie jest gotowym schematem całego terminala.
+Kryterium pierwszego testu obrazu: powtarzalny reset/inicjalizacja, jednolite kolory i wzór, poprawny wymiar/obrót, brak resetów ESP32. Karta SD i UI dotyku są kolejnymi etapami. Stosować [nowy wspólny plan HC-05 + TFT](PIN_ASSIGNMENT_HC05_TFT.md) po weryfikacji elektrycznej; stara tabela samego LCD jest historyczna.

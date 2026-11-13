@@ -1,6 +1,10 @@
 # HC-05 w terminalu — decyzja i plan integracji
 
-Użytkownik 03.11.2026 wybrał zewnętrzny HC-05 po zakończeniu ostatniej próby wbudowanego BT. Priorytetem jest teraz TFT. Nie kupiono ani nie podłączono modułu przez agenta. Główny kod v0.1.9 nadal zawiera wewnętrzne SPP; integracja HC-05 nie jest jeszcze zaimplementowana.
+**Bieżąca implementacja v0.1.11:** [instrukcja i konfiguracja](HC05_TFT_v0.1.11.md). Most UART1↔UART2 oraz opcjonalne STATE/EN/AT są dodane. UART1: **115200**, potwierdzone przez użytkownika. Natywne BT/Wi-Fi usunięto z aktywnego kodu. TFT/STATE/EN domyślnie wyłączone; nadal wymagany test sprzętowy. Poniższy plan opisuje stan historyczny sprzed implementacji; aktualne kryteria i wyniki są w instrukcji i STATUS.
+
+Użytkownik 03.11.2026 wybrał zewnętrzny HC-05 po zakończeniu ostatniej próby wbudowanego BT. 13.11.2026 zlecił przydział pinów: najpierw RXD/TXD/GND/VCC, później EN/KEY i STATE; TFT na razie bez dotyku. [Aktualny przydział ESP32 i warunki elektryczne](PIN_ASSIGNMENT_HC05_TFT.md). Główny kod v0.1.10 nadal zawiera wewnętrzne SPP; integracja HC-05 nie jest jeszcze zaimplementowana i nie potwierdzono fizycznego połączenia.
+
+**Użytkownik potwierdził ZS-040 i sprawdził wejście AT przez EN.** Plan zasilania: 5 V na VCC nośnika z regulatorem; UART i EN pozostają sygnałami 3,3 V. Nie potwierdzono pomiarem STATE ani połączenia z ESP32. Funkcji EN w tym egzemplarzu nie trzeba ponownie ustalać na podstawie innych rewizji.
 
 ## Transport i poziomy
 
@@ -8,19 +12,21 @@ Użytkownik 03.11.2026 wybrał zewnętrzny HC-05 po zakończeniu ostatniej prób
 |---|---|---|
 | UART0 przez USB | konsola i programowanie ESP32 | GPIO1/3 zachowane |
 | UART2 | urządzenie docelowe terminala | TX25/RX26 zachowane |
-| UART1 | połączenie ESP32 ↔ HC-05 | GPIO do ustalenia z LCD |
+| UART1 | połączenie ESP32 ↔ HC-05 | plan: TX32 → RXD; RX34 ← TXD |
+| HC-05 STATE | informacja o aktywnym połączeniu | rezerwacja GPIO35, wejście |
+| HC-05 EN / KEY | konfiguracja / AT potwierdzone przez użytkownika | warunkowo GPIO12; teraz nie podłączać |
 
-Połączenie logiczne: ESP32 TX → HC-05 RXD, HC-05 TXD → ESP32 RX, wspólna masa. Sygnały przy ESP32 mają poziomy 3,3 V. Nie zakładać, że napięcie zasilania płytki nośnej HC-05 jest napięciem jej UART. Dokładny wariant modułu/nośnika trzeba zidentyfikować przed doborem zasilania; nie podawać 5 V na niezweryfikowany RXD.
+Połączenie logiczne: ESP32 TX → HC-05 RXD, HC-05 TXD → ESP32 RX, wspólna masa. Sygnały przy ESP32 mają poziomy 3,3 V; 5 V dotyczy tylko VCC wskazanego nośnika z regulatorem. Zasilanie nośnika nie jest napięciem UART/EN/STATE. [Opis zasilania i układu ZS-040](https://www.martyncurrey.com/hc-05-and-hc-06-zs-040-bluetooth-modules-first-look/).
 
 Nie zakładać domyślnego baud, trybu AT ani roli przycisku/KEY dla każdego klona. Najpierw ustalić model, tryb transmisji i jego nastawy UART, potem ustawić UART1 ESP32. Zmiana baud HC-05 to osobna operacja na rzeczywistym module, nie zmiana UART2 urządzenia docelowego.
 
 ## Budżet GPIO razem z TFT
 
-Po odjęciu Flash, PSRAM16/17, konsoli1/3, UART2 25/26, LED2 i pozostawieniu GPIO0/12 wolnych, dla sterowania pozostaje 13 wyjść: **4/5/13/14/15/18/19/21/22/23/27/32/33**. GPIO5/15 wymagają oceny stanów strapujących. Pełny LCD 8-bit + WR/RS/CS/RD/RST zużywa wszystkie 13. HC-05 potrzebuje dodatkowego TX ESP32, więc poprzednia tabela LCD nie obejmuje całego urządzenia.
+Nowy plan bez dotyku korzysta z 14 wyjść dla LCD i TX UART1, w tym strapów GPIO0/5/15; GPIO12 jest ostatnią, warunkową rezerwacją EN/KEY. RX=34 i STATE=35 nie zużywają wyjść. Nie używamy PSRAM16/17, Flash6–11, konsoli1/3, UART2 25/26 ani debug LED na GPIO2 do innych zadań. Pełny [bilans, tabela LCD i wymagania startowe](PIN_ASSIGNMENT_HC05_TFT.md) zastępują historyczną tabelę samego LCD.
 
-RX HC-05 można zaplanować na wolnym wejściu GPIO34/35/36/39 po potwierdzeniu wyprowadzeń płytki i poziomów; nie rozwiązuje to braku jednego wyjścia TX. STATE, jeśli rzeczywiście dostępne, wymaga kolejnego wejścia. GPIO16/17 nie są kandydatami.
+GPIO12 nie wolno łączyć bez sprawdzenia obciążenia EN/przycisku HC-05: stan przy resecie wpływa na VDD_SDIO. Zachować fabryczny strap i w razie potrzeby zastosować bufor. Użytkownik potwierdził AT przez EN; nadal trzeba dobrać sekwencję sterowania z ESP32, ewentualnie cykl zasilania dla pełnego AT. Plan nie ma dodatkowego wyjścia do odcinania zasilania. Jeśli GPIO12 okaże się niedostępne, potrzeba zmiany sprzętowej/przydziału.
 
-Po identyfikacji LCD i mapowaniu dotyku wybierzemy sposób zwolnienia jednego wyjścia, np. stały nieaktywny RD w docelowym trybie zapisu po odczycie ID albo osobny układ resetu LCD. To możliwości do oceny po pomiarach, nie instrukcja obecnego łączenia pinów. Zachować niezależne CS, jeśli jest potrzebne do bezpiecznego pomiaru dotyku. Karta SD nie jest objęta tym budżetem.
+W tym wariancie LCD zachowuje osobne RD, CS i RST; dotyk i SD nie mają przydziału. GPIO0 użyte dla RD wymaga nieaktywnego CS także podczas BOOT/uploadu. Powrót do dotyku wymaga nowego planu po pomiarach, nie ponownego użycia dawnych rezerw ADC.
 
 ## Następny patch i kryteria
 

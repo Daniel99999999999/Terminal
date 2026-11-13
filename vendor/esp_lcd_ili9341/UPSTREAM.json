@@ -1,0 +1,13 @@
+{
+  "repository": "https://github.com/espressif/esp-bsp",
+  "commit": "93460b932beba7022a8a4ec4186e0d6b7533d05f",
+  "path": "components/lcd/esp_lcd_ili9341",
+  "license": "Apache-2.0",
+  "version": "2.1.0",
+  "files_git_blob_sha1": {
+    "esp_lcd_ili9341.c": "99a0c320fcef93a040b085074f38f2b5bc51700d",
+    "include/esp_lcd_ili9341.h": "3d729bfc3540f4bc1041a125eb8243becdda8734",
+    "LICENSE": "d645695673349e3947e8e5ae42332d0ac3164cd7"
+  },
+  "changes": "None; compiled by src/CMakeLists.txt against ESP-IDF 6.0.1."
+}

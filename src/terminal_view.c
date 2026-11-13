@@ -88,7 +88,7 @@ esp_err_t terminal_view_init(uint16_t cols, uint16_t rows)
     s_queue = xQueueCreate(VIEW_QUEUE, sizeof(view_packet_t));
     bool ready = a && b && s_mutex && s_queue && terminal_init(&s_terminal, cols, rows, a, b);
     if (ready && xTaskCreate(view_task, "terminal", 4096, NULL, 6, NULL) == pdPASS) {
-        ESP_LOGI("TERMINAL", "ANSI/VT100 display model %ux%u, white/black; PSRAM %u B; LCD not initialized",
+        ESP_LOGI("TERMINAL", "ANSI/VT100 display model %ux%u, white/black; PSRAM %u B; renderer initializes separately",
                  (unsigned)cols, (unsigned)rows, (unsigned)(2 * cells * sizeof(*a)));
         return ESP_OK;
     }

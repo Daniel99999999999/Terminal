@@ -698,6 +698,29 @@ CONFIG_PARTITION_TABLE_MD5=y
 # end of Partition Table
 
 #
+# RetroTerminal
+#
+# default:
+
+# default:
+CONFIG_RETRO_HC05_BAUD=115200
+# default:
+# CONFIG_RETRO_HC05_STATE_ENABLE is not set
+# default:
+# CONFIG_RETRO_HC05_KEY_ENABLE is not set
+# default:
+# CONFIG_RETRO_TFT_ENABLE is not set
+# default:
+CONFIG_RETRO_TFT_ROTATION=1
+# default:
+CONFIG_RETRO_TFT_CLOCK_HZ=1000000
+# default:
+CONFIG_RETRO_TFT_BGR=y
+# default:
+# CONFIG_RETRO_TFT_INVERT is not set
+# end of RetroTerminal
+
+#
 # Compiler options
 #
 # default:
@@ -779,7 +802,7 @@ CONFIG_COMPILER_CXX_GLIBCXX_CONSTEXPR_NO_CHANGE=y
 #
 # Bluetooth
 #
-CONFIG_BT_ENABLED=y
+# CONFIG_BT_ENABLED is not set
 CONFIG_BT_BLUEDROID_ENABLED=y
 # CONFIG_BT_NIMBLE_ENABLED is not set
 # CONFIG_BT_CONTROLLER_ONLY is not set
@@ -2399,7 +2422,7 @@ CONFIG_ESP_TRACE_TRANSPORT_NAME="none"
 # Wi-Fi
 #
 # default:
-CONFIG_ESP_WIFI_ENABLED=y
+# CONFIG_ESP_WIFI_ENABLED is not set
 # default:
 CONFIG_ESP_WIFI_STATIC_RX_BUFFER_NUM=10
 # default:

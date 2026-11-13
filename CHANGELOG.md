@@ -1,5 +1,15 @@
 # Historia wersji
 
+## v0.1.11 — 13.11.2026
+
+- HC-05 ZS-040 na UART1 TX32/RX34, 115200 8N1; dwukierunkowy most z UART2 TX25/RX26. Osobne kolejki i zadania RX/TX, ograniczone oczekiwania FIFO, liczniki błędów/strat.
+- Opcjonalne STATE35: nieznany stan bez przewodu, debounce połączenia, generacje sesji i debug LED. Opcjonalny EN12: kolejka przełączania AT, osobny baud i API komend/odpowiedzi, bez automatycznej zmiany nastaw modułu.
+- Oficjalny sterownik ILI9341 2.1.0 Espressif, równoległe I80/DMA, renderer 8×8 z kolorami/atrybutami ANSI i paskiem statusu BT. Bufor DMA w INTERNAL, model/kopia ekranu w PSRAM. Domyślnie TFT/STATE/EN wyłączone do pomiarów; brak dotyku.
+- Usunięto natywne SPP/GAP/HCI z aktywnych źródeł i zależności, wyłączono włączanie komponentów BT/Wi-Fi przez minimalny build. Archiwum v0.1.10: 26 plików z SHA256; starsze bazy zachowane.
+- Testy polityki HC-05, rasteryzacji oraz nowych kanałów heartbeat. Zgodnie z poleceniem źródła są commitowane i wysyłane przed końcowym uruchomieniem testów; wyniki zostaną zapisane osobno.
+
+[Konfiguracja, FabGL, zakres i ograniczenia](docs/HC05_TFT_v0.1.11.md). Brak uploadu i potwierdzenia działania na TFT/HC-05.
+
 ## v0.1.10 — 13.11.2026
 
 Pierwszy import projektu ESP32 RetroTerminal do repozytorium [Terminal](https://github.com/Daniel99999999999/Terminal). Wersja rozwojowa: model terminala jest zaimplementowany i przetestowany na komputerze, fizyczny ekran TFT pozostaje do uruchomienia.

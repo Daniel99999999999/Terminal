@@ -1,3 +1,9 @@
+# v0.1.11 — końcowe kontrole po commicie źródeł
+
+Na polecenie użytkownika kod v0.1.11 jest commitowany i wysyłany przed końcowymi testami. Do wykonania: wszystkie zestawy hosta (nowe HC-05/raster i aktywny heartbeat; stare BT/HCI na źródłach baseline), build domyślny, build z TFT/STATE/EN i kontrola ELF/mapy/komponentów pod kątem braku natywnego radia. Bez uploadu i bez deklaracji fizycznego obrazu TFT. Wyniki zostaną dopisane po wykonaniu kontroli.
+
+Polecenia: `python tests/run_host_tests.py`, `pio run -e esp32dev`; opcje w `menuconfig → RetroTerminal`. Szczegóły i testy sprzętowe: [HC05_TFT_v0.1.11.md](HC05_TFT_v0.1.11.md).
+
 # Testy i dziennik pomiarów
 
 ## Dostępne środowisko

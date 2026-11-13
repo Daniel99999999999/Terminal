@@ -93,27 +93,30 @@ static int uart_blocked_task_detection(void)
     return 0;
 }
 
-static int spp_recovery_wait_is_healthy(void)
-{
-    debug_led_health_t h = {0};
-    debug_led_health_beat(&h, DEBUG_LED_BT_TX, 0);
-    CHECK(debug_led_health_stale(&h, 5000) == 0);
-    debug_led_health_beat(&h, DEBUG_LED_BT_TX, 5000);
-    CHECK(debug_led_health_stale(&h, 10000) == 0);
-    CHECK(debug_led_health_stale(&h, 10999) == 0);
-    CHECK(debug_led_health_stale(&h, 11000) == (1U << DEBUG_LED_BT_TX));
-    return 0;
-}
-
 static int health_wrap_and_independent_channels(void)
 {
     debug_led_health_t h = {0};
     debug_led_health_beat(&h, DEBUG_LED_UART_TX, UINT32_MAX - 1000);
-    debug_led_health_beat(&h, DEBUG_LED_BT_TX, UINT32_MAX - 1000);
+    debug_led_health_beat(&h, DEBUG_LED_HC_TX, UINT32_MAX - 500);
     CHECK(debug_led_health_stale(&h, 998) == 0);
     CHECK(debug_led_health_stale(&h, 999) == (1U << DEBUG_LED_UART_TX));
-    CHECK(debug_led_health_stale(&h, 4999) ==
-          ((1U << DEBUG_LED_UART_TX) | (1U << DEBUG_LED_BT_TX)));
+    CHECK(debug_led_health_stale(&h, 1499) ==
+          ((1U << DEBUG_LED_UART_TX) | (1U << DEBUG_LED_HC_TX)));
+    return 0;
+}
+
+static int new_worker_heartbeat_and_stall(void)
+{
+    debug_led_health_t h = {0};
+    uint32_t expected = 0;
+    const debug_led_channel_t channels[] = {DEBUG_LED_HC_RX, DEBUG_LED_HC_TX,
+        DEBUG_LED_HC_CONTROL, DEBUG_LED_LCD};
+    for (unsigned i = 0; i < sizeof(channels)/sizeof(channels[0]); ++i) {
+        debug_led_health_beat(&h, channels[i], 100);
+        expected |= 1U << channels[i];
+    }
+    CHECK(debug_led_health_stale(&h, 2099) == 0);
+    CHECK(debug_led_health_stale(&h, 2100) == expected);
     return 0;
 }
 
@@ -136,8 +139,8 @@ int main(void)
         error_is_solid_and_recovery_restarts_phase,
         delayed_callback_does_not_accumulate_drift, millisecond_counter_wrap,
         unstarted_tasks_are_not_reported_as_hung, uart_blocked_task_detection,
-        spp_recovery_wait_is_healthy, health_wrap_and_independent_channels,
-        terminal_idle_heartbeat_and_stall,
+        health_wrap_and_independent_channels,
+        terminal_idle_heartbeat_and_stall, new_worker_heartbeat_and_stall,
     };
     for (unsigned i = 0; i < sizeof(tests) / sizeof(tests[0]); ++i) {
         if (tests[i]()) {

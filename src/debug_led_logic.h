@@ -12,8 +12,11 @@ typedef enum {
 typedef enum {
     DEBUG_LED_UART_TX,
     DEBUG_LED_UART_RX,
-    DEBUG_LED_BT_TX,
     DEBUG_LED_TERMINAL,
+    DEBUG_LED_HC_RX,
+    DEBUG_LED_HC_TX,
+    DEBUG_LED_HC_CONTROL,
+    DEBUG_LED_LCD,
     DEBUG_LED_CHANNEL_COUNT,
 } debug_led_channel_t;
 

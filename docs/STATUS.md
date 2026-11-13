@@ -1,5 +1,20 @@
 # Faktyczny stan projektu / handoff
 
+## 13.11.2026 — źródła v0.1.11: HC-05, I80/ILI9341 i usunięcie natywnego radia
+
+- Użytkownik zlecił dodanie HC-05 i TFT, doprecyzował klon ILI9341 oraz potwierdził UART HC-05 **115200**. Nowy most i renderer są opisane w [instrukcji](HC05_TFT_v0.1.11.md). STATE/KEY/TFT są opcjonalne i domyślnie nie konfigurują swoich GPIO.
+- Z bieżącego main/src usunięto natywne SPP/GAP/HCI; usunięto wrappery i zależności, adapter kontrolera nie jest dołączany. Minimalny build ogranicza komponenty do aplikacji i zależności. Poprzedni kod zachowano w `baseline/v0.1.10` (26 plików) i Git. Nie uruchomiono nowej próby natywnego BT.
+- Pierwszy draft przeszedł testy hosta; pierwszy build wykrył brak definicji wersji w lokalnie dołączonym sterowniku Espressif, co uzupełniono w CMake. Przerwano kolejną kompilację po doprecyzowaniu usunięcia komponentów radiowych. To nie są wyniki końcowego kodu.
+- **Kolejność na polecenie użytkownika:** zakończyć źródła, podnieść wersję do 0.1.11, commit + push, następnie końcowe kontrole i osobny commit wyników. W chwili przygotowania tej notatki końcowe testy nowego kodu i minimalnego buildu pozostają do wykonania.
+- Nie wykonywano uploadu ani testu fizycznego HC-05/UART1/TFT. Opis ILI9341 jest deklaracją użytkownika; poziomy i HC245 wymagają pomiarów. FabGL sprawdzono w źródłach autora: gotowy ILI9341 jest SPI/C++, więc użyto natywnego `esp_lcd` I80 i obecnego modelu w C.
+
+## 13.11.2026 — przydział HC-05 i TFT bez dotyku
+
+- Użytkownik zlecił pierwsze połączenie HC-05 przez RXD/TXD/GND/VCC i rezerwacje EN/STATE na później; TFT z D0–D7 i RST/CS/RS/WR/RD, na razie bez dotyku. [Pełna tabela](PIN_ASSIGNMENT_HC05_TFT.md).
+- Plan ESP32: UART1 TX32/RX34, STATE35, EN/KEY warunkowo12. LCD: D0–D7=13/14/18/19/21/22/23/27, WR33, RS15, CS5, RD0, RST4. Zachowano debug LED na GPIO2, UART2 TX25/RX26, konsolę1/3 i PSRAM16/17. Wszystkie 15 wyjść są zajęte po doliczeniu przyszłego KEY; GPIO36/39 pozostają tylko wejściami. Osobna LED połączenia może korzystać z STATE przez bufor/tranzystor.
+- To plan po stronie ESP32, nie pomiar sieci shielda. GPIO0/5/15 wymagają właściwych stanów startowych; RD0 przy BOOT=LOW wymaga rzeczywiście nieaktywnego CS. GPIO12 zostaje teraz niepodłączone: zachować fabryczny strap VDD_SDIO, ustalić obciążenie i poziomy EN oraz sekwencję AT z ESP32. Dawny plan ADC dotyku nie obowiązuje.
+- Użytkownik potwierdził **ZS-040 i sprawdzone wejście AT przez EN**. Plan zasilania: 5 V na VCC nośnika z regulatorem; logika 3,3 V. Nie wykonano pomiaru STATE ani testu połączenia z ESP32. Zasilanie TFT, HC245, kierunki i kontroler nadal wymagają pomiarów. Zmieniono wyłącznie dokumentację, firmware nadal v0.1.10, bez uploadu i bez implementacji UART1.
+
 ## 13.11.2026 — v0.1.10: automatyczny model ANSI/VT100
 
 - Nowe wymaganie: domyślnie biały tekst na czarnym tle, automatyczna interpretacja sterowania terminalowego. Dodano parser strumienia `ansi_parser`, czysty model `terminal` i adapter kolejki `terminal_view`. Obsługiwany podzbiór obejmuje kolory 16/256/RGB, atrybuty, pozycję kursora, czyszczenie/edycję, regiony przewijania, ramki DEC i ekran alternatywny ?1049. UTF-8 i komendy zachowują stan między porcjami. [Zakres i ograniczenia](TERMINAL_EMULATION.md).

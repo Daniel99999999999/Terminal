@@ -2,9 +2,11 @@
 
 Projekt terminala szeregowego DIY opartego na **ESP32-WROVER (ESP32-D0WD-V3)**. Natywny **ESP-IDF 6.0.1 w PlatformIO**, język **C**, bez Arduino.
 
-Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.1.10**, etap rozwojowy. [Opis wersji i wyniki kontroli](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
+Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.1.11**, etap rozwojowy. [Opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
 
-> **Stan:** próby wbudowanego Bluetooth zakończono na polecenie użytkownika. Oryginalny akceptor Espressif i ostatni wariant pełnej kalibracji RF były niewidoczne na Samsungu; Windows również nie sparował ostatniego wariantu (ACL → LMP 0x22). Przyczyna pozostaje nieustalona. Priorytetem jest teraz [TFT LCD — pomiary i identyfikacja](docs/TFT_BRINGUP.md); Bluetooth docelowo przez [HC-05](docs/HC05_INTEGRATION.md). Użytkownik ma multimetr. Główny **v0.1.10** ma model ANSI/VT100 w pamięci i testy; obraz TFT jeszcze nie jest uruchomiony. Zachowano także bazę v0.1.9 oraz wcześniejsze bazy. [Wyniki](docs/STATUS.md).
+**v0.1.11:** dodano most HC-05 UART1 TX32/RX34 przy potwierdzonych 115200, opcjonalne STATE35 i EN12/AT oraz renderer ILI9341 przez I80/DMA. [Konfiguracja i ograniczenia](docs/HC05_TFT_v0.1.11.md), [połączenia](docs/PIN_ASSIGNMENT_HC05_TFT.md). Natywne BT/Wi-Fi usunięto z bieżącego firmware. TFT, STATE i EN są domyślnie wyłączone do potwierdzenia warunków elektrycznych. Kod wymaga testu na rzeczywistym sprzęcie; końcowe kontrole po commicie źródeł są opisane w STATUS.
+
+> **Stan sprzętu:** próby wbudowanego BT zakończono decyzją użytkownika, bez ustalenia przyczyny. HC-05 to ZS-040, użytkownik sprawdził AT przez EN i podał baud transmisji 115200. LCD opisano jako klon ILI9341; pomiary zasilania/HC245 nadal wymagane. Nie wgrano jeszcze v0.1.11 ani nie potwierdzono obrazu TFT. [Wyniki i historia](docs/STATUS.md).
 
 ## Szybki start — Windows / VS Code
 
@@ -22,7 +24,13 @@ Zweryfikowane środowisko v0.1.10: **PlatformIO espressif32 7.0.1 / ESP-IDF 6.0.
 
 **Uwaga na rozmiar kompilacji:** pierwszy pełny build ESP-IDF kompiluje setki plików bibliotek statycznych. To normalne i nie znaczy, że każdy zostanie dołączony do pliku wynikowego. Następne buildy korzystają z cache `.pio/build`. Nie wprowadzaj optymalizacji `COMPONENTS` kosztem działającej konfiguracji bez pomiaru skutków.
 
-## Pliki
+## Aktualny firmware
+
+`src/` zawiera most HC-05, parser/model i renderer terminala, sterowanie I80 oraz debug LED. Opcje są w `src/Kconfig.projbuild` → **RetroTerminal**. [Instrukcja v0.1.11](docs/HC05_TFT_v0.1.11.md) opisuje włączanie TFT/STATE/EN, API AT i test sprzętowy. Obsługa TFT jest zaimplementowana, lecz domyślnie nie aktywuje niezweryfikowanych GPIO. Bez STATE informacja BT pozostaje nieznana, most UART działa. Nie uruchamiamy natywnego radia.
+
+## Pliki i historia v0.1.10
+
+Poniższy opis SPP dotyczy zachowanej bazy **v0.1.10**, nie bieżącego firmware. Dawne moduły `src/bt_*` znajdują się obecnie w `baseline/v0.1.10/src/`. Archiwalne pliki vendor/diagnostics nie są linkowane przez bieżącą aplikację.
 
 - `src/main.c` — firmware v0.1.10, Bluetooth SPP / UART2 / FreeRTOS / diagnostyka i kolejka modelu terminala.
 - `src/ansi_parser.c/.h`, `src/terminal.c/.h`, `src/terminal_view.c/.h` — domyślnie biały tekst na czarnym tle, automatyczny podzbiór ANSI/VT100 i rozszerzeń xterm; [zakres i ograniczenia](docs/TERMINAL_EMULATION.md). Model w pamięci, fizyczny TFT nadal do uruchomienia.
@@ -51,7 +59,7 @@ Zweryfikowane środowisko v0.1.10: **PlatformIO espressif32 7.0.1 / ESP-IDF 6.0.
 - `docs/TESTS.md` — procedury testowania; nie wprowadzaj zmian w RF bez diagnozy.
 - `docs/photos/` — wybrane fotografie modułu, LCD, taśm i oznaczeń.
 
-## Co robi obecny firmware?
+## Co robiła baza v0.1.10?
 
 - Inicjalizacja PSRAM i raportowanie wolnego heapu.
 - UART2, **GPIO25 TX**, **GPIO26 RX**, 115200 8N1 TTL 3,3 V.
