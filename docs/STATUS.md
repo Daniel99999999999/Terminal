@@ -1,5 +1,15 @@
 # Faktyczny stan projektu / handoff
 
+## 15.11.2026 — v0.2.3: obrót o180° na podstawie nowego zdjęcia
+
+Zdjęcie `20261115_170535.jpg` przedstawia faktycznie wgrany wzór v0.2.2: LEWY GORNY jest na dole po prawej, PRAWY DOL na górze po lewej, litery do góry nogami. To obrót o180°, co trafnie wskazał użytkownik. Pierwsze zdjęcie przedstawiało poprzedni wzór; nie należało traktować go jako obrazu po wgraniu v0.2.2. Zmieniono wyłącznie domyślny RETRO_TFT_ROTATION z1 na3 oraz wersję. Rozmiar320×240, tor UART1, piny i wariant RAM wewnętrznego zachowane. Build SUCCESS,19,83 s. Użytkownik zaakceptował ten obrót jako poprawne ustawienie i polecił pominąć dalsze opisy narożników oraz przejść do następnego etapu. Publikacja źródeł poprzedza upload/kontrolę startu; nie wymagać kolejnego testu narożników.
+
+## 15.11.2026 — raport bootloopu i wynik próby orientacji v0.2.2
+
+**[Szczegółowy raport bootloopu](BOOTLOOP_REPORT_2026-11-15.md):** etap i objaw potwierdzone, pierwotna przyczyna nieustalona. Nowe porównanie zachowanych ELF/BIN v0.2.0 z panic dump wykazało różne słowa kodu pod prawidłowym PC; [dowód GDB](logs/2026-11-15_v0.2.0_elf_comparison.txt). PSRAM nadal nie jest naprawiona, bieżący wariant używa RAM wewnętrznego.
+
+v0.2.2 źródła `8808233` opublikowane po buildzie i przed testami. Upload COM5 SUCCESS, weryfikacja hash poprawna. [Odczyt15 s](logs/2026-11-15_v0.2.2_internal_boot.txt): brak resetów, powitanie3001 ms, internal_free224408 B. Test rastra PASS, Cppcheck9 C bez zgłoszeń. Wysłany przez COM14 asymetryczny wzór z opisami narożników i ABC123: [176 B, zgodne CRC, brak strat/błędów](logs/2026-11-15_v0.2.2_orientation_result.json), [log](logs/2026-11-15_v0.2.2_orientation_stream.txt). **Użytkownik nadal zgłasza zamianę lewej/prawej strony i zapowiedział nowe zdjęcie.** Nie uznawać orientacji za naprawioną; kolejne zmiany wstrzymane do obejrzenia aktualnego obrazu.
+
 ## 15.11.2026 — v0.2.2: korekta odbicia lewo–prawo
 
 Zdjęcie użytkownika `20261115_165654.jpg` pokazuje tekst testu COM14 przy prawej krawędzi z odwróconymi literami. Wizualnie potwierdza pojawienie się tekstu i kolorów na LCD, ale z błędną orientacją. W tabeli obrotów MX było odwrócone względem standardowego mapowania ILI9341; poprawiono wszystkie cztery wpisy. Domyślne ROTATION1: MV=1, MX=0, MY=0, BGR=1 → MADCTL0x28, wcześniej0x68. [Referencja sterownika Adafruit](https://github.com/adafruit/Adafruit_ILI9341/blob/master/Adafruit_ILI9341.cpp#L209). Nie zmieniono pinów, fontu ani kolejności bajtów RGB565. Build `esp32dev_internal` SUCCESS, 24,62 s, przed publikacją i testami. Poprawna orientacja nowego obrazu nie jest jeszcze potwierdzona.

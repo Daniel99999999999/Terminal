@@ -1,9 +1,14 @@
 # Historia wersji
 
+## v0.2.3 — 15.11.2026
+
+- Zdjęcie aktualnego wzoru v0.2.2 potwierdza obrót obrazu o180°, nie samo odbicie: LEWY GORNY znajduje się na dole po prawej, litery są do góry nogami.
+- Domyślny RETRO_TFT_ROTATION zmieniony z1 na3, czyli obrót o180° przy zachowanym poziomym rozmiarze320×240. Bez zmian pinów i ustawień pamięci.
+
 ## v0.2.2 — 15.11.2026
 
-- Poprawiona tabela orientacji ILI9341: MX był odwrócony dla wszystkich czterech obrotów. Dla domyślnego poziomego obrazu MADCTL zmienia się z 0x68 na 0x28 (BGR zachowane), usuwając dodatkowe odbicie.
-- Zgłoszenie i zdjęcie użytkownika pokazały tekst odbity lewo–prawo w v0.2.1. Fizyczny wynik poprawki wymaga obserwacji po wgraniu; wyniki w STATUS.
+- Zmieniona tabela orientacji ILI9341 na mapowanie referencyjne dla czterech obrotów. Dla domyślnego poziomego obrazu MADCTL zmienia się z 0x68 na 0x28 (BGR zachowane).
+- Zdjęcie użytkownika pokazało tekst odbity lewo–prawo w v0.2.1. Po wgraniu v0.2.2 użytkownik nadal zgłasza zamianę lewo/prawo; oczekujemy aktualnego zdjęcia, nie uznajemy orientacji za naprawioną. Wyniki i szczegółowy raport bootloopu w STATUS.
 
 ## v0.2.1 — 15.11.2026
 

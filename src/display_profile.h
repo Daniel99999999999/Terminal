@@ -10,7 +10,7 @@
 #endif
 
 #ifndef RETRO_TFT_ROTATION
-#define RETRO_TFT_ROTATION 1
+#define RETRO_TFT_ROTATION 3 /* Landscape, connectors on the user's left. */
 #endif
 #ifndef RETRO_TFT_BGR
 #define RETRO_TFT_BGR 1

@@ -2,9 +2,13 @@
 
 Projekt terminala szeregowego DIY opartego na **ESP32-WROVER (ESP32-D0WD-V3)**. Natywny **ESP-IDF 6.0.1 w PlatformIO**, język **C**, bez Arduino.
 
-Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.2.2**. [Nowa implementacja i konfiguracja](docs/REWRITE_v0.2.0.md), [opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
+Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.2.3**. [Nowa implementacja i konfiguracja](docs/REWRITE_v0.2.0.md), [opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
+
+**v0.2.3:** po zdjęciu wzoru z opisami narożników zmieniono domyślny obrót z1 na3 (o180°), zachowując320×240. W v0.2.2 litery i narożniki były obrócone względem fizycznego ustawienia LCD. Stan weryfikacji w STATUS.
 
 **v0.2.2:** poprawiono tabelę obrotów ILI9341 po zdjęciu pokazującym odbicie lewo–prawo. Domyślny poziomy obraz używa MADCTL 0x28 zamiast 0x68. [Porównanie orientacji](https://github.com/adafruit/Adafruit_ILI9341/blob/master/Adafruit_ILI9341.cpp#L209). Stan próby sprzętowej w STATUS; działający wariant pamięci nadal `esp32dev_internal`.
+
+**Wynik v0.2.2:** stabilny start i odbiór wzoru testowego potwierdzone, ale użytkownik nadal zgłasza zamianę lewo/prawo — orientacja wymaga dalszej korekty po aktualnym zdjęciu. [Szczegółowy raport bootloopu](docs/BOOTLOOP_REPORT_2026-11-15.md) oddziela dowody od hipotez; pierwotna przyczyna błędu startu PSRAM pozostaje nieustalona.
 
 **Aktualny tor:** badane urządzenie → HC-05 master ⇄ HC-05 slave → **UART1 TX32/RX34, 115200 → TFT**. Telefonu nie ma; UART2 i most nie są uruchamiane. Nowy runtime, standardowy start SDK bez eksperymentalnych wrapperów pamięci, powitanie 3 s i parser ANSI/VT100. Dawne opisy mostu poniżej są historyczne; rzeczywiste wyniki w STATUS.
 
