@@ -2,11 +2,12 @@
 
 ## 15.11.2026 — v0.2.1: terminal działa w RAM wewnętrznym, COM14 PASS
 
+- **Potwierdzenie użytkownika na sprzęcie:** LCD jest podłączony, powitanie jest widoczne i dioda GPIO2 miga. Potwierdza to fizyczne wyświetlanie powitania oraz sygnalizację pracy w wariancie `esp32dev_internal`. Użytkownik nie potwierdził jeszcze kolorów i treści końcowego ekranu testu COM14.
 - Źródła `c81849d` opublikowane po buildach i przed testami. Upload `esp32dev_internal` przez COM5 SUCCESS, hash zapisu zweryfikowany. **Ten wariant jest obecnie na ESP32.** Domyślny `esp32dev` nadal inicjalizuje PSRAM i nie jest potwierdzony jako działający; użycie zwykłego Upload może przywrócić bootloop. Do sprawdzonego wariantu służy osobne zadanie `PIO: Upload SPI TFT (internal RAM diagnostic)`.
-- [Odczyt 15 s](logs/2026-11-15_v0.2.1_internal_boot.txt): brak restartów, regularne HEALTH/UART1/SCREEN, stabilne internal_free=224392 B. Odczyt zaczął się już po wczesnych logach app_main; powitanie zakończyło się po **3001 ms** (500→3501 ms). To dowód działania zadania i zakończeń DMA, nie wizualnego obrazu przy nieznanym aktualnym podłączeniu panelu.
-- **COM14 → HC-05 master/slave → UART1 → parser PASS:** [wynik JSON](logs/2026-11-15_v0.2.1_uart1_result.json), [log](logs/2026-11-15_v0.2.1_uart1_stream.txt). Wysłane/odebrane/przetworzone **17894 B**, zgodne CRC32 odbioru i parsera, **0 błędów UART, 0 utraconych bajtów**, 13 sekwencji sterujących. Tekst zwykły, rozdrobnione ANSI/UTF-8 i ciągły dłuższy strumień. UART2 nieaktywny. Końcowe dane pozostawiają czytelny ekran testowy z kolorami.
+- [Odczyt 15 s](logs/2026-11-15_v0.2.1_internal_boot.txt): brak restartów, regularne HEALTH/UART1/SCREEN, stabilne internal_free=224392 B. Odczyt zaczął się już po wczesnych logach app_main; powitanie zakończyło się po **3001 ms** (500→3501 ms). Czas zmierzono w logu; widoczność powitania i podłączenie LCD użytkownik potwierdził osobno.
+- **COM14 → HC-05 master/slave → UART1 → parser PASS:** [wynik JSON](logs/2026-11-15_v0.2.1_uart1_result.json), [log](logs/2026-11-15_v0.2.1_uart1_stream.txt). Wysłane/odebrane/przetworzone **17894 B**, zgodne CRC32 odbioru i parsera, **0 błędów UART, 0 utraconych bajtów**, 13 sekwencji sterujących. Tekst zwykły, rozdrobnione ANSI/UTF-8 i ciągły dłuższy strumień. UART2 nieaktywny. Końcowe dane zawierają tekst i polecenia kolorów przeznaczone do wizualnego sprawdzenia na TFT.
 - Cppcheck 9 aktywnych C osobno dla PSRAM i RAM wewnętrznego: bez zgłoszeń, oba kody0. VS Code tasks JSON poprawny. Regresje niezmienionego parsera/fontu/profili/XPT2046 opisane w wyniku v0.2.0 poniżej.
-- **Otwarte:** wizualne potwierdzenie LCD i migania LED przez użytkownika oraz przyczyna standardowego startu PSRAM. Wariant RAM wewnętrznego omija jej inicjalizację, nie stanowi naprawy PSRAM. Nie uruchamiano natywnych BT/Wi-Fi ani zmian AT HC-05.
+- **Otwarte:** wizualne sprawdzenie treści/kolorów testowego strumienia na LCD oraz przyczyna błędu standardowego startu PSRAM. Wariant RAM wewnętrznego omija jej inicjalizację, nie stanowi naprawy PSRAM. Nie uruchamiano natywnych BT/Wi-Fi ani zmian AT HC-05.
 
 ## 15.11.2026 — v0.2.1: jawna alternatywa RAM wewnętrznego
 
