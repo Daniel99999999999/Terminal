@@ -1,5 +1,12 @@
 # Faktyczny stan projektu / handoff
 
+## 15.11.2026 — v0.1.17: bariera niewystarczająca, kontrola bez LCD
+
+- Źródła `9e7a922` opublikowano po kompilacji i przed testem. SPI i headless skompilowane SUCCESS, kontrola IRAM rozszerzonych zależności PASS. Upload obu profili COM5 SUCCESS. Oba przechodzą test PSRAM, oba następnie wpadają w IllegalInstruction przed app_main. [SPI](logs/2026-11-15_v0.1.17_boot.txt), [bez LCD](logs/2026-11-15_v0.1.17_headless_boot.txt). Bariera cache nie usunęła problemu.
+- Cppcheck aktywnych 13 C zgłosił 3 ostrzeżenia w makrze SDK REG_READ (asercja DPORT w diagnostyce); nie są to nowe błędy kompilacji. Nie deklarować analizy jako PASS. Wcześniejsze 12 C i pełny zestaw hosta przeszły.
+- Flash odczytany przez esptool: producent 5E, device 4016, 4 MB, strap 3,3 V, status 0x100000 (**QE=0**). Sprawdzamy tryb Flash QIO i rolę HOLD/IO3 współdzielonego z PSRAM. Dla tego ID dokumentacja rodziny Zbit opisuje QE jako przełącznik funkcji HOLD/WP i Quad IO. To hipoteza do sprawdzenia, nie diagnoza zamknięta.
+- Zweryfikowano kod i SDK: LCD SPI3 GPIO18/23/19/21/22/27, PSRAM CLK17/CS16, Flash6..11. Brak wspólnego pinu; awaria występuje przed funkcjami inicjalizacji LCD i także bez LCD. W logu MMU 205/206 również nie opisuje używanego zakresu kodu 400d..; właściwe wpisy to 77/78. Nie wyciągać wniosków o uszkodzeniu mapowania z poprzednich etykiet diagnostycznych.
+
 ## 15.11.2026 — v0.1.16: fizyczny odczyt Flash poprawny
 
 - Build SUCCESS, publikacja `3241c93`, upload COM5 SUCCESS. [Log](logs/2026-11-15_v0.1.16_flash_read.txt): ROM read=0, poprawny nagłówek Flash `200206e9,400846c0,000000ee,00000000`; DROM magic `abcd5432` przed/po. PSRAM 8 MB, 4 MB mapowane, test pamięci PASS.
