@@ -8,6 +8,8 @@ Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/
 
 **v0.2.1:** jawny wariant `esp32dev_internal` używa wyłącznie RAM wewnętrznego do sprawdzenia terminala bez wadliwego obecnie startu PSRAM. Domyślny `esp32dev` nadal włącza PSRAM; v0.2.0 core potwierdził błąd przed app_main. Wyniki prób w STATUS; nie ogłaszać naprawy PSRAM.
 
+**Sprawdzono i wgrano `esp32dev_internal`:** stabilny start, powitanie w logu 3001 ms, COM14/HC-05 → UART1 → parser: 17894 B, CRC32 zgodne, bez strat i błędów. Obraz LCD i LED oczekują na obserwację użytkownika. W VS Code wybierz `PIO: Upload SPI TFT (internal RAM diagnostic)`; zwykłe `PIO: Upload` nadal wybiera profil PSRAM.
+
 **v0.1.19:** standardowy start PSRAM SDK, Flash QIO/40 MHz; usunięte nieskuteczne eksperymentalne wrappery i noflash z v0.1.13–18. Powitanie TFT 3 s zachowane. Wcześniejsze wpisy poniżej opisują historię; rzeczywiste wyniki w STATUS.
 
 **v0.1.14:** [powitanie TFT przez 3 sekundy, test COM14 i rozszerzona ścieżka noflash](docs/WELCOME_UART_v0.1.14.md). COM14 prowadzi do HC-05 na UART1; model TFT nadal otrzymuje UART2 RX. Test sprzętowy v0.1.13 wykazał dalszy bootloop; aktualny wynik w STATUS.

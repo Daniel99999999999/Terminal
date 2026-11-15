@@ -1,0 +1,11 @@
+I (500) TFT: Welcome visible; hold 3000 ms
+I (3501) TFT: Welcome complete; opening terminal
+I (5212) HEALTH: alive stage=2 internal_free=224392 PSRAM_free=0
+I (5212) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (5212) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000
+I (10217) HEALTH: alive stage=2 internal_free=224392 PSRAM_free=0
+I (10217) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (10217) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000
+I (15222) HEALTH: alive stage=2 internal_free=224392 PSRAM_free=0
+I (15222) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (15222) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000
