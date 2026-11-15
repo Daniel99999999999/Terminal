@@ -2,7 +2,7 @@
 
 Projekt terminala szeregowego DIY opartego na **ESP32-WROVER (ESP32-D0WD-V3)**. Natywny **ESP-IDF 6.0.1 w PlatformIO**, język **C**, bez Arduino.
 
-Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.1.19**, etap rozwojowy. [Opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
+Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.1.20**, diagnostyka startu. [Opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
 
 **v0.1.19:** standardowy start PSRAM SDK, Flash QIO/40 MHz; usunięte nieskuteczne eksperymentalne wrappery i noflash z v0.1.13–18. Powitanie TFT 3 s zachowane. Wcześniejsze wpisy poniżej opisują historię; rzeczywiste wyniki w STATUS.
 

@@ -1,5 +1,9 @@
 # Historia wersji
 
+## v0.1.20 — 15.11.2026, kontrola czasów Flash CS
+
+- Zachowanie czasów hold/setup CS Flash z bootloadera przez inicjalizację współdzielonego PSRAM; log wartości przed/po. Niewielki wrapper IRAM, bez ręcznej bariery cache, bez zmiany zegarów/pinów. Wynik sprzętowy w STATUS; wcześniejszy standardowy SDK/QIO także nie startował.
+
 ## v0.1.19 — 15.11.2026
 
 - Powrót do standardowej inicjalizacji SDK: usunięte nieskuteczne projektowe noflash/wrapper/bariera cache i ich test adresów; wariant QIO/40 MHz zachowany do weryfikacji osobno od tych obejść. Powitanie TFT przez 3 s, dotyk OFF i przydział GPIO zachowane. Wyniki w STATUS.
