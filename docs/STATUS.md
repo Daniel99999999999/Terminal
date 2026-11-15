@@ -2,6 +2,10 @@
 
 ## 15.11.2026 — v0.3.2: poprawka odczytu i ciągłości kalibracji
 
+**Wyniki po publikacji `52bf077`:** [kontrole i próba fizyczna](logs/2026-11-15_v0.3.2_validation.json). Test XPT2046 i kalibracji/UI PASS, Cppcheck 11 C w obu wariantach bez zgłoszeń. Upload touch COM5 SUCCESS, hash zweryfikowany. [Start 15 s](logs/2026-11-15_v0.3.2_touch_boot.txt) bez resetów, powitanie3006 ms; **wczytano poprawną kalibrację z NVS**. To potwierdza zapis/odtworzenie mapy, ale nie dokładność znacznika w próbie użytkownika.
+
+**Próba trzech przytrzymań środka:** użytkownik potwierdził wykonanie; [log TOUCH_RAW](logs/2026-11-15_v0.3.2_touch_press_watch.txt) ma cały czas irq_low=0/valid=0. Wejście GPIO36 jest odczytywane jako HIGH i warunek w sterowniku blokuje wszystkie kolejne pomiary ADC. Nie znamy jeszcze powodu stałego HIGH; wynik nie dowodzi braku podciągania, awarii panelu ani nieprawidłowego progu nacisku. Kolejna kontrola ma odczytać SPI/ADC niezależnie od IRQ. Poprawa reakcji i PAUZA/WZNÓW nie są potwierdzone.
+
 [Opis i ograniczenia](TOUCH_RESPONSE_v0.3.2.md). Zmieniono odczyty XPT2046 na jedną serię SPI z aktywnym ADC i końcowym przywróceniem PENIRQ. Filtr toleruje pojedynczy krótki zanik próbki, zachowuje wymagane osiem poprawnych/100 ms i pełne puszczenie. Dodano postęp na LCD oraz TOUCH_RAW z powodami odrzucenia co2 s. Progi nacisku/zakresu i piny nie zmienione. Kompilacje internal/touch SUCCESS (20,98/21,73 s), przed publikacją i nowymi testami. Dotychczasowy fizyczny objaw przytrzymań nadal wymaga weryfikacji; nie przypisywać go jeszcze brakowi pull-up ani konkretnemu podzespołowi.
 
 ## 15.11.2026 — XPT2046 podłączony, wgrana v0.3.1 touch

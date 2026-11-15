@@ -1,0 +1,19 @@
+I (512) TFT: Welcome visible; hold 3000 ms
+I (548) TOUCH: Calibration loaded for rotation=3 320x240
+I (2268) TOUCH_RAW: poll=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (3518) TFT: Welcome complete; opening terminal
+I (4272) TOUCH_RAW: poll=67 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (5232) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (5232) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (5232) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (6275) TOUCH_RAW: poll=266 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (8278) TOUCH_RAW: poll=465 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (10239) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (10239) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (10239) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (10280) TOUCH_RAW: poll=664 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (12283) TOUCH_RAW: poll=863 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (14285) TOUCH_RAW: poll=1062 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (15246) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (15246) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (15246) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL

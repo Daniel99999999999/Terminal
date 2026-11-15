@@ -43,3 +43,7 @@ Liczniki nie zastępują pomiaru napięcia lub przebiegu IRQ. Pojedyncze odrzuce
 Test protokołu sprawdza pojedynczą transakcję i zakończenie PENIRQ także przy słabej/odrzuconej próbce, medianę i odrzucenie początkowego odczytu, liczniki powodów odrzucenia i zachowanie buforów po timeout. Regresja UI dodaje stabilny pomiar z pojedynczą brakującą próbką (po żadnej stronie nie ma ośmiu kolejnych poprawnych) oraz osobne krótkie stuknięcia rozdzielone puszczeniem. Dotychczasowe kontrole dopasowania/NVS/walidacji pozostają.
 
 Kolejność: kompilacja obu wariantów, publikacja wersji, testy, upload i ponowna próba fizyczna. Wyniki są w STATUS. Ocena poprawy reakcji, ukończenie kalibracji i odtworzenie po resecie wymagają próby na sprzęcie.
+
+## Wynik fizyczny
+
+Wersja wgrana, start stabilny, kalibracja została odtworzona z NVS. Przy trzech zgłoszonych przez użytkownika przytrzymaniach GPIO36 pozostawało odczytywane jako HIGH; irq_low i valid pozostały zerowe. v0.3.2 nie potwierdziła poprawy reakcji. [Pełny zapis wyników](logs/2026-11-15_v0.3.2_validation.json) i [log próby](logs/2026-11-15_v0.3.2_touch_press_watch.txt). Przyczyna stanu IRQ wymaga rozróżnienia od działania ADC; następna zmiana nie może opierać całej diagnostyki na tym wejściu.

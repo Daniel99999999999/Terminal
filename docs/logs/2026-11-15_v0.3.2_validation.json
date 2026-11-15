@@ -1,0 +1,28 @@
+{
+  "version": "0.3.2",
+  "source_commit": "52bf077",
+  "builds": {
+    "esp32dev_internal": "SUCCESS 20.981 s",
+    "esp32dev_touch": "SUCCESS 21.730 s"
+  },
+  "host_tests": {
+    "xpt2046": "PASS",
+    "calibration_ui": "PASS"
+  },
+  "cppcheck": {
+    "internal": "11 active C, exit 0, no warning/performance/portability diagnostics",
+    "touch": "11 active C, exit 0, no warning/performance/portability diagnostics"
+  },
+  "upload": "esp32dev_touch COM5 SUCCESS 8.595 s, hashes verified",
+  "boot": {
+    "duration_s": 15,
+    "restarts": 0,
+    "welcome_ms": 3006,
+    "calibration_loaded_from_nvs": true
+  },
+  "physical_touch": {
+    "user_report": "three holds of centre, approximately 3 seconds each, completed",
+    "observation": "irq_low=0 and valid=0 throughout capture; no ADC read after initialization because IRQ gate stayed HIGH",
+    "root_cause": "not established; compare ADC pressure polling independently of IRQ next"
+  }
+}

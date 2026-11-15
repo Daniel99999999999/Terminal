@@ -1,0 +1,471 @@
+I (596058) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (596058) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (596058) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (597162) TOUCH_RAW: poll=58971 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (599165) TOUCH_RAW: poll=59170 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (601065) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (601065) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (601065) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (601168) TOUCH_RAW: poll=59369 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (603171) TOUCH_RAW: poll=59568 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (605174) TOUCH_RAW: poll=59767 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (606072) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (606072) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (606072) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (607177) TOUCH_RAW: poll=59966 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (609180) TOUCH_RAW: poll=60165 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (611079) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (611079) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (611079) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (611183) TOUCH_RAW: poll=60364 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (613186) TOUCH_RAW: poll=60563 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (615189) TOUCH_RAW: poll=60762 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (616086) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (616086) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (616086) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (617192) TOUCH_RAW: poll=60961 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (619195) TOUCH_RAW: poll=61160 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (621093) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (621093) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (621093) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (621198) TOUCH_RAW: poll=61359 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (623201) TOUCH_RAW: poll=61558 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (625204) TOUCH_RAW: poll=61757 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (626100) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (626100) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (626100) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (627207) TOUCH_RAW: poll=61956 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (629210) TOUCH_RAW: poll=62155 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (631107) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (631107) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (631107) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (631213) TOUCH_RAW: poll=62354 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (633216) TOUCH_RAW: poll=62553 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (635219) TOUCH_RAW: poll=62752 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (636114) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (636114) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (636114) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (637222) TOUCH_RAW: poll=62951 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (639225) TOUCH_RAW: poll=63150 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (663261) TOUCH_RAW: poll=65538 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (665264) TOUCH_RAW: poll=65737 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (666156) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (666156) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (666156) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (667267) TOUCH_RAW: poll=65936 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (669270) TOUCH_RAW: poll=66135 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (671163) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (671163) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (671163) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (671273) TOUCH_RAW: poll=66334 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (673276) TOUCH_RAW: poll=66533 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (675279) TOUCH_RAW: poll=66732 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (676170) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (676170) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (676170) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (677282) TOUCH_RAW: poll=66931 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (679288) TOUCH_RAW: poll=67130 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (681177) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (681177) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (681177) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (681288) TOUCH_RAW: poll=67329 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (683294) TOUCH_RAW: poll=67528 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (685294) TOUCH_RAW: poll=67727 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (686184) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (686184) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (686184) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (687297) TOUCH_RAW: poll=67926 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (689303) TOUCH_RAW: poll=68125 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (691191) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (691191) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (691191) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (691303) TOUCH_RAW: poll=68324 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (693309) TOUCH_RAW: poll=68523 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (695309) TOUCH_RAW: poll=68722 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (696198) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (696198) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (696198) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (697315) TOUCH_RAW: poll=68921 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (699318) TOUCH_RAW: poll=69120 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (701205) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (701205) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (701205) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (701321) TOUCH_RAW: poll=69319 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (703324) TOUCH_RAW: poll=69518 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (705324) TOUCH_RAW: poll=69717 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (706212) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (706212) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (706212) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (707330) TOUCH_RAW: poll=69916 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (709330) TOUCH_RAW: poll=70115 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (711219) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (711219) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (711219) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (711335) TOUCH_RAW: poll=70314 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (713338) TOUCH_RAW: poll=70513 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (715341) TOUCH_RAW: poll=70712 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (716226) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (716226) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (716226) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (717344) TOUCH_RAW: poll=70911 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (719347) TOUCH_RAW: poll=71110 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (721233) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (721233) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (721233) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (721350) TOUCH_RAW: poll=71309 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (723353) TOUCH_RAW: poll=71508 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (725356) TOUCH_RAW: poll=71707 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (726240) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (726240) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (726240) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (727359) TOUCH_RAW: poll=71906 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (729362) TOUCH_RAW: poll=72105 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (731247) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (731247) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (731247) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (731365) TOUCH_RAW: poll=72304 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (733368) TOUCH_RAW: poll=72503 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (735371) TOUCH_RAW: poll=72702 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (736254) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (736254) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (736254) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (737374) TOUCH_RAW: poll=72901 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (739377) TOUCH_RAW: poll=73100 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (741261) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (741261) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (741261) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (741380) TOUCH_RAW: poll=73299 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (743383) TOUCH_RAW: poll=73498 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (745386) TOUCH_RAW: poll=73697 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (746268) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (746268) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (746268) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (747389) TOUCH_RAW: poll=73896 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (749392) TOUCH_RAW: poll=74095 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (751275) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (751275) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (751275) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (751395) TOUCH_RAW: poll=74294 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (753398) TOUCH_RAW: poll=74493 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (755401) TOUCH_RAW: poll=74692 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (756282) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (756282) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (756282) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (757404) TOUCH_RAW: poll=74891 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (759407) TOUCH_RAW: poll=75090 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (761289) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (761289) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (761289) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (761410) TOUCH_RAW: poll=75289 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (763413) TOUCH_RAW: poll=75488 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (765416) TOUCH_RAW: poll=75687 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (766296) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (766296) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (766296) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (767419) TOUCH_RAW: poll=75886 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (769422) TOUCH_RAW: poll=76085 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (771303) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (771303) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (771303) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (771425) TOUCH_RAW: poll=76284 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (773428) TOUCH_RAW: poll=76483 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (775431) TOUCH_RAW: poll=76682 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (776310) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (776310) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (776310) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (777434) TOUCH_RAW: poll=76881 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (779437) TOUCH_RAW: poll=77080 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (781317) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (781317) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (781317) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (781440) TOUCH_RAW: poll=77279 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (783443) TOUCH_RAW: poll=77478 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (785446) TOUCH_RAW: poll=77677 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (786324) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (786324) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (786324) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (787449) TOUCH_RAW: poll=77876 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (789452) TOUCH_RAW: poll=78075 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (791331) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (791331) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (791331) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (791455) TOUCH_RAW: poll=78274 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (793458) TOUCH_RAW: poll=78473 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (795461) TOUCH_RAW: poll=78672 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (796338) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (796338) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (796338) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (797464) TOUCH_RAW: poll=78871 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (799467) TOUCH_RAW: poll=79070 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (801345) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (801345) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (801345) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (801470) TOUCH_RAW: poll=79269 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (803473) TOUCH_RAW: poll=79468 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (805476) TOUCH_RAW: poll=79667 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (806352) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (806352) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (806352) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (807479) TOUCH_RAW: poll=79866 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (809482) TOUCH_RAW: poll=80065 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (811359) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (811359) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (811359) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (811485) TOUCH_RAW: poll=80264 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (813488) TOUCH_RAW: poll=80463 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (815491) TOUCH_RAW: poll=80662 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (816366) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (816366) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (816366) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (817494) TOUCH_RAW: poll=80861 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (819497) TOUCH_RAW: poll=81060 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (821373) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (821373) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (821373) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (821500) TOUCH_RAW: poll=81259 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (823503) TOUCH_RAW: poll=81458 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (825506) TOUCH_RAW: poll=81657 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (826380) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (826380) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (826380) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (827509) TOUCH_RAW: poll=81856 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (829512) TOUCH_RAW: poll=82055 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (831387) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (831387) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (831387) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (831515) TOUCH_RAW: poll=82254 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (833518) TOUCH_RAW: poll=82453 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (835521) TOUCH_RAW: poll=82652 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (836394) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (836394) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (836394) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (837524) TOUCH_RAW: poll=82851 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (839527) TOUCH_RAW: poll=83050 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (841401) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (841401) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (841401) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (841530) TOUCH_RAW: poll=83249 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1076745) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1076745) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1076745) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1077886) TOUCH_RAW: poll=106731 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1079889) TOUCH_RAW: poll=106930 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1081753) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1081753) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1081753) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1081892) TOUCH_RAW: poll=107129 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1083895) TOUCH_RAW: poll=107328 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1085898) TOUCH_RAW: poll=107527 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1086761) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1086761) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1086761) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1087901) TOUCH_RAW: poll=107726 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1089904) TOUCH_RAW: poll=107925 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1091769) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1091769) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1091769) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1091907) TOUCH_RAW: poll=108124 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1093910) TOUCH_RAW: poll=108323 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1095913) TOUCH_RAW: poll=108522 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1096777) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1096777) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1096777) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1097916) TOUCH_RAW: poll=108721 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1099919) TOUCH_RAW: poll=108920 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1101785) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1101785) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1101785) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1101922) TOUCH_RAW: poll=109119 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1103925) TOUCH_RAW: poll=109318 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1105928) TOUCH_RAW: poll=109517 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1106793) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1106793) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1106793) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1107931) TOUCH_RAW: poll=109716 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1109934) TOUCH_RAW: poll=109915 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1111801) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1111801) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1111801) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1111937) TOUCH_RAW: poll=110114 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1113940) TOUCH_RAW: poll=110313 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1115943) TOUCH_RAW: poll=110512 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1116809) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1116809) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1116809) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1117946) TOUCH_RAW: poll=110711 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1119949) TOUCH_RAW: poll=110910 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1121817) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1121817) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1121817) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1121952) TOUCH_RAW: poll=111109 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1123955) TOUCH_RAW: poll=111308 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1125958) TOUCH_RAW: poll=111507 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1126825) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1126825) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1126825) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1127961) TOUCH_RAW: poll=111706 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1129964) TOUCH_RAW: poll=111905 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1131833) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1131833) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1131833) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1131967) TOUCH_RAW: poll=112104 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1133970) TOUCH_RAW: poll=112303 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1135973) TOUCH_RAW: poll=112502 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1136841) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1136841) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1136841) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1137976) TOUCH_RAW: poll=112701 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1139979) TOUCH_RAW: poll=112900 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1141849) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1141849) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1141849) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1141982) TOUCH_RAW: poll=113099 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1143985) TOUCH_RAW: poll=113298 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1145988) TOUCH_RAW: poll=113497 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1146857) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1146857) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1146857) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1147991) TOUCH_RAW: poll=113696 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1149994) TOUCH_RAW: poll=113895 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1151865) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1151865) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1151865) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1151997) TOUCH_RAW: poll=114094 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1154000) TOUCH_RAW: poll=114293 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1156003) TOUCH_RAW: poll=114492 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1156873) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1156873) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1156873) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1158006) TOUCH_RAW: poll=114691 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1160009) TOUCH_RAW: poll=114890 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1161881) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1161881) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1161881) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1162012) TOUCH_RAW: poll=115089 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1164015) TOUCH_RAW: poll=115288 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1166018) TOUCH_RAW: poll=115487 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1166889) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1166889) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1166889) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1168021) TOUCH_RAW: poll=115686 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1170024) TOUCH_RAW: poll=115885 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1171897) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1171897) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1171897) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1172027) TOUCH_RAW: poll=116084 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1174030) TOUCH_RAW: poll=116283 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1176033) TOUCH_RAW: poll=116482 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1176905) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1176905) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1176905) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1178036) TOUCH_RAW: poll=116681 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1180039) TOUCH_RAW: poll=116880 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1181913) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1181913) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1181913) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1182042) TOUCH_RAW: poll=117079 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1184045) TOUCH_RAW: poll=117278 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1186048) TOUCH_RAW: poll=117477 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1186921) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1186921) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1186921) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1188051) TOUCH_RAW: poll=117676 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1190054) TOUCH_RAW: poll=117875 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1191929) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1191929) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1191929) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1192057) TOUCH_RAW: poll=118074 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1194060) TOUCH_RAW: poll=118273 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1196063) TOUCH_RAW: poll=118472 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1196937) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1196937) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1196937) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1198066) TOUCH_RAW: poll=118671 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1200069) TOUCH_RAW: poll=118870 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1201945) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1201945) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1201945) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1202072) TOUCH_RAW: poll=119069 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1204075) TOUCH_RAW: poll=119268 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1206078) TOUCH_RAW: poll=119467 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1206953) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1206953) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1206953) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1208081) TOUCH_RAW: poll=119666 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1210084) TOUCH_RAW: poll=119865 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1211961) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1211961) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1211961) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1212087) TOUCH_RAW: poll=120064 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1214090) TOUCH_RAW: poll=120263 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1216093) TOUCH_RAW: poll=120462 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1216969) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1216969) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1216969) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1218096) TOUCH_RAW: poll=120661 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1220099) TOUCH_RAW: poll=120860 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1221977) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1221977) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1221977) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1222102) TOUCH_RAW: poll=121059 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1224105) TOUCH_RAW: poll=121258 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1226108) TOUCH_RAW: poll=121457 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1226985) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1226985) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1226985) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1228111) TOUCH_RAW: poll=121656 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1230114) TOUCH_RAW: poll=121855 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1231993) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1231993) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1231993) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1232117) TOUCH_RAW: poll=122054 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1234120) TOUCH_RAW: poll=122253 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1236123) TOUCH_RAW: poll=122452 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1237001) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1237001) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1237001) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1238126) TOUCH_RAW: poll=122651 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1240129) TOUCH_RAW: poll=122850 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1242009) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1242009) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1242009) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1242132) TOUCH_RAW: poll=123049 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1244135) TOUCH_RAW: poll=123248 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1246138) TOUCH_RAW: poll=123447 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1247017) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1247017) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1247017) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1248141) TOUCH_RAW: poll=123646 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1250144) TOUCH_RAW: poll=123845 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1252025) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1252025) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1252025) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1252147) TOUCH_RAW: poll=124044 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1254150) TOUCH_RAW: poll=124243 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1256153) TOUCH_RAW: poll=124442 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1257033) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1257033) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1257033) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1258156) TOUCH_RAW: poll=124641 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1260159) TOUCH_RAW: poll=124840 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1262041) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1262041) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1262041) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1262162) TOUCH_RAW: poll=125039 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1264165) TOUCH_RAW: poll=125238 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1266168) TOUCH_RAW: poll=125437 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1267049) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1267049) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1267049) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1268171) TOUCH_RAW: poll=125636 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1270174) TOUCH_RAW: poll=125835 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1272057) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1272057) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1272057) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1272177) TOUCH_RAW: poll=126034 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1274180) TOUCH_RAW: poll=126233 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1276183) TOUCH_RAW: poll=126432 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
+I (1277065) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (1277065) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (1277065) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (1278186) TOUCH_RAW: poll=126631 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0
