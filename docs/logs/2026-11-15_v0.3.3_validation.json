@@ -1,0 +1,29 @@
+{
+  "version": "0.3.3",
+  "source_commit": "1580d1a",
+  "builds": {
+    "esp32dev_internal": "SUCCESS 26.486 s",
+    "esp32dev_touch": "SUCCESS 22.099 s"
+  },
+  "host_tests": {
+    "xpt2046_require_irq_0": "PASS",
+    "xpt2046_require_irq_1": "PASS"
+  },
+  "cppcheck": {
+    "internal": "11 active C, exit 0, no warning/performance/portability diagnostics",
+    "touch": "11 active C, exit 0, no warning/performance/portability diagnostics"
+  },
+  "upload": "COM5 esp32dev_touch SUCCESS 8.876 s; hashes verified",
+  "boot": {
+    "duration_s": 15,
+    "restarts": 0,
+    "welcome_ms": 3008,
+    "nvs_calibration_loaded": true,
+    "after_welcome_polls": 1060,
+    "accepted_touch_samples": 0,
+    "all_observed_raw_values": "x=0 y=0 z1=0 z2=0 IRQ=HIGH",
+    "spi_api_errors": 0
+  },
+  "physical_test": "repeat holds requested; result pending, no claimed improvement",
+  "uart_test": "not repeated on this version yet"
+}

@@ -1,0 +1,83 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0040,len:6272
+load:0x40078000,len:15848
+load:0x40080400,len:3920
+entry 0x4008063c
+I (27) boot: ESP-IDF 6.0.1 2nd stage bootloader
+I (27) boot: compile time Nov 15 2026 17:21:42
+I (28) boot: Multicore bootloader
+I (29) boot: chip revision: v3.0
+I (31) boot.esp32: SPI Speed      : 40MHz
+I (35) boot.esp32: SPI Mode       : DIO
+I (39) boot.esp32: SPI Flash Size : 4MB
+I (42) boot: Enabling RNG early entropy source...
+I (47) boot: Partition Table:
+I (49) boot: ## Label            Usage          Type ST Offset   Length
+I (56) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+I (62) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+I (69) boot:  2 factory          factory app      00 00 00010000 00100000
+I (75) boot: End of partition table
+I (79) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=0b220h ( 45600) map
+I (102) esp_image: segment 1: paddr=0001b248 vaddr=3ffb0000 size=02a10h ( 10768) load
+I (107) esp_image: segment 2: paddr=0001dc60 vaddr=40080000 size=023b8h (  9144) load
+I (111) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=16f78h ( 94072) map
+I (147) esp_image: segment 4: paddr=00036fa0 vaddr=400823b8 size=0a9f8h ( 43512) load
+I (165) esp_image: segment 5: paddr=000419a0 vaddr=50000000 size=00028h (    40) load
+I (172) boot: Loaded app from partition at offset 0x10000
+I (172) boot: Disabling RNG early entropy source...
+I (183) cpu_start: Multicore app
+I (191) cpu_start: GPIO 3 and 1 are used as console UART I/O pins
+I (192) cpu_start: Pro cpu start user code
+I (192) cpu_start: cpu freq: 160000000 Hz
+I (194) app_init: Application information:
+I (197) app_init: Project name:     Terminal
+I (201) app_init: App version:      0.3.3
+I (205) app_init: Compile time:     Nov 15 2026 19:07:49
+I (210) app_init: ELF file SHA256:  6f041d11d...
+I (214) app_init: ESP-IDF:          6.0.1
+I (218) efuse_init: Min chip rev:     v3.0
+I (222) efuse_init: Max chip rev:     v3.99 
+I (226) efuse_init: Chip rev:         v3.0
+I (230) heap_init: Initializing. RAM available for dynamic allocation:
+I (236) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM
+I (241) heap_init: At 3FFB3778 len 0002C888 (178 KiB): DRAM
+I (246) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+I (252) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+I (257) heap_init: At 4008CDB0 len 00013250 (76 KiB): IRAM
+I (264) spi_flash: detected chip: generic
+I (266) spi_flash: flash io: dio
+I (271) main_task: Started on CPU0
+I (273) main_task: Calling app_main()
+I (276) START: LED OK
+I (278) START: RetroTerminal v0.3.3 stage=2; native BT/Wi-Fi OFF; PSRAM pins16/17 reserved
+I (287) START: internal RAM heap=317752 bytes; 16 KiB check=ESP_OK
+I (292) START: internal RAM OK
+I (297) ili9341: LCD panel create success, version: 2.1.0
+I (300) SCREEN: ANSI/VT100 40x29; internal RAM cells; profile=2 touch=1
+I (306) START: screen task OK
+I (309) uart: ESP_INTR_FLAG_IRAM flag not set while CONFIG_UART_ISR_IN_IRAM is enabled, flag updated
+I (318) uart: queue free spaces: 32
+I (321) HC05: TX32/RX34 115200 8N1; HC-05 input -> TFT; UART2 untouched
+I (327) START: HC-05 UART1 OK
+I (330) START: READY stage=2
+I (512) TFT: Welcome visible; hold 3000 ms
+I (549) TOUCH: Calibration loaded for rotation=3 320x240
+I (2270) TOUCH_RAW: poll=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=0 require_irq=0
+I (3520) TFT: Welcome complete; opening terminal
+I (4274) TOUCH_RAW: poll=66 irq_low=0 valid=0 weak=66 bounds=0 end_high=0 io=0 raw=0,0 z=4095 z1=0 z2=0 irq=1 require_irq=0
+I (5250) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (5250) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (5250) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (6280) TOUCH_RAW: poll=265 irq_low=0 valid=0 weak=265 bounds=0 end_high=0 io=0 raw=0,0 z=4095 z1=0 z2=0 irq=1 require_irq=0
+I (8286) TOUCH_RAW: poll=464 irq_low=0 valid=0 weak=464 bounds=0 end_high=0 io=0 raw=0,0 z=4095 z1=0 z2=0 irq=1 require_irq=0
+I (10257) HEALTH: alive stage=2 internal_free=220952 PSRAM_free=0
+I (10257) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (10257) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (10292) TOUCH_RAW: poll=663 irq_low=0 valid=0 weak=663 bounds=0 end_high=0 io=0 raw=0,0 z=4095 z1=0 z2=0 irq=1 require_irq=0
+I (12298) TOUCH_RAW: poll=862 irq_low=0 valid=0 weak=862 bounds=0 end_high=0 io=0 raw=0,0 z=4095 z1=0 z2=0 irq=1 require_irq=0
+I (14298) TOUCH_RAW: poll=1060 irq_low=0 valid=0 weak=1060 bounds=0 end_high=0 io=0 raw=0,0 z=4095 z1=0 z2=0 irq=1 require_irq=0

@@ -1,0 +1,4 @@
+Embarcadero C++ 7.70 for Win64/COFF Copyright (c) 2012-2024 Embarcadero Technologies, Inc.
+PASS: XPT2046 require_irq=0; HIGH IRQ with/without pressure, single CS burst/ADC power/PENIRQ rearm, median/dummy samples, diagnostics, timeout buffer lifetime
+Embarcadero C++ 7.70 for Win64/COFF Copyright (c) 2012-2024 Embarcadero Technologies, Inc.
+PASS: XPT2046 require_irq=1; HIGH IRQ with/without pressure, single CS burst/ADC power/PENIRQ rearm, median/dummy samples, diagnostics, timeout buffer lifetime

@@ -2,6 +2,8 @@
 
 ## 15.11.2026 — v0.3.3: pomiar nacisku niezależny od IRQ
 
+**Po publikacji `1580d1a`:** [kontrole](logs/2026-11-15_v0.3.3_validation.json), [host XPT obu trybów](logs/2026-11-15_v0.3.3_host_xpt.txt) PASS. Cppcheck 11 C internal/touch: kody0, bez zgłoszeń. Upload touch COM5 SUCCESS, hash zweryfikowany. [Start15 s](logs/2026-11-15_v0.3.3_touch_boot.txt): bez restartów, powitanie3008 ms, mapa NVS wczytana. Do1060 odczytów po powitaniu: valid0, weak1060, io0, wszystkie obserwowane osie i Z1/Z2 zerowe, IRQ=HIGH. To brak fałszywych przyjęć w tym oknie, nie dowód poprawnego toru ADC. Powtórna próba z naciskiem została zlecona; oczekuje wyniku.
+
 [Opis](TOUCH_POLLING_v0.3.3.md). Domyślnie RETRO_TOUCH_REQUIRE_IRQ=0: SPI/ADC jest odczytywane przy każdym odpytywaniu, a poprawny nacisk/zakres ustala dotknięcie niezależnie od GPIO36. Jawna opcja1 zachowuje poprzedni tryb. Dodatkowo Z1/Z2 i stan IRQ w diagnostyce. Bez zmian kalibracji/NVS i fizycznego połączenia. Kompilacje internal/touch SUCCESS (26,486/22,099 s), przed publikacją i testami. Oczekuje testów/uploadu; nie ogłaszać rozwiązania fizycznej przyczyny.
 
 ## 15.11.2026 — v0.3.2: poprawka odczytu i ciągłości kalibracji
