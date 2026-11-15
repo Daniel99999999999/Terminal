@@ -1,5 +1,12 @@
 # Historia wersji
 
+## v0.2.0 — 15.11.2026
+
+- Nowa warstwa startu, LED/heartbeat, odbioru UART1 i wyświetlania; usunięte eksperymentalne wrappery/cache/linker/Flash timing.
+- Badane urządzenie przez HC-05 master/slave do UART1 TX32/RX34 i TFT; UART2/most nieaktywne, telefonu nie ma.
+- Świeży sdkconfig.terminal: ESP32 rev3, -Os, DIO40/PSRAM40, jawne alokacje PSRAM. Profile SPI/I80/NONE, powitanie 3 s, parser/font i dotykOFF zachowane.
+- COM14 testuje właściwe wejście modelu, z licznikami i CRC32 odbioru/parsera. Faktyczne wyniki w STATUS.
+
 ## v0.1.20 — 15.11.2026, kontrola czasów Flash CS
 
 - Zachowanie czasów hold/setup CS Flash z bootloadera przez inicjalizację współdzielonego PSRAM; log wartości przed/po. Niewielki wrapper IRAM, bez ręcznej bariery cache, bez zmiany zegarów/pinów. Wynik sprzętowy w STATUS; wcześniejszy standardowy SDK/QIO także nie startował.

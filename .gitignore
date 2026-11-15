@@ -27,3 +27,6 @@ Thumbs.db
 /sdkconfig.esp32dev_spi.old
 /sdkconfig.esp32dev_headless
 /sdkconfig.esp32dev_headless.old
+
+/sdkconfig.terminal
+/sdkconfig.terminal.old

@@ -9,25 +9,13 @@ config RETRO_HC05_STATE_ENABLE
     bool "STATE wired to GPIO35 and verified at 3.3 V"
     default n
     help
-        Without STATE the connection status is unknown, but the UART bridge
-        remains active. Do not enable with an unconnected/floating GPIO35.
+        Without STATE the connection status is unknown; UART1 still receives
+        target logs. Do not enable with an unconnected/floating GPIO35.
 
 config RETRO_HC05_STATE_ACTIVE_HIGH
     bool "STATE is HIGH while connected"
     depends on RETRO_HC05_STATE_ENABLE
     default y
 
-config RETRO_HC05_KEY_ENABLE
-    bool "Enable EN/KEY GPIO12 after verifying strap isolation"
-    default n
-    help
-        GPIO12 controls VDD_SDIO at reset. First verify that HC-05/button
-        cannot alter the factory strap. Does not control module power.
-
-config RETRO_HC05_AT_BAUD
-    int "HC-05 AT mode baud rate"
-    depends on RETRO_HC05_KEY_ENABLE
-    range 1200 921600
-    default 38400
-
+# EN/KEY is intentionally untouched. Future AT control requires strap isolation.
 endmenu

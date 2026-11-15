@@ -1,5 +1,11 @@
 # Faktyczny stan projektu / handoff
 
+## 15.11.2026 — przebudowa v0.2.0 na polecenie użytkownika
+
+[Nowa implementacja](REWRITE_v0.2.0.md). Aktualny tor: badane urządzenie → HC-05 master ⇄ HC-05 slave → **UART1 TX32/RX34 → TFT**. Moduły są połączone według użytkownika. Telefonu nie ma. UART2 nie jest inicjalizowany, most usunięty. COM14 jest wejściem testowego strumienia dla TFT. Usunięto eksperymentalne modyfikacje startu pamięci; świeża konfiguracja SDK. Końcowe kompilacje SPI, I80, headless i core: **4/4 SUCCESS**. Próby nowej wersji jeszcze niewykonane; commit/push źródeł ma je poprzedzać.
+
+**Sprostowanie:** użytkownik jednoznacznie potwierdził fizyczne odłączenie LCD na czas wcześniejszej próby, także GND/LED z Arduino. Krótki napis przy przełączaniu USB Arduino mógł być przypadkiem; nie stanowi diagnozy zasilania ani potwierdzenia app_main. Aktualnego okablowania nie wywodzić z opisu poprzedniej próby.
+
 ## 15.11.2026 — v0.1.20: CS przywrócone, bootloop pozostaje
 
 - Build SUCCESS, publikacja `4ebe112`, potem upload COM5 SUCCESS. Odczyt bez dodatkowego ręcznego resetu także pokazał bootloop (54 cykle / 15 s).
