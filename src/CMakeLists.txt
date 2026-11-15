@@ -5,6 +5,7 @@ idf_component_register(
          "tft_bus.c" "xpt2046.c"
          "../vendor/esp_lcd_ili9341/esp_lcd_ili9341.c"
     INCLUDE_DIRS "." "../vendor/esp_lcd_ili9341/include"
+    LDFRAGMENTS "psram_startup.lf"
     PRIV_REQUIRES esp_driver_uart esp_driver_gpio esp_driver_spi esp_psram esp_timer esp_lcd
 )
 

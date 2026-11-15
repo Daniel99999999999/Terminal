@@ -1,5 +1,12 @@
 # Historia wersji
 
+## v0.1.13 — 15.11.2026
+
+- Lokalny linker fragment noflash dla wczesnego startu PSRAM i rezerwacji GPIO na ESP32. Przechwycono LoadProhibited w `psram_is_32mbit_ver0` przed app_main; dotyczy także startu bez LCD. SDK i parametry pamięci pozostają niezmienione. [Dowody i zakres poprawki](docs/PSRAM_BOOT_FIX_v0.1.13.md).
+- Zachowano użytkownikowi domyślny SPI; niepodłączony dotyk domyślnie OFF. Jawny profil `esp32dev_headless`, wczesny log wersji/profilu/dotyku i etapy inicjalizacji TFT.
+- Dodano kontrolę rzeczywistego umieszczenia helperów PSRAM/atomików/stanu w RAM; test polityki HC-05 oddzielono od wybranego profilu LCD, którego GPIO sprawdzają dedykowane testy trzech wariantów. Test XPT2046 jawnie włącza swój driver niezależnie od domyślnego OFF.
+- Kompilacja i publikacja poprzedzają testy zgodnie z poleceniem. Fizyczne potwierdzenie naprawy wymaga uruchomienia nowego obrazu; [STATUS](docs/STATUS.md).
+
 ## v0.1.12 — 15.11.2026
 
 - Wybór przez `#define` w `display_profile.h`: NONE (domyślnie), ILI9341 I80 albo ILI9341 SPI. Środowiska PlatformIO `esp32dev`, `esp32dev_i80`, `esp32dev_spi` i osobne zadania VS Code. Usunięto niejednoznaczny drugi wybór TFT z menuconfig; ustawienia LCD/dotyku są makrami z nadpisaniem `-D`.

@@ -1,3 +1,7 @@
+# v0.1.13 — regresja startu PSRAM
+
+Przed publikacją kompilacja wariantów SPI/I80/NONE; po commicie/pushu testy hosta oraz `python tests/check_psram_iram.py .pio/build/esp32dev_spi/firmware.elf` (także dla pozostałych ELF). Sprawdzić rzeczywiste adresy helperów PSRAM/GPIO/atomika i DRAM; sam udany build nie wyklucza bootloopu. [Dowody i plan próby sprzętowej](PSRAM_BOOT_FIX_v0.1.13.md), [wyniki](STATUS.md). Dotyk domyślnie OFF; jego test hosta jawnie włącza sterownik. Kontrola GPIO trzech profili jest niezależna od użytkownikowego wyboru domyślnego SPI.
+
 # v0.1.12 — kolejność kompilacja / publikacja / testy
 
 Na polecenie z 15.11.2026 najpierw kompilujemy środowiska `esp32dev`, `esp32dev_i80`, `esp32dev_spi`, potem publikujemy commit v0.1.12 **przed testami**, a wyniki kontroli zapisujemy oddzielnie w [STATUS](STATUS.md).

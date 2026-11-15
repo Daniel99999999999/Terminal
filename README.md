@@ -2,9 +2,11 @@
 
 Projekt terminala szeregowego DIY opartego na **ESP32-WROVER (ESP32-D0WD-V3)**. Natywny **ESP-IDF 6.0.1 w PlatformIO**, język **C**, bez Arduino.
 
-Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.1.12**, etap rozwojowy. [Opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
+Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.1.13**, etap rozwojowy. [Opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
 
-**v0.1.12:** [profile TFT przez `#define`: NONE / ILI9341 I80 / ILI9341 SPI + XPT2046](docs/TFT_PROFILES_v0.1.12.md). Nowy moduł SPI ma VCC i LED **3,3 V** według użytkownika; osobny przydział GPIO i osobne magistrale LCD/dotyku. `pio run -e esp32dev_spi` kompiluje SPI, `-e esp32dev_i80` I80; domyślny `esp32dev` pozostawia TFT wyłączony. Wstępne surowe odczyty dotyku bez kalibracji/UI. [Zapis na SD zachowano jako przyszłe zadanie](docs/FUTURE_SD.md).
+**v0.1.13:** [bootloop podczas inicjalizacji PSRAM i lokalna poprawka linkowania](docs/PSRAM_BOOT_FIX_v0.1.13.md). Zachowano wybrany przez użytkownika domyślny **ILI9341 SPI**, dotyk domyślnie **OFF** (niepodłączony). `esp32dev` i `esp32dev_spi` korzystają z SPI bez dotyku; `esp32dev_headless` wymusza NONE, `esp32dev_i80` pozostaje alternatywą. Wczesny log pokazuje profil i stan dotyku. Stan fizycznej weryfikacji opisuje STATUS.
+
+**v0.1.12 (historia):** [profile TFT przez `#define`: NONE / ILI9341 I80 / ILI9341 SPI + XPT2046](docs/TFT_PROFILES_v0.1.12.md). Nowy moduł SPI ma VCC i LED **3,3 V** według użytkownika; osobny przydział GPIO i osobne magistrale LCD/dotyku. Wstępne surowe odczyty dotyku bez kalibracji/UI. [Zapis na SD zachowano jako przyszłe zadanie](docs/FUTURE_SD.md).
 
 **v0.1.11:** dodano most HC-05 UART1 TX32/RX34 przy potwierdzonych 115200, opcjonalne STATE35 i EN12/AT oraz renderer ILI9341 przez I80/DMA. [Konfiguracja i ograniczenia](docs/HC05_TFT_v0.1.11.md), [połączenia](docs/PIN_ASSIGNMENT_HC05_TFT.md). Natywne BT/Wi-Fi usunięto z bieżącego firmware. TFT, STATE i EN są domyślnie wyłączone do potwierdzenia warunków elektrycznych. Kod wymaga testu na rzeczywistym sprzęcie; końcowe kontrole po commicie źródeł są opisane w STATUS.
 

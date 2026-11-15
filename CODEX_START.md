@@ -1,5 +1,7 @@
 # Prompt startowy do Codex
 
+**v0.1.13 / 15.11.2026:** użytkownik ustawił domyślny SPI, zachowano; dotyk niepodłączony i domyślnie OFF. Odczyt COM5 potwierdził bootloop LoadProhibited podczas startu PSRAM przed app_main, także bez LCD. [Dowody, noflash i kontrola ELF](docs/PSRAM_BOOT_FIX_v0.1.13.md); aktualne wyniki w STATUS. Nie zmieniać GPIO16/17 ani zegarów PSRAM. `esp32dev_headless` wymusza NONE. Nie ogłaszać naprawionego sprzętu bez logu nowej wersji.
+
 **Aktualizacja 15.11.2026 / v0.1.12:** wybór TFT przez `src/display_profile.h` (`RETRO_TFT_PROFILE` NONE/I80/SPI) albo gotowe środowiska PlatformIO. [Nowy ILI9341 SPI + XPT2046 i przydział pinów](docs/TFT_PROFILES_v0.1.12.md): LCD SPI3 18/23/19, CS21/DC22/RST27; dotyk SPI2 14/13/39, CS33/IRQ36. Użytkownik potwierdził VCC i LED 3,3 V. Nie łączyć pinoutu SPI i I80; PSRAM16/17 i UART-y zachowane. NONE nadal domyślny, TFT nie jest już wybierane przez menuconfig. [Zapis na SD — przyszła funkcja](docs/FUTURE_SD.md). Wstępny dotyk RAW, bez kalibracji/UI. Po udanej kompilacji commit/push przed testami zgodnie z najnowszym poleceniem; wyniki w STATUS. Nie wykonywano automatycznego uploadu. Starsze informacje poniżej opisują poprzednie wersje.
 
 Skopiuj poniższy tekst do Codex w VS Code po otwarciu folderu projektu:

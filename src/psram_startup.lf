@@ -1,0 +1,15 @@
+# ESP-IDF 6.0.1 / classic ESP32: PSRAM startup changes the shared flash/PSRAM
+# controller before app_main. Its non-inlined helpers and literal pools must
+# remain usable independently of the flash cache. Keep this project-local;
+# do not patch the installed SDK or alter the PSRAM clock/pins.
+[mapping:retro_psram_startup]
+archive: libesp_psram.a
+entries:
+    if IDF_TARGET_ESP32 = y && SPIRAM = y:
+        esp_psram_impl_quad (noflash)
+
+[mapping:retro_psram_gpio_reservation]
+archive: libesp_hw_support.a
+entries:
+    if IDF_TARGET_ESP32 = y && SPIRAM = y:
+        esp_gpio_reserve (noflash)

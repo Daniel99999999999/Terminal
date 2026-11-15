@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "hc05_link.h"
-#include "board_pins.h"
 
 #define CHECK(v) do { if (!(v)) { printf("FAIL line %d: %s\n", __LINE__, #v); return 1; } } while (0)
 
@@ -75,17 +74,7 @@ int main(void)
     CHECK(hc05_link_status(&l) == HC05_DISCONNECTED);
     CHECK(!hc05_link_current(&l, l.generation, false));
 
-    const unsigned outputs[] = {TFT_D0_GPIO,TFT_D1_GPIO,TFT_D2_GPIO,TFT_D3_GPIO,
-        TFT_D4_GPIO,TFT_D5_GPIO,TFT_D6_GPIO,TFT_D7_GPIO,TFT_WR_GPIO,TFT_DC_GPIO,
-        TFT_CS_GPIO,TFT_RD_GPIO,TFT_RST_GPIO,HC05_UART_TX_GPIO,HC05_KEY_GPIO,
-        TARGET_UART_TX_GPIO,TARGET_UART_RX_GPIO,1,2,3};
-    uint64_t used = 0;
-    for (unsigned i = 0; i < sizeof(outputs)/sizeof(outputs[0]); ++i) {
-        unsigned p = outputs[i];
-        CHECK(p <= 33 && p != 16 && p != 17 && !(p >= 6 && p <= 11));
-        CHECK(!(used & (1ULL << p))); used |= 1ULL << p;
-    }
-    CHECK(HC05_UART_RX_GPIO >= 34 && HC05_STATE_GPIO >= 34 && HC05_UART_RX_GPIO != HC05_STATE_GPIO);
-    puts("PASS: HC-05 unknown/STATE/debounce/session/AT/wrap policies and GPIO reservations");
+    /* Pin ownership is tested independently for every display profile. */
+    puts("PASS: HC-05 unknown/STATE/debounce/session/AT/wrap policies");
     return 0;
 }

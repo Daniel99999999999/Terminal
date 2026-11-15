@@ -1,5 +1,7 @@
 # TFT I80 lub SPI + XPT2046 — v0.1.12
 
+> **Aktualizacja v0.1.13:** zachowano wybór użytkownika: domyślny profil w nagłówku to teraz **SPI**. Dotyk jest niepodłączony, więc domyślnie OFF; po podłączeniu włącz `RETRO_TOUCH_ENABLE=1`. `esp32dev_headless` wymusza NONE, a `esp32dev_spi` SPI. Poniższy opis domyślnych NONE/touch ON dotyczy oryginalnej v0.1.12. [Naprawa startu PSRAM i stan sprawdzenia](PSRAM_BOOT_FIX_v0.1.13.md). Pinout nie zmienił się.
+
 Warianty są **alternatywnymi połączeniami**, nie dwoma ekranami podłączonymi jednocześnie. ESP32-WROVER: GPIO16/17 pozostają dla PSRAM; UART2 TX25/RX26, HC-05 TX32/RX34, STATE35, warunkowy KEY12, USB1/3 i debug LED2 nie zmieniają przydziału. Natywne BT/Wi-Fi pozostają poza firmware.
 
 Tabela do dalszych pomiarów: [PINOUT_SPI.csv](PINOUT_SPI.csv). Wszystkie przypisania GPIO są planem i implementacją, nie wynikiem fizycznego testu połączeń.

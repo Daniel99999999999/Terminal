@@ -1,5 +1,12 @@
 # Faktyczny stan projektu / handoff
 
+## 15.11.2026 — bootloop v0.1.12 i przygotowanie v0.1.13
+
+- Użytkownik: LCD SPI biały, debug LED nie miga, dotyk niepodłączony. Bootloop utrzymuje się po odłączeniu wszystkich przewodów LCD. Użytkownik wybrał w `display_profile.h` domyślny SPI; tę zmianę zachowano.
+- Po zwolnieniu COM5 przechwycono 94 208 B logu przez 10 s: powtarzalny **LoadProhibited, EXCVADDR=0xffffffff**, `rst:0xc`, przed app_main. Ostatni zwykły log to start PSRAM przy ok. 200 ms. [Jeden cykl i dekodowanie adresów](PSRAM_BOOT_FIX_v0.1.13.md); segmenty odpowiadają obrazowi SPI v0.1.12. Nie jest to dowód uszkodzenia LCD/PSRAM, nie ma komunikatu brownout.
+- Lokalny `psram_startup.lf` kieruje obiekty SDK wczesnego startu PSRAM i rezerwacji GPIO do noflash, bez edycji SDK/pinów/zegarów. W oryginalnym ELF helper wywoływany podczas rekonfiguracji kontrolera był w Flash. Poprawkę rozmieszczenia należy potwierdzić kontrolą ELF i uruchomieniem nowego obrazu.
+- Domyślny SPI pozostał, dotyk OFF; dodano jawny wariant headless oraz logi etapów app_main/TFT. Przed publikacją źródeł skompilowano v0.1.13: `esp32dev` (domyślny SPI bez dotyku) **SUCCESS**, 64,32 s, Flash 250 488 B / statyczny RAM 30 592 B; I80 **SUCCESS**, 100,81 s, Flash 232 660 B / RAM 30 156 B. Pozostałe kompilacje i testy zostaną opisane osobno. Testów nowej wersji jeszcze nie uruchomiono. Nie wgrywano nowej wersji; COM5 udostępniono do odczytu.
+
 ## 15.11.2026 — v0.1.12: wyniki kontroli po publikacji źródeł
 
 - Zgodnie z poleceniem: po udanej kompilacji trzech wariantów opublikowano źródła [2c1806e](https://github.com/Daniel99999999999/Terminal/commit/2c1806e), **następnie** uruchomiono testy. Wszystkie kontrole poniżej dotyczą tych samych C/H; po publikacji nie poprawiano kodu.

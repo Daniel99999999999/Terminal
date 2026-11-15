@@ -78,7 +78,7 @@ def main():
                           ["-DRETRO_TFT_PROFILE=" + str(profile)], []))
     if args.suite in ("all", "xpt"):
         extra.append(("xpt2046", [root / "tests/test_xpt2046.c", root / "src/xpt2046.c"],
-                      ["-DRETRO_TFT_PROFILE=2"], [root / "tests/spi_stubs"]))
+                      ["-DRETRO_TFT_PROFILE=2", "-DRETRO_TOUCH_ENABLE=1"], [root / "tests/spi_stubs"]))
     for name, sources, defines, includes in extra:
         executable = output / ("test_" + name + (".exe" if os.name == "nt" else ""))
         command = [compiler, *flags, "-std=c11", "-Wall", "-Wextra", "-Werror", *defines,

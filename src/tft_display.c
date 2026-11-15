@@ -131,7 +131,10 @@ static void display_task(void *arg)
 {
     (void)arg;
     debug_led_heartbeat(DEBUG_LED_LCD);
+    ESP_LOGI("TFT", "Init begin: %s; CS=%d DC=%d RESET=%d; touch=%d",
+             tft_bus_name(), TFT_CS_GPIO, TFT_DC_GPIO, TFT_RST_GPIO, RETRO_TOUCH_ENABLE);
     esp_err_t err = panel_init();
+    if (err == ESP_OK) { ESP_LOGI("TFT", "Controller init complete; color_test=%d", RETRO_TFT_COLOR_TEST); }
     if (err == ESP_OK) { err = tft_bus_backlight(true); }
     if (err == ESP_OK) { err = show_color_test(); }
 #if RETRO_TOUCH_ENABLE
