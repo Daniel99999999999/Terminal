@@ -1,5 +1,11 @@
 # Faktyczny stan projektu / handoff
 
+## 15.11.2026 — v0.1.15: pomiar rejestrów MSPI
+
+- Build SUCCESS (Flash 251060 B / RAM 31924 B), publikacja `e066c63`, potem upload COM5 SUCCESS. Wrapper tylko odczytuje rejestry. [Log](logs/2026-11-15_v0.1.15_mspi_registers.txt).
+- Przed/po PSRAM: CTRL=00a02000, USER=f0000070, USER1=6c000002, CLOCK=00001001, MUX6=00001b00 bez zmian; PIN zmienia 1e→1c (włączenie CS1 dla PSRAM). Nadal IllegalInstruction z kodem Flash ffffffff. Brak app_main/TFT/transferu COM14.
+- Pomiar nie wykazał zmiany trybu/dummy/zegara Flash. Kolejna diagnoza rozdzieli odczyt fizyczny Flash od mapowania cache/MMU, zamiast dodawać kolejne obiekty noflash.
+
 ## 15.11.2026 — v0.1.14: powitanie dodane, start nadal nieudany
 
 - Kompilacja przed publikacją SUCCESS: Flash 250876 B, RAM 31856 B. Źródła `79f6b35` opublikowano przed testami (pierwszy push miał przejściowy błąd sieci, ponowienie udane). Pełne testy hosta PASS, Cppcheck 12 C bez zgłoszeń, rozszerzona kontrola IRAM PASS.
