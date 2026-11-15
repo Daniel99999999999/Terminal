@@ -39,6 +39,7 @@ typedef struct {
     uint16_t rows, cols;
     uint8_t active;
     bool cursor_visible, insert, newline;
+    bool cr_newline, cr_pending; /* User display option; separate from VT LNM. */
     bool tabs[TERMINAL_MAX_COLS];
     uint32_t utf_value, utf_min;
     uint8_t utf_left;
@@ -48,6 +49,9 @@ typedef struct {
 bool terminal_init(terminal_t *t, uint16_t cols, uint16_t rows,
                    terminal_cell_t *primary, terminal_cell_t *alternate);
 void terminal_reset(terminal_t *t);
+/* Optional serial-text convention. CRLF still advances exactly one row.
+ * Off preserves standard VT carriage-return/progress-line behavior. */
+void terminal_set_cr_newline(terminal_t *t, bool enable);
 void terminal_feed(terminal_t *t, const uint8_t *data, size_t length);
 /* On a known transport gap, cancel partial UTF-8/ANSI and restore default attributes.
  * Retains visible cells; later incoming controls may rebuild the screen. */

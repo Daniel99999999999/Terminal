@@ -1,5 +1,11 @@
 # Historia wersji
 
+## v0.3.1 — 15.11.2026
+
+- Opcja wyświetlania CR jako nowej linii, domyślnie ON, dla zgłoszenia Enter z PuTTY. CRLF nie podwaja przejścia, również na granicy porcji; wybierany standardowy CR dla VT i linii postępu.
+- Pasek dotykowy PAUZA/WZNÓW, tryb CR i przytrzymanie CAL po prawej. Pauza zamraża obraz, odbiór i model pracują; wznowienie odrysowuje aktualny ekran. Bez historii scrollback.
+- Pozycja kursora i ustawienia widoku w diagnostyce SCREEN, regresje zakończeń wiersza i sterowania dotykiem. Wyniki w STATUS.
+
 ## v0.3.0 — 15.11.2026
 
 - Kalibracja XPT2046: pięć punktów, dopasowanie afiniczne, niezależny punkt walidacji, odrzucanie niestabilnych/zdegenerowanych pomiarów, wymagane puszczenie między punktami.

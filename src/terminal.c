@@ -56,6 +56,7 @@ void terminal_reset(terminal_t *t)
     t->active = 0;
     t->cursor_visible = true;
     t->insert = t->newline = false;
+    t->cr_pending = false;
     t->utf_left = 0;
     for (unsigned x = 0; x < t->cols; ++x) { t->tabs[x] = x && x % 8 == 0; }
     ansi_parser_reset(&t->parser);
@@ -336,8 +337,12 @@ static void event(void *ctx, ansi_event_t type, const ansi_sequence_t *s)
     if (type == ANSI_CSI) { ++t->control_sequences; csi(t, s); return; }
     if (type == ANSI_CONTROL) {
         switch (s->final) {
-        case '\r': c->x = 0; c->pending_wrap = false; break;
+        case '\r':
+            c->x = 0; c->pending_wrap = false;
+            if (t->cr_newline) { index_line(t, false); t->cr_pending = true; }
+            break;
         case '\n': case '\v': case '\f':
+            if (s->final == '\n' && t->cr_newline && t->cr_pending) { break; }
             if (t->newline) { c->x = 0; }
             index_line(t, false); break;
         case '\b': if (c->x) { --c->x; } c->pending_wrap = false; break;
@@ -385,10 +390,24 @@ bool terminal_init(terminal_t *t, uint16_t cols, uint16_t rows,
     return true;
 }
 
+void terminal_set_cr_newline(terminal_t *t, bool enable)
+{
+    if (t) { t->cr_newline = enable; t->cr_pending = false; }
+}
+
 void terminal_feed(terminal_t *t, const uint8_t *data, size_t length)
 {
-    if (!t) { return; }
-    ansi_parser_feed(&t->parser, data, length);
+    if (!t || (!data && length)) { return; }
+    if (!t->cr_newline) { ansi_parser_feed(&t->parser, data, length); }
+    else {
+        for (size_t i = 0; i < length; ++i) {
+            /* Track adjacent input bytes, including ignored OSC/ESC bytes.
+             * Interpret CR only when the parser emits a real C0 control. */
+            if (data[i] != '\n') { t->cr_pending = false; }
+            ansi_parser_feed(&t->parser, data + i, 1);
+            if (data[i] == '\n') { t->cr_pending = false; }
+        }
+    }
     if (length) { ++t->revision; }
 }
 
@@ -396,6 +415,7 @@ void terminal_stream_gap(terminal_t *t)
 {
     ansi_parser_reset(&t->parser);
     t->utf_left = 0;
+    t->cr_pending = false;
     terminal_cursor_t *c = &page(t)->cursor;
     c->fg = TERMINAL_DEFAULT_FG; c->bg = TERMINAL_DEFAULT_BG;
     c->flags = c->g0 = c->g1 = c->selected = 0;

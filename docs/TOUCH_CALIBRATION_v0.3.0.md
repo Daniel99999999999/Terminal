@@ -1,5 +1,7 @@
 # XPT2046 i kalibracja — v0.3.0
 
+**Rozszerzenie v0.3.1:** [pauza/wznowienie, tryb CR i kalibracja z prawej części paska](DISPLAY_CONTROLS_v0.3.1.md). Poniższa procedura pięciu punktów pozostaje aktualna; wejście do ponownej kalibracji odbywa się teraz przez przytrzymanie CAL po prawej.
+
 Kolejny etap wybrany przez użytkownika po zaakceptowaniu obrotu LCD o180°. UART1 z HC-05 nadal odbiera logi, UART2 nie jest uruchamiany. Dotyk korzysta z osobnej magistrali SPI2. RAM wewnętrzny pozostaje działającą konfiguracją; PSRAM nie została naprawiona.
 
 ## Połączenia

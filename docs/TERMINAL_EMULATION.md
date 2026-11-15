@@ -1,5 +1,7 @@
 # Automatyczna interpretacja ANSI / VT100 — v0.1.10
 
+**Bieżący runtime v0.3.1:** [wybierany tryb CR jako nowej linii](DISPLAY_CONTROLS_v0.3.1.md) jest domyślnie włączony w aplikacji dla zwykłych logów/Enter z PuTTY. Standardowe CR opisane poniżej pozostaje dostępne przez CR=CR/Kconfig. Parser nadal automatycznie obsługuje sekwencje ANSI. Odbiór i CRC zachowują oryginalne bajty.
+
 Wymaganie użytkownika z 13.11.2026: zwykły tekst ma być biały na czarnym tle, a sterowanie VT100 i popularne nowsze sekwencje ma być interpretowane automatycznie. Implementacja przetwarza jeden ciągły strumień tekstowy: zwykłe znaki trafiają do komórek, rozpoznane komendy zmieniają stan ekranu. Nie trzeba wybierać profilu przed pierwszą sekwencją. Atrybuty pozostają aktywne aż do ich zmiany/resetu przez nadawcę, również przez granice pakietów.
 
 ## Co jest zaimplementowane

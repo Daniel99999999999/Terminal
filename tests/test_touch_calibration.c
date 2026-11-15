@@ -81,7 +81,7 @@ int main(void)
     cal.y[0] = 0; cal.y[1] = 120; cal.y[2] = 119.8f;
     CHECK(touch_calibration_map(&cal, 4095, 4095, &x, &y) && x == 319 && y == 239);
 
-    touch_ui_init(); CHECK(touch_ui_visible());
+    touch_ui_init(true); CHECK(touch_ui_visible());
     release(); hold(24,24); hold(295,24); /* Holding cannot capture two targets. */
     for (unsigned i = 1; i < 5; ++i) {
         const unsigned xs[] = {24,295,295,24,160}, ys[] = {24,24,215,215,120};
@@ -99,17 +99,24 @@ int main(void)
     CHECK(pixels[0] == 0xa55a && pixels[LCD_STRIP_PIXELS+1] == 0xa55a);
     CHECK(!touch_ui_render_row(0,pixels,1));
     release(); hold(LCD_WIDTH/2,LCD_HEIGHT-16); CHECK(!touch_ui_visible());
-    touch_ui_init(); CHECK(!touch_ui_visible()); /* Persistent calibration restored. */
-    release(); hold(LCD_WIDTH/2,LCD_HEIGHT-3);
-    now_ms += 2100; hold(LCD_WIDTH/2,LCD_HEIGHT-3); CHECK(touch_ui_visible());
+    touch_ui_init(true); CHECK(!touch_ui_visible()); /* Persistent calibration restored. */
+    CHECK(!touch_ui_paused() && touch_ui_cr_newline());
+    release(); hold(20,LCD_HEIGHT-3); CHECK(touch_ui_paused());
+    hold(20,LCD_HEIGHT-3); CHECK(touch_ui_paused()); /* One action per press. */
+    release(); hold(20,LCD_HEIGHT-3); CHECK(!touch_ui_paused());
+    release(); hold(LCD_WIDTH/2,LCD_HEIGHT-3); CHECK(!touch_ui_cr_newline());
+    hold(LCD_WIDTH/2,LCD_HEIGHT-3); CHECK(!touch_ui_cr_newline());
+    release(); hold(LCD_WIDTH/2,LCD_HEIGHT-3); CHECK(touch_ui_cr_newline());
+    release(); hold(LCD_WIDTH-20,LCD_HEIGHT-3);
+    now_ms += 2100; hold(LCD_WIDTH-20,LCD_HEIGHT-3); CHECK(touch_ui_visible());
     stored[20] ^= 1; /* Keep the magic/header intact; exercise the CRC check. */
-    touch_ui_init(); CHECK(touch_ui_visible()); /* Invalid saved data is ignored. */
+    touch_ui_init(true); CHECK(touch_ui_visible()); /* Invalid saved data is ignored. */
     stored[20] ^= 1;
     uint32_t wrong_rotation = (RETRO_TFT_ROTATION + 2) & 3;
     memcpy(stored + 8, &wrong_rotation, sizeof(wrong_rotation));
     uint32_t crc = esp_rom_crc32_le(0, stored, (uint32_t)stored_size - 4);
     memcpy(stored + stored_size - 4, &crc, sizeof(crc));
-    touch_ui_init(); CHECK(touch_ui_visible()); /* Old orientation cannot be reused. */
-    puts("PASS: affine swapped/reversed axes, degeneracy/residual/edge guards; release gate, independent validation, NVS restore/CRC, long-press and render bounds");
+    touch_ui_init(true); CHECK(touch_ui_visible()); /* Old orientation cannot be reused. */
+    puts("PASS: affine swapped/reversed axes, degeneracy/residual/edge guards; release gate, independent validation, NVS restore/CRC, pause/resume, CR toggle, long-press and render bounds");
     return 0;
 }

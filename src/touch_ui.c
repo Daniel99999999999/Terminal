@@ -26,6 +26,7 @@ static unsigned s_page, s_point, s_samples, s_releases;
 static uint32_t s_revision = 1, s_sum_x, s_sum_y, s_since, s_hold_since;
 static uint16_t s_min_x, s_max_x, s_min_y, s_max_y, s_x, s_y;
 static bool s_wait_release = true, s_down, s_holding, s_nvs, s_saved, s_retry;
+static bool s_paused, s_cr_newline;
 
 static void target(unsigned *x, unsigned *y)
 {
@@ -74,10 +75,12 @@ static void restart(void)
 {
     s_page = CALIBRATE; s_point = s_samples = s_releases = 0;
     s_wait_release = true; s_holding = false; ++s_revision;
+    s_paused = false;
 }
 
-void touch_ui_init(void)
+void touch_ui_init(bool cr_newline)
 {
+    s_paused = false; s_cr_newline = cr_newline;
     /* Preserve other namespaces. Never erase the existing NVS on init errors. */
     esp_err_t err = nvs_flash_init();
     s_nvs = err == ESP_OK;
@@ -151,8 +154,17 @@ void touch_ui_update(const xpt2046_sample_t *sample, uint32_t now)
                 x >= LCD_WIDTH / 2 - 48 && x <= LCD_WIDTH / 2 + 48) {
                 s_page = TERMINAL; ++s_revision;
             } else if (s_page == TERMINAL && y >= LCD_HEIGHT - 8) {
-                if (!s_holding) { s_hold_since = now; s_holding = true; }
-                if (now - s_hold_since >= 2000) { s_retry = false; restart(); }
+                if (x < LCD_WIDTH * 2 / 3) {
+                    s_holding = false;
+                    if (!s_down) {
+                        if (x < LCD_WIDTH / 3) { s_paused = !s_paused; }
+                        else { s_cr_newline = !s_cr_newline; }
+                        ++s_revision;
+                    }
+                } else {
+                    if (!s_holding) { s_hold_since = now; s_holding = true; }
+                    if (now - s_hold_since >= 2000) { s_retry = false; restart(); }
+                }
             } else { s_holding = false; }
         }
     } else { s_holding = false; }
@@ -160,6 +172,8 @@ void touch_ui_update(const xpt2046_sample_t *sample, uint32_t now)
 }
 
 bool touch_ui_visible(void) { return s_page != TERMINAL; }
+bool touch_ui_paused(void) { return s_paused; }
+bool touch_ui_cr_newline(void) { return s_cr_newline; }
 uint32_t touch_ui_revision(void) { return s_revision; }
 
 bool touch_ui_render_row(unsigned row, uint16_t *pixels, size_t capacity)
@@ -195,9 +209,11 @@ bool touch_ui_render_row(unsigned row, uint16_t *pixels, size_t capacity)
     return true;
 }
 #else
-void touch_ui_init(void) {}
+void touch_ui_init(bool cr_newline) { (void)cr_newline; }
 void touch_ui_update(const xpt2046_sample_t *sample, uint32_t now) { (void)sample; (void)now; }
 bool touch_ui_visible(void) { return false; }
+bool touch_ui_paused(void) { return false; }
+bool touch_ui_cr_newline(void) { return false; }
 uint32_t touch_ui_revision(void) { return 0; }
 bool touch_ui_render_row(unsigned row, uint16_t *pixels, size_t size) { (void)row; (void)pixels; (void)size; return false; }
 #endif

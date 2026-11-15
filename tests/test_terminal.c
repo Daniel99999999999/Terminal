@@ -86,6 +86,34 @@ static int basic_controls(void)
     send("\x1b[20l\nY"); CHECK(at(1,2)->codepoint == 'Y');
     return valid(&f);
 }
+static int serial_cr_mode(void)
+{
+    const char *input = "one\rtwo\r\nthree";
+    init(&f,12,8); terminal_set_cr_newline(&f.t, true); send(input);
+    CHECK(row(0,"one") == 0 && row(1,"two") == 0 && row(2,"three") == 0);
+    CHECK(cursor()->x == 5 && cursor()->y == 2);
+    for (size_t split = 0; split <= strlen(input); ++split) {
+        init(&g,12,8); terminal_set_cr_newline(&g.t,true);
+        terminal_feed(&g.t,(const uint8_t *)input,split);
+        terminal_feed(&g.t,(const uint8_t *)input+split,strlen(input)-split);
+        CHECK(memcmp(f.a,g.a,12*8*sizeof(*f.a)) == 0);
+        CHECK(g.t.page[0].cursor.x == 5 && g.t.page[0].cursor.y == 2);
+        CHECK(valid(&g) == 0);
+    }
+    init(&f,12,8); terminal_set_cr_newline(&f.t,true); send("A\r\rB");
+    CHECK(at(0,0)->codepoint=='A' && at(0,2)->codepoint=='B');
+    init(&f,12,8); terminal_set_cr_newline(&f.t,true); send("A\r\x1b[0m\nB");
+    CHECK(at(0,2)->codepoint=='B'); /* Only adjacent CRLF is paired. */
+    init(&f,12,8); terminal_set_cr_newline(&f.t,true); send("A\x1b]0;ignored\rtext\aB");
+    CHECK(row(0,"AB")==0 && cursor()->y==0); /* OSC bytes are not normalized. */
+    send("\r"); terminal_stream_gap(&f.t); send("\nC");
+    CHECK(at(0,2)->codepoint=='C'); /* A transport gap cannot complete CRLF. */
+    terminal_set_cr_newline(&f.t,false); send("\rZ");
+    CHECK(at(0,2)->codepoint=='Z' && cursor()->y==2); /* Strict VT available. */
+    terminal_set_cr_newline(&f.t,true); send("\x1b" "cA\rB");
+    CHECK(at(0,0)->codepoint=='A' && at(0,1)->codepoint=='B'); /* RIS retains user option. */
+    return valid(&f);
+}
 static int sgr(void)
 {
     init(&f,12,5); send("A\x1b[31;44;1;4mB\x1b[0mC");
@@ -287,7 +315,7 @@ static int adversarial(void)
 
 int main(void)
 {
-    int (*tests[])(void)={initialization,plain,basic_controls,sgr,extended_colors,inverse,
+    int (*tests[])(void)={initialization,plain,basic_controls,serial_cr_mode,sgr,extended_colors,inverse,
         cursor_motion,erase_display,erase_line,wrap,scroll_region,character_edits,line_edits,
         save_restore,alternate_screen,line_graphics,utf8,control_strings,malformed,stream_gap,
         fragmentation,adversarial};

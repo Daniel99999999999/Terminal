@@ -1,5 +1,9 @@
 # Faktyczny stan projektu / handoff
 
+## 15.11.2026 — v0.3.1: Enter, pauza i pasek dotykowy
+
+[Opis trybu CR i sterowania](DISPLAY_CONTROLS_v0.3.1.md). Po zgłoszeniu Enter z PuTTY dodano domyślną opcję CR→nowy wiersz; CRLF nadal przechodzi raz, także na granicach porcji. Wybierany CR=CR zachowuje standardowy VT i linie postępu. Na pasku dotykowym: PAUZA/WZNÓW po lewej, wybór CR pośrodku, CAL przytrzymane 2 s po prawej. Pauza dotyczy obrazu, odbiór/model pracują; scrollback nie jest jeszcze dodany. Pozycja kursora i ustawienia widoku w logu SCREEN. Kompilacje internal/touch SUCCESS (53,57/57,12 s), przed publikacją i testami. Dotyk nadal czeka na podłączenie przez użytkownika; nie deklarować fizycznego sprawdzenia pauzy/kalibracji.
+
 ## 15.11.2026 — v0.3.0: wybrany etap XPT2046 i kalibracji
 
 **Kontrole po publikacji `c527b2e`:** kalibracja/UI z symulacją NVS, protokół XPT2046, trzy profile GPIO z odrzuceniem błędnych konfiguracji i raster — PASS. Cppcheck 11 aktywnych C osobno internal/touch, z jawnym makrem RETRO_TOUCH_ENABLE=0/1: oba kody 0, bez zgłoszeń warning/performance/portability. Fizycznej kalibracji nie wykonano: użytkownik dopiero podłączy dotyk.

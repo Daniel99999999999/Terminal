@@ -1,4 +1,5 @@
 #include "screen.h"
+#include "sdkconfig.h"
 #include <stdio.h>
 #include <string.h>
 #include "app_health.h"
@@ -20,10 +21,16 @@
 #define HAS_LCD (RETRO_TFT_PROFILE != RETRO_TFT_NONE)
 #define COLS (HAS_LCD ? LCD_WIDTH / 8 : 80)
 #define ROWS (HAS_LCD ? LCD_HEIGHT / 8 - 1 : 24)
+#ifdef CONFIG_RETRO_DISPLAY_CR_AS_NEWLINE
+#define DEFAULT_CR_NEWLINE true
+#else
+#define DEFAULT_CR_NEWLINE false
+#endif
 typedef struct { uint32_t sequence; uint16_t length; uint8_t data[128]; } input_t;
 static QueueHandle_t s_input;
 static uint32_t s_sequence, s_drops;
 static uint32_t s_parsed, s_crc, s_controls;
+static uint32_t s_cursor, s_view;
 static terminal_t s_terminal;
 static terminal_cell_t *s_previous;
 
@@ -57,15 +64,21 @@ static void parse_input(uint32_t *previous)
         __atomic_store_n(&s_controls, s_terminal.control_sequences, __ATOMIC_RELAXED);
         *previous = input.sequence;
     }
+    const terminal_cursor_t *cursor = &s_terminal.page[s_terminal.active].cursor;
+    __atomic_store_n(&s_cursor, ((uint32_t)cursor->y << 16) | cursor->x, __ATOMIC_RELAXED);
 }
 
 void screen_log(void)
 {
-    ESP_LOGI("SCREEN", "parsed=%lu drop=%lu controls=%lu CRC32=%08lx",
+    uint32_t cursor = __atomic_load_n(&s_cursor, __ATOMIC_RELAXED);
+    uint32_t view = __atomic_load_n(&s_view, __ATOMIC_RELAXED);
+    ESP_LOGI("SCREEN", "parsed=%lu drop=%lu controls=%lu CRC32=%08lx cursor=%u,%u view=%s CR=%s",
         (unsigned long)__atomic_load_n(&s_parsed, __ATOMIC_RELAXED),
         (unsigned long)__atomic_load_n(&s_drops, __ATOMIC_RELAXED),
         (unsigned long)__atomic_load_n(&s_controls, __ATOMIC_RELAXED),
-        (unsigned long)__atomic_load_n(&s_crc, __ATOMIC_RELAXED));
+        (unsigned long)__atomic_load_n(&s_crc, __ATOMIC_RELAXED),
+        (unsigned)(cursor & 0xffff), (unsigned)(cursor >> 16),
+        view & 1 ? "PAUSE" : "LIVE", view & 2 ? "NL" : "CR");
 }
 
 #if RETRO_TFT_PROFILE != RETRO_TFT_NONE
@@ -101,12 +114,15 @@ static esp_err_t welcome(uint32_t *sequence)
     return ESP_OK;
 }
 
-static esp_err_t status_line(void)
+static esp_err_t status_line(bool paused, bool cr_newline)
 {
+    char text[COLS + 1];
 #if RETRO_TOUCH_ENABLE
-    const char *text = "HC05 115200 | HOLD 2s: CAL";
+    snprintf(text, sizeof(text), "%-13.13s%-13.13s%-14.14s",
+             paused ? "[WZNOW]" : "[PAUZA]", cr_newline ? "[CR=NL]" : "[CR=CR]", "[CAL:2s]");
 #else
-    const char *text = "HC-05 UART1 115200 8N1";
+    (void)paused;
+    snprintf(text, sizeof(text), "HC05 115200 8N1 | CR=%s", cr_newline ? "NL" : "CR");
 #endif
     size_t length = strlen(text);
     terminal_cell_t cells[COLS];
@@ -122,6 +138,9 @@ static void screen_task(void *arg)
 {
     (void)arg;
     uint32_t sequence = 0, old_drops = 0;
+    bool cr_newline = DEFAULT_CR_NEWLINE;
+    bool paused = false;
+    __atomic_store_n(&s_view, cr_newline ? 2u : 0u, __ATOMIC_RELAXED);
     esp_err_t lcd_error = lcd_panel_open();
     int64_t welcome_until = 0;
 #if RETRO_TFT_PROFILE != RETRO_TFT_NONE
@@ -137,7 +156,7 @@ static void screen_task(void *arg)
 #if RETRO_TOUCH_ENABLE
     bool touch = xpt2046_init() == ESP_OK;
     if (!touch) { app_health_fault(); ESP_LOGE("TOUCH", "Initialization failed"); }
-    else { touch_ui_init(); }
+    else { touch_ui_init(cr_newline); }
     uint32_t ui_rows[LCD_HEIGHT / 8] = {0};
     unsigned ui_next = 0;
     bool overlay_was_visible = false;
@@ -166,6 +185,16 @@ static void screen_task(void *arg)
                 ESP_LOGE("TOUCH", "Read failed: %s; terminal continues", esp_err_to_name(error));
             } else { touch_ui_update(&sample, (uint32_t)(now / 1000)); }
         }
+        bool next_paused = touch && touch_ui_paused();
+        if (next_paused != paused) {
+            paused = next_paused; status_drawn = false;
+            if (!paused) { memset(s_previous, 0, COLS * ROWS * sizeof(*s_previous)); }
+        }
+        bool next_cr = touch ? touch_ui_cr_newline() : cr_newline;
+        if (next_cr != cr_newline) {
+            cr_newline = next_cr; terminal_set_cr_newline(&s_terminal, cr_newline); status_drawn = false;
+        }
+        __atomic_store_n(&s_view, (paused ? 1u : 0u) | (cr_newline ? 2u : 0u), __ATOMIC_RELAXED);
         bool overlay = touch && touch_ui_visible();
         if (overlay_was_visible && !overlay) {
             memset(s_previous, 0, COLS * ROWS * sizeof(*s_previous));
@@ -189,7 +218,7 @@ static void screen_task(void *arg)
         if (lcd_error == ESP_OK && !welcome_until && !overlay) {
             const terminal_cursor_t *cursor = &s_terminal.page[s_terminal.active].cursor;
             bool phase = ((now / 500000) & 1) == 0;
-            for (unsigned budget = 0; budget < 4; ++budget) {
+            for (unsigned budget = 0; !paused && budget < 4; ++budget) {
                 unsigned row = next_row++ % ROWS;
                 const terminal_cell_t *cells = terminal_cell(&s_terminal, 0, row);
                 terminal_cell_t *old = s_previous + row * COLS;
@@ -203,13 +232,14 @@ static void screen_task(void *arg)
                 memcpy(old, cells, COLS * sizeof(*old));
                 old_cursor[row] = visible; old_x[row] = cursor->x; old_phase[row] = phase;
             }
-            if (lcd_error == ESP_OK && !status_drawn) { lcd_error = status_line(); status_drawn = true; }
+            if (lcd_error == ESP_OK && !status_drawn) { lcd_error = status_line(paused, cr_newline); status_drawn = true; }
             if (lcd_error != ESP_OK) {
                 app_health_fault(); ESP_LOGE("TFT", "Rendering stopped: %s; UART continues", esp_err_to_name(lcd_error));
             }
         }
 #else
         (void)welcome_until;
+        (void)paused;
 #endif
         vTaskDelay(pdMS_TO_TICKS(10));
     }
@@ -224,6 +254,7 @@ esp_err_t screen_start(void)
     s_input = xQueueCreate(64, sizeof(input_t));
     if (!primary || !alternate || !s_previous || !s_input) { return ESP_ERR_NO_MEM; }
     if (!terminal_init(&s_terminal, COLS, ROWS, primary, alternate)) { return ESP_ERR_INVALID_ARG; }
+    terminal_set_cr_newline(&s_terminal, DEFAULT_CR_NEWLINE);
     app_health_beat(HEALTH_SCREEN);
     if (xTaskCreate(screen_task, "screen", 6144, NULL, 4, NULL) != pdPASS) { return ESP_ERR_NO_MEM; }
     ESP_LOGI("SCREEN", "ANSI/VT100 %dx%d; %s cells; profile=%d touch=%d", COLS, ROWS, APP_MEMORY_NAME, RETRO_TFT_PROFILE, RETRO_TOUCH_ENABLE);
