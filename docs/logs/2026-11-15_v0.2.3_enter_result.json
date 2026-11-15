@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "sent": 227,
+  "baseline": {
+    "rx": 75,
+    "errors": 0,
+    "rx_crc": 4071163663,
+    "parsed": 75,
+    "drop": 0,
+    "controls": 0,
+    "parsed_crc": 4071163663
+  },
+  "final": {
+    "rx": 302,
+    "errors": 0,
+    "rx_crc": 1251830579,
+    "parsed": 302,
+    "drop": 0,
+    "controls": 8,
+    "parsed_crc": 1251830579
+  },
+  "scope": "Known CR/LF/CRLF bytes and exact UART1/parser transport; TFT placement requires observation"
+}

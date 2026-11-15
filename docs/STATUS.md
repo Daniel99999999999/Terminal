@@ -2,6 +2,10 @@
 
 ## 15.11.2026 — v0.3.0: wybrany etap XPT2046 i kalibracji
 
+**Kontrole po publikacji `c527b2e`:** kalibracja/UI z symulacją NVS, protokół XPT2046, trzy profile GPIO z odrzuceniem błędnych konfiguracji i raster — PASS. Cppcheck 11 aktywnych C osobno internal/touch, z jawnym makrem RETRO_TOUCH_ENABLE=0/1: oba kody 0, bez zgłoszeń warning/performance/portability. Fizycznej kalibracji nie wykonano: użytkownik dopiero podłączy dotyk.
+
+**Test COM14 na nadal wgranej v0.2.3:** użytkownik zgłosił nadpisywanie wiersza po Enter w PuTTY i zwolnił COM14. Wysłano znane próbki CR/LF/CRLF: [227 B, dokładne liczniki i CRC UART1/parsera, brak strat i błędów](logs/2026-11-15_v0.2.3_enter_result.json), [log](logs/2026-11-15_v0.2.3_enter_stream.txt). Potwierdza to transport, nie odczyt pozycji liter ze zdjęcia. Przegląd modelu wykazał celowe standardowe CR→kolumna0, LF→następny wiersz. Następna zmiana doda wybierany tryb CR jako nowej linii oraz pauzę widoku dotykiem, bez zatrzymywania odbioru.
+
 Użytkownik wybrał dotyk i kalibrację zamiast scrollback. [Instrukcja i implementacja](TOUCH_CALIBRATION_v0.3.0.md). Dodano dopasowanie pięciu punktów z niezależną walidacją, ekran testu, zapis NVS oraz profil `esp32dev_touch` z wewnętrznym RAM i ISR UART w IRAM. Wariant bez dotyku zachowany. Kompilacje internal/touch SUCCESS (65,57/66,66 s), przed publikacją i testami. Nowe testy nie zostały jeszcze uruchomione. Użytkownik potwierdził: **dotyk jeszcze niepodłączony, podłączy według planu T_CLK14/T_DIN13/T_DO39/T_CS33/T_IRQ36**. Upload i kalibracja fizyczna czekają na gotowe okablowanie; na ESP32 pozostaje v0.2.3 bez dotyku. [Wynik poprzedniej próby](RESULTS_v0.2.3.md).
 
 ## 15.11.2026 — v0.2.3: obrót o180° na podstawie nowego zdjęcia

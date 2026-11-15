@@ -1,0 +1,6 @@
+I (981230) HEALTH: alive stage=2 internal_free=224408 PSRAM_free=0
+I (981230) HC05: RX=75 errors=0 CRC32=f2a9070f; UART2 inactive
+I (981230) SCREEN: parsed=75 drop=0 controls=0 CRC32=f2a9070f
+I (986235) HEALTH: alive stage=2 internal_free=224408 PSRAM_free=0
+I (986235) HC05: RX=302 errors=0 CRC32=4a9d6b33; UART2 inactive
+I (986235) SCREEN: parsed=302 drop=0 controls=8 CRC32=4a9d6b33
