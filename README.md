@@ -6,6 +6,8 @@ Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/
 
 **v0.3.1:** [CR jako nowa linia, wybierany ścisły VT, pauza/wznowienie obrazu dotykiem](docs/DISPLAY_CONTROLS_v0.3.1.md). CR+LF nadal daje pojedyncze przejście. Odbiór działa podczas pauzy; historia scrollback jeszcze nie jest zaimplementowana. Dotyk wymaga podłączenia i kalibracji.
 
+**Próby VT100/ANSI v0.3.1:** [20 przypadków, transport bez strat, potwierdzone przez użytkownika kolory/ramka/miganie](docs/VT100_TEST_2026-11-15.md). Zakres obejmuje zaimplementowany podzbiór; odpowiedzi DSR/DA nadal brak. Firmware i jego numer pozostają bez zmian.
+
 **v0.3.0:** [XPT2046: kalibracja pięciu punktów, niezależna walidacja, test dotyku i zapis ustawień](docs/TOUCH_CALIBRATION_v0.3.0.md). Osobny profil `esp32dev_touch` używa działającego RAM wewnętrznego. Obrót LCD 3 zachowany. Wariant bez dotyku nadal dostępny; użytkownik dopiero podłączy dotyk według opisanego planu.
 
 **v0.2.3:** po zdjęciu wzoru z opisami narożników zmieniono domyślny obrót z1 na3 (o180°), zachowując320×240. W v0.2.2 litery i narożniki były obrócone względem fizycznego ustawienia LCD. Stan weryfikacji w STATUS.

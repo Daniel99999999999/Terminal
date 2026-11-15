@@ -1,0 +1,72 @@
+I (711338) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (711338) HC05: RX=20146 errors=0 CRC32=64d21c67; UART2 inactive
+I (711338) SCREEN: parsed=20146 drop=0 controls=11 CRC32=64d21c67 cursor=0,8 view=LIVE CR=NL
+I (716346) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (716346) HC05: RX=20154 errors=0 CRC32=944716e7; UART2 inactive
+I (716346) SCREEN: parsed=20154 drop=0 controls=12 CRC32=944716e7 cursor=9,0 view=LIVE CR=NL
+I (721354) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (721354) HC05: RX=20181 errors=0 CRC32=d9da1212; UART2 inactive
+I (721354) SCREEN: parsed=20181 drop=0 controls=18 CRC32=d9da1212 cursor=10,7 view=LIVE CR=NL
+I (726362) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (726362) HC05: RX=20212 errors=0 CRC32=968b526c; UART2 inactive
+I (726362) SCREEN: parsed=20212 drop=0 controls=23 CRC32=968b526c cursor=6,4 view=LIVE CR=NL
+I (731370) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (731370) HC05: RX=20212 errors=0 CRC32=968b526c; UART2 inactive
+I (731370) SCREEN: parsed=20212 drop=0 controls=23 CRC32=968b526c cursor=6,4 view=LIVE CR=NL
+I (736378) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (736378) HC05: RX=20239 errors=0 CRC32=48e525f0; UART2 inactive
+I (736378) SCREEN: parsed=20239 drop=0 controls=29 CRC32=48e525f0 cursor=2,0 view=LIVE CR=NL
+I (741387) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (741387) HC05: RX=20263 errors=0 CRC32=f8b2c7a2; UART2 inactive
+I (741387) SCREEN: parsed=20263 drop=0 controls=34 CRC32=f8b2c7a2 cursor=4,2 view=LIVE CR=NL
+I (746395) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (746395) HC05: RX=20311 errors=0 CRC32=ed40cc5c; UART2 inactive
+I (746395) SCREEN: parsed=20311 drop=0 controls=36 CRC32=ed40cc5c cursor=1,1 view=LIVE CR=NL
+I (751404) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (751404) HC05: RX=20327 errors=0 CRC32=a34ac859; UART2 inactive
+I (751404) SCREEN: parsed=20327 drop=0 controls=39 CRC32=a34ac859 cursor=39,1 view=LIVE CR=NL
+I (756412) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (756412) HC05: RX=20387 errors=0 CRC32=5e9065ca; UART2 inactive
+I (756412) SCREEN: parsed=20387 drop=0 controls=50 CRC32=5e9065ca cursor=1,1 view=LIVE CR=NL
+I (761420) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (761420) HC05: RX=20408 errors=0 CRC32=1ef26e2f; UART2 inactive
+I (761420) SCREEN: parsed=20408 drop=0 controls=54 CRC32=1ef26e2f cursor=3,7 view=LIVE CR=NL
+I (766429) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (766429) HC05: RX=20432 errors=0 CRC32=b8717fb1; UART2 inactive
+I (766429) SCREEN: parsed=20432 drop=0 controls=58 CRC32=b8717fb1 cursor=4,0 view=LIVE CR=NL
+I (771437) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (771437) HC05: RX=20432 errors=0 CRC32=b8717fb1; UART2 inactive
+I (771437) SCREEN: parsed=20432 drop=0 controls=58 CRC32=b8717fb1 cursor=4,0 view=LIVE CR=NL
+I (776445) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (776445) HC05: RX=20488 errors=0 CRC32=650be6d5; UART2 inactive
+I (776445) SCREEN: parsed=20488 drop=0 controls=68 CRC32=650be6d5 cursor=1,2 view=LIVE CR=NL
+I (781453) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (781453) HC05: RX=20506 errors=0 CRC32=e88f0ad3; UART2 inactive
+I (781453) SCREEN: parsed=20506 drop=0 controls=71 CRC32=e88f0ad3 cursor=2,2 view=LIVE CR=NL
+I (786461) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (786461) HC05: RX=20546 errors=0 CRC32=1b5d58bb; UART2 inactive
+I (786461) SCREEN: parsed=20546 drop=0 controls=76 CRC32=1b5d58bb cursor=5,0 view=LIVE CR=NL
+I (791469) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (791469) HC05: RX=20618 errors=0 CRC32=d2cca29e; UART2 inactive
+I (791469) SCREEN: parsed=20618 drop=0 controls=84 CRC32=d2cca29e cursor=6,0 view=LIVE CR=NL
+I (796477) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (796477) HC05: RX=20637 errors=0 CRC32=92055f4e; UART2 inactive
+I (796477) SCREEN: parsed=20637 drop=0 controls=88 CRC32=92055f4e cursor=6,0 view=LIVE CR=NL
+I (801485) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (801485) HC05: RX=20890 errors=0 CRC32=4316d1d5; UART2 inactive
+I (801485) SCREEN: parsed=20890 drop=0 controls=89 CRC32=4316d1d5 cursor=6,0 view=LIVE CR=NL
+I (806493) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (806493) HC05: RX=20915 errors=0 CRC32=06dae127; UART2 inactive
+I (806493) SCREEN: parsed=20915 drop=0 controls=93 CRC32=06dae127 cursor=7,2 view=LIVE CR=NL
+I (811502) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (811502) HC05: RX=23714 errors=0 CRC32=ba2f4eb8; UART2 inactive
+I (811502) SCREEN: parsed=23714 drop=0 controls=531 CRC32=ba2f4eb8 cursor=4,7 view=LIVE CR=NL
+I (816510) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (816510) HC05: RX=29120 errors=0 CRC32=dc103d0e; UART2 inactive
+I (816510) SCREEN: parsed=29120 drop=0 controls=1375 CRC32=dc103d0e cursor=5,5 view=LIVE CR=NL
+I (821518) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (821518) HC05: RX=29128 errors=0 CRC32=e132ea41; UART2 inactive
+I (821518) SCREEN: parsed=29128 drop=0 controls=1377 CRC32=e132ea41 cursor=2,0 view=LIVE CR=NL
+I (826526) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (826526) HC05: RX=29818 errors=0 CRC32=ccf707e1; UART2 inactive
+I (826526) SCREEN: parsed=29818 drop=0 controls=1431 CRC32=ccf707e1 cursor=19,26 view=LIVE CR=NL

@@ -2,7 +2,11 @@
 
 ## 15.11.2026 — zlecone próby VT100 na v0.3.1
 
-Użytkownik potwierdził „Działa” po poprawce Enter i zlecił testy VT100. [Procedura i ograniczenia](VT100_TEST_2026-11-15.md). Przygotowano odtwarzalny test 20 przypadków, z jawnymi oczekiwaniami komórek/kolorów na hoście oraz cursor/controls/bytes/CRC z działającego ESP32. Aplikacja nie jest zmieniana ani ponownie wgrywana. Istniejące 23 scenariusze parsera i raster PASS, porty COM5/COM14 dostępne; wyniki nowych prób zostaną dopisane po uruchomieniu. DSR pozostaje niezaimplementowane i ma osobny test ujemny.
+**Wykonano: 20/20 PASS w testowanym zakresie.** [Raport](VT100_TEST_2026-11-15.md), [zbiorcze wyniki](logs/2026-11-15_v0.3.1_vt100_summary.json). Testy `864838c`, istniejący firmware `0805f57`, bez nowego uploadu. Host: 239 jawnych porównań wybranych komórek (w części kolorów/atrybutów), strumień po jednym bajcie. ESP32 przez COM14: 9672 B, 1420 komend, dokładne pozycje kursora zgodne po każdym przypadku, CRC32 `ccf707e1`, brak strat/błędów UART i restartów/panic w logu. Jeden przypadek to test ujemny pominięcia DSR — odpowiedzi nadal brak, nie oznacza obsługi tej funkcji.
+
+**Potwierdzenie fizyczne użytkownika:** „Tak, obraz i miganie są poprawne” po pytaniu o końcowy wzór: napisy, kolory RGB, ciągła ramka DEC i BLINK. [Obraz referencyjny](logs/2026-11-15_v0.3.1_vt100_expected.png). Dotyczy końcowego wzoru, nie wszystkich klatek pośrednich. COM5/COM14 wolne, na ESP32 pozostaje v0.3.1 internal, CR=NL, dotyk OFF. Nie deklarować pełnej zgodności VT100/xterm. Podłączenie i fizyczna kalibracja XPT2046 pozostają osobnym następnym etapem.
+
+Przygotowanie: użytkownik potwierdził „Działa” po poprawce Enter i zlecił testy VT100. Opublikowano odtwarzalny test 20 przypadków, z jawnymi oczekiwaniami komórek/kolorów na hoście oraz cursor/controls/bytes/CRC z działającego ESP32. Aplikacja nie jest zmieniana ani ponownie wgrywana. Istniejące 23 scenariusze parsera i raster PASS, porty COM5/COM14 były dostępne. Wyniki nowych prób powyżej. DSR pozostaje niezaimplementowane i ma osobny test ujemny.
 
 ## 15.11.2026 — v0.3.1: Enter, pauza i pasek dotykowy
 

@@ -1,0 +1,482 @@
+{
+  "passed": true,
+  "complete": true,
+  "firmware": "v0.3.1 esp32dev_internal",
+  "firmware_source": "0805f57",
+  "baseline": {
+    "rx": 20146,
+    "errors": 0,
+    "rx_crc": 1691491431,
+    "parsed": 20146,
+    "drop": 0,
+    "controls": 11,
+    "parsed_crc": 1691491431
+  },
+  "sent": 9672,
+  "cases": [
+    {
+      "case": "TAB_BS",
+      "passed": true,
+      "expected_cursor": [
+        9,
+        0
+      ],
+      "observed_cursor": [
+        9,
+        0
+      ],
+      "expected_controls": 12,
+      "snapshot": {
+        "rx": 20154,
+        "errors": 0,
+        "rx_crc": 2487686887,
+        "parsed": 20154,
+        "drop": 0,
+        "controls": 12,
+        "parsed_crc": 2487686887
+      },
+      "peer_reply_bytes": 0
+    },
+    {
+      "case": "CUP_relative",
+      "passed": true,
+      "expected_cursor": [
+        10,
+        7
+      ],
+      "observed_cursor": [
+        10,
+        7
+      ],
+      "expected_controls": 18,
+      "snapshot": {
+        "rx": 20181,
+        "errors": 0,
+        "rx_crc": 3654947346,
+        "parsed": 20181,
+        "drop": 0,
+        "controls": 18,
+        "parsed_crc": 3654947346
+      },
+      "peer_reply_bytes": 0
+    },
+    {
+      "case": "ED_EL",
+      "passed": true,
+      "expected_cursor": [
+        6,
+        4
+      ],
+      "observed_cursor": [
+        6,
+        4
+      ],
+      "expected_controls": 23,
+      "snapshot": {
+        "rx": 20212,
+        "errors": 0,
+        "rx_crc": 2525713004,
+        "parsed": 20212,
+        "drop": 0,
+        "controls": 23,
+        "parsed_crc": 2525713004
+      },
+      "peer_reply_bytes": 0
+    },
+    {
+      "case": "DECSC_DECRC",
+      "passed": true,
+      "expected_cursor": [
+        2,
+        0
+      ],
+      "observed_cursor": [
+        2,
+        0
+      ],
+      "expected_controls": 29,
+      "snapshot": {
+        "rx": 20239,
+        "errors": 0,
+        "rx_crc": 1222977008,
+        "parsed": 20239,
+        "drop": 0,
+        "controls": 29,
+        "parsed_crc": 1222977008
+      },
+      "peer_reply_bytes": 0
+    },
+    {
+      "case": "CSI_save_restore",
+      "passed": true,
+      "expected_cursor": [
+        4,
+        2
+      ],
+      "observed_cursor": [
+        4,
+        2
+      ],
+      "expected_controls": 34,
+      "snapshot": {
+        "rx": 20263,
+        "errors": 0,
+        "rx_crc": 4172466082,
+        "parsed": 20263,
+        "drop": 0,
+        "controls": 34,
+        "parsed_crc": 4172466082
+      },
+      "peer_reply_bytes": 0
+    },
+    {
+      "case": "DECAWM_wrap",
+      "passed": true,
+      "expected_cursor": [
+        1,
+        1
+      ],
+      "observed_cursor": [
+        1,
+        1
+      ],
+      "expected_controls": 36,
+      "snapshot": {
+        "rx": 20311,
+        "errors": 0,
+        "rx_crc": 3980446812,
+        "parsed": 20311,
+        "drop": 0,
+        "controls": 36,
+        "parsed_crc": 3980446812
+      },
+      "peer_reply_bytes": 0
+    },
+    {
+      "case": "DECAWM_nowrap",
+      "passed": true,
+      "expected_cursor": [
+        39,
+        1
+      ],
+      "observed_cursor": [
+        39,
+        1
+      ],
+      "expected_controls": 39,
+      "snapshot": {
+        "rx": 20327,
+        "errors": 0,
+        "rx_crc": 2739587161,
+        "parsed": 20327,
+        "drop": 0,
+        "controls": 39,
+        "parsed_crc": 2739587161
+      },
+      "peer_reply_bytes": 0
+    },
+    {
+      "case": "DECSTBM_IND_RI",
+      "passed": true,
+      "expected_cursor": [
+        1,
+        1
+      ],
+      "observed_cursor": [
+        1,
+        1
+      ],
+      "expected_controls": 50,
+      "snapshot": {
+        "rx": 20387,
+        "errors": 0,
+        "rx_crc": 1586521546,
+        "parsed": 20387,
+        "drop": 0,
+        "controls": 50,
+        "parsed_crc": 1586521546
+      },
+      "peer_reply_bytes": 0
+    },
+    {
+      "case": "DECOM_origin",
+      "passed": true,
+      "expected_cursor": [
+        3,
+        7
+      ],
+      "observed_cursor": [
+        3,
+        7
+      ],
+      "expected_controls": 54,
+      "snapshot": {
+        "rx": 20408,
+        "errors": 0,
+        "rx_crc": 519204399,
+        "parsed": 20408,
+        "drop": 0,
+        "controls": 54,
+        "parsed_crc": 519204399
+      },
+      "peer_reply_bytes": 0
+    },
+    {
+      "case": "ICH_DCH",
+      "passed": true,
+      "expected_cursor": [
+        4,
+        0
+      ],
+      "observed_cursor": [
+        4,
+        0
+      ],
+      "expected_controls": 58,
+      "snapshot": {
+        "rx": 20432,
+        "errors": 0,
+        "rx_crc": 3094446001,
+        "parsed": 20432,
+        "drop": 0,
+        "controls": 58,
+        "parsed_crc": 3094446001
+      },
+      "peer_reply_bytes": 0
+    },
+    {
+      "case": "IL_DL",
+      "passed": true,
+      "expected_cursor": [
+        1,
+        2
+      ],
+      "observed_cursor": [
+        1,
+        2
+      ],
+      "expected_controls": 68,
+      "snapshot": {
+        "rx": 20488,
+        "errors": 0,
+        "rx_crc": 1695278805,
+        "parsed": 20488,
+        "drop": 0,
+        "controls": 68,
+        "parsed_crc": 1695278805
+      },
+      "peer_reply_bytes": 0
+    },
+    {
+      "case": "LNM",
+      "passed": true,
+      "expected_cursor": [
+        2,
+        2
+      ],
+      "observed_cursor": [
+        2,
+        2
+      ],
+      "expected_controls": 71,
+      "snapshot": {
+        "rx": 20506,
+        "errors": 0,
+        "rx_crc": 3901688531,
+        "parsed": 20506,
+        "drop": 0,
+        "controls": 71,
+        "parsed_crc": 3901688531
+      },
+      "peer_reply_bytes": 0
+    },
+    {
+      "case": "alternate_1049",
+      "passed": true,
+      "expected_cursor": [
+        5,
+        0
+      ],
+      "observed_cursor": [
+        5,
+        0
+      ],
+      "expected_controls": 76,
+      "snapshot": {
+        "rx": 20546,
+        "errors": 0,
+        "rx_crc": 459102395,
+        "parsed": 20546,
+        "drop": 0,
+        "controls": 76,
+        "parsed_crc": 459102395
+      },
+      "peer_reply_bytes": 0
+    },
+    {
+      "case": "SGR_16_256_RGB_attributes",
+      "passed": true,
+      "expected_cursor": [
+        6,
+        0
+      ],
+      "observed_cursor": [
+        6,
+        0
+      ],
+      "expected_controls": 84,
+      "snapshot": {
+        "rx": 20618,
+        "errors": 0,
+        "rx_crc": 3536626334,
+        "parsed": 20618,
+        "drop": 0,
+        "controls": 84,
+        "parsed_crc": 3536626334
+      },
+      "peer_reply_bytes": 0
+    },
+    {
+      "case": "DEC_G0_G1_SO_SI",
+      "passed": true,
+      "expected_cursor": [
+        6,
+        0
+      ],
+      "observed_cursor": [
+        6,
+        0
+      ],
+      "expected_controls": 88,
+      "snapshot": {
+        "rx": 20637,
+        "errors": 0,
+        "rx_crc": 2449825614,
+        "parsed": 20637,
+        "drop": 0,
+        "controls": 88,
+        "parsed_crc": 2449825614
+      },
+      "peer_reply_bytes": 0
+    },
+    {
+      "case": "OSC_DCS_cancel_overlong",
+      "passed": true,
+      "expected_cursor": [
+        6,
+        0
+      ],
+      "observed_cursor": [
+        6,
+        0
+      ],
+      "expected_controls": 89,
+      "snapshot": {
+        "rx": 20890,
+        "errors": 0,
+        "rx_crc": 1125568981,
+        "parsed": 20890,
+        "drop": 0,
+        "controls": 89,
+        "parsed_crc": 1125568981
+      },
+      "peer_reply_bytes": 0
+    },
+    {
+      "case": "fragmented_ANSI_UTF8",
+      "passed": true,
+      "expected_cursor": [
+        7,
+        2
+      ],
+      "observed_cursor": [
+        7,
+        2
+      ],
+      "expected_controls": 93,
+      "snapshot": {
+        "rx": 20915,
+        "errors": 0,
+        "rx_crc": 115007783,
+        "parsed": 20915,
+        "drop": 0,
+        "controls": 93,
+        "parsed_crc": 115007783
+      },
+      "peer_reply_bytes": 0
+    },
+    {
+      "case": "burst_ANSI",
+      "passed": true,
+      "expected_cursor": [
+        5,
+        5
+      ],
+      "observed_cursor": [
+        5,
+        5
+      ],
+      "expected_controls": 1375,
+      "snapshot": {
+        "rx": 29120,
+        "errors": 0,
+        "rx_crc": 3692051726,
+        "parsed": 29120,
+        "drop": 0,
+        "controls": 1375,
+        "parsed_crc": 3692051726
+      },
+      "peer_reply_bytes": 0
+    },
+    {
+      "case": "unsupported_DSR_ignored",
+      "passed": true,
+      "expected_cursor": [
+        2,
+        0
+      ],
+      "observed_cursor": [
+        2,
+        0
+      ],
+      "expected_controls": 1377,
+      "snapshot": {
+        "rx": 29128,
+        "errors": 0,
+        "rx_crc": 3778210369,
+        "parsed": 29128,
+        "drop": 0,
+        "controls": 1377,
+        "parsed_crc": 3778210369
+      },
+      "peer_reply_bytes": 0
+    },
+    {
+      "case": "visual_pattern",
+      "passed": true,
+      "expected_cursor": [
+        19,
+        26
+      ],
+      "observed_cursor": [
+        19,
+        26
+      ],
+      "expected_controls": 1431,
+      "snapshot": {
+        "rx": 29818,
+        "errors": 0,
+        "rx_crc": 3438741473,
+        "parsed": 29818,
+        "drop": 0,
+        "controls": 1431,
+        "parsed_crc": 3438741473
+      },
+      "peer_reply_bytes": 0
+    }
+  ],
+  "unsupported": [
+    "DSR reply: intentionally absent; negative test checks safe consumption"
+  ],
+  "scope": "Host: explicit cells/attributes. ESP32: cursor/commands/bytes/CRC. Physical pixels unverified."
+}

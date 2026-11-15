@@ -1,0 +1,5 @@
+Embarcadero C++ 7.70 for Win64/COFF Copyright (c) 2012-2024 Embarcadero Technologies, Inc.
+terminal: 23 scenarios PASS (all split points, UTF-8, ANSI/VT100, colors, guards, adversarial stream)
+
+Embarcadero C++ 7.70 for Win64/COFF Copyright (c) 2012-2024 Embarcadero Technologies, Inc.
+PASS: RGB565/glyph orientation/attributes/cursor/Unicode fallback/raster bounds

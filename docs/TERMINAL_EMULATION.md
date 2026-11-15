@@ -1,5 +1,7 @@
 # Automatyczna interpretacja ANSI / VT100 — v0.1.10
 
+**Wynik na fizycznym TFT / v0.3.1:** [próby VT100/ANSI 15.11.2026](VT100_TEST_2026-11-15.md), przez HC-05 na UART1, z działającym rendererem 40×29 + stopka. Użytkownik potwierdził końcowy obraz, kolory, ramkę DEC i miganie. Dawne opisy uruchamiania LCD, UART2 i adaptera v0.1.10 poniżej są historyczne; bieżący runtime i wyniki opisują README/STATUS.
+
 **Bieżący runtime v0.3.1:** [wybierany tryb CR jako nowej linii](DISPLAY_CONTROLS_v0.3.1.md) jest domyślnie włączony w aplikacji dla zwykłych logów/Enter z PuTTY. Standardowe CR opisane poniżej pozostaje dostępne przez CR=CR/Kconfig. Parser nadal automatycznie obsługuje sekwencje ANSI. Odbiór i CRC zachowują oryginalne bajty.
 
 Wymaganie użytkownika z 13.11.2026: zwykły tekst ma być biały na czarnym tle, a sterowanie VT100 i popularne nowsze sekwencje ma być interpretowane automatycznie. Implementacja przetwarza jeden ciągły strumień tekstowy: zwykłe znaki trafiają do komórek, rozpoznane komendy zmieniają stan ekranu. Nie trzeba wybierać profilu przed pierwszą sekwencją. Atrybuty pozostają aktywne aż do ich zmiany/resetu przez nadawcę, również przez granice pakietów.

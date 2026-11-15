@@ -1,0 +1,30 @@
+{
+  "firmware": "v0.3.1 esp32dev_internal",
+  "firmware_source": "0805f57",
+  "test_source": "864838c",
+  "hardware_cases": 20,
+  "hardware_passed": true,
+  "includes_one_negative_DSR_case": true,
+  "host_cases": 20,
+  "host_selected_cell_assertions": 239,
+  "existing_terminal_scenarios": 23,
+  "existing_terminal_passed": true,
+  "existing_raster_passed": true,
+  "sent": 9672,
+  "received_delta": 9672,
+  "parsed_delta": 9672,
+  "controls_delta": 1420,
+  "final_crc32": "ccf707e1",
+  "uart_errors_delta": 0,
+  "dropped_delta": 0,
+  "logged_resets": 0,
+  "logged_panic": 0,
+  "sent_sha256": "76af94233da78b6353bbe999541913e0050dce8b5bc78c3c07b37793962a9720",
+  "physical_visual_confirmation": {
+    "confirmed_by": "user",
+    "date": "2026-11-15",
+    "statement": "Tak, obraz i miganie s\u0105 poprawne",
+    "scope": "Final pattern: text, colors, DEC border, blink; not every intermediate case"
+  },
+  "ports_closed": true
+}

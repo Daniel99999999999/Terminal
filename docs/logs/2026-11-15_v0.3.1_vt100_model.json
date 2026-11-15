@@ -1,0 +1,282 @@
+[
+  {
+    "case": "TAB_BS",
+    "model_passed": true,
+    "expected_cursor": [
+      9,
+      0
+    ],
+    "model_cursor": [
+      9,
+      0
+    ],
+    "controls": 1,
+    "failures": []
+  },
+  {
+    "case": "CUP_relative",
+    "model_passed": true,
+    "expected_cursor": [
+      10,
+      7
+    ],
+    "model_cursor": [
+      10,
+      7
+    ],
+    "controls": 6,
+    "failures": []
+  },
+  {
+    "case": "ED_EL",
+    "model_passed": true,
+    "expected_cursor": [
+      6,
+      4
+    ],
+    "model_cursor": [
+      6,
+      4
+    ],
+    "controls": 5,
+    "failures": []
+  },
+  {
+    "case": "DECSC_DECRC",
+    "model_passed": true,
+    "expected_cursor": [
+      2,
+      0
+    ],
+    "model_cursor": [
+      2,
+      0
+    ],
+    "controls": 6,
+    "failures": []
+  },
+  {
+    "case": "CSI_save_restore",
+    "model_passed": true,
+    "expected_cursor": [
+      4,
+      2
+    ],
+    "model_cursor": [
+      4,
+      2
+    ],
+    "controls": 5,
+    "failures": []
+  },
+  {
+    "case": "DECAWM_wrap",
+    "model_passed": true,
+    "expected_cursor": [
+      1,
+      1
+    ],
+    "model_cursor": [
+      1,
+      1
+    ],
+    "controls": 2,
+    "failures": []
+  },
+  {
+    "case": "DECAWM_nowrap",
+    "model_passed": true,
+    "expected_cursor": [
+      39,
+      1
+    ],
+    "model_cursor": [
+      39,
+      1
+    ],
+    "controls": 3,
+    "failures": []
+  },
+  {
+    "case": "DECSTBM_IND_RI",
+    "model_passed": true,
+    "expected_cursor": [
+      1,
+      1
+    ],
+    "model_cursor": [
+      1,
+      1
+    ],
+    "controls": 11,
+    "failures": []
+  },
+  {
+    "case": "DECOM_origin",
+    "model_passed": true,
+    "expected_cursor": [
+      3,
+      7
+    ],
+    "model_cursor": [
+      3,
+      7
+    ],
+    "controls": 4,
+    "failures": []
+  },
+  {
+    "case": "ICH_DCH",
+    "model_passed": true,
+    "expected_cursor": [
+      4,
+      0
+    ],
+    "model_cursor": [
+      4,
+      0
+    ],
+    "controls": 4,
+    "failures": []
+  },
+  {
+    "case": "IL_DL",
+    "model_passed": true,
+    "expected_cursor": [
+      1,
+      2
+    ],
+    "model_cursor": [
+      1,
+      2
+    ],
+    "controls": 10,
+    "failures": []
+  },
+  {
+    "case": "LNM",
+    "model_passed": true,
+    "expected_cursor": [
+      2,
+      2
+    ],
+    "model_cursor": [
+      2,
+      2
+    ],
+    "controls": 3,
+    "failures": []
+  },
+  {
+    "case": "alternate_1049",
+    "model_passed": true,
+    "expected_cursor": [
+      5,
+      0
+    ],
+    "model_cursor": [
+      5,
+      0
+    ],
+    "controls": 5,
+    "failures": []
+  },
+  {
+    "case": "SGR_16_256_RGB_attributes",
+    "model_passed": true,
+    "expected_cursor": [
+      6,
+      0
+    ],
+    "model_cursor": [
+      6,
+      0
+    ],
+    "controls": 8,
+    "failures": []
+  },
+  {
+    "case": "DEC_G0_G1_SO_SI",
+    "model_passed": true,
+    "expected_cursor": [
+      6,
+      0
+    ],
+    "model_cursor": [
+      6,
+      0
+    ],
+    "controls": 4,
+    "failures": []
+  },
+  {
+    "case": "OSC_DCS_cancel_overlong",
+    "model_passed": true,
+    "expected_cursor": [
+      6,
+      0
+    ],
+    "model_cursor": [
+      6,
+      0
+    ],
+    "controls": 1,
+    "failures": []
+  },
+  {
+    "case": "fragmented_ANSI_UTF8",
+    "model_passed": true,
+    "expected_cursor": [
+      7,
+      2
+    ],
+    "model_cursor": [
+      7,
+      2
+    ],
+    "controls": 4,
+    "failures": []
+  },
+  {
+    "case": "burst_ANSI",
+    "model_passed": true,
+    "expected_cursor": [
+      5,
+      5
+    ],
+    "model_cursor": [
+      5,
+      5
+    ],
+    "controls": 1282,
+    "failures": []
+  },
+  {
+    "case": "unsupported_DSR_ignored",
+    "model_passed": true,
+    "expected_cursor": [
+      2,
+      0
+    ],
+    "model_cursor": [
+      2,
+      0
+    ],
+    "controls": 2,
+    "failures": []
+  },
+  {
+    "case": "visual_pattern",
+    "model_passed": true,
+    "expected_cursor": [
+      19,
+      26
+    ],
+    "model_cursor": [
+      19,
+      26
+    ],
+    "controls": 54,
+    "failures": []
+  }
+]
