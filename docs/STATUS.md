@@ -1,5 +1,9 @@
 # Faktyczny stan projektu / handoff
 
+## 15.11.2026 — v0.3.5: gest CAL i pojedyncze zaniki próbek
+
+[Zakres](TOUCH_GESTURES_v0.3.5.md). Usunięto natychmiastowe puszczanie gestu po pojedynczej odrzuconej próbce TEST/TERMINAL; limit80 ms, przerwa dłuższa kończy gest. CAL startuje na przycisku, ma histerezę po uzbrojeniu i postęp na pasku, logowane trafienia raw→screen. Pomiary SPI, progi kalibracji, piny i NVS nie zmienione. Kompilacje internal/touch SUCCESS (5,530/13,664 s; po poprawie ostrzeżenia o zakresie procentu w snprintf). Przed publikacją i testami; na ESP32 nadal v0.3.4 touch.
+
 ## 15.11.2026 — v0.3.4: powrót do krótkich ramek XPT2046
 
 **Wynik CAL:** użytkownik zgłosił brak reakcji po około4 s przytrzymania napisu. [Log po zgłoszeniu](logs/2026-11-15_v0.3.4_cal_no_response.txt): runtime działa, licznik valid1393, bez restartu lub błędu API SPI w tym oknie. Przegląd UI wykazał, że każda próbka pressed=false zeruje s_holding i s_down; ten błąd przerywa CAL oraz może wielokrotnie przełączać PAUZA przy jednym kontakcie. Brak jeszcze logu współrzędnych trafienia; nie wykluczamy dodatkowo złego trafienia/mapy. Następna poprawka obejmie gest i jego diagnostykę.

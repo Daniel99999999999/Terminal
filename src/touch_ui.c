@@ -24,9 +24,22 @@ static touch_calibration_t s_map;
 static touch_cal_point_t s_points[5];
 static unsigned s_page, s_point, s_samples, s_releases, s_misses, s_progress;
 static uint32_t s_revision = 1, s_sum_x, s_sum_y, s_since, s_hold_since, s_last_valid;
+static uint32_t s_contact_at;
+static unsigned s_hold_progress;
 static uint16_t s_min_x, s_max_x, s_min_y, s_max_y, s_x, s_y;
 static bool s_wait_release = true, s_down, s_holding, s_nvs, s_saved, s_retry;
 static bool s_paused, s_cr_newline;
+
+/* A missing ADC sample is not immediately a new physical press. Bound the
+ * grace period so distinct taps and a real release still terminate gestures. */
+#define CONTACT_GRACE_MS 80u
+
+static void stop_hold(void)
+{
+    if (s_holding) { ESP_LOGI("TOUCH", "CAL cancelled screen=%u,%u", s_x, s_y); }
+    if (s_holding || s_hold_progress) { ++s_revision; }
+    s_holding = false; s_hold_progress = 0;
+}
 
 static void target(unsigned *x, unsigned *y)
 {
@@ -75,13 +88,15 @@ static void restart(void)
 {
     s_page = CALIBRATE; s_point = s_samples = s_releases = 0;
     s_misses = s_progress = 0;
-    s_wait_release = true; s_holding = false; ++s_revision;
+    s_wait_release = true; s_holding = false; s_hold_progress = 0; ++s_revision;
     s_paused = false;
 }
 
 void touch_ui_init(bool cr_newline)
 {
     s_paused = false; s_cr_newline = cr_newline;
+    s_down = s_holding = false; s_contact_at = s_hold_progress = 0;
+    s_wait_release = true; s_releases = 0;
     /* Preserve other namespaces. Never erase the existing NVS on init errors. */
     esp_err_t err = nvs_flash_init();
     s_nvs = err == ESP_OK;
@@ -123,6 +138,13 @@ static void captured(uint16_t rx, uint16_t ry)
 void touch_ui_update(const xpt2046_sample_t *sample, uint32_t now)
 {
     if (!sample) { return; }
+    if (s_page == TEST || s_page == TERMINAL) {
+        if (s_down && now - s_contact_at >= CONTACT_GRACE_MS) {
+            s_down = false; stop_hold();
+        }
+        if (sample->pressed) { s_contact_at = now; }
+        else if (s_down) { return; } /* Keep the gesture through a short gap. */
+    }
     if (s_wait_release) {
         if (sample->pressed) { s_releases = 0; }
         else if (++s_releases >= 3) { s_wait_release = false; s_releases = 0; s_samples = 0; ++s_revision; }
@@ -161,30 +183,46 @@ void touch_ui_update(const xpt2046_sample_t *sample, uint32_t now)
         uint16_t x, y;
         if (touch_calibration_map(&s_map, sample->x, sample->y, &x, &y)) {
             if (x != s_x || y != s_y) { s_x = x; s_y = y; ++s_revision; }
+            if (!s_down) {
+                ESP_LOGI("TOUCH", "UI press raw=%u,%u screen=%u,%u", sample->x, sample->y, x, y);
+            }
             if (s_page == TEST && !s_down && y >= LCD_HEIGHT - 32 &&
                 x >= LCD_WIDTH / 2 - 48 && x <= LCD_WIDTH / 2 + 48) {
                 s_page = TERMINAL; ++s_revision;
-            } else if (s_page == TERMINAL && y >= LCD_HEIGHT - 8) {
-                if (x < LCD_WIDTH * 2 / 3) {
-                    s_holding = false;
-                    if (!s_down) {
+            } else if (s_page == TERMINAL) {
+                bool start_cal = !s_down && x >= LCD_WIDTH * 2 / 3 && y >= LCD_HEIGHT - 8;
+                /* Hysteresis only after arming on the actual CAL button. */
+                bool stay_cal = s_holding && x + 8 >= LCD_WIDTH * 2 / 3 && y >= LCD_HEIGHT - 24;
+                if (start_cal || stay_cal) {
+                    if (!s_holding) {
+                        s_hold_since = now; s_holding = true;
+                        ESP_LOGI("TOUCH", "CAL hold started screen=%u,%u", x, y);
+                    }
+                    uint32_t elapsed = now - s_hold_since;
+                    unsigned progress = elapsed >= 2000 ? 100 : (elapsed / 200) * 10;
+                    if (progress != s_hold_progress) { s_hold_progress = progress; ++s_revision; }
+                    if (elapsed >= 2000) {
+                        ESP_LOGI("TOUCH", "CAL hold accepted; starting calibration");
+                        s_retry = false; restart();
+                    }
+                } else {
+                    stop_hold();
+                    if (!s_down && y >= LCD_HEIGHT - 8 && x < LCD_WIDTH * 2 / 3) {
                         if (x < LCD_WIDTH / 3) { s_paused = !s_paused; }
                         else { s_cr_newline = !s_cr_newline; }
                         ++s_revision;
                     }
-                } else {
-                    if (!s_holding) { s_hold_since = now; s_holding = true; }
-                    if (now - s_hold_since >= 2000) { s_retry = false; restart(); }
                 }
-            } else { s_holding = false; }
-        }
-    } else { s_holding = false; }
+            } else { stop_hold(); }
+        } else { stop_hold(); }
+    } else { stop_hold(); }
     s_down = sample->pressed;
 }
 
 bool touch_ui_visible(void) { return s_page != TERMINAL; }
 bool touch_ui_paused(void) { return s_paused; }
 bool touch_ui_cr_newline(void) { return s_cr_newline; }
+unsigned touch_ui_cal_progress(void) { return s_hold_progress; }
 uint32_t touch_ui_revision(void) { return s_revision; }
 
 bool touch_ui_render_row(unsigned row, uint16_t *pixels, size_t capacity)
@@ -227,6 +265,7 @@ void touch_ui_update(const xpt2046_sample_t *sample, uint32_t now) { (void)sampl
 bool touch_ui_visible(void) { return false; }
 bool touch_ui_paused(void) { return false; }
 bool touch_ui_cr_newline(void) { return false; }
+unsigned touch_ui_cal_progress(void) { return 0; }
 uint32_t touch_ui_revision(void) { return 0; }
 bool touch_ui_render_row(unsigned row, uint16_t *pixels, size_t size) { (void)row; (void)pixels; (void)size; return false; }
 #endif

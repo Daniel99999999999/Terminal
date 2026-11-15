@@ -1,5 +1,11 @@
 # Historia wersji
 
+## v0.3.5 — 15.11.2026
+
+- Gesty TEST/TERMINAL zachowują kontakt przez przerwę krótszą niż80 ms od ostatniej poprawnej próbki. CAL nie zeruje czasu po pojedynczym odrzuceniu ADC; PAUZA/CR nie przełączają wielokrotnie przy jednym kontakcie. Pełne puszczenie lub zbyt długa przerwa nadal kończy gest.
+- CAL startuje nowym dotknięciem właściwego przycisku; po starcie toleruje niewielki ruch do wnętrza ekranu. Przeciągnięcie poza ten obszar anuluje gest. Postęp10% na pasku i logi raw→screen/start/anulowanie/przyjęcie.
+- Regresje rzeczywistych ciągów próbek z brakami, oddzielnych krótkich przytrzymań, przeciągnięcia i przerwy w odpytywaniu. Dotychczasowy próg punktów kalibracji i NVS zachowane.
+
 ## v0.3.4 — 15.11.2026
 
 - Przywrócono osobne 24-taktowe transakcje XPT2046 z buforami inline i PD0=0 przy każdej konwersji, jak w fizycznie odczytującej punkty v0.3.1. Jedna seria z v0.3.2/3 została wycofana po zerowych odczytach podczas rzeczywistych naciśnięć; nie uznajemy jeszcze jej za ustaloną przyczynę.

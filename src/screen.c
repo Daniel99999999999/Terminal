@@ -118,8 +118,13 @@ static esp_err_t status_line(bool paused, bool cr_newline)
 {
     char text[COLS + 1];
 #if RETRO_TOUCH_ENABLE
+    char cal[15];
+    unsigned progress = touch_ui_cal_progress();
+    if (progress > 100) { progress = 100; }
+    if (progress) { snprintf(cal, sizeof(cal), "[CAL %u%%]", progress); }
+    else { snprintf(cal, sizeof(cal), "[CAL:2s]"); }
     snprintf(text, sizeof(text), "%-13.13s%-13.13s%-14.14s",
-             paused ? "[WZNOW]" : "[PAUZA]", cr_newline ? "[CR=NL]" : "[CR=CR]", "[CAL:2s]");
+             paused ? "[WZNOW]" : "[PAUZA]", cr_newline ? "[CR=NL]" : "[CR=CR]", cal);
 #else
     (void)paused;
     snprintf(text, sizeof(text), "HC05 115200 8N1 | CR=%s", cr_newline ? "NL" : "CR");
@@ -160,6 +165,7 @@ static void screen_task(void *arg)
     uint32_t ui_rows[LCD_HEIGHT / 8] = {0};
     unsigned ui_next = 0;
     bool overlay_was_visible = false;
+    unsigned cal_progress = 0;
     int64_t touch_log_at = 0;
 #endif
     if (lcd_error != ESP_OK) {
@@ -186,6 +192,8 @@ static void screen_task(void *arg)
                 ESP_LOGE("TOUCH", "Read failed: %s; terminal continues", esp_err_to_name(error));
             } else { touch_ui_update(&sample, (uint32_t)(now / 1000)); }
         }
+        unsigned next_cal_progress = touch_ui_cal_progress();
+        if (next_cal_progress != cal_progress) { cal_progress = next_cal_progress; status_drawn = false; }
         if (touch && now - touch_log_at >= 2000000) {
             touch_log_at = now;
             xpt2046_stats_t stats; xpt2046_get_stats(&stats);

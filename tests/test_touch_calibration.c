@@ -39,7 +39,7 @@ esp_err_t nvs_commit(nvs_handle_t handle) { CHECK(handle == 1); ++commits; retur
 static void release(void)
 {
     xpt2046_sample_t sample = {0};
-    for (unsigned i = 0; i < 3; ++i) { touch_ui_update(&sample, now_ms); now_ms += 20; }
+    for (unsigned i = 0; i < 5; ++i) { touch_ui_update(&sample, now_ms); now_ms += 20; }
 }
 static void hold(unsigned x, unsigned y)
 {
@@ -56,6 +56,13 @@ static void five(void)
     const unsigned xs[] = {24, LCD_WIDTH-25, LCD_WIDTH-25, 24, LCD_WIDTH/2};
     const unsigned ys[] = {24, 24, LCD_HEIGHT-25, LCD_HEIGHT-25, LCD_HEIGHT/2};
     for (unsigned i = 0; i < 5; ++i) { release(); hold(xs[i], ys[i]); }
+}
+
+static void gesture_sample(unsigned x, unsigned y, bool pressed)
+{
+    xpt2046_sample_t sample = { .pressed = pressed,
+        .x = (uint16_t)(400 + x * 10), .y = (uint16_t)(350 + y * 12) };
+    touch_ui_update(&sample, now_ms); now_ms += 20;
 }
 
 int main(void)
@@ -87,7 +94,7 @@ int main(void)
     CHECK(touch_calibration_map(&cal, 4095, 4095, &x, &y) && x == 319 && y == 239);
 
     touch_ui_init(true); CHECK(touch_ui_visible());
-    /* Three release samples separate short presses: these must not combine. */
+    /* Fully released short presses must not combine. */
     release(); short_hold(24,24); release(); short_hold(24,24); release();
     /* One missing sample in a stable press must not discard all progress.
      * Neither side has eight consecutive samples, so the old filter fails. */
@@ -114,13 +121,40 @@ int main(void)
     touch_ui_init(true); CHECK(!touch_ui_visible()); /* Persistent calibration restored. */
     CHECK(!touch_ui_paused() && touch_ui_cr_newline());
     release(); hold(20,LCD_HEIGHT-3); CHECK(touch_ui_paused());
+    /* A lost ADC sample during one contact must not toggle PAUZA twice. */
+    gesture_sample(0,0,false); hold(20,LCD_HEIGHT-3); CHECK(touch_ui_paused());
     hold(20,LCD_HEIGHT-3); CHECK(touch_ui_paused()); /* One action per press. */
     release(); hold(20,LCD_HEIGHT-3); CHECK(!touch_ui_paused());
     release(); hold(LCD_WIDTH/2,LCD_HEIGHT-3); CHECK(!touch_ui_cr_newline());
     hold(LCD_WIDTH/2,LCD_HEIGHT-3); CHECK(!touch_ui_cr_newline());
     release(); hold(LCD_WIDTH/2,LCD_HEIGHT-3); CHECK(touch_ui_cr_newline());
+    /* Entering CAL from a held press elsewhere cannot arm it. */
+    release(); hold(20,100); hold(LCD_WIDTH-20,LCD_HEIGHT-3);
+    CHECK(touch_ui_cal_progress() == 0 && !touch_ui_visible());
+    release(); hold(LCD_WIDTH-20,LCD_HEIGHT-3); CHECK(touch_ui_cal_progress() > 0);
+    hold(20,100); CHECK(touch_ui_cal_progress() == 0 && !touch_ui_visible());
+    hold(LCD_WIDTH-20,LCD_HEIGHT-3); CHECK(touch_ui_cal_progress() == 0);
+    /* Elapsed time without observations is not evidence of a continuous hold. */
     release(); hold(LCD_WIDTH-20,LCD_HEIGHT-3);
-    now_ms += 2100; hold(LCD_WIDTH-20,LCD_HEIGHT-3); CHECK(touch_ui_visible());
+    now_ms += 2100; hold(LCD_WIDTH-20,LCD_HEIGHT-3);
+    CHECK(!touch_ui_visible() && touch_ui_cal_progress() < 50);
+    /* Two separate 1.2 second holds must not combine into CAL. */
+    release();
+    for (unsigned i=0;i<60;++i) { gesture_sample(LCD_WIDTH-20,LCD_HEIGHT-3,true); }
+    release();
+    for (unsigned i=0;i<60;++i) { gesture_sample(LCD_WIDTH-20,LCD_HEIGHT-3,true); }
+    CHECK(!touch_ui_visible());
+    /* Real two-second hold: periodic missing samples and modest inward jitter
+     * after arming must preserve the timer, with visible progress. */
+    release(); gesture_sample(LCD_WIDTH-20,LCD_HEIGHT-3,true);
+    for (unsigned i=0;i<105 && !touch_ui_visible();++i) {
+        if (i % 3 == 1) { gesture_sample(0,0,false); }
+        else if (i % 4 == 0) { gesture_sample(LCD_WIDTH*2/3-5,LCD_HEIGHT-20,true); }
+        else { gesture_sample(LCD_WIDTH-20,LCD_HEIGHT-3,true); }
+        if (i == 49) { CHECK(!touch_ui_visible() && touch_ui_cal_progress() >= 40 && touch_ui_cal_progress() <= 50); }
+    }
+    CHECK(touch_ui_visible() && touch_ui_cal_progress() == 0);
+    CHECK(writes == 1 && commits == 1); /* Opening CAL never erases/writes NVS. */
     stored[20] ^= 1; /* Keep the magic/header intact; exercise the CRC check. */
     touch_ui_init(true); CHECK(touch_ui_visible()); /* Invalid saved data is ignored. */
     stored[20] ^= 1;
@@ -129,6 +163,6 @@ int main(void)
     uint32_t crc = esp_rom_crc32_le(0, stored, (uint32_t)stored_size - 4);
     memcpy(stored + stored_size - 4, &crc, sizeof(crc));
     touch_ui_init(true); CHECK(touch_ui_visible()); /* Old orientation cannot be reused. */
-    puts("PASS: affine swapped/reversed axes and guards; isolated sample loss tolerated, released taps separated; independent validation, NVS restore/CRC, pause/resume, CR toggle, long-press, render bounds");
+    puts("PASS: affine/verification/NVS guards; calibration sample loss; debounced single-action taps; CAL missing samples/jitter/progress, real release/drag/gap cancellation; render bounds");
     return 0;
 }
