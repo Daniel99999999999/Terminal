@@ -1,5 +1,9 @@
 # Faktyczny stan projektu / handoff
 
+## 15.11.2026 — v0.2.2: korekta odbicia lewo–prawo
+
+Zdjęcie użytkownika `20261115_165654.jpg` pokazuje tekst testu COM14 przy prawej krawędzi z odwróconymi literami. Wizualnie potwierdza pojawienie się tekstu i kolorów na LCD, ale z błędną orientacją. W tabeli obrotów MX było odwrócone względem standardowego mapowania ILI9341; poprawiono wszystkie cztery wpisy. Domyślne ROTATION1: MV=1, MX=0, MY=0, BGR=1 → MADCTL0x28, wcześniej0x68. [Referencja sterownika Adafruit](https://github.com/adafruit/Adafruit_ILI9341/blob/master/Adafruit_ILI9341.cpp#L209). Nie zmieniono pinów, fontu ani kolejności bajtów RGB565. Build `esp32dev_internal` SUCCESS, 24,62 s, przed publikacją i testami. Poprawna orientacja nowego obrazu nie jest jeszcze potwierdzona.
+
 ## 15.11.2026 — v0.2.1: terminal działa w RAM wewnętrznym, COM14 PASS
 
 - **Potwierdzenie użytkownika na sprzęcie:** LCD jest podłączony, powitanie jest widoczne i dioda GPIO2 miga. Potwierdza to fizyczne wyświetlanie powitania oraz sygnalizację pracy w wariancie `esp32dev_internal`. Użytkownik nie potwierdził jeszcze kolorów i treści końcowego ekranu testu COM14.

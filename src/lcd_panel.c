@@ -108,7 +108,9 @@ esp_err_t lcd_panel_open(void)
     err = esp_lcd_new_panel_ili9341(s_io, &panel, &s_panel);
     if (err == ESP_OK) { err = esp_lcd_panel_reset(s_panel); }
     if (err == ESP_OK) { err = esp_lcd_panel_init(s_panel); }
-    const bool mx[] = {false, true, true, false}, my[] = {false, false, true, true};
+    /* ILI9341 rotations 0..3: MADCTL 0x48/0x28/0x88/0xe8 with BGR.
+     * Inverting this MX table produces mirrored text, including landscape. */
+    const bool mx[] = {true, false, false, true}, my[] = {false, false, true, true};
     if (err == ESP_OK) { err = esp_lcd_panel_swap_xy(s_panel, RETRO_TFT_ROTATION & 1); }
     if (err == ESP_OK) { err = esp_lcd_panel_mirror(s_panel, mx[RETRO_TFT_ROTATION], my[RETRO_TFT_ROTATION]); }
     if (err == ESP_OK) { err = esp_lcd_panel_invert_color(s_panel, RETRO_TFT_INVERT); }

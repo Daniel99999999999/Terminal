@@ -1,5 +1,10 @@
 # Historia wersji
 
+## v0.2.2 — 15.11.2026
+
+- Poprawiona tabela orientacji ILI9341: MX był odwrócony dla wszystkich czterech obrotów. Dla domyślnego poziomego obrazu MADCTL zmienia się z 0x68 na 0x28 (BGR zachowane), usuwając dodatkowe odbicie.
+- Zgłoszenie i zdjęcie użytkownika pokazały tekst odbity lewo–prawo w v0.2.1. Fizyczny wynik poprawki wymaga obserwacji po wgraniu; wyniki w STATUS.
+
 ## v0.2.1 — 15.11.2026
 
 - Jawny wariant `esp32dev_internal`: ten sam terminal HC-05 UART1/TFT, modele i bufory w RAM wewnętrznym, PSRAM wyłączona tylko w tym profilu. Domyślny profil i zarezerwowane GPIO PSRAM pozostają zachowane.
