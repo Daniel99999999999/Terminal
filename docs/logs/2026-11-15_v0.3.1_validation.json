@@ -1,0 +1,47 @@
+{
+  "source_commit": "0805f57",
+  "version": "0.3.1",
+  "idf": "6.0.1",
+  "platform": "espressif32@7.0.1",
+  "builds": {
+    "esp32dev_internal": {
+      "passed": true,
+      "seconds": 53.571
+    },
+    "esp32dev_touch": {
+      "passed": true,
+      "seconds": 57.12
+    }
+  },
+  "host": {
+    "terminal_scenarios": 23,
+    "terminal_passed": true,
+    "calibration_ui_passed": true,
+    "raster_passed": true
+  },
+  "cppcheck": {
+    "files_per_profile": 11,
+    "profiles": [
+      "esp32dev_internal",
+      "esp32dev_touch"
+    ],
+    "explicit_touch_defines": [
+      0,
+      1
+    ],
+    "checks": [
+      "warning",
+      "performance",
+      "portability"
+    ],
+    "diagnostics": 0,
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  "deployed": "esp32dev_internal",
+  "firmware_elf_sha256": "da7941f4917cb08c29375317d9a3ce89a3c60a5c128be31a2400fbf57319b06c",
+  "touch_physical_tested": false,
+  "touch_not_wired_as_reported_by_user": true
+}

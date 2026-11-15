@@ -31,3 +31,5 @@ Pauza zatrzymuje odświeżanie treści i miganie kursora. Stopka może się zmie
 Regresje obejmują CR, CRLF na wszystkich granicach podziału, kolejne CR, rozdzielenie pary komendą ANSI lub utratą transportu, ignorowane OSC, przełączanie na ścisły VT i reset terminala. Test UI obejmuje PAUZĘ/WZNÓW, pojedynczą akcję przy przytrzymaniu, przełączenie CR i nowy obszar kalibracji.
 
 Log SCREEN zawiera teraz pozycję kursora `(x,y)` liczoną od zera, stan LIVE/PAUSE i tryb CR. Umożliwia to sprawdzenie skutku znanych bajtów CR na modelu przez COM5 bez zgadywania z samego licznika odbioru. Potwierdzenie obrazu i dotyku nadal wymaga sprzętu/użytkownika. Wyniki w STATUS.
+
+**Wynik:** v0.3.1 bez dotyku wgrana przez COM5, stabilny start. [COM14: 20119 B bez strat i błędów, zgodne CRC i pozycje kursora dla CR/CRLF/podzielonej pary](logs/2026-11-15_v0.3.1_enter_result.json). Testy programowe pauzy/UI przeszły; fizyczna próba XPT2046 czeka na podłączenie.

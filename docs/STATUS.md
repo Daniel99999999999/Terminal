@@ -2,6 +2,12 @@
 
 ## 15.11.2026 — v0.3.1: Enter, pauza i pasek dotykowy
 
+**Wyniki po publikacji źródeł `0805f57`:** [zapis kontroli](logs/2026-11-15_v0.3.1_validation.json). Parser 23 scenariusze PASS, kalibracja/UI (w tym pauza/wznowienie i wybór CR) PASS, raster PASS. Cppcheck warning/performance/portability: 11 aktywnych C osobno internal/touch z jawnymi makrami profilu i dotyku, bez zgłoszeń, oba kody 0.
+
+**Wgrana wersja: v0.3.1 `esp32dev_internal`, dotyk OFF.** Upload COM5 SUCCESS, hash zweryfikowany. [15 s startu](logs/2026-11-15_v0.3.1_internal_boot.txt): bez resetów, powitanie 3001 ms, internal_free=224356 B, CR=NL, UART2 nieaktywny. [Test COM14](logs/2026-11-15_v0.3.1_enter_result.json), [surowy log](logs/2026-11-15_v0.3.1_enter_stream.txt): **20119 B** wysłane/odebrane/przetworzone, zgodne CRC, brak strat i błędów. Sam CR: kursor modelu (10,1), CRLF: (12,1), duży strumień i CRLF podzielone 200 ms przerwą: (18,3), wszystkie pozycje zgodne z oczekiwaniem, liczone od zera. Potwierdza to semantykę na modelu uruchomionym w ESP32; nie zastępuje obserwacji obrazu ani przechwycenia klawisza z konkretnej sesji PuTTY. Pozostawiono czytelny czterowierszowy test na LCD. COM5 i COM14 zamknięte po próbie.
+
+**Pozostaje do wykonania:** podłączenie XPT2046 przez użytkownika, upload `esp32dev_touch`, fizyczne pięć punktów + walidacja/test, zapis i odtworzenie po resecie oraz PAUZA/WZNÓW przy napływie logów. Kod i kompilacje są gotowe, ale tych wyników sprzętowych jeszcze nie ma. Ustawienie CR=NL bez dotyku działa już na obecnie wgranym wariancie. PSRAM pozostaje wyłączona w obu wariantach internal/touch; przyczyna jej problemu startowego nadal nieustalona.
+
 [Opis trybu CR i sterowania](DISPLAY_CONTROLS_v0.3.1.md). Po zgłoszeniu Enter z PuTTY dodano domyślną opcję CR→nowy wiersz; CRLF nadal przechodzi raz, także na granicach porcji. Wybierany CR=CR zachowuje standardowy VT i linie postępu. Na pasku dotykowym: PAUZA/WZNÓW po lewej, wybór CR pośrodku, CAL przytrzymane 2 s po prawej. Pauza dotyczy obrazu, odbiór/model pracują; scrollback nie jest jeszcze dodany. Pozycja kursora i ustawienia widoku w logu SCREEN. Kompilacje internal/touch SUCCESS (53,57/57,12 s), przed publikacją i testami. Dotyk nadal czeka na podłączenie przez użytkownika; nie deklarować fizycznego sprawdzenia pauzy/kalibracji.
 
 ## 15.11.2026 — v0.3.0: wybrany etap XPT2046 i kalibracji

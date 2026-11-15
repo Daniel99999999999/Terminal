@@ -1,0 +1,81 @@
+{
+  "passed": true,
+  "sent": 20119,
+  "baseline": {
+    "rx": 0,
+    "errors": 0,
+    "rx_crc": 0,
+    "parsed": 0,
+    "drop": 0,
+    "controls": 0,
+    "parsed_crc": 0
+  },
+  "cases": [
+    {
+      "case": "CR",
+      "passed": true,
+      "expected_cursor": [
+        10,
+        1
+      ],
+      "observed_cursor": [
+        10,
+        1
+      ],
+      "snapshot": {
+        "rx": 33,
+        "errors": 0,
+        "rx_crc": 224734231,
+        "parsed": 33,
+        "drop": 0,
+        "controls": 3,
+        "parsed_crc": 224734231
+      }
+    },
+    {
+      "case": "CRLF",
+      "passed": true,
+      "expected_cursor": [
+        12,
+        1
+      ],
+      "observed_cursor": [
+        12,
+        1
+      ],
+      "snapshot": {
+        "rx": 71,
+        "errors": 0,
+        "rx_crc": 92127848,
+        "parsed": 71,
+        "drop": 0,
+        "controls": 6,
+        "parsed_crc": 92127848
+      }
+    },
+    {
+      "case": "burst_then_split_CRLF",
+      "passed": true,
+      "expected_cursor": [
+        18,
+        3
+      ],
+      "observed_cursor": [
+        18,
+        3
+      ],
+      "snapshot": {
+        "rx": 20119,
+        "errors": 0,
+        "rx_crc": 1313001054,
+        "parsed": 20119,
+        "drop": 0,
+        "controls": 9,
+        "parsed_crc": 1313001054
+      }
+    }
+  ],
+  "source_commit": "0805f57",
+  "firmware": "0.3.1 esp32dev_internal",
+  "scope": "Exact UART1/model bytes and CRC, CR/CRLF cursor position, split CRLF and sustained stream. Physical TFT image and touch not verified."
+}
