@@ -1,5 +1,11 @@
 # Faktyczny stan projektu / handoff
 
+## 15.11.2026 — v0.1.14: powitanie dodane, start nadal nieudany
+
+- Kompilacja przed publikacją SUCCESS: Flash 250876 B, RAM 31856 B. Źródła `79f6b35` opublikowano przed testami (pierwszy push miał przejściowy błąd sieci, ponowienie udane). Pełne testy hosta PASS, Cppcheck 12 C bez zgłoszeń, rozszerzona kontrola IRAM PASS.
+- Wgranie COM5 i hashe zapisu SUCCESS. PSRAM rozpoznany jako 8 MB / 40 MHz. Następnie IllegalInstruction przy `esp_mmu_map_get_max_consecutive_free_block_size`, PC `0x400e1159`; dump kodu Flash zawiera `ffffffff`. [Cykl logu](logs/2026-11-15_v0.1.14_psram_bootloop.txt). 51 startów w 15 s, brak app_main, więc powitanie jeszcze nie jest wykonywane.
+- Zachowano dopasowane ELF/bin/map lokalnie. Nie rozszerzać noflash mechanicznie: trzeba ustalić, dlaczego odczyt Flash po konfiguracji PSRAM zwraca złe dane. Test COM14 nie był jeszcze uruchomiony. Użytkownik potwierdził radio COM14 do UART1 GPIO32/34; TFT otrzymuje UART2 RX.
+
 ## 15.11.2026 ? v0.1.13: kontrole i negatywny test COM5
 
 - ?r?d?a `caf6bde` opublikowano przed testami. Cztery buildy SUCCESS: esp32dev 250488/30592 B Flash/RAM, SPI 250372/30592, I80 232660/30156, headless 221160/30068. Wszystkie zestawy hosta PASS; Cppcheck 12 C ? 3 profile bez zg?osze?; kontrola helper?w IRAM/stanu DRAM 4/4 PASS. PSRAM 40 MHz i brak natywnych komponent?w RF potwierdzone.
