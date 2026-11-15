@@ -138,17 +138,18 @@ static void captured(uint16_t rx, uint16_t ry)
 void touch_ui_update(const xpt2046_sample_t *sample, uint32_t now)
 {
     if (!sample) { return; }
-    if (s_page == TEST || s_page == TERMINAL) {
+    if (!s_wait_release && (s_page == TEST || s_page == TERMINAL)) {
         if (s_down && now - s_contact_at >= CONTACT_GRACE_MS) {
             s_down = false; stop_hold();
         }
-        if (sample->pressed) { s_contact_at = now; }
-        else if (s_down) { return; } /* Keep the gesture through a short gap. */
+        if (!sample->pressed && s_down) { return; } /* Keep a short gap. */
     }
+    if (sample->pressed) { s_contact_at = now; }
     if (s_wait_release) {
-        if (sample->pressed) { s_releases = 0; }
-        else if (++s_releases >= 3) { s_wait_release = false; s_releases = 0; s_samples = 0; ++s_revision; }
-        s_down = sample->pressed;
+        if (sample->pressed) { s_releases = 0; s_down = true; }
+        else if (++s_releases >= 3 && (!s_down || now - s_contact_at >= CONTACT_GRACE_MS)) {
+            s_wait_release = false; s_releases = 0; s_samples = 0; s_down = false; ++s_revision;
+        }
         return;
     }
     if (s_page == CALIBRATE || s_page == VERIFY) {

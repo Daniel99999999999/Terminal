@@ -2,6 +2,8 @@
 
 ## 15.11.2026 — v0.3.5: gest CAL i pojedyncze zaniki próbek
 
+Korekta po pierwszej regresji UI: bramka wymaganego puszczenia jest oddzielna od obsługi gestu; po aktywnym kontakcie wymaga trzech braków i80 ms od ostatniej poprawnej próbki. Pierwszy test ujawnił brak przejścia GOTOWE przy wcześniejszym połączeniu obu bramek. Końcowy build obu wariantów SUCCESS; ponowny test dopiero po publikacji korekty. v0.3.5 nie była jeszcze wgrywana.
+
 [Zakres](TOUCH_GESTURES_v0.3.5.md). Usunięto natychmiastowe puszczanie gestu po pojedynczej odrzuconej próbce TEST/TERMINAL; limit80 ms, przerwa dłuższa kończy gest. CAL startuje na przycisku, ma histerezę po uzbrojeniu i postęp na pasku, logowane trafienia raw→screen. Pomiary SPI, progi kalibracji, piny i NVS nie zmienione. Kompilacje internal/touch SUCCESS (5,530/13,664 s; po poprawie ostrzeżenia o zakresie procentu w snprintf). Przed publikacją i testami; na ESP32 nadal v0.3.4 touch.
 
 ## 15.11.2026 — v0.3.4: powrót do krótkich ramek XPT2046

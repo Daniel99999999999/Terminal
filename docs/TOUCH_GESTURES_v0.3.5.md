@@ -6,7 +6,7 @@ Użytkownik zgłosił brak wejścia w CAL po około4 s. v0.3.4 przyjmowała356 p
 
 ## Zmiana
 
-W TEST/TERMINAL krótszy niż80 ms brak poprawnego pomiaru nie tworzy nowego naciśnięcia ani puszczenia. Po80 ms gest jest kończony, także gdy następne wywołanie jest poprawną próbką po długiej przerwie w odpytywaniu. Nie dopisujemy brakujących współrzędnych do dopasowania kalibracji. Filtr CALIBRATE/VERIFY z ośmioma pomiarami/100 ms i własnym limitem50 ms pozostaje.
+W TEST/TERMINAL krótszy niż80 ms brak poprawnego pomiaru nie tworzy nowego naciśnięcia ani puszczenia. Po80 ms gest jest kończony, także gdy następne wywołanie jest poprawną próbką po długiej przerwie w odpytywaniu. Nie dopisujemy brakujących współrzędnych do dopasowania kalibracji. Filtr CALIBRATE/VERIFY z ośmioma pomiarami/100 ms i własnym limitem50 ms pozostaje. Osobna bramka puszczenia wymaga co najmniej trzech braków próbki oraz80 ms od ostatniej poprawnej, jeśli kontakt był wcześniej aktywny. Zapobiega to uznaniu pojedynczych zaników za puszczenie pomiędzy punktami; przy starcie bez wcześniejszego kontaktu pozostają trzy próbki.
 
 CAL trzeba rozpocząć nowym dotknięciem prawej części rzeczywistego dolnego paska8 px. Dopiero po uzbrojeniu dopuszczamy ruch do16 px ku wnętrzu ekranu i8 px w lewo. Większe przeciągnięcie anuluje gest; powrót bez puszczenia nie uzbraja go ponownie. Rozmiar terminala40×29 i wygląd pozostałych przycisków nie zmieniają się.
 
