@@ -1,5 +1,11 @@
 # Faktyczny stan projektu / handoff
 
+## 15.11.2026 — v0.1.20: CS przywrócone, bootloop pozostaje
+
+- Build SUCCESS, publikacja `4ebe112`, potem upload COM5 SUCCESS. Odczyt bez dodatkowego ręcznego resetu także pokazał bootloop (54 cykle / 15 s).
+- [Log](logs/2026-11-15_v0.1.20_boot.txt): CTRL2 przed PSRAM=0x10, po SDK=0, po przywróceniu=0x10. Nadal uszkodzone końce linii instrukcji przy powrocie do s_psram_chip_init, PC 0x400db921. Same czasy CS nie są wystarczającą poprawką.
+- Użytkownik zauważył wcześniej na chwilę napis na LCD; poproszono o treść/moment i aktualny stan podłączenia. Nie utożsamiać tego z potwierdzonym stabilnym startem — logi nie wykazały app_main.
+
 ## 15.11.2026 — v0.1.19: standardowy SDK/QIO też nie startuje
 
 - Build SUCCESS 54,61 s, Flash 250976 B, publikacja `5745445`, potem upload COM5 SUCCESS. Cppcheck 12 C bez zgłoszeń (0). ELF SHA256 fac8b607927584174ef2fd540b2be89e66503e2e82d2c0e4993dfe9e1305c08d.
