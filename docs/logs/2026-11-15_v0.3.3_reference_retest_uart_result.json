@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "sent": 17894,
+  "baseline": {
+    "rx": 0,
+    "errors": 0,
+    "rx_crc": 0,
+    "parsed": 0,
+    "drop": 0,
+    "controls": 0,
+    "parsed_crc": 0
+  },
+  "final": {
+    "rx": 17894,
+    "errors": 0,
+    "rx_crc": 1087034599,
+    "parsed": 17894,
+    "drop": 0,
+    "controls": 13,
+    "parsed_crc": 1087034599
+  },
+  "peer_reply_bytes": 0,
+  "scope": "HC-05 UART1 RX -> model, exact byte counts/CRC32, ANSI controls; TFT image unverified"
+}

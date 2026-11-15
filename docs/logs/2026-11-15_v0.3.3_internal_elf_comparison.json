@@ -1,0 +1,120 @@
+{
+  "files": [
+    ".pio\\audit\\v0301_internal_tested.elf",
+    ".pio\\build\\esp32dev_internal\\firmware.elf"
+  ],
+  "sections": [
+    {
+      "name": ".dram0.data",
+      "old_size": 10504,
+      "new_size": 10504,
+      "identical": false,
+      "different_bytes": 540
+    },
+    {
+      "name": ".iram0.vectors",
+      "old_size": 1028,
+      "new_size": 1028,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "name": ".flash.rodata",
+      "old_size": 43668,
+      "new_size": 43668,
+      "identical": false,
+      "different_bytes": 3218
+    },
+    {
+      "name": ".rtc.force_slow",
+      "old_size": 40,
+      "new_size": 40,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "name": ".iram0.text",
+      "old_size": 47091,
+      "new_size": 47091,
+      "identical": false,
+      "different_bytes": 56
+    },
+    {
+      "name": ".flash.tdata",
+      "old_size": 16,
+      "new_size": 16,
+      "identical": false,
+      "different_bytes": 3
+    },
+    {
+      "name": ".flash.appdesc",
+      "old_size": 256,
+      "new_size": 256,
+      "identical": false,
+      "different_bytes": 6
+    },
+    {
+      "name": ".flash.text",
+      "old_size": 76336,
+      "new_size": 76336,
+      "identical": false,
+      "different_bytes": 10405
+    }
+  ],
+  "functions": [
+    {
+      "name": "draw",
+      "old_size": 49,
+      "new_size": 49,
+      "identical": true
+    },
+    {
+      "name": "lcd_panel_open",
+      "old_size": 280,
+      "new_size": 280,
+      "identical": false
+    },
+    {
+      "name": "lcd_panel_write_row",
+      "old_size": 101,
+      "new_size": 101,
+      "identical": true
+    },
+    {
+      "name": "parse_input",
+      "old_size": 158,
+      "new_size": 158,
+      "identical": true
+    },
+    {
+      "name": "screen_task",
+      "old_size": 989,
+      "new_size": 989,
+      "identical": true
+    },
+    {
+      "name": "terminal_cell_colors",
+      "old_size": 37,
+      "new_size": 37,
+      "identical": true
+    },
+    {
+      "name": "terminal_init",
+      "old_size": 111,
+      "new_size": 111,
+      "identical": true
+    },
+    {
+      "name": "terminal_raster_row",
+      "old_size": 274,
+      "new_size": 274,
+      "identical": true
+    },
+    {
+      "name": "terminal_raster_swap_bytes",
+      "old_size": 31,
+      "new_size": 31,
+      "identical": true
+    }
+  ]
+}

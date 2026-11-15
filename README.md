@@ -12,7 +12,7 @@ Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/
 
 **Próby VT100/ANSI v0.3.1:** [20 przypadków, transport bez strat, potwierdzone przez użytkownika kolory/ramka/miganie](docs/VT100_TEST_2026-11-15.md). Zakres obejmuje zaimplementowany podzbiór; odpowiedzi DSR/DA nadal brak. Firmware i jego numer pozostają bez zmian.
 
-**XPT2046 podłączony:** v0.3.2 odtworzyła kalibrację z NVS, lecz próba przytrzymań nie obniżyła IRQ. Odczyt ADC i próby sterowania nadal są w toku; [aktualny stan](docs/STATUS.md). Poprzednie wzmianki o niepodłączonym dotyku opisują historię.
+**XPT2046 podłączony:** IRQ reaguje, ale odczyty ADC w v0.3.3 pozostały zerowe. [Próby LCD i porównanie zachowanych wersji](docs/TFT_TOUCH_TEST_2026-11-15.md): po wcześniejszym bieleniu ponownie wgrana v0.3.3 internal wyświetla poprawnie. Przyczyna bielenia nieustalona; dotyk pozostaje do diagnozy. Kalibracja odtworzona z NVS.
 
 **v0.3.0:** [XPT2046: kalibracja pięciu punktów, niezależna walidacja, test dotyku i zapis ustawień](docs/TOUCH_CALIBRATION_v0.3.0.md). Osobny profil `esp32dev_touch` używa działającego RAM wewnętrznego. Obrót LCD 3 zachowany. Wariant bez dotyku nadal dostępny; użytkownik dopiero podłączy dotyk według opisanego planu.
 

@@ -1,0 +1,18 @@
+--- v0.3.1
++++ v0.3.3
+@@ -1,5 +1,5 @@
+ 
+-.pio/audit/v0301_internal_tested.elf:     file format elf32-xtensa-le
++.pio/audit/v0303_internal_tested.elf:     file format elf32-xtensa-le
+ 
+ 
+ Disassembly of section .iram0.vectors:
+@@ -46,7 +46,7 @@
+ 400d1ecf:	3189      	s32i.n	a8, a1, 12
+ 400d1ed1:	4189      	s32i.n	a8, a1, 16
+ 400d1ed3:	a129      	s32i.n	a2, a1, 40
+-400d1ed5:	040565        	call8	400d5f2c <spi_bus_initialize>
++400d1ed5:	0257e5        	call8	400d4454 <spi_bus_initialize>
+ 400d1ed8:	fb9a56        	bnez	a10, 400d1e95 <lcd_panel_open+0x19>
+ 400d1edb:	4c2c      	movi.n	a12, 36
+ 400d1edd:	0b0c      	movi.n	a11, 0

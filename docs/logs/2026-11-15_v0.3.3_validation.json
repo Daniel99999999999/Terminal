@@ -24,6 +24,24 @@
     "all_observed_raw_values": "x=0 y=0 z1=0 z2=0 IRQ=HIGH",
     "spi_api_errors": 0
   },
-  "physical_test": "repeat holds requested; result pending, no claimed improvement",
-  "uart_test": "not repeated on this version yet"
+  "physical_test": {
+    "user_completed_holds": true,
+    "irq_low_final": 896,
+    "valid_final": 0,
+    "adc_observation": "x/y/z1/z2 zero throughout observed press windows; SPI API errors 0",
+    "lcd_report": "became completely white with faint flicker; known UART pattern did not restore image",
+    "inference": "IRQ can respond. No established root cause for zero ADC or LCD whitening."
+  },
+  "uart_test": {
+    "touch_profile": "PASS: 17894 bytes, CRC32 40cad4e7, 13 controls, no drops/errors; LCD remained white per user",
+    "internal_first_recovery": "PASS: 17894 additional bytes with exact CRC, no drops/errors; LCD remained white per user",
+    "v031_reference": "PASS: 17894 bytes, CRC32 40cad4e7, no drops/errors; user confirmed correct text/colors",
+    "v033_reference": "PASS: 17894 bytes, CRC32 40cad4e7, no drops/errors; user confirmed correct image after reflashing same saved file"
+  },
+  "deployed": {
+    "version": "0.3.3",
+    "profile": "esp32dev_internal",
+    "method": "saved application BIN only via esptool; original NVS preserved",
+    "physical_result": "text and RGB correct, confirmed by user"
+  }
 }

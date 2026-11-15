@@ -2,6 +2,10 @@
 
 ## 15.11.2026 — v0.3.3: pomiar nacisku niezależny od IRQ
 
+**Najnowsza próba sprzętowa:** [porównanie i ograniczenia](TFT_TOUCH_TEST_2026-11-15.md). Przy trzech przytrzymaniach irq_low wzrósł do896, ale valid0, wszystkie obserwowane osie/Z1/Z2 zerowe, bez błędu API SPI. IRQ potrafi reagować — wcześniejszy stan HIGH nie jest dowodem jego stałej awarii. Użytkownik zgłosił biały, lekko migoczący LCD, także po pierwszym wgraniu profilu bez dotyku. Odbiór/model w obu profilach: po17894 B bez strat i błędów.
+
+**Porównanie zachowanych plików:** v0.3.1 internal wyświetliła wzór poprawnie. Następnie **ten sam zachowany plik v0.3.3 internal także wyświetlił wzór poprawnie**, co potwierdził użytkownik. Brak potwierdzonej przyczyny wcześniejszego bielenia; nie ogłaszać naprawy ani regresji konkretnej wersji. Wgrana obecnie **v0.3.3 internal, dotyk OFF**, UART2/native BT/Wi-Fi nieaktywne, NVS zachowane; porty zamknięte. Dotyk wymaga dalszej diagnozy odczytu, kalibracja i pauza nie są jeszcze odebrane fizycznie.
+
 **Po publikacji `1580d1a`:** [kontrole](logs/2026-11-15_v0.3.3_validation.json), [host XPT obu trybów](logs/2026-11-15_v0.3.3_host_xpt.txt) PASS. Cppcheck 11 C internal/touch: kody0, bez zgłoszeń. Upload touch COM5 SUCCESS, hash zweryfikowany. [Start15 s](logs/2026-11-15_v0.3.3_touch_boot.txt): bez restartów, powitanie3008 ms, mapa NVS wczytana. Do1060 odczytów po powitaniu: valid0, weak1060, io0, wszystkie obserwowane osie i Z1/Z2 zerowe, IRQ=HIGH. To brak fałszywych przyjęć w tym oknie, nie dowód poprawnego toru ADC. Powtórna próba z naciskiem została zlecona; oczekuje wyniku.
 
 [Opis](TOUCH_POLLING_v0.3.3.md). Domyślnie RETRO_TOUCH_REQUIRE_IRQ=0: SPI/ADC jest odczytywane przy każdym odpytywaniu, a poprawny nacisk/zakres ustala dotknięcie niezależnie od GPIO36. Jawna opcja1 zachowuje poprzedni tryb. Dodatkowo Z1/Z2 i stan IRQ w diagnostyce. Bez zmian kalibracji/NVS i fizycznego połączenia. Kompilacje internal/touch SUCCESS (26,486/22,099 s), przed publikacją i testami. Oczekuje testów/uploadu; nie ogłaszać rozwiązania fizycznej przyczyny.

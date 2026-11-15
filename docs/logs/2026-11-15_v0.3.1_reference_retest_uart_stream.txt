@@ -1,0 +1,12 @@
+I (10220) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (10220) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (10220) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (15227) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (15227) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (15227) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (20235) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (20235) HC05: RX=17894 errors=0 CRC32=40cad4e7; UART2 inactive
+I (20235) SCREEN: parsed=17894 drop=0 controls=13 CRC32=40cad4e7 cursor=0,6 view=LIVE CR=NL
+I (25243) HEALTH: alive stage=2 internal_free=224356 PSRAM_free=0
+I (25243) HC05: RX=17894 errors=0 CRC32=40cad4e7; UART2 inactive
+I (25243) SCREEN: parsed=17894 drop=0 controls=13 CRC32=40cad4e7 cursor=0,6 view=LIVE CR=NL
