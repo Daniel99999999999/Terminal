@@ -1,5 +1,12 @@
 # Historia wersji
 
+## v0.3.0 — 15.11.2026
+
+- Kalibracja XPT2046: pięć punktów, dopasowanie afiniczne, niezależny punkt walidacji, odrzucanie niestabilnych/zdegenerowanych pomiarów, wymagane puszczenie między punktami.
+- Ekran testowy i powrót „GOTOWE”; ponowna kalibracja po przytrzymaniu paska terminala2 s. Odbiór/parser działają w tle.
+- NVS z CRC i kontrolą rozmiaru/obrotu; brak kasowania istniejącej partycji. Osobny profil esp32dev_touch, UART ISR w IRAM przy zapisie Flash, wariant bez dotyku zachowany.
+- Nowe regresje modelu kalibracji i UI z symulacją NVS; wyniki kontroli i prób fizycznych w STATUS.
+
 ## v0.2.3 — 15.11.2026
 
 - Zdjęcie aktualnego wzoru v0.2.2 potwierdza obrót obrazu o180°, nie samo odbicie: LEWY GORNY znajduje się na dole po prawej, litery są do góry nogami.

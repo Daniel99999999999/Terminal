@@ -2,13 +2,15 @@
 
 Projekt terminala szeregowego DIY opartego na **ESP32-WROVER (ESP32-D0WD-V3)**. Natywny **ESP-IDF 6.0.1 w PlatformIO**, język **C**, bez Arduino.
 
-Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.2.3**. [Nowa implementacja i konfiguracja](docs/REWRITE_v0.2.0.md), [opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
+Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.3.0**. [Nowa implementacja i konfiguracja](docs/REWRITE_v0.2.0.md), [opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
+
+**v0.3.0:** [XPT2046: kalibracja pięciu punktów, niezależna walidacja, test dotyku i zapis ustawień](docs/TOUCH_CALIBRATION_v0.3.0.md). Osobny profil `esp32dev_touch` używa działającego RAM wewnętrznego. Obrót LCD 3 zachowany. Wariant bez dotyku nadal dostępny; użytkownik dopiero podłączy dotyk według opisanego planu.
 
 **v0.2.3:** po zdjęciu wzoru z opisami narożników zmieniono domyślny obrót z1 na3 (o180°), zachowując320×240. W v0.2.2 litery i narożniki były obrócone względem fizycznego ustawienia LCD. Stan weryfikacji w STATUS.
 
 **v0.2.2:** poprawiono tabelę obrotów ILI9341 po zdjęciu pokazującym odbicie lewo–prawo. Domyślny poziomy obraz używa MADCTL 0x28 zamiast 0x68. [Porównanie orientacji](https://github.com/adafruit/Adafruit_ILI9341/blob/master/Adafruit_ILI9341.cpp#L209). Stan próby sprzętowej w STATUS; działający wariant pamięci nadal `esp32dev_internal`.
 
-**Wynik v0.2.2:** stabilny start i odbiór wzoru testowego potwierdzone, ale użytkownik nadal zgłasza zamianę lewo/prawo — orientacja wymaga dalszej korekty po aktualnym zdjęciu. [Szczegółowy raport bootloopu](docs/BOOTLOOP_REPORT_2026-11-15.md) oddziela dowody od hipotez; pierwotna przyczyna błędu startu PSRAM pozostaje nieustalona.
+**Wynik orientacji:** [v0.2.3 wgrana, stabilny start; obrót 3 zaakceptowany przez użytkownika](docs/RESULTS_v0.2.3.md). [Szczegółowy raport bootloopu](docs/BOOTLOOP_REPORT_2026-11-15.md) oddziela dowody od hipotez; pierwotna przyczyna błędu startu PSRAM pozostaje nieustalona.
 
 **Aktualny tor:** badane urządzenie → HC-05 master ⇄ HC-05 slave → **UART1 TX32/RX34, 115200 → TFT**. Telefonu nie ma; UART2 i most nie są uruchamiane. Nowy runtime, standardowy start SDK bez eksperymentalnych wrapperów pamięci, powitanie 3 s i parser ANSI/VT100. Dawne opisy mostu poniżej są historyczne; rzeczywiste wyniki w STATUS.
 
@@ -26,7 +28,7 @@ Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/
 
 **v0.1.11:** dodano most HC-05 UART1 TX32/RX34 przy potwierdzonych 115200, opcjonalne STATE35 i EN12/AT oraz renderer ILI9341 przez I80/DMA. [Konfiguracja i ograniczenia](docs/HC05_TFT_v0.1.11.md), [połączenia](docs/PIN_ASSIGNMENT_HC05_TFT.md). Natywne BT/Wi-Fi usunięto z bieżącego firmware. TFT, STATE i EN są domyślnie wyłączone do potwierdzenia warunków elektrycznych. Kod wymaga testu na rzeczywistym sprzęcie; końcowe kontrole po commicie źródeł są opisane w STATUS.
 
-> **Stan sprzętu:** próby wbudowanego BT zakończono decyzją użytkownika, bez ustalenia przyczyny. HC-05 to ZS-040, użytkownik sprawdził AT przez EN i podał baud transmisji 115200. Stary shield I80 nie świeci nawet przy samym 5V/GND; stabilizator 3,3 V według użytkownika działa. Nowy moduł SPI ma potwierdzone VCC/LED 3,3 V; fizyczny obraz i dotyk pozostają nieprzetestowane. Brak nowego logu potwierdzającego wgraną wersję; nie wykonano automatycznego uploadu. [Wyniki i historia](docs/STATUS.md).
+> **Stan sprzętu:** nowy LCD SPI wyświetla obraz, obrót 3 został zaakceptowany. HC-05 → UART1 → parser sprawdzono przez COM14, GPIO2 miga. ESP32 używa RAM wewnętrznego; dotyk nie jest jeszcze podłączony. Próby natywnego BT zakończono. Dawny shield I80 bez podświetlenia pozostaje osobnym, nierozwiązanym przypadkiem. [Wyniki i historia](docs/STATUS.md).
 
 ## Szybki start — Windows / VS Code
 
@@ -34,11 +36,11 @@ Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/
 2. W VS Code wybierz **File → Open Folder** i otwórz **folder zawierający `platformio.ini`**.
 3. Upewnij się, że jest zainstalowane rozszerzenie **PlatformIO IDE**; opcjonalnie rozszerzenie Codex.
 4. Otwórz projekt w Codex i poleć przeczytać `AGENTS.md` i `docs/STATUS.md` (gotowy prompt w `CODEX_START.md`).
-5. Zbuduj projekt przez PlatformIO: `pio run -e esp32dev` lub **Terminal → Run Task → PIO: Build**.
-6. Wgraj: `pio run -e esp32dev -t upload`.
+5. Zbuduj sprawdzony wariant bez dotyku: `pio run -e esp32dev_internal`; z podłączonym XPT2046 wybierz `esp32dev_touch`.
+6. Wgraj wybrany wariant, np. `pio run -e esp32dev_internal -t upload --upload-port COM5`. Domyślny `esp32dev` nadal włącza PSRAM i obecnie wpada w bootloop.
 7. Monitor portu: `pio device monitor -b 115200` (ostatni log z 12.11.2026: COM5; port może się zmienić).
 
-Zweryfikowane środowisko v0.1.10: **PlatformIO espressif32 7.0.1 / ESP-IDF 6.0.1**. `platformio.ini` nie przypina wersji platformy; przed pierwszą kompilacją sprawdź wersję zależności w logu. Do odtworzenia tego środowiska ustaw lokalnie `platform = espressif32 @ 7.0.1`. Porty `upload_port` i `monitor_port` dostosuj do swojego komputera. Do testów bez ESP32: `python tests/run_host_tests.py` (kompilator C11: GCC, Clang lub bcc64x; opcjonalnie `--cc ścieżka`).
+Środowisko: **PlatformIO espressif32 7.0.1 / ESP-IDF 6.0.1**, platforma przypięta w `platformio.ini`. Porty `upload_port` i `monitor_port` dostosuj do swojego komputera. Do testów bez ESP32: `python tests/run_host_tests.py` (kompilator C11: GCC, Clang lub bcc64x; opcjonalnie `--cc ścieżka`).
 
 **Uwaga na konfigurację:** `sdkconfig.defaults` ustala żądane opcje, ale jeśli projekt ma już wygenerowany `sdkconfig`, może on mieć pierwszeństwo. W istniejącym działającym projekcie zachowaj `sdkconfig`, porównaj z `sdkconfig.defaults` i w razie potrzeby użyj `pio run -t menuconfig`. Jeśli konfiguracja jest świeża i nie zawiera własnych zmian, można ją wygenerować od nowa. Nie usuwaj w ciemno konfiguracji projektu źródłowego.
 
@@ -46,7 +48,7 @@ Zweryfikowane środowisko v0.1.10: **PlatformIO espressif32 7.0.1 / ESP-IDF 6.0.
 
 ## Aktualny firmware
 
-`src/` zawiera most HC-05, parser/model i renderer terminala, transport I80/SPI, XPT2046 oraz debug LED. Profile i opcje TFT/dotyku wybiera `src/display_profile.h` lub `build_flags`; [instrukcja v0.1.12 i pinout SPI](docs/TFT_PROFILES_v0.1.12.md). Opcje HC-05 pozostają w `src/Kconfig.projbuild` → **RetroTerminal**, a [instrukcja v0.1.11](docs/HC05_TFT_v0.1.11.md) opisuje STATE/EN i API AT. Bez STATE informacja BT pozostaje nieznana, most UART działa. Nie uruchamiamy natywnego radia.
+`src/` zawiera odbiornik HC-05 na UART1, parser/model ANSI/VT100, renderer TFT I80/SPI, XPT2046 z kalibracją i debug LED. UART2 i most nie są uruchamiane. Profile wybiera `src/display_profile.h` lub `build_flags`; [dotyk i kalibracja](docs/TOUCH_CALIBRATION_v0.3.0.md), [pinout LCD SPI](docs/TFT_PROFILES_v0.1.12.md). STATE pozostaje opcjonalne, EN/KEY nie jest sterowane; bez STATE stan połączenia BT jest nieznany. Nie uruchamiamy natywnego radia. Dawne API mostu/AT z v0.1.11 nie należy do bieżącego runtime.
 
 ## Pliki i historia v0.1.10
 

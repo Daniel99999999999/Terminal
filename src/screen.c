@@ -7,6 +7,7 @@
 #include "terminal.h"
 #include "terminal_raster.h"
 #include "xpt2046.h"
+#include "touch_ui.h"
 #include "esp_app_desc.h"
 #include "esp_heap_caps.h"
 #include "esp_log.h"
@@ -102,7 +103,11 @@ static esp_err_t welcome(uint32_t *sequence)
 
 static esp_err_t status_line(void)
 {
+#if RETRO_TOUCH_ENABLE
+    const char *text = "HC05 115200 | HOLD 2s: CAL";
+#else
     const char *text = "HC-05 UART1 115200 8N1";
+#endif
     size_t length = strlen(text);
     terminal_cell_t cells[COLS];
     for (unsigned x = 0; x < COLS; ++x) {
@@ -131,8 +136,11 @@ static void screen_task(void *arg)
 #endif
 #if RETRO_TOUCH_ENABLE
     bool touch = xpt2046_init() == ESP_OK;
-    bool pressed = false;
     if (!touch) { app_health_fault(); ESP_LOGE("TOUCH", "Initialization failed"); }
+    else { touch_ui_init(); }
+    uint32_t ui_rows[LCD_HEIGHT / 8] = {0};
+    unsigned ui_next = 0;
+    bool overlay_was_visible = false;
 #endif
     if (lcd_error != ESP_OK) {
         app_health_fault(); ESP_LOGE("TFT", "Initialization stopped: %s", esp_err_to_name(lcd_error));
@@ -149,7 +157,36 @@ static void screen_task(void *arg)
         if (welcome_until && now >= welcome_until) {
             ESP_LOGI("TFT", "Welcome complete; opening terminal"); welcome_until = 0;
         }
-        if (lcd_error == ESP_OK && !welcome_until) {
+#if RETRO_TOUCH_ENABLE
+        if (touch && !welcome_until) {
+            xpt2046_sample_t sample;
+            esp_err_t error = xpt2046_read(&sample);
+            if (error != ESP_OK) {
+                touch = false; app_health_fault();
+                ESP_LOGE("TOUCH", "Read failed: %s; terminal continues", esp_err_to_name(error));
+            } else { touch_ui_update(&sample, (uint32_t)(now / 1000)); }
+        }
+        bool overlay = touch && touch_ui_visible();
+        if (overlay_was_visible && !overlay) {
+            memset(s_previous, 0, COLS * ROWS * sizeof(*s_previous));
+            status_drawn = false;
+        }
+        overlay_was_visible = overlay;
+        if (lcd_error == ESP_OK && !welcome_until && overlay) {
+            uint32_t revision = touch_ui_revision();
+            for (unsigned budget = 0; budget < 4; ++budget) {
+                unsigned row = ui_next++ % (LCD_HEIGHT / 8);
+                if (ui_rows[row] == revision) { continue; }
+                if (!touch_ui_render_row(row, lcd_panel_pixels(), LCD_STRIP_PIXELS)) { lcd_error = ESP_FAIL; break; }
+                lcd_error = lcd_panel_write_row(row * 8);
+                if (lcd_error != ESP_OK) { app_health_fault(); ESP_LOGE("TFT", "Touch UI render stopped"); break; }
+                ui_rows[row] = revision;
+            }
+        }
+#else
+        bool overlay = false;
+#endif
+        if (lcd_error == ESP_OK && !welcome_until && !overlay) {
             const terminal_cursor_t *cursor = &s_terminal.page[s_terminal.active].cursor;
             bool phase = ((now / 500000) & 1) == 0;
             for (unsigned budget = 0; budget < 4; ++budget) {
@@ -173,16 +210,6 @@ static void screen_task(void *arg)
         }
 #else
         (void)welcome_until;
-#endif
-#if RETRO_TOUCH_ENABLE
-        if (touch) {
-            xpt2046_sample_t sample;
-            if (xpt2046_read(&sample) != ESP_OK) { touch = false; app_health_fault(); }
-            else if (sample.pressed != pressed) {
-                pressed = sample.pressed;
-                ESP_LOGI("TOUCH", "%s raw x=%u y=%u pressure=%u", pressed ? "DOWN" : "UP", sample.x, sample.y, sample.pressure);
-            }
-        }
 #endif
         vTaskDelay(pdMS_TO_TICKS(10));
     }

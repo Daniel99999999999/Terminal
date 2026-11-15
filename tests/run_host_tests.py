@@ -14,7 +14,7 @@ import subprocess
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--cc", help="C compiler (GCC, Clang, or bcc64x)")
-    parser.add_argument("--suite", choices=("all", "bt", "led", "hci", "terminal", "hc05", "raster", "profiles", "xpt"), default="all")
+    parser.add_argument("--suite", choices=("all", "bt", "led", "hci", "terminal", "hc05", "raster", "profiles", "xpt", "calibration"), default="all")
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
     output = root / ".pio" / "host-tests"
@@ -79,11 +79,19 @@ def main():
     if args.suite in ("all", "xpt"):
         extra.append(("xpt2046", [root / "tests/test_xpt2046.c", root / "src/xpt2046.c"],
                       ["-DRETRO_TFT_PROFILE=2", "-DRETRO_TOUCH_ENABLE=1"], [root / "tests/spi_stubs"]))
+    if args.suite in ("all", "calibration"):
+        extra.append(("touch_calibration", [root / "tests/test_touch_calibration.c",
+            root / "src/touch_calibration.c", root / "src/touch_ui.c",
+            root / "src/terminal_raster.c", root / "src/terminal.c", root / "src/ansi_parser.c"],
+            ["-DRETRO_TFT_PROFILE=2", "-DRETRO_TOUCH_ENABLE=1"],
+            [root / "tests/touch_ui_stubs", root / "tests/spi_stubs"]))
     for name, sources, defines, includes in extra:
         executable = output / ("test_" + name + (".exe" if os.name == "nt" else ""))
         command = [compiler, *flags, "-std=c11", "-Wall", "-Wextra", "-Werror", *defines,
                    *["-I" + str(p) for p in includes], "-I" + str(root / "src"),
                    *[str(p) for p in sources], "-o", str(executable)]
+        if name == "touch_calibration" and Path(compiler).stem.lower() != "bcc64x":
+            command.append("-lm")
         for operation in (command, [str(executable)]):
             result = subprocess.run(operation, cwd=output, capture_output=True, text=True)
             log.append(result.stdout + result.stderr)

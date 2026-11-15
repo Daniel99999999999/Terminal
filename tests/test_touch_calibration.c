@@ -1,0 +1,115 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include "touch_calibration.h"
+#include "touch_ui.h"
+#include "lcd_panel.h"
+#include "nvs.h"
+#include "esp_rom_crc.h"
+#define CHECK(x) do { if (!(x)) { printf("FAIL line %d: %s\n", __LINE__, #x); exit(1); } } while (0)
+static unsigned char stored[128];
+static size_t stored_size;
+static unsigned writes, commits;
+static uint32_t now_ms;
+
+uint32_t esp_rom_crc32_le(uint32_t crc, const uint8_t *data, uint32_t size)
+{
+    crc = ~crc;
+    for (uint32_t i = 0; i < size; ++i) {
+        crc ^= data[i];
+        for (unsigned bit = 0; bit < 8; ++bit) { crc = (crc >> 1) ^ (0xedb88320u & (0u - (crc & 1u))); }
+    }
+    return ~crc;
+}
+esp_err_t nvs_flash_init(void) { return ESP_OK; }
+esp_err_t nvs_open(const char *name, int mode, nvs_handle_t *handle)
+{ CHECK(strcmp(name, "retro_touch") == 0); CHECK(mode == NVS_READONLY || mode == NVS_READWRITE); *handle = 1; return ESP_OK; }
+void nvs_close(nvs_handle_t handle) { CHECK(handle == 1); }
+esp_err_t nvs_get_blob(nvs_handle_t handle, const char *key, void *data, size_t *size)
+{
+    CHECK(handle == 1 && strcmp(key, "affine") == 0);
+    if (!stored_size) { return 1; }
+    CHECK(*size >= stored_size); memcpy(data, stored, stored_size); *size = stored_size; return ESP_OK;
+}
+esp_err_t nvs_set_blob(nvs_handle_t handle, const char *key, const void *data, size_t size)
+{ CHECK(handle == 1 && strcmp(key, "affine") == 0 && size <= sizeof(stored)); memcpy(stored, data, size); stored_size = size; ++writes; return ESP_OK; }
+esp_err_t nvs_commit(nvs_handle_t handle) { CHECK(handle == 1); ++commits; return ESP_OK; }
+
+static void release(void)
+{
+    xpt2046_sample_t sample = {0};
+    for (unsigned i = 0; i < 3; ++i) { touch_ui_update(&sample, now_ms); now_ms += 20; }
+}
+static void hold(unsigned x, unsigned y)
+{
+    xpt2046_sample_t sample = { .pressed = true, .x = (uint16_t)(400 + x * 10), .y = (uint16_t)(350 + y * 12) };
+    for (unsigned i = 0; i < 12; ++i) { touch_ui_update(&sample, now_ms); now_ms += 20; }
+}
+static void five(void)
+{
+    const unsigned xs[] = {24, LCD_WIDTH-25, LCD_WIDTH-25, 24, LCD_WIDTH/2};
+    const unsigned ys[] = {24, 24, LCD_HEIGHT-25, LCD_HEIGHT-25, LCD_HEIGHT/2};
+    for (unsigned i = 0; i < 5; ++i) { release(); hold(xs[i], ys[i]); }
+}
+
+int main(void)
+{
+    touch_cal_point_t points[] = {{0,0,24,24},{0,0,295,24},{0,0,295,215},{0,0,24,215},{0,0,160,120}};
+    for (unsigned n = 0; n < 5; ++n) {
+        /* Swapped raw axes and reversed horizontal direction. */
+        points[n].raw_x = (uint16_t)(350 + points[n].y * 12);
+        points[n].raw_y = (uint16_t)(3800 - points[n].x * 10);
+    }
+    touch_calibration_t cal = {0}; uint16_t x,y;
+    CHECK(touch_calibration_fit(points, 5, 320, 240, &cal));
+    CHECK(touch_calibration_map(&cal, 350 + 170 * 12, 3800 - 80 * 10, &x, &y));
+    CHECK(x == 80 && y == 170);
+    CHECK(touch_calibration_map(&cal, 4095, 0, &x, &y) && x == 319 && y == 239);
+    touch_calibration_t old = cal;
+    points[4].x = 250;
+    CHECK(!touch_calibration_fit(points, 5, 320, 240, &cal));
+    CHECK(memcmp(&cal, &old, sizeof(cal)) == 0);
+    for (unsigned n = 0; n < 5; ++n) { points[n].raw_x = points[n].raw_y = 1000; }
+    CHECK(!touch_calibration_fit(points, 5, 320, 240, &cal));
+    CHECK(!touch_calibration_fit(points, 2, 320, 240, &cal));
+    CHECK(!touch_calibration_map(&cal, 4096, 0, &x, &y));
+    cal.x[0] = NAN; CHECK(!touch_calibration_valid(&cal));
+    cal = old;
+    /* Rounding near an edge must never return width or height. */
+    cal.x[0] = 160; cal.x[1] = 0; cal.x[2] = 159.8f;
+    cal.y[0] = 0; cal.y[1] = 120; cal.y[2] = 119.8f;
+    CHECK(touch_calibration_map(&cal, 4095, 4095, &x, &y) && x == 319 && y == 239);
+
+    touch_ui_init(); CHECK(touch_ui_visible());
+    release(); hold(24,24); hold(295,24); /* Holding cannot capture two targets. */
+    for (unsigned i = 1; i < 5; ++i) {
+        const unsigned xs[] = {24,295,295,24,160}, ys[] = {24,24,215,215,120};
+        release(); hold(xs[i],ys[i]);
+    }
+    CHECK(writes == 0 && commits == 0);
+    release(); hold(250,60); /* Independent verification rejects a wrong tap. */
+    CHECK(writes == 0 && touch_ui_visible());
+    five(); CHECK(writes == 0);
+    release(); hold(LCD_WIDTH/3,LCD_HEIGHT*2/3);
+    CHECK(writes == 1 && commits == 1 && touch_ui_visible());
+    uint16_t pixels[LCD_STRIP_PIXELS + 2];
+    pixels[0] = pixels[LCD_STRIP_PIXELS+1] = 0xa55a;
+    for (unsigned row = 0; row < LCD_HEIGHT/8; ++row) { CHECK(touch_ui_render_row(row,pixels+1,LCD_STRIP_PIXELS)); }
+    CHECK(pixels[0] == 0xa55a && pixels[LCD_STRIP_PIXELS+1] == 0xa55a);
+    CHECK(!touch_ui_render_row(0,pixels,1));
+    release(); hold(LCD_WIDTH/2,LCD_HEIGHT-16); CHECK(!touch_ui_visible());
+    touch_ui_init(); CHECK(!touch_ui_visible()); /* Persistent calibration restored. */
+    release(); hold(LCD_WIDTH/2,LCD_HEIGHT-3);
+    now_ms += 2100; hold(LCD_WIDTH/2,LCD_HEIGHT-3); CHECK(touch_ui_visible());
+    stored[20] ^= 1; /* Keep the magic/header intact; exercise the CRC check. */
+    touch_ui_init(); CHECK(touch_ui_visible()); /* Invalid saved data is ignored. */
+    stored[20] ^= 1;
+    uint32_t wrong_rotation = (RETRO_TFT_ROTATION + 2) & 3;
+    memcpy(stored + 8, &wrong_rotation, sizeof(wrong_rotation));
+    uint32_t crc = esp_rom_crc32_le(0, stored, (uint32_t)stored_size - 4);
+    memcpy(stored + stored_size - 4, &crc, sizeof(crc));
+    touch_ui_init(); CHECK(touch_ui_visible()); /* Old orientation cannot be reused. */
+    puts("PASS: affine swapped/reversed axes, degeneracy/residual/edge guards; release gate, independent validation, NVS restore/CRC, long-press and render bounds");
+    return 0;
+}

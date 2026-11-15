@@ -1,5 +1,7 @@
 # Sprzęt, bezpieczeństwo i nieustalone połączenia
 
+**XPT2046 — v0.3.0:** użytkownik wybrał dotyk i kalibrację, ale dotyk nie jest jeszcze podłączony. [Aktualny plan](TOUCH_CALIBRATION_v0.3.0.md): osobne SPI2, T_CLK14/T_DIN13/T_DO39/T_CS33/T_IRQ36, sygnały 3,3 V. GPIO16/17 pozostają zarezerwowane także przy działającym wariancie bez PSRAM. Nie uznawać samej kompilacji za potwierdzenie działania dotyku.
+
 **Potwierdzenie 15.11.2026 / v0.2.1:** użytkownik potwierdził podłączony LCD SPI, widoczne powitanie i migającą diodę GPIO2. Dotyczy to wgranego wariantu `esp32dev_internal` bez inicjalizacji PSRAM. Test COM14 potwierdził odbiór HC-05 na UART1 i przekazanie wszystkich bajtów do parsera; wizualna treść/kolory tego strumienia nie są jeszcze potwierdzone. Dotyk pozostaje wyłączony. [Bieżące wyniki](STATUS.md).
 
 **Nowa alternatywa 15.11.2026:** użytkownik dodał moduł **ILI9341 SPI z XPT2046**, VCC i LED **3,3 V** potwierdzone przez użytkownika. [Osobny pinout SPI](TFT_PROFILES_v0.1.12.md) zastępuje połączenia I80 przy wybraniu tego profilu. Nie stosować zasilania 5 V starego shielda do nowego modułu. Dawne nieustalone HC245 i osie dotyku dotyczą shielda I80. Nowy kontroler XPT2046 ma cyfrowe SPI, nie wymaga ADC ESP32. LED zasilać z szyny 3V3 zgodnie z deklaracją napięcia modułu, nie z GPIO; zapewnić odpowiednią wydajność zasilania. Powitanie na LCD potwierdzono jak wyżej; dotyk nie był sprawdzany fizycznie.

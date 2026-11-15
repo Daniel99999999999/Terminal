@@ -1,5 +1,9 @@
 # Faktyczny stan projektu / handoff
 
+## 15.11.2026 — v0.3.0: wybrany etap XPT2046 i kalibracji
+
+Użytkownik wybrał dotyk i kalibrację zamiast scrollback. [Instrukcja i implementacja](TOUCH_CALIBRATION_v0.3.0.md). Dodano dopasowanie pięciu punktów z niezależną walidacją, ekran testu, zapis NVS oraz profil `esp32dev_touch` z wewnętrznym RAM i ISR UART w IRAM. Wariant bez dotyku zachowany. Kompilacje internal/touch SUCCESS (65,57/66,66 s), przed publikacją i testami. Nowe testy nie zostały jeszcze uruchomione. Użytkownik potwierdził: **dotyk jeszcze niepodłączony, podłączy według planu T_CLK14/T_DIN13/T_DO39/T_CS33/T_IRQ36**. Upload i kalibracja fizyczna czekają na gotowe okablowanie; na ESP32 pozostaje v0.2.3 bez dotyku. [Wynik poprzedniej próby](RESULTS_v0.2.3.md).
+
 ## 15.11.2026 — v0.2.3: obrót o180° na podstawie nowego zdjęcia
 
 Zdjęcie `20261115_170535.jpg` przedstawia faktycznie wgrany wzór v0.2.2: LEWY GORNY jest na dole po prawej, PRAWY DOL na górze po lewej, litery do góry nogami. To obrót o180°, co trafnie wskazał użytkownik. Pierwsze zdjęcie przedstawiało poprzedni wzór; nie należało traktować go jako obrazu po wgraniu v0.2.2. Zmieniono wyłącznie domyślny RETRO_TFT_ROTATION z1 na3 oraz wersję. Rozmiar320×240, tor UART1, piny i wariant RAM wewnętrznego zachowane. Build SUCCESS,19,83 s. Użytkownik zaakceptował ten obrót jako poprawne ustawienie i polecił pominąć dalsze opisy narożników oraz przejść do następnego etapu. Publikacja źródeł poprzedza upload/kontrolę startu; nie wymagać kolejnego testu narożników.
