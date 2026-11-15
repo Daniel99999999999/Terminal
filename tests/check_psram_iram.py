@@ -24,7 +24,8 @@ def main():
         parts = line.split()
         if len(parts) == 3:
             symbols[parts[2]] = (int(parts[0], 16), parts[1])
-    required = ("esp_psram_impl_enable", "psram_is_32mbit_ver0", "psram_read_id",
+    required = ("s_psram_chip_init", "esp_psram_chip_init", "esp_psram_init", "mspi_init",
+                "esp_psram_impl_enable", "psram_is_32mbit_ver0", "psram_read_id",
                 "psram_disable_qio_mode", "esp_gpio_reserve", "__atomic_fetch_or_8")
     for name in required:
         address, kind = symbols.get(name, (0, "?"))

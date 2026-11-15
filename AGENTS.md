@@ -1,5 +1,9 @@
 # Instrukcje dla Codex — ESP32 RetroTerminal
 
+## Bieżące zlecenie 15.11.2026 — v0.1.14
+
+Powitanie TFT ma trwać 3 sekundy po inicjalizacji; UART działa w tle. Użytkownik zatwierdził upload/test przez COM5 i udostępnił COM14 z drugim HC-05 do pseudo danych. Potwierdził, że radio prowadzi do **UART1 GPIO32/34**, nie UART2: nie utożsamiać testu COM14 z odbiorem na TFT. [Opis](docs/WELCOME_UART_v0.1.14.md). Fizyczny test v0.1.13: bootloop nadal występuje, nowy wyjątek w s_psram_chip_init; v0.1.14 obejmuje kod wywołujący i literały w noflash. Potwierdzić działający start przez log, nie sam build. Zachować kolejność kompilacja / commit+push / testy / osobny commit wyników.
+
 ## Nowszy stan 15.11.2026 — v0.1.13 / bootloop PSRAM
 
 Użytkownik wybrał w nagłówku domyślny **SPI**, nie odwracać tej zmiany. Dotyk jest teraz fizycznie niepodłączony: domyślny `RETRO_TOUCH_ENABLE=0`, włączenie po okablowaniu. Bootloop występuje także bez LCD. Przechwycony COM5 wykazał LoadProhibited przed app_main w `psram_is_32mbit_ver0`; [dowody i poprawka](docs/PSRAM_BOOT_FIX_v0.1.13.md). Projektowy `psram_startup.lf` przenosi obiekty wczesnego startu PSRAM i rezerwacji GPIO do noflash, bez edycji SDK i zmiany pinów/zegarów PSRAM. Sprawdzać rzeczywiste adresy przez `tests/check_psram_iram.py`. Domyślny esp32dev to SPI bez dotyku; `esp32dev_headless` jawnie NONE. Biały ekran nie jest dowodem usterki LCD, gdy program nie przechodzi inicjalizacji PSRAM. Zachować kolejność: kompilacja, commit/push przed testami, osobne wyniki. Użytkownik udostępnił COM5 do odczytu logu; nie utożsamiać tego z nowym poleceniem uploadu.

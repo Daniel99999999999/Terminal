@@ -1,5 +1,11 @@
 # Historia wersji
 
+## v0.1.14 — 15.11.2026
+
+- Ekran powitalny: nazwa i wersja firmware, biały tekst na czarnym, 3 sekundy po zakończeniu rysowania. Komunikacja i model terminala działają w tym czasie. Diagnostyczne pasy kolorów domyślnie OFF.
+- Po negatywnym fizycznym teście v0.1.13 rozszerzono lokalne noflash na kod wywołujący PSRAM i start MSPI, wraz z kontrolą adresów w ELF. Parametry PSRAM i SDK zachowane; skuteczność zależy od testu sprzętowego.
+- Skrypt testu pseudo UART przez udostępniony COM14, z zapisem payloadu/logów i kontrolą liczników mostu. [Zakres i ograniczenia](docs/WELCOME_UART_v0.1.14.md), wyniki w STATUS.
+
 ## v0.1.13 — 15.11.2026
 
 - Lokalny linker fragment noflash dla wczesnego startu PSRAM i rezerwacji GPIO na ESP32. Przechwycono LoadProhibited w `psram_is_32mbit_ver0` przed app_main; dotyczy także startu bez LCD. SDK i parametry pamięci pozostają niezmienione. [Dowody i zakres poprawki](docs/PSRAM_BOOT_FIX_v0.1.13.md).

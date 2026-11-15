@@ -2,7 +2,9 @@
 
 Projekt terminala szeregowego DIY opartego na **ESP32-WROVER (ESP32-D0WD-V3)**. Natywny **ESP-IDF 6.0.1 w PlatformIO**, język **C**, bez Arduino.
 
-Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.1.13**, etap rozwojowy. [Opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
+Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.1.14**, etap rozwojowy. [Opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
+
+**v0.1.14:** [powitanie TFT przez 3 sekundy, test COM14 i rozszerzona ścieżka noflash](docs/WELCOME_UART_v0.1.14.md). COM14 prowadzi do HC-05 na UART1; model TFT nadal otrzymuje UART2 RX. Test sprzętowy v0.1.13 wykazał dalszy bootloop; aktualny wynik w STATUS.
 
 **v0.1.13:** [bootloop podczas inicjalizacji PSRAM i lokalna poprawka linkowania](docs/PSRAM_BOOT_FIX_v0.1.13.md). Zachowano wybrany przez użytkownika domyślny **ILI9341 SPI**, dotyk domyślnie **OFF** (niepodłączony). `esp32dev` i `esp32dev_spi` korzystają z SPI bez dotyku; `esp32dev_headless` wymusza NONE, `esp32dev_i80` pozostaje alternatywą. Wczesny log pokazuje profil i stan dotyku. Stan fizycznej weryfikacji opisuje STATUS.
 

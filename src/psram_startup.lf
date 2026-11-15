@@ -7,6 +7,14 @@ archive: libesp_psram.a
 entries:
     if IDF_TARGET_ESP32 = y && SPIRAM = y:
         esp_psram_impl_quad (noflash)
+        esp_psram (noflash)
+
+# The caller and its literal pools also run across MSPI reconfiguration.
+[mapping:retro_mspi_startup]
+archive: libesp_system.a
+entries:
+    if IDF_TARGET_ESP32 = y && SPIRAM = y:
+        cpu_start (noflash)
 
 [mapping:retro_psram_gpio_reservation]
 archive: libesp_hw_support.a

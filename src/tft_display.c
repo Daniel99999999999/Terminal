@@ -15,6 +15,7 @@
 #include "esp_lcd_panel_ops.h"
 #include "esp_lcd_ili9341.h"
 #include "esp_log.h"
+#include "esp_app_desc.h"
 #include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h"
@@ -107,6 +108,46 @@ static esp_err_t show_color_test(void)
     return ESP_OK;
 }
 
+static esp_err_t show_welcome(void)
+{
+    terminal_cell_t cells[TFT_WIDTH / 8];
+    char version[48];
+    snprintf(version, sizeof(version), "Firmware v%.31s", esp_app_get_description()->version);
+    const char *lines[] = {"ESP32 RetroTerminal", version, "UART / HC-05", "ANSI / VT100"};
+    const unsigned cols = TFT_WIDTH / 8;
+    const unsigned first_row = TFT_HEIGHT / 16 - 4;
+    for (unsigned y = 0; y < TFT_HEIGHT; y += 8) {
+        debug_led_heartbeat(DEBUG_LED_LCD);
+        for (unsigned x = 0; x < cols; ++x) {
+            cells[x] = (terminal_cell_t){ .codepoint = ' ', .fg = 0xffffff, .bg = 0 };
+        }
+        for (unsigned line = 0; line < sizeof(lines) / sizeof(lines[0]); ++line) {
+            if (y / 8 != first_row + line * 2) { continue; }
+            size_t n = strlen(lines[line]);
+            if (n > cols) { n = cols; }
+            unsigned start = (cols - n) / 2;
+            for (size_t x = 0; x < n; ++x) {
+                cells[start + x].codepoint = (uint8_t)lines[line][x];
+            }
+        }
+        if (!terminal_raster_row(cells, cols, 0, false, true, s_pixels, STRIP_PIXELS)) {
+            return ESP_ERR_INVALID_SIZE;
+        }
+        esp_err_t err = draw_strip(y);
+        if (err != ESP_OK) { return err; }
+    }
+    /* Hold from completion of the last DMA strip. Only this display task waits;
+     * UART RX/TX and the terminal model continue to consume incoming data. */
+    ESP_LOGI("TFT", "Welcome visible; hold 3000 ms");
+    int64_t deadline = esp_timer_get_time() + 3000000;
+    while (esp_timer_get_time() < deadline) {
+        debug_led_heartbeat(DEBUG_LED_LCD);
+        vTaskDelay(pdMS_TO_TICKS(50));
+    }
+    ESP_LOGI("TFT", "Welcome complete; opening terminal");
+    return ESP_OK;
+}
+
 static esp_err_t draw_status(hc05_status_t state)
 {
     terminal_cell_t cells[TFT_WIDTH / 8];
@@ -136,6 +177,7 @@ static void display_task(void *arg)
     esp_err_t err = panel_init();
     if (err == ESP_OK) { ESP_LOGI("TFT", "Controller init complete; color_test=%d", RETRO_TFT_COLOR_TEST); }
     if (err == ESP_OK) { err = tft_bus_backlight(true); }
+    if (err == ESP_OK) { err = show_welcome(); }
     if (err == ESP_OK) { err = show_color_test(); }
 #if RETRO_TOUCH_ENABLE
     bool touch_active = false, touch_pressed = false;

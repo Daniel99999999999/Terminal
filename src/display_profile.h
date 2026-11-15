@@ -19,7 +19,7 @@
 #define RETRO_TFT_INVERT 0
 #endif
 #ifndef RETRO_TFT_COLOR_TEST
-#define RETRO_TFT_COLOR_TEST 1
+#define RETRO_TFT_COLOR_TEST 0 /* Optional diagnostic, after the welcome screen. */
 #endif
 #ifndef RETRO_TFT_I80_HZ
 #define RETRO_TFT_I80_HZ 1000000
