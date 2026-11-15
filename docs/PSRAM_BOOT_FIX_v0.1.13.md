@@ -34,3 +34,7 @@ Zgodnie z poleceniem: kompilacja, commit/push wersji, potem testy. `tests/check_
 Próba fizyczna ma potwierdzić przejście przez test PSRAM, pojawienie się `app_main`, stabilny log i miganie LED, a dopiero potem obraz na ponownie podłączonym LCD. Nie deklarować naprawionego obrazu na podstawie samej kompilacji lub poprawnych adresów.
 
 Źródła: [lokalna reguła noflash zgodna z dokumentacją ESP-IDF](https://docs.espressif.com/projects/esp-idf/en/v6.0.1/esp32/api-guides/linker-script-generation.html), [ESP-IDF 6.0.1: helper i wywołania](https://github.com/espressif/esp-idf/blob/v6.0.1/components/esp_psram/esp32/esp_psram_impl_quad.c), [oryginalne mapowania SDK](https://github.com/espressif/esp-idf/blob/v6.0.1/components/esp_psram/linker.lf). Przejrzano także [poprawkę bariery cache Espressif 475ec39](https://github.com/espressif/esp-idf/commit/475ec39cb4f8fd98dd8d926c4e3a273048959a5a): dotyczy innych ścieżek MSPI, nie jest bezpośrednią poprawką klasycznego ESP32 i nie została skopiowana do tego projektu.
+
+## Wynik fizyczny 15.11.2026
+
+Po zgodzie u?ytkownika wgrano obraz caf6bde przez COM5; weryfikacja zapisu SUCCESS. Bootloop pozostaje: nowy PC 0x400db83f / s_psram_chip_init:214 po powrocie z impl_enable, EXCVADDR=0x800db96e. Kontrola IRAM helper?w przesz?a, ale nie obejmowa?a kodu wywo?uj?cego i jego litera??w Flash. [Log](logs/2026-11-15_v0.1.13_psram_bootloop.txt). Ta wersja nie naprawi?a startu urz?dzenia.

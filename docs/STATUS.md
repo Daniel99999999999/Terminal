@@ -1,5 +1,12 @@
 # Faktyczny stan projektu / handoff
 
+## 15.11.2026 ? v0.1.13: kontrole i negatywny test COM5
+
+- ?r?d?a `caf6bde` opublikowano przed testami. Cztery buildy SUCCESS: esp32dev 250488/30592 B Flash/RAM, SPI 250372/30592, I80 232660/30156, headless 221160/30068. Wszystkie zestawy hosta PASS; Cppcheck 12 C ? 3 profile bez zg?osze?; kontrola helper?w IRAM/stanu DRAM 4/4 PASS. PSRAM 40 MHz i brak natywnych komponent?w RF potwierdzone.
+- Po wyra?nej zgodzie u?ytkownika wgrano przez COM5 obraz esp32dev v0.1.13 (ELF SHA256 `29b3e738d64de42354e5cfb089ae468f0b652a8ea2001538d3f8cf6c3c0e4960`). Esptool: zapis i weryfikacja hash SUCCESS.
+- **Bootloop nadal wyst?puje.** 15 s logu zawiera 56 start?w, brak app_main. Nowy PC `0x400db83f` / `s_psram_chip_init`, esp_psram.c:214, po powrocie z impl_enable. EXCVADDR `0x800db96e`. [Pierwszy cykl](logs/2026-11-15_v0.1.13_psram_bootloop.txt). Zachowano lokalnie dopasowane ELF/bin/map w `.pio/audit/v0113_failed_*`.
+- Kontrola rozmieszczenia samych helper?w nie obejmowa?a wywo?uj?cego kodu i jego litera??w w Flash. Nie deklarowa? v0.1.13 jako naprawy; nast?pna zmiana rozszerzy zakres startu bez dost?pu do Flash. Fizyczny TFT nadal nie zosta? uruchomiony.
+
 ## 15.11.2026 — bootloop v0.1.12 i przygotowanie v0.1.13
 
 - Użytkownik: LCD SPI biały, debug LED nie miga, dotyk niepodłączony. Bootloop utrzymuje się po odłączeniu wszystkich przewodów LCD. Użytkownik wybrał w `display_profile.h` domyślny SPI; tę zmianę zachowano.
