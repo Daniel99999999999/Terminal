@@ -1,0 +1,47 @@
+I (90350) HEALTH: alive stage=2 internal_free=221096 PSRAM_free=0
+I (90350) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (90350) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (95357) HEALTH: alive stage=2 internal_free=221096 PSRAM_free=0
+I (95357) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (95357) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (100364) HEALTH: alive stage=2 internal_free=221096 PSRAM_free=0
+I (100364) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (100364) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (105371) HEALTH: alive stage=2 internal_free=221096 PSRAM_free=0
+I (105371) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (105371) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (110378) HEALTH: alive stage=2 internal_free=221096 PSRAM_free=0
+I (110378) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (110378) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (115385) HEALTH: alive stage=2 internal_free=221096 PSRAM_free=0
+I (115385) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (115385) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (116079) TOUCH: Calibration point=1 raw=3536,611 screen=24,24
+I (120392) HEALTH: alive stage=2 internal_free=221096 PSRAM_free=0
+I (120392) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (120392) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (125400) HEALTH: alive stage=2 internal_free=221096 PSRAM_free=0
+I (125400) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (125400) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (130407) HEALTH: alive stage=2 internal_free=221096 PSRAM_free=0
+I (130407) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (130407) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (132586) TOUCH: Calibration point=2 raw=3546,3669 screen=295,24
+I (515994) HEALTH: alive stage=2 internal_free=221064 PSRAM_free=0
+I (515994) HC05: RX=17894 errors=0 CRC32=40cad4e7; UART2 inactive
+I (515994) SCREEN: parsed=17894 drop=0 controls=13 CRC32=40cad4e7 cursor=0,6 view=LIVE CR=NL
+I (521002) HEALTH: alive stage=2 internal_free=221064 PSRAM_free=0
+I (521002) HC05: RX=17894 errors=0 CRC32=40cad4e7; UART2 inactive
+I (521002) SCREEN: parsed=17894 drop=0 controls=13 CRC32=40cad4e7 cursor=0,6 view=LIVE CR=NL
+I (526010) HEALTH: alive stage=2 internal_free=221064 PSRAM_free=0
+I (526010) HC05: RX=17894 errors=0 CRC32=40cad4e7; UART2 inactive
+I (526010) SCREEN: parsed=17894 drop=0 controls=13 CRC32=40cad4e7 cursor=0,6 view=LIVE CR=NL
+I (531018) HEALTH: alive stage=2 internal_free=221064 PSRAM_free=0
+I (531018) HC05: RX=17894 errors=0 CRC32=40cad4e7; UART2 inactive
+I (531018) SCREEN: parsed=17894 drop=0 controls=13 CRC32=40cad4e7 cursor=0,6 view=LIVE CR=NL
+I (536026) HEALTH: alive stage=2 internal_free=221064 PSRAM_free=0
+I (536026) HC05: RX=17894 errors=0 CRC32=40cad4e7; UART2 inactive
+I (536026) SCREEN: parsed=17894 drop=0 controls=13 CRC32=40cad4e7 cursor=0,6 view=LIVE CR=NL
+I (541034) HEALTH: alive stage=2 internal_free=221064 PSRAM_free=0
+I (541034) HC05: RX=17894 errors=0 CRC32=40cad4e7; UART2 inactive
+I (541034) SCREEN: parsed=17894 drop=0 controls=13 CRC32=40cad4e7 cursor=0,6 view=LIVE CR=NL

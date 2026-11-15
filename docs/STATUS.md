@@ -1,5 +1,15 @@
 # Faktyczny stan projektu / handoff
 
+## 15.11.2026 — XPT2046 podłączony, wgrana v0.3.1 touch
+
+**Wynik próby:** w logu przyjęto punkt1 raw3536,611→24,24 i punkt2 raw3546,3669→295,24. [Zapis fragmentów kalibracji](logs/2026-11-15_v0.3.1_touch_calibration_partial.txt). Użytkownik zgłosił konieczność wielokrotnych naciśnięć i potwierdził, że nawet przytrzymanie 0,5–1 s bywa ignorowane. Hipoteza samych zbyt krótkich stuknięć nie wyjaśnia tego zgłoszenia; kalibracja i NVS nie są jeszcze potwierdzone. Przygotowywana jest ograniczona poprawka odczytu i filtru z licznikami powodów odrzucenia; przyczyna fizyczna nieustalona.
+
+Odbiór przy aktywnym profilu dotyku: [COM14 17894 B, CRC zgodne, bez strat i błędów](logs/2026-11-15_v0.3.1_touch_uart_result.json), [log](logs/2026-11-15_v0.3.1_touch_uart_stream.txt). Brak dowodu pokrycia tego strumienia z faktycznym zapisem NVS — zapis jeszcze nie został potwierdzony.
+
+Użytkownik potwierdził podłączenie pinów dotyku według wcześniej podanego planu SPI2: T_CLK14/T_DIN13/T_DO39/T_CS33/T_IRQ36. Wgrano opublikowaną v0.3.1 `esp32dev_touch` przez COM5, SUCCESS, hash zweryfikowany. [Log startu](logs/2026-11-15_v0.3.1_touch_boot.txt): bez restartów w 15 s, powitanie 3004 ms (511→3515), komunikat kalibracji pięciu punktów przy545 ms, internal_free221096 B, PSRAM_free0, UART2 nieaktywny. Nie ma błędu inicjalizacji dotyku; samo uruchomienie sterownika nie potwierdza jeszcze poprawnych współrzędnych.
+
+Przekazano procedurę pięciu punktów, niezależnego punktu kontrolnego, testu zielonego znacznika i GOTOWE. Odczyt COM5 podczas kalibracji zbiera zdarzenia punktów i wyniku zapisu. Fizyczny wynik kalibracji, zapis/odtworzenie NVS i PAUZA/WZNÓW pozostają do potwierdzenia. Firmware nie zmieniono; poprzednie wyniki v0.3.1 pozostają ważne w opisanych zakresach, ale próby UART przy dotyku i zapisie Flash wymagają osobnego wyniku.
+
 ## 15.11.2026 — zlecone próby VT100 na v0.3.1
 
 **Wykonano: 20/20 PASS w testowanym zakresie.** [Raport](VT100_TEST_2026-11-15.md), [zbiorcze wyniki](logs/2026-11-15_v0.3.1_vt100_summary.json). Testy `864838c`, istniejący firmware `0805f57`, bez nowego uploadu. Host: 239 jawnych porównań wybranych komórek (w części kolorów/atrybutów), strumień po jednym bajcie. ESP32 przez COM14: 9672 B, 1420 komend, dokładne pozycje kursora zgodne po każdym przypadku, CRC32 `ccf707e1`, brak strat/błędów UART i restartów/panic w logu. Jeden przypadek to test ujemny pominięcia DSR — odpowiedzi nadal brak, nie oznacza obsługi tej funkcji.

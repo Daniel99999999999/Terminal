@@ -16,7 +16,7 @@ Wyłączyć zasilanie przed zmianą przewodów. LCD i dotyk są na module zasila
 | T_CS | GPIO33 |
 | T_IRQ | GPIO36 / VP |
 
-Nie łączyć tych linii z SCK/MOSI/MISO LCD (18/23/19). GPIO36 i39 są wejściami bez wewnętrznych pull-up. T_IRQ jest aktywne LOW; jeżeli moduł nie ma własnego podciągania, potrzebne jest ok.10 kΩ do3,3 V. Nie podawać5 V na sygnały. GPIO16/17 i Flash6–11 pozostają zarezerwowane.
+Nie łączyć tych linii z SCK/MOSI/MISO LCD (18/23/19). GPIO36 i39 są wejściami bez wewnętrznych pull-up ([Espressif](https://docs.espressif.com/projects/esp-idf/en/v6.0.1/esp32/api-reference/peripherals/gpio.html)). T_IRQ jest aktywne LOW. Sam XPT2046 ma wewnętrzne podciąganie w torze PENIRQ, nominalnie około50 kΩ ([karta producenta, s.24–25](https://spinmodules.com/wp-content/uploads/2025/01/XPT2046-datasheet.pdf#page=24)). To odrębna sprawa od rezystorów GPIO i rzeczywistego połączenia pinów na module. Nie dokładać w ciemno zewnętrznego rezystora jako diagnozy słabego dotyku; najpierw ustalić stan T_IRQ i modułu. Ewentualne podciąganie ma odnosić się do3,3 V. Nie podawać5 V na sygnały. GPIO16/17 i Flash6–11 pozostają zarezerwowane.
 
 ## Profil i przebieg
 

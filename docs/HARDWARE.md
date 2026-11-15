@@ -1,5 +1,7 @@
 # Sprzęt, bezpieczeństwo i nieustalone połączenia
 
+**Aktualizacja 15.11.2026:** użytkownik potwierdził podłączenie XPT2046. Użyto planu SPI2: CLK14/DIN13/DO39/CS33/IRQ36, osobnego od SPI3 LCD. Wgrano v0.3.1 `esp32dev_touch`, inicjalizacja i wejście w kalibrację w logu poprawne. Faktyczne współrzędne i wynik pięciu punktów jeszcze weryfikujemy; [bieżące wyniki](STATUS.md). Poniższy zapis o niepodłączonym dotyku opisuje poprzedni etap.
+
 **XPT2046 — v0.3.0:** użytkownik wybrał dotyk i kalibrację, ale dotyk nie jest jeszcze podłączony. [Aktualny plan](TOUCH_CALIBRATION_v0.3.0.md): osobne SPI2, T_CLK14/T_DIN13/T_DO39/T_CS33/T_IRQ36, sygnały 3,3 V. GPIO16/17 pozostają zarezerwowane także przy działającym wariancie bez PSRAM. Nie uznawać samej kompilacji za potwierdzenie działania dotyku.
 
 **Potwierdzenie 15.11.2026 / v0.2.1:** użytkownik potwierdził podłączony LCD SPI, widoczne powitanie i migającą diodę GPIO2. Dotyczy to wgranego wariantu `esp32dev_internal` bez inicjalizacji PSRAM. Test COM14 potwierdził odbiór HC-05 na UART1 i przekazanie wszystkich bajtów do parsera; wizualna treść/kolory tego strumienia nie są jeszcze potwierdzone. Dotyk pozostaje wyłączony. [Bieżące wyniki](STATUS.md).

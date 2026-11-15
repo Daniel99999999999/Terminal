@@ -1,0 +1,12 @@
+I (511) TFT: Welcome visible; hold 3000 ms
+I (545) TOUCH: Calibration: touch five targets, release between targets; then verification
+I (3515) TFT: Welcome complete; opening terminal
+I (5231) HEALTH: alive stage=2 internal_free=221096 PSRAM_free=0
+I (5231) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (5231) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (10238) HEALTH: alive stage=2 internal_free=221096 PSRAM_free=0
+I (10238) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (10238) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (15245) HEALTH: alive stage=2 internal_free=221096 PSRAM_free=0
+I (15245) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (15245) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
