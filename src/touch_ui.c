@@ -22,8 +22,8 @@ typedef struct {
 } saved_t;
 static touch_calibration_t s_map;
 static touch_cal_point_t s_points[5];
-static unsigned s_page, s_point, s_samples, s_releases;
-static uint32_t s_revision = 1, s_sum_x, s_sum_y, s_since, s_hold_since;
+static unsigned s_page, s_point, s_samples, s_releases, s_misses, s_progress;
+static uint32_t s_revision = 1, s_sum_x, s_sum_y, s_since, s_hold_since, s_last_valid;
 static uint16_t s_min_x, s_max_x, s_min_y, s_max_y, s_x, s_y;
 static bool s_wait_release = true, s_down, s_holding, s_nvs, s_saved, s_retry;
 static bool s_paused, s_cr_newline;
@@ -74,6 +74,7 @@ static bool save(void)
 static void restart(void)
 {
     s_page = CALIBRATE; s_point = s_samples = s_releases = 0;
+    s_misses = s_progress = 0;
     s_wait_release = true; s_holding = false; ++s_revision;
     s_paused = false;
 }
@@ -129,8 +130,11 @@ void touch_ui_update(const xpt2046_sample_t *sample, uint32_t now)
         return;
     }
     if (s_page == CALIBRATE || s_page == VERIFY) {
-        if (!sample->pressed) { s_samples = 0; }
+        if (!sample->pressed) {
+            if (s_samples && (++s_misses >= 3 || now - s_last_valid >= 50)) { s_samples = s_misses = 0; }
+        }
         else {
+            if (s_samples && now - s_last_valid >= 50) { s_samples = 0; }
             if (!s_samples || sample->x + 120 < s_max_x || sample->x > s_min_x + 120 ||
                 sample->y + 120 < s_max_y || sample->y > s_min_y + 120) {
                 s_samples = 0; s_sum_x = s_sum_y = 0; s_since = now;
@@ -141,11 +145,18 @@ void touch_ui_update(const xpt2046_sample_t *sample, uint32_t now)
             if (sample->y < s_min_y) { s_min_y = sample->y; }
             if (sample->y > s_max_y) { s_max_y = sample->y; }
             s_sum_x += sample->x; s_sum_y += sample->y; ++s_samples;
+            s_last_valid = now; s_misses = 0;
             if (s_samples >= 8 && now - s_since >= 100) {
                 captured((uint16_t)(s_sum_x / s_samples), (uint16_t)(s_sum_y / s_samples));
                 s_wait_release = true; s_releases = 0; s_samples = 0;
             }
         }
+        unsigned progress = s_samples ? s_samples * 100 / 8 : 0;
+        unsigned elapsed = now - s_since;
+        if (progress > elapsed) { progress = elapsed; }
+        if (progress > 100) { progress = 100; }
+        progress = progress / 10 * 10;
+        if (s_progress != progress) { s_progress = progress; ++s_revision; }
     } else if (sample->pressed) {
         uint16_t x, y;
         if (touch_calibration_map(&s_map, sample->x, sample->y, &x, &y)) {
@@ -189,6 +200,8 @@ bool touch_ui_render_row(unsigned row, uint16_t *pixels, size_t capacity)
         else if (s_page == VERIFY) { snprintf(line, sizeof(line), "SPRAWDZENIE DOKLADNOSCI"); }
         else { snprintf(line, sizeof(line), "PUNKT %u / 5", s_point + 1); }
         text = line;
+    } else if (row == 8 && s_page != TEST && !s_wait_release && s_progress) {
+        snprintf(line, sizeof(line), "POMIAR %u%% - TRZYMAJ", s_progress); text = line;
     } else if (row == LCD_HEIGHT / 8 - 5) {
         text = s_page == TEST ? (s_saved ? "KALIBRACJA ZAPISANA" : "ZAPIS TYLKO DO RESETU") : s_retry ? "POMIAR DO POWTORZENIA" : "LOGI SA ODBIERANE W TLE";
     } else if (row == LCD_HEIGHT / 8 - 2 && s_page == TEST) { text = "[ GOTOWE ]"; }

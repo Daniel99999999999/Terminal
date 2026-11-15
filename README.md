@@ -2,7 +2,9 @@
 
 Projekt terminala szeregowego DIY opartego na **ESP32-WROVER (ESP32-D0WD-V3)**. Natywny **ESP-IDF 6.0.1 w PlatformIO**, język **C**, bez Arduino.
 
-Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.3.1**. [Nowa implementacja i konfiguracja](docs/REWRITE_v0.2.0.md), [opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
+Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.3.2**. [Nowa implementacja i konfiguracja](docs/REWRITE_v0.2.0.md), [opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
+
+**v0.3.2:** [jedna seria odczytów XPT2046, tolerancja krótkiego zaniku próbki i diagnostyka powodów odrzucenia](docs/TOUCH_RESPONSE_v0.3.2.md). Odpowiedź na zgłoszenie ignorowanych przytrzymań kalibracji. Wyniki, aktualnie wgrany profil i stan próby fizycznej w STATUS.
 
 **v0.3.1:** [CR jako nowa linia, wybierany ścisły VT, pauza/wznowienie obrazu dotykiem](docs/DISPLAY_CONTROLS_v0.3.1.md). CR+LF nadal daje pojedyncze przejście. Odbiór działa podczas pauzy; historia scrollback jeszcze nie jest zaimplementowana. Dotyk wymaga podłączenia i kalibracji.
 

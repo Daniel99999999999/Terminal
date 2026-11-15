@@ -1,5 +1,9 @@
 # Faktyczny stan projektu / handoff
 
+## 15.11.2026 — v0.3.2: poprawka odczytu i ciągłości kalibracji
+
+[Opis i ograniczenia](TOUCH_RESPONSE_v0.3.2.md). Zmieniono odczyty XPT2046 na jedną serię SPI z aktywnym ADC i końcowym przywróceniem PENIRQ. Filtr toleruje pojedynczy krótki zanik próbki, zachowuje wymagane osiem poprawnych/100 ms i pełne puszczenie. Dodano postęp na LCD oraz TOUCH_RAW z powodami odrzucenia co2 s. Progi nacisku/zakresu i piny nie zmienione. Kompilacje internal/touch SUCCESS (20,98/21,73 s), przed publikacją i nowymi testami. Dotychczasowy fizyczny objaw przytrzymań nadal wymaga weryfikacji; nie przypisywać go jeszcze brakowi pull-up ani konkretnemu podzespołowi.
+
 ## 15.11.2026 — XPT2046 podłączony, wgrana v0.3.1 touch
 
 **Wynik próby:** w logu przyjęto punkt1 raw3536,611→24,24 i punkt2 raw3546,3669→295,24. [Zapis fragmentów kalibracji](logs/2026-11-15_v0.3.1_touch_calibration_partial.txt). Użytkownik zgłosił konieczność wielokrotnych naciśnięć i potwierdził, że nawet przytrzymanie 0,5–1 s bywa ignorowane. Hipoteza samych zbyt krótkich stuknięć nie wyjaśnia tego zgłoszenia; kalibracja i NVS nie są jeszcze potwierdzone. Przygotowywana jest ograniczona poprawka odczytu i filtru z licznikami powodów odrzucenia; przyczyna fizyczna nieustalona.

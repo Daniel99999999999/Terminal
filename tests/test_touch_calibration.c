@@ -46,6 +46,11 @@ static void hold(unsigned x, unsigned y)
     xpt2046_sample_t sample = { .pressed = true, .x = (uint16_t)(400 + x * 10), .y = (uint16_t)(350 + y * 12) };
     for (unsigned i = 0; i < 12; ++i) { touch_ui_update(&sample, now_ms); now_ms += 20; }
 }
+static void short_hold(unsigned x, unsigned y)
+{
+    xpt2046_sample_t sample = { .pressed = true, .x = (uint16_t)(400+x*10), .y = (uint16_t)(350+y*12) };
+    for (unsigned i = 0; i < 4; ++i) { touch_ui_update(&sample,now_ms); now_ms += 20; }
+}
 static void five(void)
 {
     const unsigned xs[] = {24, LCD_WIDTH-25, LCD_WIDTH-25, 24, LCD_WIDTH/2};
@@ -82,7 +87,14 @@ int main(void)
     CHECK(touch_calibration_map(&cal, 4095, 4095, &x, &y) && x == 319 && y == 239);
 
     touch_ui_init(true); CHECK(touch_ui_visible());
-    release(); hold(24,24); hold(295,24); /* Holding cannot capture two targets. */
+    /* Three release samples separate short presses: these must not combine. */
+    release(); short_hold(24,24); release(); short_hold(24,24); release();
+    /* One missing sample in a stable press must not discard all progress.
+     * Neither side has eight consecutive samples, so the old filter fails. */
+    short_hold(24,24);
+    xpt2046_sample_t missing = {0}; touch_ui_update(&missing,now_ms); now_ms += 20;
+    short_hold(24,24);
+    hold(295,24); /* Holding cannot capture two targets. */
     for (unsigned i = 1; i < 5; ++i) {
         const unsigned xs[] = {24,295,295,24,160}, ys[] = {24,24,215,215,120};
         release(); hold(xs[i],ys[i]);
@@ -117,6 +129,6 @@ int main(void)
     uint32_t crc = esp_rom_crc32_le(0, stored, (uint32_t)stored_size - 4);
     memcpy(stored + stored_size - 4, &crc, sizeof(crc));
     touch_ui_init(true); CHECK(touch_ui_visible()); /* Old orientation cannot be reused. */
-    puts("PASS: affine swapped/reversed axes, degeneracy/residual/edge guards; release gate, independent validation, NVS restore/CRC, pause/resume, CR toggle, long-press and render bounds");
+    puts("PASS: affine swapped/reversed axes and guards; isolated sample loss tolerated, released taps separated; independent validation, NVS restore/CRC, pause/resume, CR toggle, long-press, render bounds");
     return 0;
 }

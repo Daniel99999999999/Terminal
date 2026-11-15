@@ -15,6 +15,8 @@ typedef struct {
     uint32_t flags;
     size_t length, rxlength;
     uint8_t tx_data[4], rx_data[4];
+    const void *tx_buffer;
+    void *rx_buffer;
 } spi_transaction_t;
 esp_err_t spi_bus_initialize(int host, const spi_bus_config_t *config, int dma);
 esp_err_t spi_bus_add_device(int host, const spi_device_interface_config_t *config, spi_device_handle_t *device);

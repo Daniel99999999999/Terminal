@@ -160,6 +160,7 @@ static void screen_task(void *arg)
     uint32_t ui_rows[LCD_HEIGHT / 8] = {0};
     unsigned ui_next = 0;
     bool overlay_was_visible = false;
+    int64_t touch_log_at = 0;
 #endif
     if (lcd_error != ESP_OK) {
         app_health_fault(); ESP_LOGE("TFT", "Initialization stopped: %s", esp_err_to_name(lcd_error));
@@ -184,6 +185,14 @@ static void screen_task(void *arg)
                 touch = false; app_health_fault();
                 ESP_LOGE("TOUCH", "Read failed: %s; terminal continues", esp_err_to_name(error));
             } else { touch_ui_update(&sample, (uint32_t)(now / 1000)); }
+        }
+        if (touch && now - touch_log_at >= 2000000) {
+            touch_log_at = now;
+            xpt2046_stats_t stats; xpt2046_get_stats(&stats);
+            ESP_LOGI("TOUCH_RAW", "poll=%lu irq_low=%lu valid=%lu weak=%lu bounds=%lu end_high=%lu io=%lu raw=%u,%u z=%u",
+                (unsigned long)stats.polls, (unsigned long)stats.irq_low, (unsigned long)stats.valid,
+                (unsigned long)stats.weak, (unsigned long)stats.bounds, (unsigned long)stats.end_high,
+                (unsigned long)stats.io_errors, stats.last_x, stats.last_y, stats.last_pressure);
         }
         bool next_paused = touch && touch_ui_paused();
         if (next_paused != paused) {

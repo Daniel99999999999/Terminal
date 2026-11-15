@@ -1,5 +1,11 @@
 # Historia wersji
 
+## v0.3.2 — 15.11.2026
+
+- XPT2046: pojedyncza seria SPI przy CS=LOW, aktywny ADC między konwersjami, PENIRQ przywracane ostatnią komendą. Bufory statyczne/aligned z zachowaniem czasu życia po timeout.
+- Kalibracja toleruje krótki zanik pojedynczej próbki; pełne puszczenie i przerwa co najmniej 50 ms zerują zbieranie. Zachowano próg nacisku, minimum ośmiu poprawnych próbek i 100 ms; dodano postęp pomiaru.
+- Diagnostyka TOUCH_RAW co 2 s, testy protokołu i utraty próbki. Przyczyna fizyczna ignorowanych dotknięć nie jest jeszcze ustalona; wyniki próby w STATUS.
+
 ## v0.3.1 — 15.11.2026
 
 - Opcja wyświetlania CR jako nowej linii, domyślnie ON, dla zgłoszenia Enter z PuTTY. CRLF nie podwaja przejścia, również na granicy porcji; wybierany standardowy CR dla VT i linii postępu.
