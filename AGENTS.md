@@ -1,5 +1,9 @@
 # Instrukcje dla Codex — ESP32 RetroTerminal
 
+## Najnowszy stan 15.11.2026 — v0.1.19
+
+**Korekta użytkownika:** LCD nigdy wcześniej nie był fizycznie odłączany. Dopiero po próbie v0.1.18 odłączono go naprawdę; bezpośredni COM5 potwierdził ten sam wyjątek przed app_main. Wariant headless oznacza wyłączenie obsługi w kodzie, nie odłączenie sprzętu. LCD SPI używa 18/23/19/21/22/27, SDK PSRAM CLK17/CS16, Flash6..11: nie ma wspólnego GPIO w kodzie. Sprawdzony Flash 5E4016 / 4 MB / 3,3 V, status przed QIO 0x100000 (QE=0). Próby noflash/bariera/QIO z v0.1.13–18 nie naprawiły bootloopu. v0.1.19 usuwa eksperymentalne wrappery i linker fragment oraz wraca do standardowego startu SDK, zachowując QIO/40 MHz do próby. Stare nakazy testowania usuniętego check_psram_iram.py dotyczą historycznych wersji. Powitanie TFT 3 s i test COM14 do UART1 pozostają zlecone; nie deklarować ich fizycznego działania, zanim aplikacja ruszy. W chwili tej aktualizacji LCD jest odłączony. Bieżący wynik w STATUS.
+
 ## Bieżące zlecenie 15.11.2026 — v0.1.14
 
 Powitanie TFT ma trwać 3 sekundy po inicjalizacji; UART działa w tle. Użytkownik zatwierdził upload/test przez COM5 i udostępnił COM14 z drugim HC-05 do pseudo danych. Potwierdził, że radio prowadzi do **UART1 GPIO32/34**, nie UART2: nie utożsamiać testu COM14 z odbiorem na TFT. [Opis](docs/WELCOME_UART_v0.1.14.md). Fizyczny test v0.1.13: bootloop nadal występuje, nowy wyjątek w s_psram_chip_init; v0.1.14 obejmuje kod wywołujący i literały w noflash. Potwierdzić działający start przez log, nie sam build. Zachować kolejność kompilacja / commit+push / testy / osobny commit wyników.

@@ -1,5 +1,7 @@
 # Prompt startowy do Codex
 
+**Aktualnie v0.1.19:** usuwa nieskuteczne eksperymentalne noflash/wrappery i wraca do startu PSRAM z SDK; Flash QIO/40 MHz, piny PSRAM16/17 bez zmian. LCD SPI18/23/19/21/22/27 bez konfliktu. Użytkownik wyjaśnił, że LCD wcześniej nigdy nie był odłączany; faktyczna próba bez LCD odbyła się dopiero na v0.1.18 i także dała bootloop. Teraz LCD odłączony. Powitanie3s i COM14→HC-05→UART1 nadal wymagają działającego startu. Sprawdzić STATUS, nie powtarzać starych tez o naprawie/noFlash ani wcześniejszej izolacji.
+
 **v0.1.14 / 15.11.2026:** powitanie TFT 3 s, UART nadal działa. Użytkownik zatwierdził upload/test COM5 i pseudo dane COM14. COM14 łączy HC-05 **na UART1 GPIO32/34**, więc nie jest wejściem modelu TFT (UART2 RX). [Opis](docs/WELCOME_UART_v0.1.14.md). Test fizyczny v0.1.13 nadal bootloop; v0.1.14 rozszerza noflash na kod wywołujący. Sprawdzić STATUS przed deklaracją działania.
 
 **v0.1.13 / 15.11.2026:** użytkownik ustawił domyślny SPI, zachowano; dotyk niepodłączony i domyślnie OFF. Odczyt COM5 potwierdził bootloop LoadProhibited podczas startu PSRAM przed app_main, także bez LCD. [Dowody, noflash i kontrola ELF](docs/PSRAM_BOOT_FIX_v0.1.13.md); aktualne wyniki w STATUS. Nie zmieniać GPIO16/17 ani zegarów PSRAM. `esp32dev_headless` wymusza NONE. Nie ogłaszać naprawionego sprzętu bez logu nowej wersji.

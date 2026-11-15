@@ -1,5 +1,9 @@
 # Historia wersji
 
+## v0.1.19 — 15.11.2026
+
+- Powrót do standardowej inicjalizacji SDK: usunięte nieskuteczne projektowe noflash/wrapper/bariera cache i ich test adresów; wariant QIO/40 MHz zachowany do weryfikacji osobno od tych obejść. Powitanie TFT przez 3 s, dotyk OFF i przydział GPIO zachowane. Wyniki w STATUS.
+
 ## v0.1.18 — 15.11.2026
 
 - Wybór Flash QIO/40 MHz w PlatformIO i SDK, zgodny z odczytanym ID 5E4016 i wspólnymi liniami Quad PSRAM. Wcześniej status QE=0, tryb DIO; tryb QIO ustawia QE przez standardowy bootloader Espressif. Bez zmiany pinów, częstotliwości PSRAM, eFuse i zawartości użytkownika poza aplikacją/bootloaderem. Wynik fizyczny w STATUS.

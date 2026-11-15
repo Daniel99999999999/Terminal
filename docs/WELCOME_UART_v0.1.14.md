@@ -1,5 +1,7 @@
 # v0.1.14 — ekran powitalny i test UART
 
+> Aktualizacja v0.1.19: późniejsze próby noflash i bariery cache były nieskuteczne i zostały usunięte. Bieżący start to standardowe SDK i Flash QIO/40 MHz; skuteczność wymaga logu. Użytkownik skorygował wcześniejszą informację o odłączeniu LCD: faktyczna izolacja nastąpiła dopiero na v0.1.18 i nadal występował bootloop. Aktualne wyniki w STATUS. Sekcja PSRAM poniżej opisuje historyczną próbę v0.1.14, nie finalną naprawę.
+
 Po inicjalizacji LCD firmware rysuje biały tekst na czarnym tle: nazwę ESP32 RetroTerminal, rzeczywistą wersję aplikacji, UART / HC-05 oraz ANSI / VT100. Pełny ekran pozostaje widoczny przez **3 sekundy od zakończenia ostatniego transferu DMA** (z dokładnością planisty), następnie renderer pokazuje bieżący model terminala. UART i parser działają podczas powitania; nie czyścimy odebranych danych. Osobny test kolorów jest domyślnie wyłączony; `RETRO_TFT_COLOR_TEST=1` uruchamia go po powitaniu. Dotyk pozostaje OFF.
 
 ## Start PSRAM
