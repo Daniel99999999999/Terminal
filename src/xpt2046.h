@@ -14,7 +14,7 @@ typedef struct {
     bool last_irq_high;
 } xpt2046_stats_t;
 
-/* Single owner: TFT task. Separate SPI2 bus, no DMA; bounded IRQ-backed waits.
+/* Single owner: TFT task. Separate SPI2 bus, no DMA; bounded SPI completion waits.
  * After a timeout, keep the descriptor alive and stop until reset. */
 esp_err_t xpt2046_init(void);
 esp_err_t xpt2046_read(xpt2046_sample_t *sample);

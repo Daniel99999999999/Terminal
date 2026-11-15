@@ -2,7 +2,9 @@
 
 Projekt terminala szeregowego DIY opartego na **ESP32-WROVER (ESP32-D0WD-V3)**. Natywny **ESP-IDF 6.0.1 w PlatformIO**, język **C**, bez Arduino.
 
-Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.3.3**. [Nowa implementacja i konfiguracja](docs/REWRITE_v0.2.0.md), [opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
+Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.3.4**. [Nowa implementacja i konfiguracja](docs/REWRITE_v0.2.0.md), [opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
+
+**v0.3.4:** [powrót XPT2046 do krótkich transakcji z v0.3.1](docs/TOUCH_FRAMES_v0.3.4.md), zachowane liczniki, pomiar bez obowiązkowego IRQ i filtr kalibracji. Odczyt i poprawa fizyczna wymagają ponownego sprawdzenia.
 
 **v0.3.3:** [odczyt nacisku niezależny od IRQ](docs/TOUCH_POLLING_v0.3.3.md), dodatkowe surowe Z1/Z2 i stan GPIO36. Odpowiedź na fizyczną próbę, w której IRQ pozostało HIGH podczas przytrzymań. Mapa kalibracji w NVS zachowana. Stan weryfikacji w STATUS.
 

@@ -1,5 +1,10 @@
 # Historia wersji
 
+## v0.3.4 — 15.11.2026
+
+- Przywrócono osobne 24-taktowe transakcje XPT2046 z buforami inline i PD0=0 przy każdej konwersji, jak w fizycznie odczytującej punkty v0.3.1. Jedna seria z v0.3.2/3 została wycofana po zerowych odczytach podczas rzeczywistych naciśnięć; nie uznajemy jeszcze jej za ustaloną przyczynę.
+- Zachowano medianę, odrzucanie pierwszych próbek osi, pomiar nacisku bez wymagania IRQ, diagnostykę Z1/Z2, tolerancję krótkich braków próbki i NVS. Testy obu trybów IRQ sprawdzają ramki i czas życia całego statycznego descriptora po timeout.
+
 ## v0.3.3 — 15.11.2026
 
 - Domyślnie pomiar nacisku/osi XPT2046 przy każdym odpytywaniu, również przy IRQ=HIGH. IRQ pozostaje diagnostyczny; `RETRO_TOUCH_REQUIRE_IRQ=1` przywraca poprzednie bramkowanie. Progi, osie, piny i mapa NVS zachowane.

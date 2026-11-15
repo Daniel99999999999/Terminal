@@ -1,5 +1,9 @@
 # Faktyczny stan projektu / handoff
 
+## 15.11.2026 — v0.3.4: powrót do krótkich ramek XPT2046
+
+[Zakres](TOUCH_FRAMES_v0.3.4.md). Wycofano niepotwierdzoną poprawę serii SPI na rzecz osobnych24-taktowych ramek z PD0=0 i buforami inline, jak w v0.3.1. Zachowano diagnostykę, filtr kalibracji, piny i mapę NVS. Kompilacje internal/touch SUCCESS (19,086/18,617 s), przed publikacją i testami. Obecnie na ESP32 działa potwierdzona obrazem v0.3.3 internal bez dotyku. Nie przypisywać jeszcze przyczyny zerowego ADC konkretnemu formatowi SPI ani sprzętowi.
+
 ## 15.11.2026 — v0.3.3: pomiar nacisku niezależny od IRQ
 
 **Najnowsza próba sprzętowa:** [porównanie i ograniczenia](TFT_TOUCH_TEST_2026-11-15.md). Przy trzech przytrzymaniach irq_low wzrósł do896, ale valid0, wszystkie obserwowane osie/Z1/Z2 zerowe, bez błędu API SPI. IRQ potrafi reagować — wcześniejszy stan HIGH nie jest dowodem jego stałej awarii. Użytkownik zgłosił biały, lekko migoczący LCD, także po pierwszym wgraniu profilu bez dotyku. Odbiór/model w obu profilach: po17894 B bez strat i błędów.

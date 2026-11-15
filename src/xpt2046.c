@@ -12,39 +12,34 @@ static xpt2046_stats_t s_stats;
 /* Never put this descriptor on the stack: a timed-out transaction may still
  * be owned by the SPI ISR. It is not modified again after a timeout. */
 static spi_transaction_t s_transaction;
-/* One CS-low burst. PD0=1 keeps the ADC active between conversions; only the
- * final Y command powers down/re-enables PENIRQ. Discard after axis changes.
- * Padded/aligned internal buffers outlive any timed-out SPI transaction. */
-static _Alignas(4) uint8_t s_tx[32] = {
-    0xb1,0,0, 0xc1,0,0, /* Z1, Z2 */
-    0xd1,0,0, 0xd1,0,0, 0xd1,0,0, 0xd1,0,0, /* dummy X, three X */
-    0x91,0,0, 0x91,0,0, 0x91,0,0, 0x90,0,0, /* dummy Y, three Y + power down */
-};
-static _Alignas(4) uint8_t s_rx[32];
+/* Restore the 24-clock conversion frames that produced physical coordinates
+ * in v0.3.1. Every frame ends with ADC power-down/PENIRQ enabled (PD0=0).
+ * Inline TX/RX storage belongs to the retained static descriptor. */
+static uint16_t s_adc[10];
 
-static esp_err_t read_burst(void)
+static esp_err_t read_samples(void)
 {
-    if (s_failed) { return ESP_ERR_INVALID_STATE; }
-    s_transaction = (spi_transaction_t){
-        .length = 30 * 8, .rxlength = 30 * 8,
-        .tx_buffer = s_tx, .rx_buffer = s_rx,
+    static const uint8_t commands[] = {
+        0xb0, 0xc0, 0xd0, 0xd0, 0xd0, 0xd0, 0x90, 0x90, 0x90, 0x90,
     };
-    esp_err_t err = spi_device_queue_trans(s_device, &s_transaction, 0);
-    if (err != ESP_OK) { s_failed = true; ++s_stats.io_errors; return err; }
-    spi_transaction_t *result = NULL;
-    err = spi_device_get_trans_result(s_device, &result, pdMS_TO_TICKS(20));
-    if (err != ESP_OK || result != &s_transaction) {
-        s_failed = true;
-        ++s_stats.io_errors;
-        return err == ESP_OK ? ESP_ERR_INVALID_STATE : err;
+    if (s_failed) { return ESP_ERR_INVALID_STATE; }
+    for (unsigned i = 0; i < sizeof(commands); ++i) {
+        s_transaction = (spi_transaction_t){
+            .flags = SPI_TRANS_USE_TXDATA | SPI_TRANS_USE_RXDATA,
+            .length = 24, .rxlength = 24, .tx_data = {commands[i], 0, 0, 0},
+        };
+        esp_err_t err = spi_device_queue_trans(s_device, &s_transaction, 0);
+        if (err != ESP_OK) { s_failed = true; ++s_stats.io_errors; return err; }
+        spi_transaction_t *result = NULL;
+        err = spi_device_get_trans_result(s_device, &result, pdMS_TO_TICKS(20));
+        if (err != ESP_OK || result != &s_transaction) {
+            s_failed = true;
+            ++s_stats.io_errors;
+            return err == ESP_OK ? ESP_ERR_INVALID_STATE : err;
+        }
+        s_adc[i] = ((((uint16_t)result->rx_data[1] << 8) | result->rx_data[2]) >> 3) & 0x0fff;
     }
     return ESP_OK;
-}
-
-static uint16_t adc(unsigned index)
-{
-    unsigned offset = index * 3;
-    return ((((uint16_t)s_rx[offset + 1] << 8) | s_rx[offset + 2]) >> 3) & 0x0fff;
 }
 
 static uint16_t median(uint16_t a, uint16_t b, uint16_t c)
@@ -73,7 +68,7 @@ esp_err_t xpt2046_init(void)
     const spi_bus_config_t bus = {
         .sclk_io_num = TOUCH_SPI_SCLK_GPIO, .mosi_io_num = TOUCH_SPI_MOSI_GPIO,
         .miso_io_num = TOUCH_SPI_MISO_GPIO, .quadwp_io_num = -1, .quadhd_io_num = -1,
-        .max_transfer_sz = 32,
+        .max_transfer_sz = 4,
     };
     err = spi_bus_initialize(SPI2_HOST, &bus, SPI_DMA_DISABLED);
     if (err != ESP_OK) { return err; }
@@ -83,7 +78,7 @@ esp_err_t xpt2046_init(void)
     };
     err = spi_bus_add_device(SPI2_HOST, &device, &s_device);
     if (err != ESP_OK) { return err; }
-    err = read_burst(); /* Last command PD1/PD0=00: PENIRQ enabled. */
+    err = read_samples(); /* All commands PD1/PD0=00: PENIRQ enabled. */
     s_ready = err == ESP_OK;
     return err;
 #else
@@ -105,12 +100,12 @@ esp_err_t xpt2046_read(xpt2046_sample_t *sample)
 #endif
     /* IRQ is optional for contact detection. A HIGH input must not suppress
      * all ADC diagnostics or lock the UI out of an otherwise valid touch. */
-    esp_err_t err = read_burst();
+    esp_err_t err = read_samples();
     if (err != ESP_OK) { return err; }
-    uint16_t z1 = adc(0), z2 = adc(1);
+    uint16_t z1 = s_adc[0], z2 = s_adc[1];
     sample->pressure = z1 + 4095 - z2;
-    sample->x = median(adc(3), adc(4), adc(5));
-    sample->y = median(adc(7), adc(8), adc(9));
+    sample->x = median(s_adc[3], s_adc[4], s_adc[5]);
+    sample->y = median(s_adc[7], s_adc[8], s_adc[9]);
     s_stats.last_x = sample->x; s_stats.last_y = sample->y; s_stats.last_pressure = sample->pressure;
     s_stats.last_z1 = z1; s_stats.last_z2 = z2;
     if (!z1 || sample->pressure < 300) { ++s_stats.weak; return ESP_OK; }

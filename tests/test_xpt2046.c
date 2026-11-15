@@ -18,7 +18,7 @@ esp_err_t gpio_config(const gpio_config_t *c)
   CHECK(!c->pull_up_en && !c->pull_down_en); return ESP_OK; }
 int gpio_get_level(int pin) { CHECK(pin == TOUCH_IRQ_GPIO); return irq; }
 esp_err_t spi_bus_initialize(int host, const spi_bus_config_t *c, int dma)
-{ CHECK(host == SPI2_HOST && dma == SPI_DMA_DISABLED && c->max_transfer_sz == 32);
+{ CHECK(host == SPI2_HOST && dma == SPI_DMA_DISABLED && c->max_transfer_sz == 4);
   CHECK(c->sclk_io_num == 14 && c->mosi_io_num == 13 && c->miso_io_num == 39);
   return ESP_OK; }
 esp_err_t spi_bus_add_device(int host, const spi_device_interface_config_t *c, spi_device_handle_t *device)
@@ -27,14 +27,12 @@ esp_err_t spi_bus_add_device(int host, const spi_device_interface_config_t *c, s
 esp_err_t spi_device_queue_trans(spi_device_handle_t device, spi_transaction_t *t, uint32_t wait)
 {
     CHECK(device == (void *)1 && !pending && wait == 0);
-    /* One CS-low transaction, no per-conversion powerdown. Only last command
-     * rearms PENIRQ, including for weak/released/out-of-range samples. */
-    const unsigned commands[] = {0xb1,0xc1,0xd1,0xd1,0xd1,0xd1,0x91,0x91,0x91,0x90};
-    CHECK(t->length == 240 && t->rxlength == 240 && !t->flags);
-    CHECK(t->tx_buffer && t->rx_buffer);
-    CHECK(((uintptr_t)t->tx_buffer % 4) == 0 && ((uintptr_t)t->rx_buffer % 4) == 0);
-    const uint8_t *tx = t->tx_buffer;
-    for (unsigned i = 0; i < 10; ++i) { CHECK(tx[3*i] == commands[i] && !tx[3*i+1] && !tx[3*i+2]); }
+    /* Independent 24-clock frames with inline buffers; every command rearms
+     * PENIRQ. ADC test values below include noisy first reads on both axes. */
+    const unsigned commands[] = {0xb0,0xc0,0xd0,0xd0,0xd0,0xd0,0x90,0x90,0x90,0x90};
+    CHECK(t->length == 24 && t->rxlength == 24);
+    CHECK(t->flags == (SPI_TRANS_USE_TXDATA | SPI_TRANS_USE_RXDATA));
+    CHECK(t->tx_data[0] == commands[calls % 10] && !t->tx_data[1] && !t->tx_data[2]);
     calls++; pending = t; return ESP_OK;
 }
 esp_err_t spi_device_get_trans_result(spi_device_handle_t device, spi_transaction_t **t, uint32_t wait)
@@ -44,10 +42,10 @@ esp_err_t spi_device_get_trans_result(spi_device_handle_t device, spi_transactio
     unsigned values[] = {1000,3500,0,1200,4000,1300,0,2800,2900,50};
     if (weak) { values[0] = 1; values[1] = 4095; }
     if (bad_bounds) { values[3] = values[4] = values[5] = 4095; }
-    uint8_t *rx = pending->rx_buffer;
-    for (unsigned i = 0; i < 10; ++i) {
-        rx[3*i] = 0; rx[3*i+1] = (uint8_t)((values[i] << 3) >> 8); rx[3*i+2] = (uint8_t)(values[i] << 3);
-    }
+    unsigned value = values[(calls - 1) % 10];
+    pending->rx_data[0] = 0;
+    pending->rx_data[1] = (uint8_t)((value << 3) >> 8);
+    pending->rx_data[2] = (uint8_t)(value << 3);
     if (release_during_read) { irq = 1; }
     *t = pending; pending = NULL; return ESP_OK;
 }
@@ -62,11 +60,11 @@ int main(void)
     int before = calls;
     weak = 1;
     CHECK(xpt2046_read(&sample) == ESP_OK && !sample.pressed);
-    CHECK(calls == before + !RETRO_TOUCH_REQUIRE_IRQ);
+    CHECK(calls == before + 10 * !RETRO_TOUCH_REQUIRE_IRQ);
     weak = 0;
     before = calls;
     irq = 0;
-    CHECK(xpt2046_read(&sample) == ESP_OK && sample.pressed && calls == before + 1);
+    CHECK(xpt2046_read(&sample) == ESP_OK && sample.pressed && calls == before + 10);
     CHECK(sample.x == 1300 && sample.y == 2800 && sample.pressure == 1595);
     weak = 1; CHECK(xpt2046_read(&sample) == ESP_OK && !sample.pressed); weak = 0;
     bad_bounds = 1; CHECK(xpt2046_read(&sample) == ESP_OK && !sample.pressed); bad_bounds = 0;
@@ -80,7 +78,7 @@ int main(void)
     irq = 1;
     before = calls;
     CHECK(xpt2046_read(&sample) == ESP_OK && sample.pressed == !RETRO_TOUCH_REQUIRE_IRQ);
-    CHECK(calls == before + !RETRO_TOUCH_REQUIRE_IRQ);
+    CHECK(calls == before + 10 * !RETRO_TOUCH_REQUIRE_IRQ);
     xpt2046_get_stats(&stats); CHECK(stats.last_irq_high);
     weak = 1;
     CHECK(xpt2046_read(&sample) == ESP_OK && !sample.pressed);
@@ -89,12 +87,10 @@ int main(void)
     CHECK(xpt2046_read(&sample) == ESP_ERR_TIMEOUT);
     CHECK(pending != NULL);
     spi_transaction_t retained = *pending;
-    uint8_t tx[32], rx[32]; memcpy(tx,pending->tx_buffer,32); memcpy(rx,pending->rx_buffer,32);
     before = calls;
     CHECK(xpt2046_read(&sample) == ESP_ERR_INVALID_STATE && calls == before);
     CHECK(memcmp(&retained, pending, sizeof(retained)) == 0);
-    CHECK(memcmp(tx,pending->tx_buffer,32) == 0 && memcmp(rx,pending->rx_buffer,32) == 0);
     xpt2046_get_stats(&stats); CHECK(stats.io_errors == 1);
-    printf("PASS: XPT2046 require_irq=%d; HIGH IRQ with/without pressure, single CS burst/ADC power/PENIRQ rearm, median/dummy samples, diagnostics, timeout buffer lifetime\n", RETRO_TOUCH_REQUIRE_IRQ);
+    printf("PASS: XPT2046 require_irq=%d; 24-clock inline frames/PENIRQ per conversion, HIGH IRQ with/without pressure, median/dummy samples, diagnostics, timeout descriptor lifetime\n", RETRO_TOUCH_REQUIRE_IRQ);
     return 0;
 }
