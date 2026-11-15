@@ -1,5 +1,11 @@
 # Faktyczny stan projektu / handoff
 
+## 15.11.2026 — v0.1.19: standardowy SDK/QIO też nie startuje
+
+- Build SUCCESS 54,61 s, Flash 250976 B, publikacja `5745445`, potem upload COM5 SUCCESS. Cppcheck 12 C bez zgłoszeń (0). ELF SHA256 fac8b607927584174ef2fd540b2be89e66503e2e82d2c0e4993dfe9e1305c08d.
+- Fizyczny LCD nadal odłączony. [Log](logs/2026-11-15_v0.1.19_boot.txt): bootloader QIO/40 MHz, IllegalInstruction w psram_read_id:456, PC 0x400de2c0; brak app_main. Sama konfiguracja QIO ze standardowym SDK nie jest rozwiązaniem.
+- Usunięte eksperymentalne wrappery/linker fragmenty pozostają w historii Git, nie w aktywnych źródłach tej wersji. Następna kontrola ma dotyczyć czasów CS Flash, które SDK zmienia podczas konfiguracji PSRAM, a nie GPIO LCD.
+
 ## 15.11.2026 — korekta fizycznej izolacji / v0.1.18
 
 - Użytkownik doprecyzował: **LCD wcześniej nigdy nie był odłączany**. Starsze sformułowania o bootloopie z fizycznie odłączonym LCD były błędnym odczytaniem wcześniejszej odpowiedzi; nie traktować ich jako wyniku testu. Profil headless v0.1.17 wyłączał obsługę w kodzie, ale LCD pozostawał fizycznie podłączony.
