@@ -30,36 +30,4 @@ config RETRO_HC05_AT_BAUD
     range 1200 921600
     default 38400
 
-config RETRO_TFT_ENABLE
-    bool "Enable ILI9341 I80 TFT after verifying shield wiring and voltages"
-    default n
-    help
-        User-selected ILI9341-compatible controller; not auto-identified.
-        Verify HC245 power/direction and 3.3 V GPIO levels first.
-        RD GPIO0 must not interfere with BOOT; CS must disable the panel.
-        Disabled leaves all TFT GPIOs untouched.
-
-config RETRO_TFT_ROTATION
-    int "TFT rotation (0=portrait, 1=landscape, 2/3=reversed)"
-    range 0 3
-    default 1
-
-config RETRO_TFT_CLOCK_HZ
-    int "TFT write clock in Hz"
-    range 100000 10000000
-    default 1000000
-
-config RETRO_TFT_BGR
-    bool "ILI9341 uses BGR element order"
-    default y
-
-config RETRO_TFT_INVERT
-    bool "Invert TFT colors (panel-dependent)"
-    default n
-
-config RETRO_TFT_COLOR_TEST
-    bool "Show RGB test bands for two seconds before the terminal"
-    depends on RETRO_TFT_ENABLE
-    default n
-
 endmenu

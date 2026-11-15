@@ -1,5 +1,7 @@
 # Sprzęt, bezpieczeństwo i nieustalone połączenia
 
+**Nowa alternatywa 15.11.2026:** użytkownik dodał moduł **ILI9341 SPI z XPT2046**, VCC i LED **3,3 V** potwierdzone przez użytkownika. [Osobny pinout SPI](TFT_PROFILES_v0.1.12.md) zastępuje połączenia I80 przy wybraniu tego profilu. Nie stosować zasilania 5 V starego shielda do nowego modułu. Dawne nieustalone HC245 i osie dotyku dotyczą shielda I80. Nowy kontroler XPT2046 ma cyfrowe SPI, nie wymaga ADC ESP32. LED zasilać z szyny 3V3 zgodnie z deklaracją napięcia modułu, nie z GPIO; zapewnić odpowiednią wydajność zasilania. Fizycznego działania nowego modułu nie potwierdzono.
+
 **Aktualizacja 03.11.2026:** po ostatniej negatywnej próbie referencji z pełną kalibracją użytkownik zakończył diagnozę wbudowanego BT. Następny etap to [pomiary TFT](TFT_BRINGUP.md), Bluetooth docelowo przez [HC-05](HC05_INTEGRATION.md). Użytkownik ma multimetr; pomiary shielda i identyfikacja kontrolera nie są jeszcze wykonane. HC-05 wymaga osobnego UART i korekty budżetu wyjść względem starej tabeli samego LCD.
 
 ## Moduł bazowy

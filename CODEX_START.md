@@ -1,5 +1,7 @@
 # Prompt startowy do Codex
 
+**Aktualizacja 15.11.2026 / v0.1.12:** wybór TFT przez `src/display_profile.h` (`RETRO_TFT_PROFILE` NONE/I80/SPI) albo gotowe środowiska PlatformIO. [Nowy ILI9341 SPI + XPT2046 i przydział pinów](docs/TFT_PROFILES_v0.1.12.md): LCD SPI3 18/23/19, CS21/DC22/RST27; dotyk SPI2 14/13/39, CS33/IRQ36. Użytkownik potwierdził VCC i LED 3,3 V. Nie łączyć pinoutu SPI i I80; PSRAM16/17 i UART-y zachowane. NONE nadal domyślny, TFT nie jest już wybierane przez menuconfig. [Zapis na SD — przyszła funkcja](docs/FUTURE_SD.md). Wstępny dotyk RAW, bez kalibracji/UI. Po udanej kompilacji commit/push przed testami zgodnie z najnowszym poleceniem; wyniki w STATUS. Nie wykonywano automatycznego uploadu. Starsze informacje poniżej opisują poprzednie wersje.
+
 Skopiuj poniższy tekst do Codex w VS Code po otwarciu folderu projektu:
 
 **Aktualizacja v0.1.11:** bieżący kod to HC-05 UART1 TX32/RX34, 115200 ↔ UART2 TX25/RX26, opcjonalne STATE/EN i renderer ILI9341 I80. Natywne BT/Wi-Fi usunięto z aktywnego main/src i zależności; stare SPP jest w baseline v0.1.10. TFT/STATE/EN domyślnie wyłączone do pomiarów. [Instrukcja](docs/HC05_TFT_v0.1.11.md), [bieżące wyniki](docs/STATUS.md). Na polecenie użytkownika commit/push źródeł poprzedza końcowe testy; ich wynik zapisujemy kolejnym commitem. Poniższe akapity v0.1.10/SPP są historią.

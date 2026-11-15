@@ -1,5 +1,12 @@
 # Faktyczny stan projektu / handoff
 
+## 15.11.2026 — v0.1.12: alternatywne TFT i plan SD
+
+- Na polecenie użytkownika przygotowano profile `#define`: NONE / ILI9341 I80 / ILI9341 SPI + XPT2046. Pełny [pinout i konfiguracja](TFT_PROFILES_v0.1.12.md), [przyszły zapis na SD](FUTURE_SD.md). Dotychczasowy shield i nowy moduł są alternatywami, nie wspólną magistralą.
+- Użytkownik potwierdził VCC i LED nowego modułu SPI **3,3 V**. LCD SPI3 18/23/19, CS21/DC22/RST27; XPT2046 SPI2 14/13/39, CS33/IRQ36. LED na 3V3; opcjonalne GPIO4 tylko do EN zewnętrznego drivera. GPIO16/17, UART-y i debug LED2 zachowane. Nowy dotyk RAW ma log DOWN/UP; nie ma kalibracji ani UI. Natywne radio nadal wyłączone.
+- **Kompilacja przed publikacją: 3/3 SUCCESS**, espressif32 7.0.1 / ESP-IDF 6.0.1: NONE 50,66 s, Flash 221 192 B / statyczny RAM 14 144 B; I80 77,21 s, Flash 232 536 B / RAM 14 216 B; SPI + XPT2046 75,73 s, Flash 251 556 B / RAM 14 728 B. Log: `.pio/audit/tft_v0112_build.txt`.
+- Kolejność wymagana przez użytkownika: udana kompilacja, commit i publikacja nowszej wersji przed testami. W chwili przygotowania commita źródeł **testów hosta i analizy statycznej tej wersji jeszcze nie uruchamiano**; ich wyniki zostaną zapisane osobno. Nie wykonywano uploadu ani próby sprzętowej.
+
 ## 15.11.2026 — TFT: brak podświetlenia przy samym zasilaniu
 
 - Użytkownik zgłosił zasilanie shielda 5 V i poprawną pracę wewnętrznego stabilizatora 3,3 V. Nie podał osobnych odczytów napięcia na LED ani na HC245.

@@ -1,4 +1,4 @@
-/* ESP32 RetroTerminal v0.1.11: HC-05 UART1 <-> UART2 and optional ILI9341.
+/* ESP32 RetroTerminal v0.1.12: HC-05 UART1 <-> UART2, I80/SPI display profiles.
  * GPIO16/17: PSRAM. UART0: USB console. GPIO2: debug LED.
  * Native Bluetooth and Wi-Fi are excluded from this firmware. */
 
@@ -8,6 +8,7 @@
 #endif
 
 #include "esp_log.h"
+#include "esp_app_desc.h"
 #include "debug_led.h"
 #include "hc05_bridge.h"
 #include "terminal_view.h"
@@ -16,8 +17,8 @@
 void app_main(void)
 {
     ESP_ERROR_CHECK(debug_led_init(hc05_bridge_led_mode));
-    ESP_LOGI("Terminal", "Starting v0.1.11: external HC-05 at %d; internal Bluetooth disabled",
-             CONFIG_RETRO_HC05_BAUD);
+    ESP_LOGI("Terminal", "Starting v%s: external HC-05 at %d; internal Bluetooth disabled",
+             esp_app_get_description()->version, CONFIG_RETRO_HC05_BAUD);
     ESP_ERROR_CHECK(terminal_view_init(tft_display_enabled() ? tft_display_cols() : 80,
                                       tft_display_enabled() ? tft_display_rows() : 24));
     ESP_ERROR_CHECK(hc05_bridge_init());

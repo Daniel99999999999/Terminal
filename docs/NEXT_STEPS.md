@@ -1,5 +1,14 @@
 # Plan kolejnych etapów i kryteria odbioru
 
+## Aktualizacja 15.11.2026 — alternatywy TFT i przyszłe SD
+
+- Wybrać jeden [profil i pinout TFT](TFT_PROFILES_v0.1.12.md). Nowy ILI9341 SPI + XPT2046 ma potwierdzone przez użytkownika VCC/LED 3,3 V. Zweryfikować fizycznie wzór kolorów/tekst/ANSI oraz reakcję dotyku RAW, następnie dodać kalibrację i UI. Dotychczasowe odłożenie panelu rezystancyjnego dotyczy tylko shielda I80.
+- Stary I80: brak podświetlenia nawet przy samym 5V/GND; identyfikacja i pomiary toru LED nadal otwarte. Dodanie profilu SPI nie potwierdza sprawności ani uszkodzenia starego LCD.
+- **Przyszła funkcja zlecona do zapamiętania: zapis na karcie SD.** Zakres, SDSPI/FATFS, kolejki, wymagania i kryteria testów w [FUTURE_SD](FUTURE_SD.md). Nie ma jeszcze kodu zapisu ani przydziału CS.
+- Kod kompilować przed commitem; nowszą wersję opublikować przed testami zgodnie z poleceniem użytkownika. Kontrole po publikacji zapisać oddzielnie. Bez automatycznego uploadu.
+
+Poniższy plan zachowuje historię poprzednich etapów i shielda I80.
+
 ## Etap A — wbudowany Bluetooth: diagnoza zamknięta decyzją użytkownika
 
 Oryginalny akceptor Espressif i ostatni wariant pełnej kalibracji RF pozostają niewidoczne na Samsungu. Windows na ostatnim wariancie zestawia ACL, ale po 30,13 s następuje LMP timeout 0x22, bez potwierdzonego AUTH/SPP. Nie ustalono przyczyny. Szczegóły i logi w [STATUS](STATUS.md) oraz [porównaniu kodu](BT_CODE_COMPARISON_2026-11-03.md).

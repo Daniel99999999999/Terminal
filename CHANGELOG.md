@@ -1,5 +1,15 @@
 # Historia wersji
 
+## v0.1.12 — 15.11.2026
+
+- Wybór przez `#define` w `display_profile.h`: NONE (domyślnie), ILI9341 I80 albo ILI9341 SPI. Środowiska PlatformIO `esp32dev`, `esp32dev_i80`, `esp32dev_spi` i osobne zadania VS Code. Usunięto niejednoznaczny drugi wybór TFT z menuconfig; ustawienia LCD/dotyku są makrami z nadpisaniem `-D`.
+- SPI3 LCD: SCK18/MOSI23/MISO19, CS21/DC22/RESET27. SPI2 XPT2046: CLK14/DIN13/DO39/CS33/IRQ36. VCC i LED nowego modułu: 3,3 V potwierdzone przez użytkownika. GPIO4 rezerwą na EN zewnętrznego drivera LED, domyślnie bez sterowania. UART-y, GPIO2 i PSRAM16/17 zachowane.
+- Wspólny renderer ANSI/VT100, INTERNAL DMA i kontrola żywotności bufora; I80 zachowany, SPI z właściwą kolejnością bajtów RGB565. Wstępny odczyt XPT2046: surowe X/Y/nacisk, mediana, IRQ i ograniczone oczekiwania SPI; bez kalibracji i UI dotyku. Testy profili/GPIO, protokołu/timeoutu dotyku i RGB565 przygotowano do wykonania po commicie.
+- [Zapis na karcie SD](docs/FUTURE_SD.md) wpisano do planu przyszłych funkcji; bez inicjalizacji karty i przydziału CS w tej wersji. Źródłem wersji w logu startowym jest deskryptor aplikacji ESP-IDF.
+- Przed commitem wszystkie trzy warianty skompilowano z wynikiem SUCCESS w espressif32 7.0.1 / ESP-IDF 6.0.1. Kolejność na zlecenie użytkownika: udana kompilacja, commit/push nowszej wersji, następnie testy. Wyniki i ograniczenia w [STATUS](docs/STATUS.md); bez automatycznego uploadu i bez deklaracji działania sprzętowego.
+
+[Konfiguracja i pełny pinout](docs/TFT_PROFILES_v0.1.12.md). Poprzedni shield I80 nadal nie ma potwierdzonego podświetlenia.
+
 ## v0.1.11 — 13.11.2026
 
 - HC-05 ZS-040 na UART1 TX32/RX34, 115200 8N1; dwukierunkowy most z UART2 TX25/RX26. Osobne kolejki i zadania RX/TX, ograniczone oczekiwania FIFO, liczniki błędów/strat.

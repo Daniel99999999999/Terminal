@@ -72,3 +72,5 @@ FabGL ma emulator terminala i obsługę ESP-IDF, ale jego gotowy ILI9341 jest **
 Zgodnie z poleceniem użytkownika źródła v0.1.11 wysłano w [46ea0fa](https://github.com/Daniel99999999999/Terminal/commit/46ea0fae02ec845b2c58fccabec2426289e6fb40) **przed końcowymi testami**. Następnie przeszły wszystkie zestawy hosta, build domyślny i osobny build z TFT/STATE/KEY/wzorem/inwersją, a także Cppcheck 10 C w obu konfiguracjach. Komponenty, mapy linkowania i ELF potwierdzają brak natywnego radia. Wyniki zapisano osobnym commitem w [STATUS](STATUS.md) i [TESTS](TESTS.md). Domyślne TFT/STATE/KEY pozostają OFF.
 
 Nie wykonano uploadu, próby na TFT ani fizycznego testu UART1↔HC-05. Następny test sprzętu: UART1↔UART2 krótkie/długie dane i błędy; po pomiarach LCD wzór kolorów, obrót, ANSI/UTF-8, start i upload USB z LCD; potem STATE, granice sesji oraz AT/EN.
+> **Aktualizacja v0.1.12:** część o opcjach TFT w menuconfig jest historyczna. [Profile I80/SPI + XPT2046 i bieżący pinout](TFT_PROFILES_v0.1.12.md) wybiera się przez `#define`. API i okablowanie HC-05 nie zmieniły się.
+

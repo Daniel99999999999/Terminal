@@ -88,3 +88,5 @@ GPIO2 pozostaje debug LED. W v0.1.11 most UART1 jest zaimplementowany, a po wł�
 4. Po ustaleniu baud HC-05 dodać transport UART1, bez prób wbudowanego BT. Osobno sprawdzić RX/TX, parowanie, później STATE i sterowanie AT z ESP32 oraz start/upload z podłączonym LCD.
 
 Pierwotna tabela powstała dla v0.1.10. Implementacja jest już w v0.1.11; nie wykonano testu elektrycznego ani uploadu. Końcowe kontrole kodu są zapisywane oddzielnie w STATUS.
+> **15.11.2026 / v0.1.12:** poniższa tabela LCD dotyczy wyłącznie profilu **I80**. Alternatywny [ILI9341 SPI + XPT2046 ma osobny pinout](TFT_PROFILES_v0.1.12.md). Nie łączyć obu wariantów. UART-y, PSRAM i debug LED mają ten sam przydział w obu profilach.
+

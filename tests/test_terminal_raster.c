@@ -10,6 +10,13 @@ int main(void)
     CHECK(terminal_rgb565(0x00ff00) == 0x07e0);
     CHECK(terminal_rgb565(0x0000ff) == 0x001f);
     CHECK(terminal_rgb565(0xffffff) == 0xffff && terminal_rgb565(0) == 0);
+    uint16_t wire[] = {0x1234, 0xf800, 0x07e0, 0x001f, 0xabcd};
+    terminal_raster_swap_bytes(wire + 1, 3);
+    CHECK(wire[0] == 0x1234 && wire[4] == 0xabcd);
+    const unsigned char expected[] = {0xf8, 0x00, 0x07, 0xe0, 0x00, 0x1f};
+    CHECK(memcmp(wire + 1, expected, sizeof(expected)) == 0);
+    terminal_raster_swap_bytes(wire + 1, 3);
+    CHECK(wire[1] == 0xf800 && wire[2] == 0x07e0 && wire[3] == 0x001f);
     terminal_cell_t cells[2] = {{'A', 0xffffff, 0}, {' ', 0xffffff, 0}};
     terminal_cell_t saved[2]; memcpy(saved, cells, sizeof(cells));
     struct { uint16_t before, pixels[128], after; } out = {.before=0x1234,.after=0xabcd};

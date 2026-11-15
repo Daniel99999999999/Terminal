@@ -8,6 +8,13 @@ uint16_t terminal_rgb565(uint32_t rgb)
     return (uint16_t)(((rgb >> 8) & 0xf800) | ((rgb >> 5) & 0x07e0) | ((rgb >> 3) & 0x001f));
 }
 
+void terminal_raster_swap_bytes(uint16_t *pixels, size_t count)
+{
+    for (size_t i = 0; i < count; ++i) {
+        pixels[i] = (uint16_t)((pixels[i] >> 8) | (pixels[i] << 8));
+    }
+}
+
 uint8_t terminal_glyph_row(uint32_t cp, unsigned row)
 {
     if (row >= 8) { return 0; }

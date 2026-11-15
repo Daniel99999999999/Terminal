@@ -7,6 +7,8 @@
 #include "hc05_bridge.h"
 #include "terminal_raster.h"
 #include "terminal_view.h"
+#include "tft_bus.h"
+#include "xpt2046.h"
 #include "driver/gpio.h"
 #include "esp_heap_caps.h"
 #include "esp_lcd_panel_io.h"
@@ -18,11 +20,10 @@
 #include "freertos/semphr.h"
 #include "freertos/task.h"
 
-#define TFT_WIDTH  ((CONFIG_RETRO_TFT_ROTATION & 1) ? 320 : 240)
-#define TFT_HEIGHT ((CONFIG_RETRO_TFT_ROTATION & 1) ? 240 : 320)
+#define TFT_WIDTH  ((RETRO_TFT_ROTATION & 1) ? 320 : 240)
+#define TFT_HEIGHT ((RETRO_TFT_ROTATION & 1) ? 240 : 320)
 #define STRIP_PIXELS (TFT_WIDTH * 8)
 
-static esp_lcd_i80_bus_handle_t s_bus;
 static esp_lcd_panel_io_handle_t s_io;
 static esp_lcd_panel_handle_t s_panel;
 static SemaphoreHandle_t s_done;
@@ -31,11 +32,7 @@ static bool s_started;
 
 bool tft_display_enabled(void)
 {
-#ifdef CONFIG_RETRO_TFT_ENABLE
-    return true;
-#else
-    return false;
-#endif
+    return RETRO_TFT_PROFILE != RETRO_TFT_NONE;
 }
 
 uint16_t tft_display_cols(void) { return TFT_WIDTH / 8; }
@@ -52,6 +49,7 @@ static bool IRAM_ATTR color_done(esp_lcd_panel_io_handle_t io,
 
 static esp_err_t draw_strip(unsigned y)
 {
+    tft_bus_prepare_pixels(s_pixels, STRIP_PIXELS);
     esp_err_t err = esp_lcd_panel_draw_bitmap(s_panel, 0, (int)y,
         TFT_WIDTH, (int)y + 8, s_pixels);
     if (err != ESP_OK) { return err; }
@@ -64,39 +62,12 @@ static esp_err_t panel_init(void)
 {
     s_done = xSemaphoreCreateBinary();
     if (!s_done) { return ESP_ERR_NO_MEM; }
-    /* Set inactive values before enabling outputs. RD remains HIGH: no unsafe
-     * automatic ID read through unverified bidirectional HC245 paths. */
-    const int idle[] = {TFT_CS_GPIO, TFT_RD_GPIO, TFT_WR_GPIO, TFT_RST_GPIO, TFT_DC_GPIO};
-    for (size_t i = 0; i < sizeof(idle) / sizeof(idle[0]); ++i) {
-        esp_err_t err = gpio_set_level(idle[i], 1);
-        if (err != ESP_OK) { return err; }
-        err = gpio_set_direction(idle[i], GPIO_MODE_OUTPUT);
-        if (err != ESP_OK) { return err; }
-    }
-    const esp_lcd_i80_bus_config_t bus = {
-        .dc_gpio_num = TFT_DC_GPIO, .wr_gpio_num = TFT_WR_GPIO,
-        .data_gpio_nums = {TFT_D0_GPIO, TFT_D1_GPIO, TFT_D2_GPIO, TFT_D3_GPIO,
-                          TFT_D4_GPIO, TFT_D5_GPIO, TFT_D6_GPIO, TFT_D7_GPIO},
-        .bus_width = 8, .max_transfer_bytes = STRIP_PIXELS * sizeof(uint16_t),
-    };
-    esp_err_t err = esp_lcd_new_i80_bus(&bus, &s_bus);
+    esp_err_t err = tft_bus_open(STRIP_PIXELS * sizeof(*s_pixels), color_done,
+                                 s_done, &s_io, &s_pixels);
     if (err != ESP_OK) { return err; }
-    const esp_lcd_panel_io_i80_config_t io = {
-        .cs_gpio_num = TFT_CS_GPIO, .pclk_hz = CONFIG_RETRO_TFT_CLOCK_HZ,
-        .trans_queue_depth = 1, .on_color_trans_done = color_done, .user_ctx = s_done,
-        .lcd_cmd_bits = 8, .lcd_param_bits = 8,
-        .dc_levels = { .dc_idle_level = 1, .dc_cmd_level = 0,
-                       .dc_dummy_level = 0, .dc_data_level = 1 },
-        .flags.swap_color_bytes = 1,
-    };
-    err = esp_lcd_new_panel_io_i80(s_bus, &io, &s_io);
-    if (err != ESP_OK) { return err; }
-    s_pixels = esp_lcd_i80_alloc_draw_buffer(s_io, STRIP_PIXELS * sizeof(*s_pixels),
-        MALLOC_CAP_DMA | MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
-    if (!s_pixels) { return ESP_ERR_NO_MEM; }
     const esp_lcd_panel_dev_config_t panel = {
         .reset_gpio_num = TFT_RST_GPIO, .bits_per_pixel = 16,
-#ifdef CONFIG_RETRO_TFT_BGR
+#if RETRO_TFT_BGR
         .rgb_ele_order = LCD_RGB_ELEMENT_ORDER_BGR,
 #else
         .rgb_ele_order = LCD_RGB_ELEMENT_ORDER_RGB,
@@ -106,10 +77,10 @@ static esp_err_t panel_init(void)
     if (err == ESP_OK) { err = esp_lcd_panel_reset(s_panel); }
     if (err == ESP_OK) { err = esp_lcd_panel_init(s_panel); }
     const bool mx[] = {false, true, true, false}, my[] = {false, false, true, true};
-    if (err == ESP_OK) { err = esp_lcd_panel_swap_xy(s_panel, (CONFIG_RETRO_TFT_ROTATION & 1) != 0); }
+    if (err == ESP_OK) { err = esp_lcd_panel_swap_xy(s_panel, (RETRO_TFT_ROTATION & 1) != 0); }
     if (err == ESP_OK) { err = esp_lcd_panel_mirror(s_panel,
-        mx[CONFIG_RETRO_TFT_ROTATION], my[CONFIG_RETRO_TFT_ROTATION]); }
-#ifdef CONFIG_RETRO_TFT_INVERT
+        mx[RETRO_TFT_ROTATION], my[RETRO_TFT_ROTATION]); }
+#if RETRO_TFT_INVERT
     if (err == ESP_OK) { err = esp_lcd_panel_invert_color(s_panel, true); }
 #endif
     if (err == ESP_OK) { err = esp_lcd_panel_disp_on_off(s_panel, true); }
@@ -118,7 +89,7 @@ static esp_err_t panel_init(void)
 
 static esp_err_t show_color_test(void)
 {
-#ifdef CONFIG_RETRO_TFT_COLOR_TEST
+#if RETRO_TFT_COLOR_TEST
     const uint16_t colors[] = {0xf800, 0x07e0, 0x001f, 0xffff, 0};
     for (unsigned y = 0; y < TFT_HEIGHT; y += 8) {
         debug_led_heartbeat(DEBUG_LED_LCD);
@@ -161,7 +132,19 @@ static void display_task(void *arg)
     (void)arg;
     debug_led_heartbeat(DEBUG_LED_LCD);
     esp_err_t err = panel_init();
+    if (err == ESP_OK) { err = tft_bus_backlight(true); }
     if (err == ESP_OK) { err = show_color_test(); }
+#if RETRO_TOUCH_ENABLE
+    bool touch_active = false, touch_pressed = false;
+    if (err == ESP_OK) {
+        esp_err_t touch_err = xpt2046_init();
+        touch_active = touch_err == ESP_OK;
+        if (!touch_active) {
+            debug_led_fault();
+            ESP_LOGE("TOUCH", "Init failed: %s; display continues", esp_err_to_name(touch_err));
+        }
+    }
+#endif
     size_t cols = tft_display_cols(), rows = tft_display_rows();
     terminal_cell_t *previous = heap_caps_calloc(cols * rows, sizeof(*previous),
         MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
@@ -173,8 +156,8 @@ static void display_task(void *arg)
     unsigned next_row = 0;
     TickType_t last = xTaskGetTickCount();
     if (err == ESP_OK) {
-        ESP_LOGI("TFT", "ILI9341 selected by user; I80 DMA %dx%d, %ux%u cells; physical image unverified",
-                 TFT_WIDTH, TFT_HEIGHT, (unsigned)cols, (unsigned)rows);
+        ESP_LOGI("TFT", "ILI9341 selected by user; %s %dx%d, %ux%u cells; physical image unverified",
+                 tft_bus_name(), TFT_WIDTH, TFT_HEIGHT, (unsigned)cols, (unsigned)rows);
     }
     while (err == ESP_OK) {
         debug_led_heartbeat(DEBUG_LED_LCD);
@@ -202,9 +185,25 @@ static void display_task(void *arg)
         }
         hc05_status_t status = hc05_bridge_status();
         if (err == ESP_OK && status != old_status) { err = draw_status(status); old_status = status; }
+#if RETRO_TOUCH_ENABLE
+        if (touch_active) {
+            xpt2046_sample_t touch;
+            esp_err_t touch_err = xpt2046_read(&touch);
+            if (touch_err != ESP_OK) {
+                touch_active = false;
+                debug_led_fault();
+                ESP_LOGE("TOUCH", "Read failed: %s; display continues", esp_err_to_name(touch_err));
+            } else if (touch.pressed != touch_pressed) {
+                touch_pressed = touch.pressed;
+                ESP_LOGI("TOUCH", "%s raw x=%u y=%u pressure=%u; calibration/UI pending",
+                         touch.pressed ? "DOWN" : "UP", touch.x, touch.y, touch.pressure);
+            }
+        }
+#endif
         xTaskDelayUntil(&last, pdMS_TO_TICKS(33));
     }
     debug_led_fault();
+    (void)tft_bus_backlight(false);
     ESP_LOGE("TFT", "Rendering stopped: %s; UART bridge remains active; DMA resources retained", esp_err_to_name(err));
     /* The handle stays valid, no live DMA buffer is released after a timeout. */
     for (;;) { vTaskSuspend(NULL); }
@@ -213,7 +212,7 @@ static void display_task(void *arg)
 esp_err_t tft_display_start(void)
 {
     if (!tft_display_enabled()) {
-        ESP_LOGW("TFT", "Disabled: verify shield/HC245/3.3V and enable RetroTerminal TFT in menuconfig; no LCD GPIO touched");
+        ESP_LOGW("TFT", "Disabled: RETRO_TFT_PROFILE=NONE; select verified I80 or SPI wiring in display_profile.h/build_flags; no LCD GPIO touched");
         return ESP_OK;
     }
     if (s_started) { return ESP_ERR_INVALID_STATE; }

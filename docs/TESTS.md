@@ -1,3 +1,11 @@
+# v0.1.12 — kolejność kompilacja / publikacja / testy
+
+Na polecenie z 15.11.2026 najpierw kompilujemy środowiska `esp32dev`, `esp32dev_i80`, `esp32dev_spi`, potem publikujemy commit v0.1.12 **przed testami**, a wyniki kontroli zapisujemy oddzielnie w [STATUS](STATUS.md).
+
+Testy hosta: `python tests/run_host_tests.py`; nowe selektory `--suite profiles` i `--suite xpt`. Obejmują trzy plany GPIO, ochronę PSRAM/UART/LED, odrzucanie niepoprawnych ustawień, rzeczywistą kolejność bajtów RGB565 dla SPI, protokół XPT2046/IRQ/medianę i zachowanie deskryptora przy timeoutcie. Symulacja SPI nie potwierdza fizycznej komunikacji. Testy BT/HCI nadal odnoszą się do archiwum v0.1.10; nowe radio nie jest uruchamiane.
+
+Weryfikacja po publikacji: testy hosta, Cppcheck aktywnego C w profilach, kontrola wersji/PSRAM i braku natywnych komponentów radiowych w wynikach kompilacji. Próba sprzętowa jest osobnym krokiem z [instrukcji profili](TFT_PROFILES_v0.1.12.md); bez automatycznego uploadu. SD pozostaje planem bez aktywnego sterownika.
+
 # v0.1.11 — końcowe kontrole po commicie źródeł
 
 Na polecenie użytkownika kod v0.1.11 wysłano w commicie [46ea0fa](https://github.com/Daniel99999999999/Terminal/commit/46ea0fae02ec845b2c58fccabec2426289e6fb40) **przed końcowymi testami**. Następnie wykonano:

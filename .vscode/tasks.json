@@ -57,6 +57,34 @@
       "problemMatcher": []
     },
     {
+      "label": "PIO: Build SPI TFT + XPT2046",
+      "type": "process",
+      "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\platformio.exe",
+      "args": ["run", "-e", "esp32dev_spi"],
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "label": "PIO: Upload SPI TFT + XPT2046",
+      "type": "process",
+      "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\platformio.exe",
+      "args": ["run", "-e", "esp32dev_spi", "-t", "upload"],
+      "problemMatcher": []
+    },
+    {
+      "label": "PIO: Build I80 TFT",
+      "type": "process",
+      "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\platformio.exe",
+      "args": ["run", "-e", "esp32dev_i80"],
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "label": "PIO: Upload I80 TFT",
+      "type": "process",
+      "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\platformio.exe",
+      "args": ["run", "-e", "esp32dev_i80", "-t", "upload"],
+      "problemMatcher": []
+    },
+    {
       "label": "BT reference: Build",
       "type": "process",
       "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\platformio.exe",

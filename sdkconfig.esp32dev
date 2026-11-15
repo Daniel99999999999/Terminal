@@ -706,16 +706,6 @@ CONFIG_RETRO_HC05_BAUD=115200
 # CONFIG_RETRO_HC05_STATE_ENABLE is not set
 # default:
 # CONFIG_RETRO_HC05_KEY_ENABLE is not set
-# default:
-# CONFIG_RETRO_TFT_ENABLE is not set
-# default:
-CONFIG_RETRO_TFT_ROTATION=1
-# default:
-CONFIG_RETRO_TFT_CLOCK_HZ=1000000
-# default:
-CONFIG_RETRO_TFT_BGR=y
-# default:
-# CONFIG_RETRO_TFT_INVERT is not set
 # end of RetroTerminal
 
 #

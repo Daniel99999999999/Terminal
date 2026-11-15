@@ -2,11 +2,13 @@
 
 Projekt terminala szeregowego DIY opartego na **ESP32-WROVER (ESP32-D0WD-V3)**. Natywny **ESP-IDF 6.0.1 w PlatformIO**, język **C**, bez Arduino.
 
-Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.1.11**, etap rozwojowy. [Opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
+Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.1.12**, etap rozwojowy. [Opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
+
+**v0.1.12:** [profile TFT przez `#define`: NONE / ILI9341 I80 / ILI9341 SPI + XPT2046](docs/TFT_PROFILES_v0.1.12.md). Nowy moduł SPI ma VCC i LED **3,3 V** według użytkownika; osobny przydział GPIO i osobne magistrale LCD/dotyku. `pio run -e esp32dev_spi` kompiluje SPI, `-e esp32dev_i80` I80; domyślny `esp32dev` pozostawia TFT wyłączony. Wstępne surowe odczyty dotyku bez kalibracji/UI. [Zapis na SD zachowano jako przyszłe zadanie](docs/FUTURE_SD.md).
 
 **v0.1.11:** dodano most HC-05 UART1 TX32/RX34 przy potwierdzonych 115200, opcjonalne STATE35 i EN12/AT oraz renderer ILI9341 przez I80/DMA. [Konfiguracja i ograniczenia](docs/HC05_TFT_v0.1.11.md), [połączenia](docs/PIN_ASSIGNMENT_HC05_TFT.md). Natywne BT/Wi-Fi usunięto z bieżącego firmware. TFT, STATE i EN są domyślnie wyłączone do potwierdzenia warunków elektrycznych. Kod wymaga testu na rzeczywistym sprzęcie; końcowe kontrole po commicie źródeł są opisane w STATUS.
 
-> **Stan sprzętu:** próby wbudowanego BT zakończono decyzją użytkownika, bez ustalenia przyczyny. HC-05 to ZS-040, użytkownik sprawdził AT przez EN i podał baud transmisji 115200. LCD opisano jako klon ILI9341; pomiary zasilania/HC245 nadal wymagane. Nie wgrano jeszcze v0.1.11 ani nie potwierdzono obrazu TFT. [Wyniki i historia](docs/STATUS.md).
+> **Stan sprzętu:** próby wbudowanego BT zakończono decyzją użytkownika, bez ustalenia przyczyny. HC-05 to ZS-040, użytkownik sprawdził AT przez EN i podał baud transmisji 115200. Stary shield I80 nie świeci nawet przy samym 5V/GND; stabilizator 3,3 V według użytkownika działa. Nowy moduł SPI ma potwierdzone VCC/LED 3,3 V; fizyczny obraz i dotyk pozostają nieprzetestowane. Brak nowego logu potwierdzającego wgraną wersję; nie wykonano automatycznego uploadu. [Wyniki i historia](docs/STATUS.md).
 
 ## Szybki start — Windows / VS Code
 
@@ -26,7 +28,7 @@ Zweryfikowane środowisko v0.1.10: **PlatformIO espressif32 7.0.1 / ESP-IDF 6.0.
 
 ## Aktualny firmware
 
-`src/` zawiera most HC-05, parser/model i renderer terminala, sterowanie I80 oraz debug LED. Opcje są w `src/Kconfig.projbuild` → **RetroTerminal**. [Instrukcja v0.1.11](docs/HC05_TFT_v0.1.11.md) opisuje włączanie TFT/STATE/EN, API AT i test sprzętowy. Obsługa TFT jest zaimplementowana, lecz domyślnie nie aktywuje niezweryfikowanych GPIO. Bez STATE informacja BT pozostaje nieznana, most UART działa. Nie uruchamiamy natywnego radia.
+`src/` zawiera most HC-05, parser/model i renderer terminala, transport I80/SPI, XPT2046 oraz debug LED. Profile i opcje TFT/dotyku wybiera `src/display_profile.h` lub `build_flags`; [instrukcja v0.1.12 i pinout SPI](docs/TFT_PROFILES_v0.1.12.md). Opcje HC-05 pozostają w `src/Kconfig.projbuild` → **RetroTerminal**, a [instrukcja v0.1.11](docs/HC05_TFT_v0.1.11.md) opisuje STATE/EN i API AT. Bez STATE informacja BT pozostaje nieznana, most UART działa. Nie uruchamiamy natywnego radia.
 
 ## Pliki i historia v0.1.10
 

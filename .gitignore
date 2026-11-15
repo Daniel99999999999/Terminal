@@ -20,3 +20,8 @@ __pycache__/
 *.map
 .DS_Store
 Thumbs.db
+# Generated per-profile SDK configurations use sdkconfig.defaults.
+/sdkconfig.esp32dev_i80
+/sdkconfig.esp32dev_i80.old
+/sdkconfig.esp32dev_spi
+/sdkconfig.esp32dev_spi.old
