@@ -1,5 +1,9 @@
 # Faktyczny stan projektu / handoff
 
+## 15.11.2026 — zlecone próby VT100 na v0.3.1
+
+Użytkownik potwierdził „Działa” po poprawce Enter i zlecił testy VT100. [Procedura i ograniczenia](VT100_TEST_2026-11-15.md). Przygotowano odtwarzalny test 20 przypadków, z jawnymi oczekiwaniami komórek/kolorów na hoście oraz cursor/controls/bytes/CRC z działającego ESP32. Aplikacja nie jest zmieniana ani ponownie wgrywana. Istniejące 23 scenariusze parsera i raster PASS, porty COM5/COM14 dostępne; wyniki nowych prób zostaną dopisane po uruchomieniu. DSR pozostaje niezaimplementowane i ma osobny test ujemny.
+
 ## 15.11.2026 — v0.3.1: Enter, pauza i pasek dotykowy
 
 **Wyniki po publikacji źródeł `0805f57`:** [zapis kontroli](logs/2026-11-15_v0.3.1_validation.json). Parser 23 scenariusze PASS, kalibracja/UI (w tym pauza/wznowienie i wybór CR) PASS, raster PASS. Cppcheck warning/performance/portability: 11 aktywnych C osobno internal/touch z jawnymi makrami profilu i dotyku, bez zgłoszeń, oba kody 0.
