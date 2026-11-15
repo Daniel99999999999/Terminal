@@ -1,5 +1,12 @@
 # Faktyczny stan projektu / handoff
 
+## 15.11.2026 — korekta fizycznej izolacji / v0.1.18
+
+- Użytkownik doprecyzował: **LCD wcześniej nigdy nie był odłączany**. Starsze sformułowania o bootloopie z fizycznie odłączonym LCD były błędnym odczytaniem wcześniejszej odpowiedzi; nie traktować ich jako wyniku testu. Profil headless v0.1.17 wyłączał obsługę w kodzie, ale LCD pozostawał fizycznie podłączony.
+- Dopiero teraz użytkownik odłączył wszystkie przewody LCD przy wyłączonym zasilaniu, następnie włączył ESP32 i zwolnił COM5. [Bezpośredni odczyt bez LCD](logs/2026-11-15_v0.1.18_lcd_physically_removed.txt): ten sam IllegalInstruction / esp_clk_tree_initialize: PC 0x400e3390. 5 cykli w 6 s. Ta próba potwierdza występowanie obecnego błędu bez podłączonego LCD.
+- v0.1.18: build SUCCESS i publikacja `3e9806e` przed uploadem; bootloader potwierdził **QIO / 40 MHz**. [Log z LCD](logs/2026-11-15_v0.1.18_boot.txt). PSRAM test PASS, potem nadal wyjątek. Sama zmiana QIO w połączeniu z eksperymentalnymi obejściami v0.1.17 nie naprawiła startu.
+- Kolejny wariant usuwa nieskuteczne wrappery/zmiany linkowania, pozostawiając standardowy start SDK z QIO i powitanie. Nie deklarować żadnej dotychczasowej próby jako naprawy.
+
 ## 15.11.2026 — v0.1.17: bariera niewystarczająca, kontrola bez LCD
 
 - Źródła `9e7a922` opublikowano po kompilacji i przed testem. SPI i headless skompilowane SUCCESS, kontrola IRAM rozszerzonych zależności PASS. Upload obu profili COM5 SUCCESS. Oba przechodzą test PSRAM, oba następnie wpadają w IllegalInstruction przed app_main. [SPI](logs/2026-11-15_v0.1.17_boot.txt), [bez LCD](logs/2026-11-15_v0.1.17_headless_boot.txt). Bariera cache nie usunęła problemu.
