@@ -2,7 +2,11 @@
 
 ## 15.11.2026 — v0.3.4: powrót do krótkich ramek XPT2046
 
-[Zakres](TOUCH_FRAMES_v0.3.4.md). Wycofano niepotwierdzoną poprawę serii SPI na rzecz osobnych24-taktowych ramek z PD0=0 i buforami inline, jak w v0.3.1. Zachowano diagnostykę, filtr kalibracji, piny i mapę NVS. Kompilacje internal/touch SUCCESS (19,086/18,617 s), przed publikacją i testami. Obecnie na ESP32 działa potwierdzona obrazem v0.3.3 internal bez dotyku. Nie przypisywać jeszcze przyczyny zerowego ADC konkretnemu formatowi SPI ani sprzętowi.
+**Po publikacji `541035d`:** [kontrole](logs/2026-11-15_v0.3.4_validation.json), test protokołu obu wariantów IRQ PASS, Cppcheck11 C internal/touch: kody0 bez zgłoszeń. Wgrano touch przez COM5 (tylko aplikacja, hash zweryfikowany). [Start15 s](logs/2026-11-15_v0.3.4_touch_boot.txt) bez resetów, powitanie3008 ms, mapa NVS wczytana. ADC ma teraz także niezerowe wartości Z1/Z2; w oknie bez nacisku valid0.
+
+**Trzy przytrzymania wykonane przez użytkownika:** [log](logs/2026-11-15_v0.3.4_touch_press_watch.txt): irq_low620, valid356 w trzech oknach nacisku, bez błędów API SPI. Odczyt wrócił, lecz odrzucane próbki nadal występują; nie uznawać stabilności kalibracji ani gestów za potwierdzoną. [UART przy aktywnym dotyku](logs/2026-11-15_v0.3.4_touch_uart_result.json):17894 B, CRC40cad4e7,13 komend, bez strat i błędów. Próba fizyczna CAL/punktów/walidacji/GOTOWE została zlecona, oczekuje wyniku. Na ESP32 v0.3.4 touch, NVS zachowane.
+
+[Zakres](TOUCH_FRAMES_v0.3.4.md). Wycofano niepotwierdzoną poprawę serii SPI na rzecz osobnych24-taktowych ramek z PD0=0 i buforami inline, jak w v0.3.1. Zachowano diagnostykę, filtr kalibracji, piny i mapę NVS. Kompilacje internal/touch SUCCESS (19,086/18,617 s), przed publikacją i testami. Przed tą próbą na ESP32 działała potwierdzona obrazem v0.3.3 internal bez dotyku. Nie przypisywać jeszcze przyczyny zerowego ADC konkretnemu formatowi SPI ani sprzętowi.
 
 ## 15.11.2026 — v0.3.3: pomiar nacisku niezależny od IRQ
 

@@ -1,0 +1,21 @@
+I (270657) HEALTH: alive stage=2 internal_free=221000 PSRAM_free=0
+I (270657) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (270657) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL
+I (270669) TOUCH_RAW: poll=25209 irq_low=620 valid=356 weak=24817 bounds=36 end_high=0 io=0 raw=0,0 z=4095 z1=0 z2=0 irq=1 require_irq=0
+I (272676) TOUCH_RAW: poll=25398 irq_low=620 valid=356 weak=25006 bounds=36 end_high=0 io=0 raw=0,4095 z=25 z1=1 z2=4071 irq=1 require_irq=0
+I (274677) TOUCH_RAW: poll=25587 irq_low=620 valid=356 weak=25195 bounds=36 end_high=0 io=0 raw=0,4095 z=1 z1=1 z2=4095 irq=1 require_irq=0
+I (275665) HEALTH: alive stage=2 internal_free=221000 PSRAM_free=0
+I (275665) HC05: RX=3010 errors=0 CRC32=0d98abf9; UART2 inactive
+I (275665) SCREEN: parsed=3010 drop=0 controls=6 CRC32=0d98abf9 cursor=15,28 view=LIVE CR=NL
+I (276682) TOUCH_RAW: poll=25722 irq_low=620 valid=356 weak=25323 bounds=43 end_high=0 io=0 raw=0,511 z=7 z1=0 z2=4088 irq=1 require_irq=0
+I (278689) TOUCH_RAW: poll=25895 irq_low=620 valid=356 weak=25494 bounds=45 end_high=0 io=0 raw=0,0 z=4095 z1=0 z2=0 irq=1 require_irq=0
+I (280673) HEALTH: alive stage=2 internal_free=221000 PSRAM_free=0
+I (280673) HC05: RX=17894 errors=0 CRC32=40cad4e7; UART2 inactive
+I (280673) SCREEN: parsed=17894 drop=0 controls=13 CRC32=40cad4e7 cursor=0,6 view=LIVE CR=NL
+I (280690) TOUCH_RAW: poll=26085 irq_low=620 valid=356 weak=25684 bounds=45 end_high=0 io=0 raw=0,0 z=4095 z1=0 z2=0 irq=1 require_irq=0
+I (282692) TOUCH_RAW: poll=26275 irq_low=620 valid=356 weak=25874 bounds=45 end_high=0 io=0 raw=0,0 z=4095 z1=0 z2=0 irq=1 require_irq=0
+I (284700) TOUCH_RAW: poll=26466 irq_low=620 valid=356 weak=26065 bounds=45 end_high=0 io=0 raw=0,4095 z=22 z1=1 z2=4074 irq=1 require_irq=0
+I (285681) HEALTH: alive stage=2 internal_free=221000 PSRAM_free=0
+I (285681) HC05: RX=17894 errors=0 CRC32=40cad4e7; UART2 inactive
+I (285681) SCREEN: parsed=17894 drop=0 controls=13 CRC32=40cad4e7 cursor=0,6 view=LIVE CR=NL
+I (286700) TOUCH_RAW: poll=26656 irq_low=620 valid=356 weak=26255 bounds=45 end_high=0 io=0 raw=0,4095 z=18 z1=1 z2=4078 irq=1 require_irq=0

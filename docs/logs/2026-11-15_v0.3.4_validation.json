@@ -1,0 +1,35 @@
+{
+  "version": "0.3.4",
+  "source_commit": "541035d",
+  "builds": {
+    "internal": "SUCCESS 19.086 s",
+    "touch": "SUCCESS 18.617 s"
+  },
+  "host_tests": {
+    "xpt_require_irq_0": "PASS",
+    "xpt_require_irq_1": "PASS"
+  },
+  "cppcheck": {
+    "internal": "11 active C, exit 0, no diagnostics",
+    "touch": "11 active C, exit 0, no diagnostics"
+  },
+  "upload": "COM5 application only; hashes verified",
+  "boot": {
+    "observed_s": 15,
+    "restarts": 0,
+    "welcome_ms": 3008,
+    "nvs_map_loaded": true,
+    "idle_valid": 0,
+    "idle_observation": "both nonzero Z1/Z2 and zero frames observed, no falsely accepted touch in capture"
+  },
+  "physical_test": {
+    "user_completed_holds": true,
+    "irq_low_final": 620,
+    "valid_final": 356,
+    "observation": "accepted samples in three press windows; discarded samples persist; no SPI API errors",
+    "lcd_answer": "user said done; visual result not supplied in this reply",
+    "calibration": "CAL/recalibration now requested, pending answer"
+  },
+  "uart_test": "PASS: 17894 bytes, CRC32 40cad4e7, 13 controls, no drops/errors with touch polling active",
+  "deployed_profile": "esp32dev_touch"
+}
