@@ -100,7 +100,7 @@ Dowody szczegółowe i historia korekt są w [STATUS](STATUS.md), a dopasowane s
 
 Nowa aplikacja v0.2 działa bez inicjalizacji PSRAM: HC-05 master przy urządzeniu przesyła dane do slave przy UART1 terminala; UART1 zasila parser i TFT. W teście COM14 wysłano, odebrano i przetworzono 17894 B, CRC32 odbioru/parsera były zgodne (`0x40cad4e7`), brak strat i błędów UART, zinterpretowano 13 sekwencji sterujących. [Wynik](logs/2026-11-15_v0.2.1_uart1_result.json).
 
-Użytkownik potwierdził widoczne powitanie i miganie GPIO2. Pierwsze zdjęcie ujawniło osobny błąd orientacji obrazu. Nowe zdjęcie wzoru v0.2.2 wykazało obrót o 180° względem fizycznego ustawienia panelu; v0.2.3 zmienia obrót z 1 na 3. To problem obrazu już działającej aplikacji, nie wyjaśnienie wcześniejszego wyjątku przed jej startem. Fizyczny wynik nowego ustawienia wymaga potwierdzenia.
+Użytkownik potwierdził widoczne powitanie i miganie GPIO2. Pierwsze zdjęcie ujawniło osobny błąd orientacji obrazu. Nowe zdjęcie wzoru v0.2.2 wykazało obrót o 180° względem fizycznego ustawienia panelu; v0.2.3 zmienia obrót z 1 na 3. To problem obrazu już działającej aplikacji, nie wyjaśnienie wcześniejszego wyjątku przed jej startem. Użytkownik zaakceptował to ustawienie i polecił pominąć dalsze wzory narożników; [wynik uploadu i kontroli startu](RESULTS_v0.2.3.md).
 
 Poprzednie zmiany nazywane „poprawkami PSRAM” były próbami obejścia, których skuteczności testy **nie potwierdziły**. Nie należy przedstawiać ich jako zakończonej diagnozy lub naprawy.
 
