@@ -1,5 +1,9 @@
 # Historia wersji
 
+## v0.1.18 — 15.11.2026
+
+- Wybór Flash QIO/40 MHz w PlatformIO i SDK, zgodny z odczytanym ID 5E4016 i wspólnymi liniami Quad PSRAM. Wcześniej status QE=0, tryb DIO; tryb QIO ustawia QE przez standardowy bootloader Espressif. Bez zmiany pinów, częstotliwości PSRAM, eFuse i zawartości użytkownika poza aplikacją/bootloaderem. Wynik fizyczny w STATUS.
+
 ## v0.1.17 — 15.11.2026
 
 - Bariera cache CPU0 przy rekonfiguracji PSRAM przed startem CPU1/RTOS; zależności bootloadera i tablice GPIO w wewnętrznym RAM. Usunięto kontrolny odczyt fizyczny Flash z v0.1.16, zachowano poprawione logi kontrolne MMU i powitanie TFT 3 s. Zegar i piny pamięci bez zmian. Kontrola ELF obejmuje nowe zależności; skuteczność w STATUS.
