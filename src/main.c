@@ -5,6 +5,7 @@
 #endif
 #include <stdint.h>
 #include "app_health.h"
+#include "app_memory.h"
 #include "screen.h"
 #include "uart_input.h"
 #include "esp_app_desc.h"
@@ -27,8 +28,10 @@ static bool checked(esp_err_t error, const char *step)
 
 static esp_err_t memory_check(void)
 {
+#ifdef CONFIG_SPIRAM
     if (!esp_psram_is_initialized()) { return ESP_ERR_INVALID_STATE; }
-    volatile uint32_t *test = heap_caps_malloc(16384, MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
+#endif
+    volatile uint32_t *test = heap_caps_malloc(16384, APP_MEMORY_CAPS);
     if (!test) { return ESP_ERR_NO_MEM; }
     esp_err_t result = ESP_OK;
     for (uint32_t pattern = 0; pattern < 3; ++pattern) {
@@ -38,9 +41,8 @@ static esp_err_t memory_check(void)
         }
     }
     heap_caps_free((void *)test);
-    ESP_LOGI("START", "PSRAM initialized=%d chip=%u bytes heap=%u bytes; 16 KiB check=%s",
-             esp_psram_is_initialized(), (unsigned)esp_psram_get_size(),
-             (unsigned)heap_caps_get_total_size(MALLOC_CAP_SPIRAM), esp_err_to_name(result));
+    ESP_LOGI("START", "%s heap=%u bytes; 16 KiB check=%s", APP_MEMORY_NAME,
+             (unsigned)heap_caps_get_total_size(APP_MEMORY_CAPS), esp_err_to_name(result));
     return result;
 }
 
@@ -50,7 +52,7 @@ void app_main(void)
     app_health_beat(HEALTH_MAIN);
     ESP_LOGI("START", "RetroTerminal v%s stage=%d; native BT/Wi-Fi OFF; PSRAM pins16/17 reserved",
              esp_app_get_description()->version, RETRO_STARTUP_STAGE);
-    if (!checked(memory_check(), "PSRAM")) { return; }
+    if (!checked(memory_check(), APP_MEMORY_NAME)) { return; }
 #if RETRO_STARTUP_STAGE >= 1
     if (!checked(screen_start(), "screen task")) { return; }
 #endif

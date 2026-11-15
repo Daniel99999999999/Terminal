@@ -2,9 +2,11 @@
 
 Projekt terminala szeregowego DIY opartego na **ESP32-WROVER (ESP32-D0WD-V3)**. Natywny **ESP-IDF 6.0.1 w PlatformIO**, język **C**, bez Arduino.
 
-Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.2.0**. [Nowa implementacja i konfiguracja](docs/REWRITE_v0.2.0.md), [opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
+Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.2.1**. [Nowa implementacja i konfiguracja](docs/REWRITE_v0.2.0.md), [opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
 
 **Aktualny tor:** badane urządzenie → HC-05 master ⇄ HC-05 slave → **UART1 TX32/RX34, 115200 → TFT**. Telefonu nie ma; UART2 i most nie są uruchamiane. Nowy runtime, standardowy start SDK bez eksperymentalnych wrapperów pamięci, powitanie 3 s i parser ANSI/VT100. Dawne opisy mostu poniżej są historyczne; rzeczywiste wyniki w STATUS.
+
+**v0.2.1:** jawny wariant `esp32dev_internal` używa wyłącznie RAM wewnętrznego do sprawdzenia terminala bez wadliwego obecnie startu PSRAM. Domyślny `esp32dev` nadal włącza PSRAM; v0.2.0 core potwierdził błąd przed app_main. Wyniki prób w STATUS; nie ogłaszać naprawy PSRAM.
 
 **v0.1.19:** standardowy start PSRAM SDK, Flash QIO/40 MHz; usunięte nieskuteczne eksperymentalne wrappery i noflash z v0.1.13–18. Powitanie TFT 3 s zachowane. Wcześniejsze wpisy poniżej opisują historię; rzeczywiste wyniki w STATUS.
 

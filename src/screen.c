@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "app_health.h"
+#include "app_memory.h"
 #include "lcd_panel.h"
 #include "terminal.h"
 #include "terminal_raster.h"
@@ -190,14 +191,14 @@ static void screen_task(void *arg)
 esp_err_t screen_start(void)
 {
     size_t count = COLS * ROWS;
-    terminal_cell_t *primary = heap_caps_calloc(count, sizeof(*primary), MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
-    terminal_cell_t *alternate = heap_caps_calloc(count, sizeof(*alternate), MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
-    s_previous = heap_caps_calloc(count, sizeof(*s_previous), MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
+    terminal_cell_t *primary = heap_caps_calloc(count, sizeof(*primary), APP_MEMORY_CAPS);
+    terminal_cell_t *alternate = heap_caps_calloc(count, sizeof(*alternate), APP_MEMORY_CAPS);
+    s_previous = heap_caps_calloc(count, sizeof(*s_previous), APP_MEMORY_CAPS);
     s_input = xQueueCreate(64, sizeof(input_t));
     if (!primary || !alternate || !s_previous || !s_input) { return ESP_ERR_NO_MEM; }
     if (!terminal_init(&s_terminal, COLS, ROWS, primary, alternate)) { return ESP_ERR_INVALID_ARG; }
     app_health_beat(HEALTH_SCREEN);
     if (xTaskCreate(screen_task, "screen", 6144, NULL, 4, NULL) != pdPASS) { return ESP_ERR_NO_MEM; }
-    ESP_LOGI("SCREEN", "ANSI/VT100 %dx%d; PSRAM cells; profile=%d touch=%d", COLS, ROWS, RETRO_TFT_PROFILE, RETRO_TOUCH_ENABLE);
+    ESP_LOGI("SCREEN", "ANSI/VT100 %dx%d; %s cells; profile=%d touch=%d", COLS, ROWS, APP_MEMORY_NAME, RETRO_TFT_PROFILE, RETRO_TOUCH_ENABLE);
     return ESP_OK;
 }

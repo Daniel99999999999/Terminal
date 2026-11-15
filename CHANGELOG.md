@@ -1,5 +1,10 @@
 # Historia wersji
 
+## v0.2.1 — 15.11.2026
+
+- Jawny wariant `esp32dev_internal`: ten sam terminal HC-05 UART1/TFT, modele i bufory w RAM wewnętrznym, PSRAM wyłączona tylko w tym profilu. Domyślny profil i zarezerwowane GPIO PSRAM pozostają zachowane.
+- Umożliwia sprawdzenie aplikacji niezależnie od powtarzalnego błędu standardowego startu PSRAM. Nie jest deklarowany jako naprawa PSRAM; wyniki w STATUS.
+
 ## v0.2.0 — 15.11.2026
 
 - Nowa warstwa startu, LED/heartbeat, odbioru UART1 i wyświetlania; usunięte eksperymentalne wrappery/cache/linker/Flash timing.

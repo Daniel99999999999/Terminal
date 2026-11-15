@@ -1,5 +1,7 @@
 # Nowa implementacja v0.2.0 — 15.11.2026
 
+**v0.2.1:** po negatywnej próbie standardowego rdzenia dodano jawny `esp32dev_internal` (`platformio run -e esp32dev_internal`), z osobnym sdkconfig.terminal_internal/defaults. Ten sam runtime używa wtedy RAM wewnętrznego i nie inicjalizuje PSRAM. Domyślny esp32dev nadal włącza PSRAM. Nie jest to naprawa jej startu. Wyniki w STATUS.
+
 Polecenie użytkownika: napisać runtime od nowa po nieskutecznych próbach naprawy startu pamięci.
 
 Aktualny tor: **UART badanego urządzenia → HC-05 master ⇄ HC-05 slave → UART1 ESP32 TX32/RX34 → TFT**. Moduły są już sparowane i połączone według użytkownika. Telefonu nie ma. UART2 nie jest inicjalizowany; nie ma mostu UART1–UART2. COM14 prowadzi przez HC-05 do UART1 i jest właściwym wejściem testowego strumienia dla TFT.

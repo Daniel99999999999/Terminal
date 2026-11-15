@@ -64,6 +64,13 @@
       "problemMatcher": ["$gcc"]
     },
     {
+      "label": "PIO: Upload SPI TFT (internal RAM diagnostic)",
+      "type": "process",
+      "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\platformio.exe",
+      "args": ["run", "-e", "esp32dev_internal", "-t", "upload", "--upload-port", "COM5"],
+      "problemMatcher": []
+    },
+    {
       "label": "PIO: Upload SPI TFT + XPT2046",
       "type": "process",
       "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\platformio.exe",

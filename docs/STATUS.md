@@ -1,5 +1,9 @@
 # Faktyczny stan projektu / handoff
 
+## 15.11.2026 — v0.2.1: jawna alternatywa RAM wewnętrznego
+
+Dodano `esp32dev_internal`, bez inicjalizacji PSRAM, z tym samym nowym odbiornikiem HC-05 UART1 i rendererem. Domyślny `esp32dev` nadal włącza PSRAM; piny16/17 pozostają zarezerwowane. Oba buildy SUCCESS (45,11 s i61,99 s), przed publikacją. Próba sprzętowa tego wariantu jeszcze niewykonana. Nowe zadanie VS Code: `PIO: Upload SPI TFT (internal RAM diagnostic)`.
+
 ## 15.11.2026 — v0.2.0: wynik czystego rdzenia
 
 Źródła `a738b45` opublikowano po 4 udanych buildach i przed testami. Upload esp32dev_core COM5 SUCCESS, hash zweryfikowany. [Log](logs/2026-11-15_v0.2.0_core.txt): nadal 63 restarty/15 s, brak app_main/READY. IllegalInstruction w standardowym `psram_cmd_end:414`, PC400d2cdc; stos s_psram_chip_init → esp_psram_chip_init → mspi_init. Żaden nowy moduł LCD/UART nie został uruchomiony. Sama przebudowa runtime i świeże defaults nie naprawiły startu PSRAM; nie utożsamiać tego z usterką fizycznej pamięci.

@@ -30,3 +30,5 @@ Thumbs.db
 
 /sdkconfig.terminal
 /sdkconfig.terminal.old
+/sdkconfig.terminal_internal
+/sdkconfig.terminal_internal.old

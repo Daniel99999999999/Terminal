@@ -1,5 +1,7 @@
 # Plan kolejnych etapów i kryteria odbioru
 
+**Aktualne polecenie 15.11.2026 / v0.2:** badane urządzenie wysyła logi przez HC-05 master do slave przy UART1 TX32/RX34 ESP32; to UART1 zasila TFT. UART2 i most wyłączone, telefonu nie ma. [Nowy runtime](REWRITE_v0.2.0.md), faktyczne wyniki w STATUS. Starsze etapy poniżej opisują poprzedni projekt i nie zmieniają tego toru danych.
+
 ## Aktualizacja 15.11.2026 — alternatywy TFT i przyszłe SD
 
 - Wybrać jeden [profil i pinout TFT](TFT_PROFILES_v0.1.12.md). Nowy ILI9341 SPI + XPT2046 ma potwierdzone przez użytkownika VCC/LED 3,3 V. Zweryfikować fizycznie wzór kolorów/tekst/ANSI oraz reakcję dotyku RAW, następnie dodać kalibrację i UI. Dotychczasowe odłożenie panelu rezystancyjnego dotyczy tylko shielda I80.
