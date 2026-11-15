@@ -2,6 +2,8 @@
 
 ## 15.11.2026 — v0.3.4: powrót do krótkich ramek XPT2046
 
+**Wynik CAL:** użytkownik zgłosił brak reakcji po około4 s przytrzymania napisu. [Log po zgłoszeniu](logs/2026-11-15_v0.3.4_cal_no_response.txt): runtime działa, licznik valid1393, bez restartu lub błędu API SPI w tym oknie. Przegląd UI wykazał, że każda próbka pressed=false zeruje s_holding i s_down; ten błąd przerywa CAL oraz może wielokrotnie przełączać PAUZA przy jednym kontakcie. Brak jeszcze logu współrzędnych trafienia; nie wykluczamy dodatkowo złego trafienia/mapy. Następna poprawka obejmie gest i jego diagnostykę.
+
 **Po publikacji `541035d`:** [kontrole](logs/2026-11-15_v0.3.4_validation.json), test protokołu obu wariantów IRQ PASS, Cppcheck11 C internal/touch: kody0 bez zgłoszeń. Wgrano touch przez COM5 (tylko aplikacja, hash zweryfikowany). [Start15 s](logs/2026-11-15_v0.3.4_touch_boot.txt) bez resetów, powitanie3008 ms, mapa NVS wczytana. ADC ma teraz także niezerowe wartości Z1/Z2; w oknie bez nacisku valid0.
 
 **Trzy przytrzymania wykonane przez użytkownika:** [log](logs/2026-11-15_v0.3.4_touch_press_watch.txt): irq_low620, valid356 w trzech oknach nacisku, bez błędów API SPI. Odczyt wrócił, lecz odrzucane próbki nadal występują; nie uznawać stabilności kalibracji ani gestów za potwierdzoną. [UART przy aktywnym dotyku](logs/2026-11-15_v0.3.4_touch_uart_result.json):17894 B, CRC40cad4e7,13 komend, bez strat i błędów. Próba fizyczna CAL/punktów/walidacji/GOTOWE została zlecona, oczekuje wyniku. Na ESP32 v0.3.4 touch, NVS zachowane.

@@ -28,7 +28,7 @@
     "valid_final": 356,
     "observation": "accepted samples in three press windows; discarded samples persist; no SPI API errors",
     "lcd_answer": "user said done; visual result not supplied in this reply",
-    "calibration": "CAL/recalibration now requested, pending answer"
+    "calibration": "User held CAL approximately 4 seconds; calibration did not open. Full calibration and gestures not accepted."
   },
   "uart_test": "PASS: 17894 bytes, CRC32 40cad4e7, 13 controls, no drops/errors with touch polling active",
   "deployed_profile": "esp32dev_touch"

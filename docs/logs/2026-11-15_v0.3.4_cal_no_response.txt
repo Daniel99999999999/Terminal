@@ -1,0 +1,11 @@
+I (1556859) TOUCH_RAW: poll=147330 irq_low=2250 valid=1393 weak=145762 bounds=175 end_high=0 io=0 raw=0,4095 z=8 z1=1 z2=4088 irq=1 require_irq=0
+I (1557875) HEALTH: alive stage=2 internal_free=221000 PSRAM_free=0
+I (1557875) HC05: RX=17894 errors=0 CRC32=40cad4e7; UART2 inactive
+I (1557875) SCREEN: parsed=17894 drop=0 controls=13 CRC32=40cad4e7 cursor=0,6 view=LIVE CR=NL
+I (1558861) TOUCH_RAW: poll=147520 irq_low=2250 valid=1393 weak=145952 bounds=175 end_high=0 io=0 raw=0,4095 z=13 z1=1 z2=4083 irq=1 require_irq=0
+I (1560870) TOUCH_RAW: poll=147711 irq_low=2250 valid=1393 weak=146143 bounds=175 end_high=0 io=0 raw=0,0 z=4095 z1=0 z2=0 irq=1 require_irq=0
+I (1562871) TOUCH_RAW: poll=147901 irq_low=2250 valid=1393 weak=146333 bounds=175 end_high=0 io=0 raw=0,0 z=4095 z1=0 z2=0 irq=1 require_irq=0
+I (1562884) HEALTH: alive stage=2 internal_free=221000 PSRAM_free=0
+I (1562884) HC05: RX=17894 errors=0 CRC32=40cad4e7; UART2 inactive
+I (1562885) SCREEN: parsed=17894 drop=0 controls=13 CRC32=40cad4e7 cursor=0,6 view=LIVE CR=NL
+I (1564871) TOUCH_RAW: poll=148091 irq_low=2250 valid=1393 weak=146523 bounds=175 end_high=0 io=0 raw=0,0 z=4095 z1=0 z2=0 irq=1 require_irq=0
