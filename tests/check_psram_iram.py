@@ -25,6 +25,8 @@ def main():
         if len(parts) == 3:
             symbols[parts[2]] = (int(parts[0], 16), parts[1])
     required = ("s_psram_chip_init", "esp_psram_chip_init", "esp_psram_init", "mspi_init",
+                "__wrap_esp_psram_impl_enable", "bootloader_common_vddsdio_configure",
+                "bootloader_flash_get_wp_pin", "esp_log_timestamp",
                 "esp_psram_impl_enable", "psram_is_32mbit_ver0", "psram_read_id",
                 "psram_disable_qio_mode", "esp_gpio_reserve", "__atomic_fetch_or_8")
     for name in required:
@@ -32,7 +34,7 @@ def main():
         if kind.lower() != "t" or not 0x40080000 <= address < 0x400A0000:
             raise SystemExit(f"FAIL: {name} at 0x{address:08x} ({kind}) is not in ESP32 IRAM")
         print(f"IRAM {name}: 0x{address:08x}")
-    for name in ("s_psram_id", "s_reserved_pin_mask"):
+    for name in ("s_psram_id", "s_reserved_pin_mask", "GPIO_PIN_MUX_REG"):
         address, kind = symbols.get(name, (0, "?"))
         if kind.lower() not in ("b", "d") or not 0x3FF80000 <= address < 0x40000000:
             raise SystemExit(f"FAIL: {name} is not in internal DRAM")

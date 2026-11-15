@@ -1,5 +1,9 @@
 # Historia wersji
 
+## v0.1.17 — 15.11.2026
+
+- Bariera cache CPU0 przy rekonfiguracji PSRAM przed startem CPU1/RTOS; zależności bootloadera i tablice GPIO w wewnętrznym RAM. Usunięto kontrolny odczyt fizyczny Flash z v0.1.16, zachowano poprawione logi kontrolne MMU i powitanie TFT 3 s. Zegar i piny pamięci bez zmian. Kontrola ELF obejmuje nowe zależności; skuteczność w STATUS.
+
 ## v0.1.16 — 15.11.2026, diagnostyka Flash/MMU
 
 - Odczyt wpisów MMU, słowa mapowanego DROM i fizycznego nagłówka Flash przez API ROM po inicjalizacji PSRAM. Odczyt nie zapisuje Flash ani eFuse. Tryb, dummy i zegar Flash pozostały identyczne w próbie v0.1.15; nadal bootloop. Powitanie zachowane, wynik COM5 w STATUS.

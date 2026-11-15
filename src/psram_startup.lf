@@ -21,3 +21,16 @@ archive: libesp_hw_support.a
 entries:
     if IDF_TARGET_ESP32 = y && SPIRAM = y:
         esp_gpio_reserve (noflash)
+
+[mapping:retro_psram_bootloader_helpers]
+archive: libbootloader_support.a
+entries:
+    if IDF_TARGET_ESP32 = y && SPIRAM = y:
+        bootloader_common: bootloader_common_vddsdio_configure (noflash)
+        bootloader_flash_config_esp32: bootloader_flash_get_wp_pin (noflash)
+
+[mapping:retro_psram_gpio_tables]
+archive: libsoc.a
+entries:
+    if IDF_TARGET_ESP32 = y && SPIRAM = y:
+        gpio_periph (noflash)
