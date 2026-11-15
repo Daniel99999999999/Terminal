@@ -1,5 +1,12 @@
 # Faktyczny stan projektu / handoff
 
+## 15.11.2026 — TFT: brak podświetlenia przy samym zasilaniu
+
+- Użytkownik zgłosił zasilanie shielda 5 V i poprawną pracę wewnętrznego stabilizatora 3,3 V. Nie podał osobnych odczytów napięcia na LED ani na HC245.
+- Test użytkownika: po odłączeniu linii sygnałowych ESP32, zasileniu samego shielda wyłącznie przez 5V/GND i pozostawieniu pinu 3V3 niepodłączonego nadal **brak podświetlenia**, także w ciemności. Objaw występuje bez sterowania z ESP32; nie jest to jeszcze dowód uszkodzenia LED lub całego LCD.
+- Następny krok: zidentyfikować na rzeczywistym PCB/taśmie zasilanie i powrót prądu podświetlenia oraz ewentualny rezystor/tranzystor sterujący. Dotychczasowe zdjęcia nie wystarczają do pewnego wskazania padów LED+/LED−. Potrzebne ostre zbliżenie tego obszaru; styki X+/X−/Y+/Y− są stykami dotyku, nie podświetlenia. Nie podawać 5 V bezpośrednio na nieustalone pady LED i nie omijać ograniczenia prądu.
+- Firmware pozostaje v0.1.11, TFT domyślnie OFF. Nie zmieniano kodu, nie wykonywano uploadu ani nowej próby radia. Nie ma logu potwierdzającego wersję aktualnie wgraną na ESP32.
+
 ## 13.11.2026 — końcowe kontrole v0.1.11 po pushu źródeł
 
 - Kod opublikowano **przed końcowymi testami**, zgodnie z poleceniem: [46ea0fa](https://github.com/Daniel99999999999/Terminal/commit/46ea0fae02ec845b2c58fccabec2426289e6fb40). Po tym commicie nie zmieniano C/H ani logiki testów; drugi commit zapisuje wyniki i wygenerowany `sdkconfig.esp32dev` bez nieużywanych komponentów.

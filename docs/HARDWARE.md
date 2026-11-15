@@ -28,9 +28,9 @@ Shield Arduino UNO-like z 8-bitową magistralą równoległą, dwa układy HC245
 | Magistrala danych | 8-bit parallel, do potwierdzenia mapowania D0–D7 |
 | Kontroler LCD | użytkownik opisuje odpowiednik ILI9341; brak odczytu ID / potwierdzenia wariantu |
 | CS / RS(DC) / WR / RD / RST | Do mapowania na PCB |
-| Napięcie zasilania shielda | Do pomiaru, nie zakładać 3,3 V |
+| Napięcie zasilania shielda | 15.11.2026: użytkownik podaje 5 V na wejściu i poprawną pracę stabilizatora 3,3 V; napięcia HC245 i LED nadal niezmierzone |
 | Kierunek HC245 / OE | Do prześledzenia |
-| Podświetlenie | Schemat/sterowanie jeszcze nieustalone |
+| Podświetlenie | 15.11.2026: nie świeci także przy samym 5V/GND, bez sygnałów ESP32 i bez zasilania pinu 3V3; tor LED i ewentualne sterowanie nadal nieustalone, brak rozpoznanej przyczyny |
 | Czytanie ID kontrolera | Tylko po bezpiecznym ustaleniu linii RD i poziomów |
 
 ### Dotyk
