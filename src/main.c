@@ -1,4 +1,4 @@
-/* ESP32 RetroTerminal v0.1.15: HC-05 UART1 <-> UART2, I80/SPI display profiles.
+/* ESP32 RetroTerminal v0.1.16: HC-05 UART1 <-> UART2, I80/SPI display profiles.
  * GPIO16/17: PSRAM. UART0: USB console. GPIO2: debug LED.
  * Native Bluetooth and Wi-Fi are excluded from this firmware. */
 

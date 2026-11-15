@@ -1,5 +1,9 @@
 # Historia wersji
 
+## v0.1.16 — 15.11.2026, diagnostyka Flash/MMU
+
+- Odczyt wpisów MMU, słowa mapowanego DROM i fizycznego nagłówka Flash przez API ROM po inicjalizacji PSRAM. Odczyt nie zapisuje Flash ani eFuse. Tryb, dummy i zegar Flash pozostały identyczne w próbie v0.1.15; nadal bootloop. Powitanie zachowane, wynik COM5 w STATUS.
+
 ## v0.1.15 — 15.11.2026, diagnostyka startu
 
 - Odczyt kontrolnych rejestrów Flash przed i po inicjalizacji PSRAM przez wrapper IRAM/ROM; bez zapisu rejestrów i modyfikacji SDK. v0.1.14 rozpoznawała PSRAM, ale dalszy odczyt kodu Flash zwracał `ffffffff`. Powitanie 3 s zachowane. Wyniki w STATUS.
