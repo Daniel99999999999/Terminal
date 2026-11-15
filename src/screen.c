@@ -189,10 +189,11 @@ static void screen_task(void *arg)
         if (touch && now - touch_log_at >= 2000000) {
             touch_log_at = now;
             xpt2046_stats_t stats; xpt2046_get_stats(&stats);
-            ESP_LOGI("TOUCH_RAW", "poll=%lu irq_low=%lu valid=%lu weak=%lu bounds=%lu end_high=%lu io=%lu raw=%u,%u z=%u",
+            ESP_LOGI("TOUCH_RAW", "poll=%lu irq_low=%lu valid=%lu weak=%lu bounds=%lu end_high=%lu io=%lu raw=%u,%u z=%u z1=%u z2=%u irq=%u require_irq=%d",
                 (unsigned long)stats.polls, (unsigned long)stats.irq_low, (unsigned long)stats.valid,
                 (unsigned long)stats.weak, (unsigned long)stats.bounds, (unsigned long)stats.end_high,
-                (unsigned long)stats.io_errors, stats.last_x, stats.last_y, stats.last_pressure);
+                (unsigned long)stats.io_errors, stats.last_x, stats.last_y, stats.last_pressure,
+                stats.last_z1, stats.last_z2, stats.last_irq_high ? 1u : 0u, RETRO_TOUCH_REQUIRE_IRQ);
         }
         bool next_paused = touch && touch_ui_paused();
         if (next_paused != paused) {

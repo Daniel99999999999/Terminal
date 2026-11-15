@@ -2,7 +2,9 @@
 
 Projekt terminala szeregowego DIY opartego na **ESP32-WROVER (ESP32-D0WD-V3)**. Natywny **ESP-IDF 6.0.1 w PlatformIO**, język **C**, bez Arduino.
 
-Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.3.2**. [Nowa implementacja i konfiguracja](docs/REWRITE_v0.2.0.md), [opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
+Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.3.3**. [Nowa implementacja i konfiguracja](docs/REWRITE_v0.2.0.md), [opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
+
+**v0.3.3:** [odczyt nacisku niezależny od IRQ](docs/TOUCH_POLLING_v0.3.3.md), dodatkowe surowe Z1/Z2 i stan GPIO36. Odpowiedź na fizyczną próbę, w której IRQ pozostało HIGH podczas przytrzymań. Mapa kalibracji w NVS zachowana. Stan weryfikacji w STATUS.
 
 **v0.3.2:** [jedna seria odczytów XPT2046, tolerancja krótkiego zaniku próbki i diagnostyka powodów odrzucenia](docs/TOUCH_RESPONSE_v0.3.2.md). Odpowiedź na zgłoszenie ignorowanych przytrzymań kalibracji. Wyniki, aktualnie wgrany profil i stan próby fizycznej w STATUS.
 
@@ -10,7 +12,7 @@ Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/
 
 **Próby VT100/ANSI v0.3.1:** [20 przypadków, transport bez strat, potwierdzone przez użytkownika kolory/ramka/miganie](docs/VT100_TEST_2026-11-15.md). Zakres obejmuje zaimplementowany podzbiór; odpowiedzi DSR/DA nadal brak. Firmware i jego numer pozostają bez zmian.
 
-**XPT2046 podłączony:** wgrana v0.3.1 `esp32dev_touch`, poprawny start i wejście w kalibrację. Fizyczna kalibracja i próby sterowania są w toku; [aktualny stan](docs/STATUS.md). Poprzednie wzmianki o niepodłączonym dotyku opisują historię.
+**XPT2046 podłączony:** v0.3.2 odtworzyła kalibrację z NVS, lecz próba przytrzymań nie obniżyła IRQ. Odczyt ADC i próby sterowania nadal są w toku; [aktualny stan](docs/STATUS.md). Poprzednie wzmianki o niepodłączonym dotyku opisują historię.
 
 **v0.3.0:** [XPT2046: kalibracja pięciu punktów, niezależna walidacja, test dotyku i zapis ustawień](docs/TOUCH_CALIBRATION_v0.3.0.md). Osobny profil `esp32dev_touch` używa działającego RAM wewnętrznego. Obrót LCD 3 zachowany. Wariant bez dotyku nadal dostępny; użytkownik dopiero podłączy dotyk według opisanego planu.
 

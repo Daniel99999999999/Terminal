@@ -77,8 +77,11 @@ def main():
                           [root / "tests/test_display_profile.c"],
                           ["-DRETRO_TFT_PROFILE=" + str(profile)], []))
     if args.suite in ("all", "xpt"):
-        extra.append(("xpt2046", [root / "tests/test_xpt2046.c", root / "src/xpt2046.c"],
-                      ["-DRETRO_TFT_PROFILE=2", "-DRETRO_TOUCH_ENABLE=1"], [root / "tests/spi_stubs"]))
+        for require_irq in (0, 1):
+            extra.append(("xpt2046_" + str(require_irq),
+                          [root / "tests/test_xpt2046.c", root / "src/xpt2046.c"],
+                          ["-DRETRO_TFT_PROFILE=2", "-DRETRO_TOUCH_ENABLE=1",
+                           "-DRETRO_TOUCH_REQUIRE_IRQ=" + str(require_irq)], [root / "tests/spi_stubs"]))
     if args.suite in ("all", "calibration"):
         extra.append(("touch_calibration", [root / "tests/test_touch_calibration.c",
             root / "src/touch_calibration.c", root / "src/touch_ui.c",

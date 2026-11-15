@@ -10,7 +10,8 @@ typedef struct {
 
 typedef struct {
     uint32_t polls, irq_low, valid, weak, bounds, end_high, io_errors;
-    uint16_t last_x, last_y, last_pressure;
+    uint16_t last_x, last_y, last_pressure, last_z1, last_z2;
+    bool last_irq_high;
 } xpt2046_stats_t;
 
 /* Single owner: TFT task. Separate SPI2 bus, no DMA; bounded IRQ-backed waits.

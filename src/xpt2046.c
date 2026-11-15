@@ -98,8 +98,13 @@ esp_err_t xpt2046_read(xpt2046_sample_t *sample)
 #if RETRO_TOUCH_ENABLE
     if (!s_ready || s_failed) { return ESP_ERR_INVALID_STATE; }
     ++s_stats.polls;
-    if (gpio_get_level(TOUCH_IRQ_GPIO)) { return ESP_OK; }
-    ++s_stats.irq_low;
+    s_stats.last_irq_high = gpio_get_level(TOUCH_IRQ_GPIO) != 0;
+    if (!s_stats.last_irq_high) { ++s_stats.irq_low; }
+#if RETRO_TOUCH_REQUIRE_IRQ
+    if (s_stats.last_irq_high) { return ESP_OK; }
+#endif
+    /* IRQ is optional for contact detection. A HIGH input must not suppress
+     * all ADC diagnostics or lock the UI out of an otherwise valid touch. */
     esp_err_t err = read_burst();
     if (err != ESP_OK) { return err; }
     uint16_t z1 = adc(0), z2 = adc(1);
@@ -107,11 +112,17 @@ esp_err_t xpt2046_read(xpt2046_sample_t *sample)
     sample->x = median(adc(3), adc(4), adc(5));
     sample->y = median(adc(7), adc(8), adc(9));
     s_stats.last_x = sample->x; s_stats.last_y = sample->y; s_stats.last_pressure = sample->pressure;
+    s_stats.last_z1 = z1; s_stats.last_z2 = z2;
     if (!z1 || sample->pressure < 300) { ++s_stats.weak; return ESP_OK; }
     if (sample->x < 50 || sample->x > 4045 || sample->y < 50 || sample->y > 4045) {
         ++s_stats.bounds; return ESP_OK;
     }
-    if (gpio_get_level(TOUCH_IRQ_GPIO)) { ++s_stats.end_high; return ESP_OK; }
+    if (gpio_get_level(TOUCH_IRQ_GPIO)) {
+        ++s_stats.end_high;
+#if RETRO_TOUCH_REQUIRE_IRQ
+        return ESP_OK;
+#endif
+    }
     sample->pressed = true; ++s_stats.valid;
     return ESP_OK;
 #else

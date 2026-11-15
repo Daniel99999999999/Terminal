@@ -1,5 +1,9 @@
 # Faktyczny stan projektu / handoff
 
+## 15.11.2026 — v0.3.3: pomiar nacisku niezależny od IRQ
+
+[Opis](TOUCH_POLLING_v0.3.3.md). Domyślnie RETRO_TOUCH_REQUIRE_IRQ=0: SPI/ADC jest odczytywane przy każdym odpytywaniu, a poprawny nacisk/zakres ustala dotknięcie niezależnie od GPIO36. Jawna opcja1 zachowuje poprzedni tryb. Dodatkowo Z1/Z2 i stan IRQ w diagnostyce. Bez zmian kalibracji/NVS i fizycznego połączenia. Kompilacje internal/touch SUCCESS (26,486/22,099 s), przed publikacją i testami. Oczekuje testów/uploadu; nie ogłaszać rozwiązania fizycznej przyczyny.
+
 ## 15.11.2026 — v0.3.2: poprawka odczytu i ciągłości kalibracji
 
 **Wyniki po publikacji `52bf077`:** [kontrole i próba fizyczna](logs/2026-11-15_v0.3.2_validation.json). Test XPT2046 i kalibracji/UI PASS, Cppcheck 11 C w obu wariantach bez zgłoszeń. Upload touch COM5 SUCCESS, hash zweryfikowany. [Start 15 s](logs/2026-11-15_v0.3.2_touch_boot.txt) bez resetów, powitanie3006 ms; **wczytano poprawną kalibrację z NVS**. To potwierdza zapis/odtworzenie mapy, ale nie dokładność znacznika w próbie użytkownika.

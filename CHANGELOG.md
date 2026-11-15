@@ -1,5 +1,11 @@
 # Historia wersji
 
+## v0.3.3 — 15.11.2026
+
+- Domyślnie pomiar nacisku/osi XPT2046 przy każdym odpytywaniu, również przy IRQ=HIGH. IRQ pozostaje diagnostyczny; `RETRO_TOUCH_REQUIRE_IRQ=1` przywraca poprzednie bramkowanie. Progi, osie, piny i mapa NVS zachowane.
+- TOUCH_RAW zawiera surowe Z1/Z2, stan IRQ przed serią i ustawienie REQUIRE_IRQ. end_high liczy teraz poprawne próbki ADC przy końcowym HIGH; w trybie polling nie są one odrzucane.
+- Regresje obu trybów: nacisk przy stałym HIGH oraz brak nacisku przy HIGH. Weryfikacja fizyczna rozdzieli stan IRQ od odpowiedzi ADC; przyczyna stałego HIGH pozostaje nieustalona.
+
 ## v0.3.2 — 15.11.2026
 
 - XPT2046: pojedyncza seria SPI przy CS=LOW, aktywny ADC między konwersjami, PENIRQ przywracane ostatnią komendą. Bufory statyczne/aligned z zachowaniem czasu życia po timeout.

@@ -21,8 +21,8 @@
 #define TFT_RD_GPIO 0
 
 /* SPI TFT uses SPI3, XPT2046 uses SPI2: independent MISO and chip selects.
- * These replace (rather than extend) the I80 wiring. GPIO36/39 need external
- * pull-ups where required; they have no internal pulls. */
+ * These replace (rather than extend) the I80 wiring. GPIO36/39 have no internal
+ * pulls; PENIRQ bias belongs to the XPT2046/module, not the ESP32 GPIO. */
 #define TFT_SPI_SCLK_GPIO 18
 #define TFT_SPI_MOSI_GPIO 23
 #define TFT_SPI_MISO_GPIO 19
