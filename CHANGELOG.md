@@ -1,5 +1,9 @@
 # Historia wersji
 
+## v0.1.15 — 15.11.2026, diagnostyka startu
+
+- Odczyt kontrolnych rejestrów Flash przed i po inicjalizacji PSRAM przez wrapper IRAM/ROM; bez zapisu rejestrów i modyfikacji SDK. v0.1.14 rozpoznawała PSRAM, ale dalszy odczyt kodu Flash zwracał `ffffffff`. Powitanie 3 s zachowane. Wyniki w STATUS.
+
 ## v0.1.14 — 15.11.2026
 
 - Ekran powitalny: nazwa i wersja firmware, biały tekst na czarnym, 3 sekundy po zakończeniu rysowania. Komunikacja i model terminala działają w tym czasie. Diagnostyczne pasy kolorów domyślnie OFF.

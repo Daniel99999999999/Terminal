@@ -2,7 +2,7 @@ idf_component_register(
     SRCS "main.c" "debug_led.c" "debug_led_logic.c"
          "ansi_parser.c" "terminal.c" "terminal_view.c"
          "hc05_link.c" "hc05_bridge.c" "terminal_raster.c" "tft_display.c"
-         "tft_bus.c" "xpt2046.c"
+         "tft_bus.c" "xpt2046.c" "psram_startup.c"
          "../vendor/esp_lcd_ili9341/esp_lcd_ili9341.c"
     INCLUDE_DIRS "." "../vendor/esp_lcd_ili9341/include"
     LDFRAGMENTS "psram_startup.lf"
@@ -17,3 +17,4 @@ set_source_files_properties("../vendor/esp_lcd_ili9341/esp_lcd_ili9341.c"
 
 # Mark controlled aborts (including ESP_ERROR_CHECK) before the panic handler.
 target_link_options(${COMPONENT_LIB} INTERFACE "-Wl,--wrap=esp_system_abort")
+target_link_options(${COMPONENT_LIB} INTERFACE "-Wl,--wrap=esp_psram_impl_enable")
