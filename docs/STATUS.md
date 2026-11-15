@@ -1,5 +1,11 @@
 # Faktyczny stan projektu / handoff
 
+## 15.11.2026 — v0.1.16: fizyczny odczyt Flash poprawny
+
+- Build SUCCESS, publikacja `3241c93`, upload COM5 SUCCESS. [Log](logs/2026-11-15_v0.1.16_flash_read.txt): ROM read=0, poprawny nagłówek Flash `200206e9,400846c0,000000ee,00000000`; DROM magic `abcd5432` przed/po. PSRAM 8 MB, 4 MB mapowane, test pamięci PASS.
+- Nadal wyjątek przed app_main: `esp_clk_tree_initialize`, PC `0x400e340c`, dump Flash ffffffff. Nie potwierdzono naprawy. Pole diagnostyczne opisane jako irom wypisywało wpisy 64..66; dla właściwego zakresu IROM0 trzeba użyć indeksów 205/206, więc wcześniejsze wartości 100 nie oznaczają braku mapowania kodu.
+- Odczyt fizyczny jest poprawny; kolejnym krokiem jest bariera cache wokół rekonfiguracji PSRAM wraz z pełnym sprawdzeniem zależności IRAM/DRAM. Inicjalizacja LCD SPI3 nadal nie została wywołana, bo awaria występuje przed app_main.
+
 ## 15.11.2026 — v0.1.15: pomiar rejestrów MSPI
 
 - Build SUCCESS (Flash 251060 B / RAM 31924 B), publikacja `e066c63`, potem upload COM5 SUCCESS. Wrapper tylko odczytuje rejestry. [Log](logs/2026-11-15_v0.1.15_mspi_registers.txt).

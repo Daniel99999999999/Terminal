@@ -1,0 +1,63 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0040,len:6272
+load:0x40078000,len:15848
+load:0x40080400,len:3920
+entry 0x4008063c
+I (27) boot: ESP-IDF 6.0.1 2nd stage bootloader
+I (27) boot: compile time Nov 15 2026 15:43:01
+I (28) boot: Multicore bootloader
+I (29) boot: chip revision: v3.0
+I (31) boot.esp32: SPI Speed      : 40MHz
+I (35) boot.esp32: SPI Mode       : DIO
+I (39) boot.esp32: SPI Flash Size : 4MB
+I (42) boot: Enabling RNG early entropy source...
+I (47) boot: Partition Table:
+I (49) boot: ## Label            Usage          Type ST Offset   Length
+I (56) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+I (62) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+I (69) boot:  2 factory          factory app      00 00 00010000 00100000
+I (75) boot: End of partition table
+I (79) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=0bde4h ( 48612) map
+I (103) esp_image: segment 1: paddr=0001be0c vaddr=3ffb0000 size=0420ch ( 16908) load
+I (110) esp_image: segment 2: paddr=00020020 vaddr=400d0020 size=16b20h ( 92960) map
+I (144) esp_image: segment 3: paddr=00036b48 vaddr=3ffb420c size=02fd4h ( 12244) load
+I (149) esp_image: segment 4: paddr=00039b24 vaddr=40080000 size=141fch ( 82428) load
+I (182) esp_image: segment 5: paddr=0004dd28 vaddr=50000000 size=00028h (    40) load
+I (194) boot: Loaded app from partition at offset 0x10000
+I (194) boot: Disabling RNG early entropy source...
+MSPI before ctrl=00a02000 user=f0000070 user1=6c000002 pin=0000001e clk=00001001 mux6=00001b00
+MMU before drom=1,100 irom=100,100,100 mapped=abcd5432
+I (208) quad_psram: This chip is ESP32-D0WD
+MSPI after ctrl=00a02000 user=f0000070 user1=6c000002 pin=0000001c clk=00001001 mux6=00001b00
+MMU after drom=1,100 irom=100,100,100 mapped=abcd5432
+FLASH physical read=0 words=200206e9,400846c0,000000ee,00000000
+I (230) esp_psram: Found 8MB PSRAM device
+I (234) esp_psram: Speed: 40MHz
+I (237) esp_psram: PSRAM initialized, cache is in low/high (2-core) mode.
+W (243) esp_psram: Virtual address not enough for PSRAM, map as much as we can. 4MB is mapped
+I (252) cpu_start: Multicore app
+I (1140) esp_psram: SPI SRAM memory test OK
+Guru Meditation Error: Core  0 panic'ed (IllegalInstruction). Exception was unhandled.
+Memory dump at 0x400e3408: ffffffff ffffffff ffffffff
+Core  0 register dump:
+PC      : 0x400e340c  PS      : 0x00060730  A0      : 0x80084750  A1      : 0x3ffe3c00  
+A2      : 0x3ffe3c40  A3      : 0x00000000  A4      : 0x00000008  A5      : 0x3ffe3c5c  
+A6      : 0x000008ee  A7      : 0x00000000  A8      : 0x8008f3e5  A9      : 0x3ffe3be0  
+A10     : 0x00000001  A11     : 0x00000021  A12     : 0x0000000c  A13     : 0xfffffffe  
+A14     : 0x00000001  A15     : 0x00000001  SAR     : 0x00000004  EXCCAUSE: 0x00000000  
+EXCVADDR: 0x00000000  LBEG    : 0x4008ab08  LEND    : 0x4008ab24  LCOUNT  : 0x00000000  
+
+
+Backtrace: 0x400e3409:0x3ffe3c00 0x4008474d:0x3ffe3c40 0x40079885:0x3ffe3c80 |<-CORRUPTED
+
+
+
+
+ELF file SHA256: 
+
+Rebooting...
