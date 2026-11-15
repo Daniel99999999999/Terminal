@@ -6,7 +6,7 @@
 - SPI3 LCD: SCK18/MOSI23/MISO19, CS21/DC22/RESET27. SPI2 XPT2046: CLK14/DIN13/DO39/CS33/IRQ36. VCC i LED nowego modułu: 3,3 V potwierdzone przez użytkownika. GPIO4 rezerwą na EN zewnętrznego drivera LED, domyślnie bez sterowania. UART-y, GPIO2 i PSRAM16/17 zachowane.
 - Wspólny renderer ANSI/VT100, INTERNAL DMA i kontrola żywotności bufora; I80 zachowany, SPI z właściwą kolejnością bajtów RGB565. Wstępny odczyt XPT2046: surowe X/Y/nacisk, mediana, IRQ i ograniczone oczekiwania SPI; bez kalibracji i UI dotyku. Testy profili/GPIO, protokołu/timeoutu dotyku i RGB565 przygotowano do wykonania po commicie.
 - [Zapis na karcie SD](docs/FUTURE_SD.md) wpisano do planu przyszłych funkcji; bez inicjalizacji karty i przydziału CS w tej wersji. Źródłem wersji w logu startowym jest deskryptor aplikacji ESP-IDF.
-- Przed commitem wszystkie trzy warianty skompilowano z wynikiem SUCCESS w espressif32 7.0.1 / ESP-IDF 6.0.1. Kolejność na zlecenie użytkownika: udana kompilacja, commit/push nowszej wersji, następnie testy. Wyniki i ograniczenia w [STATUS](docs/STATUS.md); bez automatycznego uploadu i bez deklaracji działania sprzętowego.
+- Przed commitem wszystkie trzy warianty skompilowano z wynikiem SUCCESS w espressif32 7.0.1 / ESP-IDF 6.0.1. Zgodnie z poleceniem opublikowano [2c1806e](https://github.com/Daniel99999999999/Terminal/commit/2c1806e), następnie przeszły testy hosta (w tym nowe profile/konfiguracje/XPT2046/timeout/RGB565), Cppcheck 12 C × 3 profile bez zgłoszeń i kontrola obiektów/ELF/PSRAM/braku radia. Wyniki i ograniczenia w [STATUS](docs/STATUS.md); bez automatycznego uploadu i bez deklaracji działania sprzętowego.
 
 [Konfiguracja i pełny pinout](docs/TFT_PROFILES_v0.1.12.md). Poprzedni shield I80 nadal nie ma potwierdzonego podświetlenia.
 

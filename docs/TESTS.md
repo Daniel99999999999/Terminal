@@ -2,6 +2,8 @@
 
 Na polecenie z 15.11.2026 najpierw kompilujemy środowiska `esp32dev`, `esp32dev_i80`, `esp32dev_spi`, potem publikujemy commit v0.1.12 **przed testami**, a wyniki kontroli zapisujemy oddzielnie w [STATUS](STATUS.md).
 
+**Wykonano:** 3/3 buildy SUCCESS, następnie publikacja [2c1806e](https://github.com/Daniel99999999999/Terminal/commit/2c1806e), potem wszystkie testy hosta PASS (dotychczasowe zestawy, 3 profile GPIO, XPT2046/timeout, 3 błędne konfiguracje). Cppcheck 12 plików C × 3 profile bez zgłoszeń. Wersja/PSRAM/UART, właściwe obiekty I80/SPI i wykluczenie natywnego radia potwierdzone w artefaktach. Brak uploadu i testów fizycznych; kalibracja dotyku/UI oraz SD nie są zaimplementowane.
+
 Testy hosta: `python tests/run_host_tests.py`; nowe selektory `--suite profiles` i `--suite xpt`. Obejmują trzy plany GPIO, ochronę PSRAM/UART/LED, odrzucanie niepoprawnych ustawień, rzeczywistą kolejność bajtów RGB565 dla SPI, protokół XPT2046/IRQ/medianę i zachowanie deskryptora przy timeoutcie. Symulacja SPI nie potwierdza fizycznej komunikacji. Testy BT/HCI nadal odnoszą się do archiwum v0.1.10; nowe radio nie jest uruchamiane.
 
 Weryfikacja po publikacji: testy hosta, Cppcheck aktywnego C w profilach, kontrola wersji/PSRAM i braku natywnych komponentów radiowych w wynikach kompilacji. Próba sprzętowa jest osobnym krokiem z [instrukcji profili](TFT_PROFILES_v0.1.12.md); bez automatycznego uploadu. SD pozostaje planem bez aktywnego sterownika.

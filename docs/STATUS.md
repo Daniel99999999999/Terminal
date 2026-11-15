@@ -1,5 +1,21 @@
 # Faktyczny stan projektu / handoff
 
+## 15.11.2026 — v0.1.12: wyniki kontroli po publikacji źródeł
+
+- Zgodnie z poleceniem: po udanej kompilacji trzech wariantów opublikowano źródła [2c1806e](https://github.com/Daniel99999999999/Terminal/commit/2c1806e), **następnie** uruchomiono testy. Wszystkie kontrole poniżej dotyczą tych samych C/H; po publikacji nie poprawiano kodu.
+- **Host PASS:** 6 dotychczasowych zestawów (terminal 22 scenariusze, LED 11, HC-05 policy/GPIO, raster z dodatkowym RGB565 SPI oraz archiwalne BT 16 / HCI 13), 2 warianty archiwalnego adaptera HCI, **3 profile GPIO**, test rzeczywistego modułu XPT2046 z symulacją SPI (24-bitowe ramki/PD=00, IRQ, mediana/outlier, nacisk, zwolnienie dotyku i żywotność deskryptora po timeoutcie) oraz **3 odrzucone nieprawidłowe konfiguracje**. Kompilator hosta bcc64x/C11. Symulacja nie jest próbą fizyczną SPI.
+- **Cppcheck: PASS**, 12 plików C aplikacji, osobno NONE/I80/SPI, kategorie warning/performance/portability, bez zgłoszeń, kody 0. CMake `compile_commands.json` nie zawiera makra dodawanego przez PlatformIO/SCons, więc do projektów analizy jawnie dodano odpowiednie `RETRO_TFT_PROFILE=0/1/2`. Wybór transportu potwierdzono niezależnie w rzeczywistych plikach obiektowych przez symbole I80/SPI i kolejki XPT2046.
+- We wszystkich trzech wynikach: wersja **0.1.12**, PSRAM włączony/40 MHz, HC-05 115200; brak komponentów `bt`, `esp_wifi`, `esp_phy`, `esp_coex`, `wpa_supplicant`, ich archiwów w mapach i implementacji natywnych API radiowych w ELF (pominięto absolutne adresy funkcji ROM).
+
+| Profil | Flash / statyczny RAM | Plik bin | ELF SHA256 |
+|---|---|---|---|
+| NONE / `esp32dev` | 221 192 / 14 144 B | 221 616 B | `78c51f4daf7773a869e47683ab0422e5cfe1fb7ecc9de34d9b5e9d6de0bb74df` |
+| I80 / `esp32dev_i80` | 232 536 / 14 216 B | 232 960 B | `c0a706e6161e59659f0a1931badd31159298ff762969d62aac25b113d96f7c70` |
+| SPI + XPT2046 / `esp32dev_spi` | 251 556 / 14 728 B | 251 984 B | `1ef5fd13baaefbc43eb6fc4ec85b0517a076d2f3748c5d714f8852b4e9939fa3` |
+
+- Artefakty lokalne: `.pio/audit/tft_v0112_build.txt`, `v0112_build_audit.json`, `v0112_compile_*.json`, `v0112_cppcheck_*.txt`, `.pio/host-tests/result.txt`. Sprawdzono także poprawność JSON zadań VS Code i brak błędów whitespace w diffie.
+- **Bez uploadu i próby sprzętowej.** Nie potwierdzono fizycznego obrazu, surowych odczytów XPT2046 ani wydajności szyny 3V3 z podświetleniem. Brak kalibracji/UI dotyku, SD pozostaje planem. Wybierać jeden pinout; starego I80 bez podświetlenia nie uznano za naprawiony ani definitywnie uszkodzony.
+
 ## 15.11.2026 — v0.1.12: alternatywne TFT i plan SD
 
 - Na polecenie użytkownika przygotowano profile `#define`: NONE / ILI9341 I80 / ILI9341 SPI + XPT2046. Pełny [pinout i konfiguracja](TFT_PROFILES_v0.1.12.md), [przyszły zapis na SD](FUTURE_SD.md). Dotychczasowy shield i nowy moduł są alternatywami, nie wspólną magistralą.
