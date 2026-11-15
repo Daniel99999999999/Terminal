@@ -1,5 +1,11 @@
 # Faktyczny stan projektu / handoff
 
+## 15.11.2026 — v0.2.0: wynik czystego rdzenia
+
+Źródła `a738b45` opublikowano po 4 udanych buildach i przed testami. Upload esp32dev_core COM5 SUCCESS, hash zweryfikowany. [Log](logs/2026-11-15_v0.2.0_core.txt): nadal 63 restarty/15 s, brak app_main/READY. IllegalInstruction w standardowym `psram_cmd_end:414`, PC400d2cdc; stos s_psram_chip_init → esp_psram_chip_init → mspi_init. Żaden nowy moduł LCD/UART nie został uruchomiony. Sama przebudowa runtime i świeże defaults nie naprawiły startu PSRAM; nie utożsamiać tego z usterką fizycznej pamięci.
+
+Po publikacji: parser22 scenariusze PASS, raster PASS, 3 profile i 3 nieprawidłowe konfiguracje PASS, XPT2046 symulacja PASS; py_compile serial_smoke PASS. Cppcheck 9 aktywnych C bez zgłoszeń, kod0. Test COM14 niewykonany, bo program jeszcze nie wystartował. Kolejny krok: jawny alternatywny wariant RAM wewnętrznego, bez dalszych zmian rejestrów/cache; domyślny profil PSRAM zachowany.
+
 ## 15.11.2026 — przebudowa v0.2.0 na polecenie użytkownika
 
 [Nowa implementacja](REWRITE_v0.2.0.md). Aktualny tor: badane urządzenie → HC-05 master ⇄ HC-05 slave → **UART1 TX32/RX34 → TFT**. Moduły są połączone według użytkownika. Telefonu nie ma. UART2 nie jest inicjalizowany, most usunięty. COM14 jest wejściem testowego strumienia dla TFT. Usunięto eksperymentalne modyfikacje startu pamięci; świeża konfiguracja SDK. Końcowe kompilacje SPI, I80, headless i core: **4/4 SUCCESS**. Próby nowej wersji jeszcze niewykonane; commit/push źródeł ma je poprzedzać.
