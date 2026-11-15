@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "version": "0.2.2",
+  "source_commit": "8808233",
+  "sent": 176,
+  "baseline": {
+    "rx": 0,
+    "errors": 0,
+    "rx_crc": 0,
+    "parsed": 0,
+    "drop": 0,
+    "controls": 0,
+    "parsed_crc": 0
+  },
+  "final": {
+    "rx": 176,
+    "errors": 0,
+    "rx_crc": 1436869018,
+    "parsed": 176,
+    "drop": 0,
+    "controls": 13,
+    "parsed_crc": 1436869018
+  },
+  "scope": "UART1 -> model counts/CRC32; TFT orientation awaiting visual confirmation",
+  "visual_result": "User still reports swapped left/right; new photograph pending"
+}
