@@ -1,0 +1,62 @@
+[
+  {
+    "frame": "01_nc_panels",
+    "passed": true,
+    "bytes": 2885,
+    "checked_cells": 1160,
+    "controls": 238,
+    "cursor": [
+      0,
+      28
+    ],
+    "differences": []
+  },
+  {
+    "frame": "02_nc_menu",
+    "passed": true,
+    "bytes": 3831,
+    "checked_cells": 1160,
+    "controls": 306,
+    "cursor": [
+      0,
+      28
+    ],
+    "differences": []
+  },
+  {
+    "frame": "03_dialog_ok",
+    "passed": true,
+    "bytes": 3773,
+    "checked_cells": 1160,
+    "controls": 298,
+    "cursor": [
+      0,
+      28
+    ],
+    "differences": []
+  },
+  {
+    "frame": "04_dialog_cancel",
+    "passed": true,
+    "bytes": 3773,
+    "checked_cells": 1160,
+    "controls": 298,
+    "cursor": [
+      0,
+      28
+    ],
+    "differences": []
+  },
+  {
+    "frame": "05_demo_done",
+    "passed": true,
+    "bytes": 3775,
+    "checked_cells": 1160,
+    "controls": 298,
+    "cursor": [
+      0,
+      28
+    ],
+    "differences": []
+  }
+]

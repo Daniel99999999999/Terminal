@@ -1,5 +1,9 @@
 # Faktyczny stan projektu / handoff
 
+## 16.11.2026 — pokaz VT100 w stylu Norton Commandera
+
+[Skrypt i polecenia TXT](VT100_DEMO_2026-11-16.md) opublikowane w `f14f566`, bez zmiany firmware v0.3.7 touch. Pięć ekranów po 7 s przez COM14, równoczesny zapis COM5: 18037 B / 1438 komend / CRC32 c7565c7b, po każdej ramce zgodne bajty i kursor, brak strat/błędów UART/restartów. Model C: 5800 komórek PASS; lokalny mock `screen.c`: 1676 porównań pełnego obrazu PASS. **Fizyczny obraz nieodebrany: użytkownik zgłosił brakujące fragmenty/pozostałości; doprecyzowanie w toku.** Brak błędu w logu nie rozstrzyga jakości panelu. Oba porty zamknięte, końcowy ekran pozostawiony. Pliki do RealTerm zawierają oddzielnie prawdziwe ESC (Send File) i czytelne `\x1b` (Send ASCII, Literal OFF, CR/LF OFF). IRQ dotyku i scrollback z gestami zapisano jako [zadanie na później](NEXT_STEPS.md); teraz działa polling oraz pauza bez historii.
+
 ## 16.11.2026 — v0.3.7: biały LCD po EN/RESET
 
 **Wynik po publikacji `78db372`:** [kontrole](logs/2026-11-16_v0.3.7_validation.json), [regresja LCD](logs/2026-11-16_v0.3.7_host_lcd.txt) PASS. Ten sam test z zachowanym lcd_panel.c v0.3.6 odtwarza błąd: RESX HIGH→SLPOUT10 ms; z poprawką160 ms. Testy błędu init i timeout DMA PASS, Cppcheck11 C obu profili bez zgłoszeń. Upstream zgodny z trzema hashami manifestu.
