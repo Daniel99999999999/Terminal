@@ -1,5 +1,10 @@
 # Historia wersji
 
+## v0.3.8 — 16.11.2026
+
+- Domyślny zegar LCD SPI obniżony z20 do10 MHz zgodnie z wyborem użytkownika. ILI9341 DS V1.05 §18.3.4 podaje minimalny okres zapisu100 ns (10 MHz); dotychczasowe20 MHz przekraczało tę specyfikację. Próba odpowiada na zdjęcie pokazujące trwałe pasy zamiast obrazu pokazu VT100.
+- Log startowy pokazuje żądaną częstotliwość SPI3. Piny, rozmiar pasków, DMA, parser, mapowanie kolorów, dotyk i zapis kalibracji zachowane. Powiązanie zegara z fizycznym objawem wymaga ponowienia identycznego pokazu, bez deklarowania naprawy na podstawie kompilacji.
+
 ## v0.3.7 — 16.11.2026
 
 - Po sprzętowym resecie LCD zadanie ekranu czeka dodatkowe150 ms przed inicjalizacją. Domyślny reset sterownika ILI9341 kończył się10 ms po zwolnieniu RESX, po czym od razu wysyłano SLPOUT; dokumentacja wymaga120 ms po resecie w stanie Sleep Out.

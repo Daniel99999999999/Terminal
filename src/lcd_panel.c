@@ -85,6 +85,7 @@ esp_err_t lcd_panel_open(void)
         .trans_queue_depth = 1, .lcd_cmd_bits = 8, .lcd_param_bits = 8,
         .on_color_trans_done = completed, .user_ctx = s_done };
     err = esp_lcd_new_panel_io_spi(SPI3_HOST, &io, &s_io);
+    if (err == ESP_OK) { ESP_LOGI("TFT", "SPI3 requested clock=%lu Hz", (unsigned long)RETRO_TFT_SPI_HZ); }
 #else
     err = high_output(TFT_RD_GPIO); /* Write-only bus: RD stays inactive. */
     if (err != ESP_OK) { return err; }

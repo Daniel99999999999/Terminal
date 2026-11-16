@@ -1,0 +1,9 @@
+# v0.3.8: pasy w pokazie VT100 i zegar SPI
+
+Zdjęcie użytkownika z16.11.2026 pokazuje kilka trwałych, wąskich pasów i fragmenty tekstu zamiast paneli/menu/okna. Lokalny pasek dotyku pozostaje widoczny. To błąd fizycznego obrazu, nie pomylenie paneli tła z pozostałościami okna. Surowe zdjęcie użytkownika nie jest publikowane. Poprzednie [wyniki pokazu](VT100_DEMO_2026-11-16.md): model C i logiczny scheduler zgodne, HC-05 bez strat, bez błędu API TFT; nie dowodzi to poprawności transmisji elektrycznej.
+
+W konfiguracji wykryto `RETRO_TFT_SPI_HZ=20000000`. [ILI9341 DS V1.05, §18.3.4, s.237](https://files.waveshare.com/upload/e/e3/ILI9341_DS.pdf#page=237) podaje okres zapisu co najmniej100 ns oraz czas HIGH/LOW co najmniej40 ns. Zegar20 MHz daje50 ns i nominalnie25 ns na połówkę, poza tą specyfikacją. Nie zidentyfikowano dokładnego producenta klona ani nie zmierzono przebiegów oscyloskopem; przekroczenie nominalnej specyfikacji jest faktem konfiguracji, natomiast związek z konkretnymi pasami pozostaje hipotezą do sprawdzenia.
+
+Jedyna zmiana funkcjonalna v0.3.8 to domyślne10 MHz (okres100 ns, nominalnie50 ns HIGH/LOW), wybrane przez użytkownika zamiast proponowanych5 MHz; dodano log żądanej częstotliwości. Zachowano piny, tryb SPI0, rozmiar paska320×8, czas po resecie LCD, kolejność DMA, prędkość HC-05, dotyk i kalibrację NVS. Nie zmieniano SDK ani upstream ILI9341. Pamięć pozostaje internal, GPIO16/17 zarezerwowane; nie uznajemy PSRAM za naprawione.
+
+Plan: build internal/touch → commit/push źródeł → istniejące kontrole LCD i profilu → upload wyłącznie aplikacji touch przez COM5 z zachowaniem NVS i zapis startu → ten sam pokaz 5×7 s przez COM14. Kryterium fizyczne: pełny spójny obraz każdego ekranu i poprawny stan końcowy bez pasów. Bajty/CRC są oddzielnym kryterium transportu. Gdy10 MHz nie usuwa objawu, nie przypisywać mu przyczyny bez kolejnego dowodu. Zachowany plik v0.3.7 touch umożliwia powrót.

@@ -2,7 +2,9 @@
 
 Projekt terminala szeregowego DIY opartego na **ESP32-WROVER (ESP32-D0WD-V3)**. Natywny **ESP-IDF 6.0.1 w PlatformIO**, język **C**, bez Arduino.
 
-Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.3.7**. [Nowa implementacja i konfiguracja](docs/REWRITE_v0.2.0.md), [opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
+Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.3.8**. [Nowa implementacja i konfiguracja](docs/REWRITE_v0.2.0.md), [opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
+
+**v0.3.8:** [próba LCD przy10 MHz](docs/LCD_SPI_v0.3.8.md) po trwałych pasach w pokazie VT100, częstotliwość wybrana przez użytkownika. Poprzednie20 MHz przekraczało limit10 MHz wynikający z minimalnego okresu100 ns w specyfikacji ILI9341. Stan kompilacji i próby fizycznej w STATUS; brak potwierdzenia naprawy na podstawie samego modelu.
 
 **v0.3.7:** [odstęp po resecie LCD przed Sleep Out](docs/LCD_RESET_v0.3.7.md). Po zgłoszeniu całkowicie białego ekranu po EN/RESET wykryto zbyt wczesne wyjście ze snu:10 ms zamiast wymaganego odstępu120 ms przy resecie aktywnego panelu. Dodano150 ms zapasu przed inicjalizacją; **użytkownik potwierdził powitanie i terminal po3/3 ręcznych resetach EN**. Wyniki w STATUS.
 

@@ -25,7 +25,7 @@
 #define RETRO_TFT_I80_HZ 1000000
 #endif
 #ifndef RETRO_TFT_SPI_HZ
-#define RETRO_TFT_SPI_HZ 20000000
+#define RETRO_TFT_SPI_HZ 10000000 /* User choice; ILI9341 DS write cycle >=100 ns. */
 #endif
 #ifndef RETRO_TOUCH_ENABLE
 #define RETRO_TOUCH_ENABLE 0 /* Enable explicitly after wiring XPT2046. */

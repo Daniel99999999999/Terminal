@@ -1,5 +1,9 @@
 # Faktyczny stan projektu / handoff
 
+## 16.11.2026 — v0.3.8: zegar LCD SPI
+
+Zdjęcie pokazu VT100 potwierdza nieprawidłowy obraz: trwałe wąskie pasy i fragmenty tekstu przy widocznym pasku dotyku. [Zmiana v0.3.8](LCD_SPI_v0.3.8.md) obniża domyślne SPI z20 do10 MHz zgodnie z wyborem użytkownika;20 MHz przekraczało specyfikację ILI9341 (okres min.100 ns). To wykryta wada konfiguracji, jej wpływ na obecny objaw dopiero sprawdzamy. Bez zmian pinów, DMA, parsera, dotyku i mapy NVS. Ostateczny build10 MHz internal/touch SUCCESS (4,237/5,580 s), testy po publikacji; jeszcze nie wgrano v0.3.8, nie deklarować naprawy.
+
 ## 16.11.2026 — pokaz VT100 w stylu Norton Commandera
 
 [Skrypt i polecenia TXT](VT100_DEMO_2026-11-16.md) opublikowane w `f14f566`, bez zmiany firmware v0.3.7 touch. Pięć ekranów po 7 s przez COM14, równoczesny zapis COM5: 18037 B / 1438 komend / CRC32 c7565c7b, po każdej ramce zgodne bajty i kursor, brak strat/błędów UART/restartów. Model C: 5800 komórek PASS; lokalny mock `screen.c`: 1676 porównań pełnego obrazu PASS. **Fizyczny obraz nieodebrany: użytkownik zgłosił brakujące fragmenty/pozostałości; doprecyzowanie w toku.** Brak błędu w logu nie rozstrzyga jakości panelu. Oba porty zamknięte, końcowy ekran pozostawiony. Pliki do RealTerm zawierają oddzielnie prawdziwe ESC (Send File) i czytelne `\x1b` (Send ASCII, Literal OFF, CR/LF OFF). IRQ dotyku i scrollback z gestami zapisano jako [zadanie na później](NEXT_STEPS.md); teraz działa polling oraz pauza bez historii.
