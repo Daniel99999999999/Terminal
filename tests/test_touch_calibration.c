@@ -65,6 +65,28 @@ static void gesture_sample(unsigned x, unsigned y, bool pressed)
     touch_ui_update(&sample, now_ms); now_ms += 20;
 }
 
+static void noisy_calibration(unsigned period_ms, bool two_missing)
+{
+    stored_size = 0;
+    unsigned before = writes;
+    touch_ui_init(true);
+    const unsigned xs[] = {24,295,295,24,160,106}, ys[] = {24,24,215,215,120,160};
+    for (unsigned point = 0; point < 6; ++point) {
+        release();
+        for (unsigned n = 0; n < 40; ++n) {
+            bool missing = two_missing ? (n % 5 == 1 || n % 5 == 2) : n % 3 == 1;
+            xpt2046_sample_t sample = { .pressed = !missing,
+                .x = (uint16_t)(400 + xs[point]*10 + (n%2 ? 20 : 0)),
+                .y = (uint16_t)(350 + ys[point]*12) };
+            touch_ui_update(&sample, now_ms); now_ms += period_ms;
+        }
+        CHECK(writes == before + (point == 5 ? 1u : 0u));
+    }
+    CHECK(commits == writes);
+    release(); hold(LCD_WIDTH/2, LCD_HEIGHT-16); CHECK(!touch_ui_visible());
+    touch_ui_init(true); CHECK(!touch_ui_visible());
+}
+
 int main(void)
 {
     touch_cal_point_t points[] = {{0,0,24,24},{0,0,295,24},{0,0,295,215},{0,0,24,215},{0,0,160,120}};
@@ -163,6 +185,23 @@ int main(void)
     uint32_t crc = esp_rom_crc32_le(0, stored, (uint32_t)stored_size - 4);
     memcpy(stored + stored_size - 4, &crc, sizeof(crc));
     touch_ui_init(true); CHECK(touch_ui_visible()); /* Old orientation cannot be reused. */
-    puts("PASS: affine/verification/NVS guards; calibration sample loss; debounced single-action taps; CAL missing samples/jitter/progress, real release/drag/gap cancellation; render bounds");
+
+    /* Reproduce the measured ~40 Hz cadence: one rejected poll in three
+     * caused the old >=50 ms rule to restart before reaching eight samples. */
+    noisy_calibration(25, false);
+    noisy_calibration(30, false);
+    noisy_calibration(25, true); /* Two missing polls: 75 ms between good ones. */
+
+    /* Real releases, a long polling gap and an accidental remote touch must
+     * discard the old sum. Seven subsequent good samples still cannot capture. */
+    stored_size = 0; unsigned before = writes;
+    touch_ui_init(true); release();
+    short_hold(24,24); release(); short_hold(24,24); release();
+    short_hold(24,24); now_ms += 80; short_hold(24,24);
+    gesture_sample(220,100,true);
+    for (unsigned i = 0; i < 7; ++i) { gesture_sample(24,24,true); }
+    five(); release(); hold(LCD_WIDTH/3,LCD_HEIGHT*2/3);
+    CHECK(writes == before + 1 && commits == writes);
+    puts("PASS: affine/verification/NVS guards; calibration at 25/30 ms with missing polls; release/gap/moved-contact sum reset; debounced single-action taps; CAL missing samples/jitter/progress, real release/drag/gap cancellation; render bounds");
     return 0;
 }

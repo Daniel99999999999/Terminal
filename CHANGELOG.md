@@ -1,5 +1,11 @@
 # Historia wersji
 
+## v0.3.6 — 16.11.2026
+
+- Filtr punktów CALIBRATE/VERIFY używa tego samego ograniczonego czasu80 ms co rozpoznawanie kontaktu; usunięto dodatkowy reset po trzech odrzuconych odczytach niezależny od czasu. Przy realnych25 ms jeden brak nie zeruje już zbierania na granicy50 ms.
+- Reset pomiaru jawnie czyści sumy, liczbę próbek, czas i zakres. Ruch poza120 jednostek ADC rozpoczyna nowy zbiór; nadal wymagane osiem poprawnych próbek,100 ms, puszczenie między punktami i niezależna weryfikacja.
+- TOUCH_CAL rozróżnia liczniki gap_resets/motion_resets, liczbę próbek i maksimum; log ograniczony do jednego resetu na sekundę oraz przyjęcia punktu. Regresje pełnej kalibracji przy25/30 ms, z brakami i błędnym dotknięciem. Mapa NVS i protokół XPT pozostają zgodne z poprzednią wersją.
+
 ## v0.3.5 — 15.11.2026
 
 - Gesty TEST/TERMINAL zachowują kontakt przez przerwę krótszą niż80 ms od ostatniej poprawnej próbki. CAL nie zeruje czasu po pojedynczym odrzuceniu ADC; PAUZA/CR nie przełączają wielokrotnie przy jednym kontakcie. Pełne puszczenie lub zbyt długa przerwa nadal kończy gest.

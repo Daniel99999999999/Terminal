@@ -1,5 +1,9 @@
 # Faktyczny stan projektu / handoff
 
+## 16.11.2026 — v0.3.6: filtr pomiaru punktów przy40 Hz
+
+[Diagnoza i zakres](TOUCH_SAMPLING_v0.3.6.md). Test diagnostyczny opublikowanej v0.3.5: stałe poprawne współrzędne, odpytywanie25 ms, co trzeci odczyt odrzucony — nie da się ukończyć kalibracji. Wykryty warunek >=50 ms pomiędzy poprawnymi próbkami zeruje zbiór. W v0.3.6 ograniczona tolerancja80 ms wspólna z kontaktem, bez progu liczby braków. Zachowano8 próbek/100 ms/zakres120, niezależną weryfikację i NVS. Dodano statystyki przyczyn resetu. Build internal/touch SUCCESS (48,816/35,928 s). Przed publikacją i regresjami; na urządzeniu nadal v0.3.5, użytkownik potwierdził ukończenie całej kalibracji.
+
 ## 16.11.2026 — v0.3.5: wyniki i zatrzymanie pomiaru punktu 3
 
 Wgrano `esp32dev_touch` po publikacji `744214b`/`a8ff5f4`. [Kontrole](logs/2026-11-16_v0.3.5_validation.json): oba buildy SUCCESS, test kalibracji/UI PASS po korekcie bramki puszczenia, Cppcheck 11 C w obu profilach bez zgłoszeń. [Start](logs/2026-11-15_v0.3.5_touch_boot.txt): ELF ac6963022…, brak restartu, powitanie3008 ms, mapa NVS wczytana. Pliki BIN/ELF/map zachowane lokalnie przed kolejnym buildem. UART nie był ponownie testowany w tej wersji.

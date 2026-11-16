@@ -22,17 +22,42 @@ typedef struct {
 } saved_t;
 static touch_calibration_t s_map;
 static touch_cal_point_t s_points[5];
-static unsigned s_page, s_point, s_samples, s_releases, s_misses, s_progress;
+static unsigned s_page, s_point, s_samples, s_releases, s_progress;
 static uint32_t s_revision = 1, s_sum_x, s_sum_y, s_since, s_hold_since, s_last_valid;
 static uint32_t s_contact_at;
 static unsigned s_hold_progress;
 static uint16_t s_min_x, s_max_x, s_min_y, s_max_y, s_x, s_y;
 static bool s_wait_release = true, s_down, s_holding, s_nvs, s_saved, s_retry;
 static bool s_paused, s_cr_newline;
+static unsigned s_gap_resets, s_motion_resets, s_peak_samples;
+static uint32_t s_report_at, s_reset_gap;
 
 /* A missing ADC sample is not immediately a new physical press. Bound the
  * grace period so distinct taps and a real release still terminate gestures. */
 #define CONTACT_GRACE_MS 80u
+
+static void clear_measurement(void)
+{
+    s_samples = s_sum_x = s_sum_y = s_since = s_last_valid = 0;
+    s_min_x = s_max_x = s_min_y = s_max_y = 0;
+}
+
+static void measurement_report(uint32_t now, bool accepted)
+{
+    if (!accepted && now - s_report_at < 1000) { return; }
+    ESP_LOGI("TOUCH_CAL", "point=%u verify=%u accepted=%u samples=%u peak=%u gap_resets=%u motion_resets=%u last_gap_ms=%lu",
+        s_point + 1, s_page == VERIFY ? 1u : 0u, accepted ? 1u : 0u,
+        s_samples, s_peak_samples, s_gap_resets, s_motion_resets, (unsigned long)s_reset_gap);
+    s_report_at = now;
+}
+
+static void reset_measurement(uint32_t now, bool moved)
+{
+    if (moved) { ++s_motion_resets; }
+    else { ++s_gap_resets; s_reset_gap = now - s_last_valid; }
+    measurement_report(now, false);
+    clear_measurement();
+}
 
 static void stop_hold(void)
 {
@@ -86,8 +111,10 @@ static bool save(void)
 
 static void restart(void)
 {
-    s_page = CALIBRATE; s_point = s_samples = s_releases = 0;
-    s_misses = s_progress = 0;
+    s_page = CALIBRATE; s_point = s_releases = s_progress = 0;
+    clear_measurement();
+    s_gap_resets = s_motion_resets = s_peak_samples = 0;
+    s_report_at = s_reset_gap = 0;
     s_wait_release = true; s_holding = false; s_hold_progress = 0; ++s_revision;
     s_paused = false;
 }
@@ -148,19 +175,24 @@ void touch_ui_update(const xpt2046_sample_t *sample, uint32_t now)
     if (s_wait_release) {
         if (sample->pressed) { s_releases = 0; s_down = true; }
         else if (++s_releases >= 3 && (!s_down || now - s_contact_at >= CONTACT_GRACE_MS)) {
-            s_wait_release = false; s_releases = 0; s_samples = 0; s_down = false; ++s_revision;
+            s_wait_release = false; s_releases = 0; clear_measurement(); s_down = false; ++s_revision;
         }
         return;
     }
     if (s_page == CALIBRATE || s_page == VERIFY) {
-        if (!sample->pressed) {
-            if (s_samples && (++s_misses >= 3 || now - s_last_valid >= 50)) { s_samples = s_misses = 0; }
+        /* Use elapsed time, not a count of rejected polls. At the observed
+         * 25 ms poll interval one missing sample means 50 ms between valid
+         * samples. Match the bounded contact grace used by gestures/release. */
+        if (s_samples && now - s_last_valid >= CONTACT_GRACE_MS) {
+            reset_measurement(now, false);
         }
-        else {
-            if (s_samples && now - s_last_valid >= 50) { s_samples = 0; }
-            if (!s_samples || sample->x + 120 < s_max_x || sample->x > s_min_x + 120 ||
-                sample->y + 120 < s_max_y || sample->y > s_min_y + 120) {
-                s_samples = 0; s_sum_x = s_sum_y = 0; s_since = now;
+        if (sample->pressed) {
+            if (s_samples && (sample->x + 120 < s_max_x || sample->x > s_min_x + 120 ||
+                sample->y + 120 < s_max_y || sample->y > s_min_y + 120)) {
+                reset_measurement(now, true);
+            }
+            if (!s_samples) {
+                s_since = now;
                 s_min_x = s_max_x = sample->x; s_min_y = s_max_y = sample->y;
             }
             if (sample->x < s_min_x) { s_min_x = sample->x; }
@@ -168,10 +200,14 @@ void touch_ui_update(const xpt2046_sample_t *sample, uint32_t now)
             if (sample->y < s_min_y) { s_min_y = sample->y; }
             if (sample->y > s_max_y) { s_max_y = sample->y; }
             s_sum_x += sample->x; s_sum_y += sample->y; ++s_samples;
-            s_last_valid = now; s_misses = 0;
+            s_last_valid = now;
+            if (s_samples > s_peak_samples) { s_peak_samples = s_samples; }
             if (s_samples >= 8 && now - s_since >= 100) {
+                measurement_report(now, true);
                 captured((uint16_t)(s_sum_x / s_samples), (uint16_t)(s_sum_y / s_samples));
-                s_wait_release = true; s_releases = 0; s_samples = 0;
+                s_wait_release = true; s_releases = 0; clear_measurement();
+                s_gap_resets = s_motion_resets = s_peak_samples = 0;
+                s_reset_gap = 0;
             }
         }
         unsigned progress = s_samples ? s_samples * 100 / 8 : 0;
