@@ -1,6 +1,6 @@
 # Plan kolejnych etapów i kryteria odbioru
 
-**Wybrany następny etap — 15.11.2026:** XPT2046 i kalibracja, zamiast historii przewijania. Obrót LCD 3 zaakceptowany; bez dalszych opisów narożników. [Połączenia i procedura pięciu punktów](TOUCH_CALIBRATION_v0.3.0.md). Użytkownik dopiero podłączy dotyk. Odbiór HC-05 na UART1 ma działać także podczas kalibracji; kryteria: niezależna walidacja, poprawny znacznik dotyku, powrót do terminala i odtworzenie ustawień po resecie. Kompilacja i testy programowe nie zastępują tych prób fizycznych.
+**Wybrany następny etap — 15.11.2026:** XPT2046 i kalibracja, zamiast historii przewijania. Obrót LCD 3 zaakceptowany; bez dalszych opisów narożników. [Połączenia i procedura pięciu punktów](TOUCH_CALIBRATION_v0.3.0.md). XPT2046 jest podłączony; użytkownik ukończył pełną kalibrację w v0.3.5. W v0.3.6 odtworzenie mapy sprawdzono po aktualizacji; do odbioru pozostaje wygoda ponownego pomiaru i obsługi gestów z poprawioną tolerancją braków ADC. Odbiór HC-05 na UART1 ma działać także podczas kalibracji; kryteria: niezależna walidacja, poprawny znacznik dotyku, powrót do terminala i odtworzenie ustawień po resecie. Kompilacja i testy programowe nie zastępują tych prób fizycznych.
 
 **Aktualne polecenie 15.11.2026 / v0.2:** badane urządzenie wysyła logi przez HC-05 master do slave przy UART1 TX32/RX34 ESP32; to UART1 zasila TFT. UART2 i most wyłączone, telefonu nie ma. [Nowy runtime](REWRITE_v0.2.0.md), faktyczne wyniki w STATUS. Starsze etapy poniżej opisują poprzedni projekt i nie zmieniają tego toru danych.
 

@@ -27,3 +27,7 @@ Nowy TOUCH_CAL podaje point/verify/accepted, samples/peak, gap_resets/motion_res
 Pełne procedury testowe:25 ms i30 ms z co trzecim odczytem brakującym;25 ms z dwoma kolejnymi brakami (75 ms między poprawnymi). Osobna regresja pełnych puszczeń, długiej przerwy bez odpytywania, odległego błędnego dotknięcia i siedmiu próbek — stare sumy nie mogą zaliczyć punktu. Dotychczasowe sprawdzenia gestów, weryfikacji, NVS i granic renderera pozostają.
 
 Kolejność: build internal/touch → commit/push źródeł → regresje i analiza → ewentualny upload z odczytem zachowanej mapy → osobny zapis wyników. Pomyślna kompilacja/testy hosta nie potwierdzają wygody fizycznej kalibracji. Nie kasujemy zapisanej kalibracji ani nie rozpoczynamy jej automatycznie po aktualizacji.
+
+## Wynik po publikacji
+
+Źródła `dd02529` opublikowano po obu udanych buildach, przed regresjami. [Kontrole i start](logs/2026-11-16_v0.3.6_validation.json): testy kalibracji/UI PASS, Cppcheck obu profili bez zgłoszeń. Wgrano touch na COM5; zapis startu uruchomiony przed resetem potwierdził v0.3.6, odtworzenie mapy i15 s bez restartów. COM5 zamknięty. Nie wykonywano ponownej fizycznej kalibracji ani nowego testu UART.

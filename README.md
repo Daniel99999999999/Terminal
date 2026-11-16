@@ -18,7 +18,7 @@ Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/
 
 **Próby VT100/ANSI v0.3.1:** [20 przypadków, transport bez strat, potwierdzone przez użytkownika kolory/ramka/miganie](docs/VT100_TEST_2026-11-15.md). Zakres obejmuje zaimplementowany podzbiór; odpowiedzi DSR/DA nadal brak. Firmware i jego numer pozostają bez zmian.
 
-**XPT2046 podłączony:** IRQ reaguje, ale odczyty ADC w v0.3.3 pozostały zerowe. [Próby LCD i porównanie zachowanych wersji](docs/TFT_TOUCH_TEST_2026-11-15.md): po wcześniejszym bieleniu ponownie wgrana v0.3.3 internal wyświetla poprawnie. Przyczyna bielenia nieustalona; dotyk pozostaje do diagnozy. Kalibracja odtworzona z NVS.
+**XPT2046 podłączony:** użytkownik ukończył kalibrację w v0.3.5. v0.3.6 touch wgrana, stabilny start i odtworzenie mapy z NVS potwierdzone zapisem COM5. Zerowanie pomiaru przy25 ms odtworzone i poprawione; wygoda ponownej kalibracji wymaga jeszcze odbioru fizycznego. [Wyniki](docs/STATUS.md). Przyczyna odrzuceń ADC i wcześniejszego bielenia LCD nieustalona; [historia prób LCD](docs/TFT_TOUCH_TEST_2026-11-15.md).
 
 **v0.3.0:** [XPT2046: kalibracja pięciu punktów, niezależna walidacja, test dotyku i zapis ustawień](docs/TOUCH_CALIBRATION_v0.3.0.md). Osobny profil `esp32dev_touch` używa działającego RAM wewnętrznego. Obrót LCD 3 zachowany. Wariant bez dotyku nadal dostępny; użytkownik dopiero podłączy dotyk według opisanego planu.
 
@@ -44,7 +44,7 @@ Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/
 
 **v0.1.11:** dodano most HC-05 UART1 TX32/RX34 przy potwierdzonych 115200, opcjonalne STATE35 i EN12/AT oraz renderer ILI9341 przez I80/DMA. [Konfiguracja i ograniczenia](docs/HC05_TFT_v0.1.11.md), [połączenia](docs/PIN_ASSIGNMENT_HC05_TFT.md). Natywne BT/Wi-Fi usunięto z bieżącego firmware. TFT, STATE i EN są domyślnie wyłączone do potwierdzenia warunków elektrycznych. Kod wymaga testu na rzeczywistym sprzęcie; końcowe kontrole po commicie źródeł są opisane w STATUS.
 
-> **Stan sprzętu:** nowy LCD SPI wyświetla obraz, obrót 3 został zaakceptowany. HC-05 → UART1 → parser sprawdzono przez COM14, GPIO2 miga. ESP32 używa RAM wewnętrznego; dotyk nie jest jeszcze podłączony. Próby natywnego BT zakończono. Dawny shield I80 bez podświetlenia pozostaje osobnym, nierozwiązanym przypadkiem. [Wyniki i historia](docs/STATUS.md).
+> **Stan sprzętu:** nowy LCD SPI wyświetla obraz, obrót 3 został zaakceptowany. HC-05 → UART1 → parser sprawdzono przez COM14, GPIO2 miga. ESP32 używa RAM wewnętrznego; XPT2046 jest podłączony, pełna kalibracja ukończona przez użytkownika, mapa odtwarzana po resecie. Próby natywnego BT zakończono. Dawny shield I80 bez podświetlenia pozostaje osobnym, nierozwiązanym przypadkiem. [Wyniki i historia](docs/STATUS.md).
 
 ## Szybki start — Windows / VS Code
 

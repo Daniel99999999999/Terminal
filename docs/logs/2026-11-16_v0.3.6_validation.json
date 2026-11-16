@@ -1,0 +1,50 @@
+{
+  "version": "0.3.6",
+  "source_commit": "dd02529",
+  "source_published_before_tests": true,
+  "builds": {
+    "internal": "SUCCESS 48.816 s",
+    "touch": "SUCCESS 35.928 s"
+  },
+  "old_version_diagnostic": {
+    "version": "0.3.5",
+    "interval_ms": 25,
+    "missing": "one in three polls",
+    "outcome": "cannot complete calibration; NVS writes 0 instead of 1"
+  },
+  "host_calibration": "PASS: full calibration at 25 and 30 ms, periodic missing polls; two consecutive misses at 25 ms; release/gap/moved-contact resets; gestures/affine/verification/NVS/render bounds",
+  "cppcheck": {
+    "internal": "11 active C, exit 0, no diagnostics",
+    "touch": "11 active C, exit 0, no diagnostics"
+  },
+  "upload": {
+    "port": "COM5",
+    "offset": "0x10000",
+    "bytes": 204352,
+    "hash_verified": true,
+    "nvs_erased": false
+  },
+  "boot": {
+    "duration_s": 15,
+    "elf_sha_prefix": "2916913c1",
+    "unexpected_restarts": 0,
+    "welcome_ms": 3007,
+    "existing_nvs_calibration_loaded": true,
+    "idle_polls_last": 966,
+    "idle_valid": 0,
+    "spi_api_errors": 0
+  },
+  "physical_calibration": "User completed full procedure on v0.3.5. Recalibration ease on v0.3.6 not tested physically; existing map loaded.",
+  "adc_limitation": "Cause of rejected ADC samples not established; UI tolerance is not a repair of the ADC signal path.",
+  "uart_test": "Not repeated for this UI-only change; v0.3.4 transport results remain historical",
+  "recording": "Capture opened before reset, completed, COM5 closed; no active manual-calibration watcher",
+  "deployed_profile": "esp32dev_touch",
+  "artifacts": {
+    "internal.bin": "b92c209ff1ccb61c2987eea01634bc50c5e92f8b6329e0d3999b23a82fa0b245",
+    "internal.elf": "81c601f40616f07d267f72ad91d5146b287c3addc68ee7cdcbaddd264cb47873",
+    "internal.map": "0fc37d2fb4cedc6334c53546a4a735f2a5cc10737d7e3f2e497b4add92fa2115",
+    "touch.bin": "9d9c65b7c5b4e15561e96b32ada437cf62dc8b8af7f2795e19ee1be8ea8e6676",
+    "touch.elf": "2916913c116a3b0bfa0cdbb0e029eba61c0d495f1f7174a4dc44668527df479f",
+    "touch.map": "080efc0d904e677825cdd08f6e26dd02bfc8d877d2467f6045af2f266716abbd"
+  }
+}

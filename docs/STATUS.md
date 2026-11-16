@@ -2,7 +2,9 @@
 
 ## 16.11.2026 — v0.3.6: filtr pomiaru punktów przy40 Hz
 
-[Diagnoza i zakres](TOUCH_SAMPLING_v0.3.6.md). Test diagnostyczny opublikowanej v0.3.5: stałe poprawne współrzędne, odpytywanie25 ms, co trzeci odczyt odrzucony — nie da się ukończyć kalibracji. Wykryty warunek >=50 ms pomiędzy poprawnymi próbkami zeruje zbiór. W v0.3.6 ograniczona tolerancja80 ms wspólna z kontaktem, bez progu liczby braków. Zachowano8 próbek/100 ms/zakres120, niezależną weryfikację i NVS. Dodano statystyki przyczyn resetu. Build internal/touch SUCCESS (48,816/35,928 s). Przed publikacją i regresjami; na urządzeniu nadal v0.3.5, użytkownik potwierdził ukończenie całej kalibracji.
+**Po publikacji `dd02529`:** [wyniki](logs/2026-11-16_v0.3.6_validation.json), [regresje kalibracji/UI](logs/2026-11-16_v0.3.6_host_calibration.txt) PASS. Pełne procedury przy25/30 ms z brakami przechodzą; puszczenie, długa przerwa i błędny punkt nie przenoszą sum. Cppcheck11 C obu profili: kody0 bez zgłoszeń. Wgrano aplikację204352 B przez COM5, hash zweryfikowany; NVS zachowane. [Rzeczywisty zapis startu15 s](logs/2026-11-16_v0.3.6_touch_boot.txt) uruchomiono przed resetem: v0.3.6 / ELF2916913c1…, mapa NVS odtworzona, powitanie3007 ms, bez kolejnego resetu. Podczas obserwacji bez nacisku valid0/io0. Wgrany profil `esp32dev_touch`; COM5 zamknięty, brak aktywnego rejestratora. Wygoda kalibracji w tej wersji nieodebrana fizycznie, przyczyna odrzuceń ADC nadal nieustalona. Nie powtarzano testów UART po tej zmianie UI.
+
+[Diagnoza i zakres](TOUCH_SAMPLING_v0.3.6.md). Test diagnostyczny opublikowanej v0.3.5: stałe poprawne współrzędne, odpytywanie25 ms, co trzeci odczyt odrzucony — nie da się ukończyć kalibracji. Wykryty warunek >=50 ms pomiędzy poprawnymi próbkami zeruje zbiór. W v0.3.6 ograniczona tolerancja80 ms wspólna z kontaktem, bez progu liczby braków. Zachowano8 próbek/100 ms/zakres120, niezależną weryfikację i NVS. Dodano statystyki przyczyn resetu. Build internal/touch SUCCESS (48,816/35,928 s). Stan po testach i wgraniu powyżej; użytkownik potwierdził ukończenie całej kalibracji już w v0.3.5.
 
 ## 16.11.2026 — v0.3.5: wyniki i zatrzymanie pomiaru punktu 3
 
