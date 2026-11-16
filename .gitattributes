@@ -18,3 +18,5 @@ diagnostics/esp_idf_spp_acceptor/UPSTREAM_README.md -text
 diagnostics/esp_idf_spp_acceptor/ESP32_SSP.md -text
 diagnostics/esp_idf_spp_acceptor/LICENSE -text
 vendor/** -text
+# UART fixtures are exact byte streams, including real ESC controls.
+tests/fixtures/vt100_demo/*.txt -text
