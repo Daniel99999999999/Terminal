@@ -86,8 +86,38 @@
   "unexpected_reply_bytes": 0,
   "restart_or_panic": false,
   "firmware_upload": false,
-  "physical_display": "User reported display working; detailed review of new photos pending",
+  "physical_display": "Four submitted frames02-05 match layout and selections; user confirms gray window background in person",
   "source_commit": "081ca4c",
   "lcd_spi_requested_hz": 10000000,
-  "payload_sha256": "34c519547598ada1c0c60a504273f04857f3f218da5c61eed13acea3146a6bc0"
+  "payload_sha256": "34c519547598ada1c0c60a504273f04857f3f218da5c61eed13acea3146a6bc0",
+  "photo_review": {
+    "review_date": "2026-11-16",
+    "photos": [
+      "20261116_195623.jpg",
+      "20261116_195629.jpg",
+      "20261116_195637.jpg",
+      "20261116_195646.jpg"
+    ],
+    "frames": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "geometry_passed": true,
+    "selections": [
+      "Copy F5",
+      "OK",
+      "Cancel",
+      "OK"
+    ],
+    "dec_borders_and_positions": "Match reference in the supplied four photos",
+    "old_strips_or_welcome_remnants_visible": false,
+    "window_gray_confirmed_live_by_user": true,
+    "photo_color_note": "Cyan-looking windows in photos; user confirms gray in person; no palette change",
+    "first_frame_in_photos": false,
+    "serial_ports_opened_for_review": false,
+    "firmware_changed_for_review": false,
+    "scope": "Visual acceptance of four demo frames; no new hardware trial, RGB measurement, full VT100 compliance claim or proof of startup repeatability"
+  }
 }

@@ -25,7 +25,7 @@
     "welcome_ms": 3009,
     "existing_calibration_loaded": true
   },
-  "physical_display": "Initial white screen, then strips after recorded manual reset, then user confirmed working on last replay; new photos pending",
+  "physical_display": "Initial white and striped trials; latest four demo photos accepted for geometry/selections and gray window color confirmed live",
   "artifacts": {
     "internal.bin": "16e0e14ea223a412ac13391c277233ce3a9e1c2ff0255119b85d52070900ebad",
     "internal.elf": "b6c76f1a1fa440773b320e6ca5789ee05de4e17814e5cfcb27fe657cfb161c24",
@@ -52,5 +52,35 @@
   "lcd_sdo_gpio19_confirmed_by_user": true,
   "lcd_register_readback_performed": false,
   "root_cause_established": false,
-  "scope_limit": "10 MHz selected and working in latest user observation; changing frequency alone did not immediately clear all symptoms; exact physical display review pending"
+  "scope_limit": "Four supplied frames accepted for geometry and selections, gray background confirmed live; exact cause of earlier corruption and startup repeatability remain unestablished",
+  "photo_review": {
+    "review_date": "2026-11-16",
+    "photos": [
+      "20261116_195623.jpg",
+      "20261116_195629.jpg",
+      "20261116_195637.jpg",
+      "20261116_195646.jpg"
+    ],
+    "frames": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "geometry_passed": true,
+    "selections": [
+      "Copy F5",
+      "OK",
+      "Cancel",
+      "OK"
+    ],
+    "dec_borders_and_positions": "Match reference in the supplied four photos",
+    "old_strips_or_welcome_remnants_visible": false,
+    "window_gray_confirmed_live_by_user": true,
+    "photo_color_note": "Cyan-looking windows in photos; user confirms gray in person; no palette change",
+    "first_frame_in_photos": false,
+    "serial_ports_opened_for_review": false,
+    "firmware_changed_for_review": false,
+    "scope": "Visual acceptance of four demo frames; no new hardware trial, RGB measurement, full VT100 compliance claim or proof of startup repeatability"
+  }
 }

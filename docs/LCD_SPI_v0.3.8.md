@@ -16,8 +16,25 @@ Próby wizualne zachować oddzielnie:
 
 1. Po uploadzie: [transport PASS](logs/2026-11-16_v0.3.8_vt100_demo_result.json), użytkownik zgłosił wyłącznie biały ekran od wgrywania.
 2. Ręczny EN/RESET: zapis COM5 uruchomiono przed naciśnięciem. [Nowy start](logs/2026-11-16_v0.3.8_manual_reset_boot.txt) poprawny w logu; [powtórzony pokaz](logs/2026-11-16_v0.3.8_manual_vt100_demo_result.json) transport PASS, ale użytkownik zgłosił pasy. Zdjęcia pokazują pozostałości powitania pośrodku oraz panele/menu widoczne tylko w pasach górnej części obrazu.
-3. Kolejne odtworzenie na żądanie, odliczanie5 s, ten sam firmware bez uploadu i bez resetu wykonywanego przez skrypt: [transport PASS](logs/2026-11-16_v0.3.8_repeat_vt100_demo_result.json). Użytkownik zgłosił poprawny obraz („Teraz działa”), następnie doprecyzował, że wcześniej ekran był funkcjonalny tylko do połowy. Zapowiedziano nowe zdjęcia do oceny dokładności obrazu.
+3. Kolejne odtworzenie na żądanie, odliczanie5 s, ten sam firmware bez uploadu i bez resetu wykonywanego przez skrypt: [transport PASS](logs/2026-11-16_v0.3.8_repeat_vt100_demo_result.json). Użytkownik zgłosił poprawny obraz („Teraz działa”), następnie doprecyzował, że wcześniej ekran był funkcjonalny tylko do połowy. Aktualne zdjęcia potwierdzają prawidłowy układ czterech ekranów opisanych poniżej.
 
 Każda sesja przesłała18037 B /1438 komend, CRC32 c7565c7b po obu stronach, zgodny kursor, bez strat/błędów UART/paniki w obrębie zapisu. Sesji nie wolno traktować jako jednego ciągłego uruchomienia: po zakończeniu drugiej RX=18037 przy uptime50,310 s; trzecia zaczyna się od RX=0 przy uptime65,320 s, czyli nastąpił start poza zapisem pomiędzy sesjami. Nie ustalono jego dokładnej chwili ani przyczyny. Aktualny stan obu portów: zamknięte; LCD pozostawiony bez zmian do zdjęć.
 
 Wynik nie rozstrzyga pierwotnej przyczyny pasów ani białego obrazu. Samo obniżenie zegara nie dało od razu poprawnego obrazu w dwóch pierwszych próbach; nie deklarować, że rozwiązało wszystkie objawy. Nie modyfikowano transportu SDK; porównany fragment sterowania D/C odpowiada [oryginalnemu plikowi v6.0.1 Espressif](https://github.com/espressif/esp-idf/blob/v6.0.1/components/esp_lcd/spi/esp_lcd_panel_io_spi.c). Użytkownik potwierdził fizyczne połączenie LCD SDO z GPIO19; odczyt rejestrów nie został wykonany. [Zbiorcze wyniki i hashe artefaktów](logs/2026-11-16_v0.3.8_validation.json).
+
+## Odbiór aktualnych zdjęć
+
+Porównano zdjęcia użytkownika z [podglądem modelu](logs/2026-11-16_v0.3.7_vt100_demo_preview.png) i pozycjami/atrybutami w `tests/serial_vt100_demo.py`. Podgląd powstał wcześniej, ale strumienie testowe pozostają identyczne w v0.3.8. Surowych zdjęć użytkownika nie kopiowano do repozytorium.
+
+| Zdjęcie | Ekran | Wynik porównania |
+| --- | --- | --- |
+| 20261116_195623.jpg | 02, menu Plik | Pozycja i ramka poprawne; Kopiuj/F5 wybrane przez inverse. |
+| 20261116_195629.jpg | 03, okno kopiowania | Treść i ramka poprawne; wybrany OK, Anuluj bez zaznaczenia. |
+| 20261116_195637.jpg | 04, okno kopiowania | Układ zachowany; zaznaczenie przeszło na Anuluj, OK bez zaznaczenia. |
+| 20261116_195646.jpg | 05, koniec pokazu | Kompletne okno z treścią końcową i wybranym OK. |
+
+Na tych czterech zdjęciach nie widać wcześniejszych uszkodzonych pasów, pozostałości powitania, lustrzanego odbicia ani ograniczenia do połowy ekranu. Panele widoczne wokół okien oraz częściowo zasłonięte przez nie nazwy plików są celowym tłem wzorca. Tła okien zasłaniają właściwy obszar, a dolny lokalny pasek PAUZA/CR=NL/CAL pozostaje odrębny i kompletny.
+
+Tło okna we wzorcu to SGR47, RGB #aaaaaa; na zdjęciach wygląda turkusowo. Użytkownik potwierdził **szare tło na żywo**, dlatego sam wygląd fotografii nie jest podstawą do zmiany ustawień RGB/BGR ani palety. Nie wykonywano pomiaru barw ani kolejnego testu RGB.
+
+**Zaliczono wizualnie układ i zaznaczenia czterech pokazanych ekranów oraz potwierdzono szare tło na żywo.** Pierwszy ekran01 nie występuje w tym zestawie zdjęć. To odbiór zastosowanych w pokazie CUP, ramek DEC i atrybutu SGR7, nie deklaracja pełnej zgodności VT100 ani powtarzalności wszystkich przyszłych startów. Nie zmieniano firmware ani nie otwierano portów podczas analizy. Przyczyna wcześniejszego bielenia/pasów nadal nieustalona; 10 MHz zachowane.
