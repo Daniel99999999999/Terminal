@@ -182,6 +182,11 @@ int main(void)
     release(); hold(LCD_WIDTH-20,LCD_HEIGHT-3);
     now_ms += 2100; hold(LCD_WIDTH-20,LCD_HEIGHT-3);
     CHECK(!touch_ui_visible() && touch_ui_cal_progress() < 50);
+    /* A still-LOW IRQ cannot certify the position during a long ADC gap. */
+    release(); hold(LCD_WIDTH-20,LCD_HEIGHT-3);
+    for(unsigned i=0;i<110;++i){touch_ui_update(&contact_only,now_ms);now_ms+=20;}
+    hold(LCD_WIDTH-20,LCD_HEIGHT-3);
+    CHECK(!touch_ui_visible() && touch_ui_cal_progress()==0);
     /* Two separate 1.2 second holds must not combine into CAL. */
     release();
     for (unsigned i=0;i<60;++i) { gesture_sample(LCD_WIDTH-20,LCD_HEIGHT-3,true); }
