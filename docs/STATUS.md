@@ -1,5 +1,11 @@
 # Faktyczny stan projektu / handoff
 
+## 16.11.2026 — ponownie biały ekran, COM5 potwierdza v0.3.9
+
+**v0.3.9 touch jest już na płytce**, ELF06590579c… zgodny z przygotowanym artefaktem. W tej sesji nie wykonywano uploadu. Pasywny odczyt COM5 oraz jeden kontrolowany reset z aktywnym zapisem potwierdziły działającą aplikację internal RAM, zachowaną kalibrację, brak wyjątków/błędów DMA/UART w zapisie; użytkownik po tym resecie nadal widzi biały ekran. [Dane i ograniczenia diagnostyki](LCD_WHITE_v0.3.9.md): odczyty rejestrów niespójne, D3 najpierw zerowe, później54/54/2A/2A, pozostałe po DISPON powtarzają54/2A. Nie ma wiarygodnej identyfikacji kontrolera. Poprzednie oznaczenie wspólnego dummy-byte wymaga korekty dla SPI i nie uprawnia do automatycznej interpretacji bajtów. Nowe odstępy nie wystarczyły; nie uznajemy przyczyny za ustaloną.
+
+COM5 zamknięty, COM14 nie otwierano, firmware/kod bez zmian. Oczekiwane pomiary użytkownika na module TFT przy białym ekranie: VCC/RESET/CS względem jego GND. Starszy zapis „na płytce v0.3.8 / testy później” opisuje stan przed tym zgłoszeniem; bieżąca diagnoza została podjęta po nowym zgłoszeniu użytkownika.
+
 ## 16.11.2026 — v0.3.9: audyt startu LCD, IRQ i przewijanie
 
 **Źródła przygotowane, bez uploadu.** [Raport z uzasadnieniem czasów, źródłami i obsługą gestów](LCD_INIT_AUDIT_v0.3.9.md). LCD:150 ms po SLPOUT, CS2/2, start i surowe rejestry przy1 MHz, obraz przy10 MHz, pełna zawartość powitania przed DISPON i150 ms stabilizacji. Dotyk: IRQ GPIO36 budzi zadanie, bez ADC/GPIO w spoczynku; współrzędne podczas kontaktu w zadaniu. Historia128 wierszy + nieruchoma kopia pauzy, gest pionowy także nad paskiem; przyciski PAUZA/CR po puszczeniu. Mapa NVS zachowana.

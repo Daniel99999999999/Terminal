@@ -1,5 +1,7 @@
 # Prompt startowy do Codex
 
+**Nowszy wynik16.11.2026:** COM5 potwierdza v0.3.9 touch / ELF06590579c… na płytce. Użytkownik nadal widzi biały LCD po kontrolowanym EN; aplikacja działa, brak błędów w zapisie nie potwierdza obrazu. [Dane i ograniczenia odczytu SPI](docs/LCD_WHITE_v0.3.9.md), aktualny STATUS. W tej sesji nie wykonywano uploadu. Oczekiwane napięcia VCC/RESET/CS na module. Starszy zapis v0.3.8/testy później opisuje stan przed nowym zgłoszeniem.
+
 
 **Aktualizacja16.11.2026 — v0.3.9:** przygotowane IRQ XPT2046 i przewijanie128 wierszy gestem, audyt czasów LCD i logi rejestrów. [Opis](docs/LCD_INIT_AUDIT_v0.3.9.md), faktyczne wyniki w STATUS. Zlecenie użytkownika: testy sprzętowe później; bez uploadu/resetu/otwierania COM5/COM14 w tej zmianie. Na płytce pozostaje v0.3.8 touch10 MHz, ostatnie cztery zdjęcia zaakceptowane, wcześniejsze bielenie/pasy nadal bez potwierdzonej przyczyny. GPIO36 IRQ nie ma wewnętrznego podciągania; odczyty współrzędnych podczas kontaktu odbywają się w zadaniu, nie ISR. Native BT/Wi-Fi wyłączone, UART1→TFT; UART2 nieaktywny, piny PSRAM16/17 zarezerwowane. Zachować kompilacja / commit+push / testy programowe / osobny commit wyników. Starsze stany niżej są historią.
 
