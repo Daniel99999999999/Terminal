@@ -1,5 +1,9 @@
 # Faktyczny stan projektu / handoff
 
+## 16.11.2026 — v0.3.7: biały LCD po EN/RESET
+
+Użytkownik doprecyzował: po przycisku EN/RESET ekran pozostaje całkowicie biały, bez widocznego powitania. Log v0.3.6 z READY/Welcome potwierdza wyłącznie działanie programu i API; nie fizycznego panelu. [Diagnoza i poprawka](LCD_RESET_v0.3.7.md): sprzętowy reset upstream kończy się10 ms po RESX HIGH, a init zaczyna od0x11 SLPOUT. Przy resecie działającego panelu dokumentacja wymaga120 ms przed tym poleceniem. Aplikacja dodaje150 ms po powrocie reset API. Związek z całym objawem nadal do potwierdzenia fizycznego. Build internal/touch SUCCESS (27,479/21,782 s); test hosta również skompilowany, jeszcze nie uruchamiany. Przed publikacją i regresjami; na ESP32 v0.3.6. Zapisana kalibracja zachowana.
+
 ## 16.11.2026 — v0.3.6: filtr pomiaru punktów przy40 Hz
 
 **Po publikacji `dd02529`:** [wyniki](logs/2026-11-16_v0.3.6_validation.json), [regresje kalibracji/UI](logs/2026-11-16_v0.3.6_host_calibration.txt) PASS. Pełne procedury przy25/30 ms z brakami przechodzą; puszczenie, długa przerwa i błędny punkt nie przenoszą sum. Cppcheck11 C obu profili: kody0 bez zgłoszeń. Wgrano aplikację204352 B przez COM5, hash zweryfikowany; NVS zachowane. [Rzeczywisty zapis startu15 s](logs/2026-11-16_v0.3.6_touch_boot.txt) uruchomiono przed resetem: v0.3.6 / ELF2916913c1…, mapa NVS odtworzona, powitanie3007 ms, bez kolejnego resetu. Podczas obserwacji bez nacisku valid0/io0. Wgrany profil `esp32dev_touch`; COM5 zamknięty, brak aktywnego rejestratora. Wygoda kalibracji w tej wersji nieodebrana fizycznie, przyczyna odrzuceń ADC nadal nieustalona. Nie powtarzano testów UART po tej zmianie UI.

@@ -4,11 +4,14 @@
 #include "driver/gpio.h"
 #include "driver/spi_master.h"
 #include "esp_heap_caps.h"
+#include "esp_log.h"
+#include "esp_timer.h"
 #include "esp_lcd_panel_io.h"
 #include "esp_lcd_panel_ops.h"
 #include "esp_lcd_ili9341.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h"
+#include "freertos/task.h"
 
 #if RETRO_TFT_PROFILE != RETRO_TFT_NONE
 static esp_lcd_panel_handle_t s_panel;
@@ -107,6 +110,16 @@ esp_err_t lcd_panel_open(void)
         .rgb_ele_order = RETRO_TFT_BGR ? LCD_RGB_ELEMENT_ORDER_BGR : LCD_RGB_ELEMENT_ORDER_RGB };
     err = esp_lcd_new_panel_ili9341(s_io, &panel, &s_panel);
     if (err == ESP_OK) { err = esp_lcd_panel_reset(s_panel); }
+    if (err == ESP_OK) {
+        /* ILI9341 DS 15.4: after resetting an awake panel, do not send
+         * SLPOUT for 120 ms after RESX rises. The upstream reset returns
+         * after only 10 ms; keep a margin before init sends SLPOUT first.
+         * Only this screen task waits; UART reception continues in parallel. */
+        int64_t reset_returned = esp_timer_get_time();
+        vTaskDelay(pdMS_TO_TICKS(150));
+        ESP_LOGI("TFT", "LCD reset GPIO%d; init guard=%lu ms (minimum 120 ms); panel response unverified",
+            TFT_RST_GPIO, (unsigned long)((esp_timer_get_time() - reset_returned) / 1000));
+    }
     if (err == ESP_OK) { err = esp_lcd_panel_init(s_panel); }
     /* ILI9341 rotations 0..3: MADCTL 0x48/0x28/0x88/0xe8 with BGR.
      * Inverting this MX table produces mirrored text, including landscape. */

@@ -14,7 +14,7 @@ import subprocess
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--cc", help="C compiler (GCC, Clang, or bcc64x)")
-    parser.add_argument("--suite", choices=("all", "bt", "led", "hci", "terminal", "hc05", "raster", "profiles", "xpt", "calibration"), default="all")
+    parser.add_argument("--suite", choices=("all", "bt", "led", "hci", "terminal", "hc05", "raster", "profiles", "xpt", "calibration", "lcd"), default="all")
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
     output = root / ".pio" / "host-tests"
@@ -71,6 +71,13 @@ def main():
                     (output / "result.txt").write_text("".join(log), encoding="utf-8")
                     return result.returncode
     extra = []
+    if args.suite in ("all", "lcd"):
+        extra.append(("lcd_startup", [root / "tests/test_lcd_startup.c", root / "src/lcd_panel.c",
+            root / "vendor/esp_lcd_ili9341/esp_lcd_ili9341.c", root / "src/terminal_raster.c",
+            root / "src/terminal.c", root / "src/ansi_parser.c"],
+            ["-DRETRO_TFT_PROFILE=2", "-DESP_LCD_ILI9341_VER_MAJOR=2",
+             "-DESP_LCD_ILI9341_VER_MINOR=1", "-DESP_LCD_ILI9341_VER_PATCH=0"],
+            [root / "tests/lcd_stubs", root / "vendor/esp_lcd_ili9341/include"]))
     if args.suite in ("all", "profiles"):
         for profile in (0, 1, 2):
             extra.append(("profile_" + str(profile),
@@ -95,7 +102,10 @@ def main():
                    *[str(p) for p in sources], "-o", str(executable)]
         if name == "touch_calibration" and Path(compiler).stem.lower() != "bcc64x":
             command.append("-lm")
-        for operation in (command, [str(executable)]):
+        operations = [command, [str(executable)]]
+        if name == "lcd_startup":
+            operations.extend(([str(executable), "init_error"], [str(executable), "dma_timeout"]))
+        for operation in operations:
             result = subprocess.run(operation, cwd=output, capture_output=True, text=True)
             log.append(result.stdout + result.stderr)
             print(log[-1], end="")

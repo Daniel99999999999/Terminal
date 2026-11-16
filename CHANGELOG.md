@@ -1,5 +1,11 @@
 # Historia wersji
 
+## v0.3.7 — 16.11.2026
+
+- Po sprzętowym resecie LCD zadanie ekranu czeka dodatkowe150 ms przed inicjalizacją. Domyślny reset sterownika ILI9341 kończył się10 ms po zwolnieniu RESX, po czym od razu wysyłano SLPOUT; dokumentacja wymaga120 ms po resecie w stanie Sleep Out.
+- Log TFT podaje zmierzony czas oczekiwania i zaznacza brak potwierdzenia odpowiedzi panelu. Test integruje aplikację z niezmienionym sterownikiem upstream, wirtualizuje czas/GPIO/SPI i sprawdza odstęp do rzeczywistej komendy SLPOUT, błąd inicjalizacji oraz obsługę timeoutu DMA.
+- Powiązanie tego błędu z białym obrazem po EN wymaga próby fizycznej. Piny, zegar SPI, parser i kalibracja nie były przedmiotem tej zmiany.
+
 ## v0.3.6 — 16.11.2026
 
 - Filtr punktów CALIBRATE/VERIFY używa tego samego ograniczonego czasu80 ms co rozpoznawanie kontaktu; usunięto dodatkowy reset po trzech odrzuconych odczytach niezależny od czasu. Przy realnych25 ms jeden brak nie zeruje już zbierania na granicy50 ms.
