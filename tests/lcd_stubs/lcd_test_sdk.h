@@ -16,6 +16,7 @@ typedef int esp_err_t;
 #define ESP_ERR_NO_MEM 0x105
 #define ESP_ERR_NOT_SUPPORTED 0x106
 #define ESP_ERR_TIMEOUT 0x107
+const char *esp_err_to_name(esp_err_t err);
 #define ESP_RETURN_ON_ERROR(call,...) do {esp_err_t e_=(call);if(e_!=ESP_OK)return e_;}while(0)
 #define ESP_GOTO_ON_ERROR(call,label,...) do {ret=(call);if(ret!=ESP_OK)goto label;}while(0)
 #define ESP_GOTO_ON_FALSE(cond,code,label,...) do {if(!(cond)){ret=(code);goto label;}}while(0)
@@ -47,13 +48,21 @@ void *heap_caps_malloc(size_t bytes,unsigned caps);
 #define SPI_DMA_CH_AUTO 3
 typedef struct {int sclk_io_num,mosi_io_num,miso_io_num,quadwp_io_num,quadhd_io_num;size_t max_transfer_sz;} spi_bus_config_t;
 esp_err_t spi_bus_initialize(int host,const spi_bus_config_t *config,int dma);
-typedef void *esp_lcd_panel_io_handle_t;
+typedef struct esp_lcd_panel_io_t esp_lcd_panel_io_t;
+typedef esp_lcd_panel_io_t *esp_lcd_panel_io_handle_t;
 typedef struct {int unused;} esp_lcd_panel_io_event_data_t;
 typedef bool (*color_done_t)(esp_lcd_panel_io_handle_t,esp_lcd_panel_io_event_data_t *,void *);
-typedef struct {int cs_gpio_num,dc_gpio_num,spi_mode,pclk_hz,trans_queue_depth,lcd_cmd_bits,lcd_param_bits;color_done_t on_color_trans_done;void *user_ctx;} esp_lcd_panel_io_spi_config_t;
+typedef struct {int cs_gpio_num,dc_gpio_num,spi_mode,pclk_hz,trans_queue_depth,lcd_cmd_bits,lcd_param_bits,cs_ena_pretrans,cs_ena_posttrans;color_done_t on_color_trans_done;void *user_ctx;} esp_lcd_panel_io_spi_config_t;
 esp_err_t esp_lcd_new_panel_io_spi(int host,const esp_lcd_panel_io_spi_config_t *config,esp_lcd_panel_io_handle_t *io);
 esp_err_t esp_lcd_panel_io_tx_param(esp_lcd_panel_io_handle_t io,int cmd,const void *data,size_t bytes);
 esp_err_t esp_lcd_panel_io_tx_color(esp_lcd_panel_io_handle_t io,int cmd,const void *data,size_t bytes);
+esp_err_t esp_lcd_panel_io_rx_param(esp_lcd_panel_io_handle_t io,int cmd,void *data,size_t bytes);
+esp_err_t esp_lcd_panel_io_del(esp_lcd_panel_io_handle_t io);
+struct esp_lcd_panel_io_t {
+ esp_err_t (*rx_param)(esp_lcd_panel_io_t *,int,void *,size_t);
+ esp_err_t (*tx_param)(esp_lcd_panel_io_t *,int,const void *,size_t);
+ esp_err_t (*tx_color)(esp_lcd_panel_io_t *,int,const void *,size_t);
+};
 #define LCD_RGB_ELEMENT_ORDER_RGB 0
 #define LCD_RGB_ELEMENT_ORDER_BGR 1
 typedef struct {int reset_gpio_num,bits_per_pixel,rgb_ele_order;struct {bool reset_active_high;} flags;const void *vendor_config;} esp_lcd_panel_dev_config_t;

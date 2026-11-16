@@ -52,6 +52,7 @@ static void reset_page(terminal_t *t)
 
 void terminal_reset(terminal_t *t)
 {
+    if (t->history_clear) { t->history_clear(t->history_ctx); }
     for (t->active = 0; t->active < 2; ++t->active) { reset_page(t); }
     t->active = 0;
     t->cursor_visible = true;
@@ -70,6 +71,9 @@ static void scroll(terminal_t *t, unsigned top, unsigned bottom, unsigned n, boo
     unsigned height = bottom - top + 1;
     if (n > height) { n = height; }
     if (n == height) {
+        if (!down && !t->active && !top && bottom == t->rows - 1 && t->history_line) {
+            for (unsigned y = top; y <= bottom; ++y) { t->history_line(t->history_ctx, cell(t, 0, y)); }
+        }
         for (unsigned y = top; y <= bottom; ++y) { erase(t, y, 0, t->cols); }
         return;
     }
@@ -80,6 +84,9 @@ static void scroll(terminal_t *t, unsigned top, unsigned bottom, unsigned n, boo
             p->line[top] = saved;
             erase(t, top, 0, t->cols);
         } else {
+            if (!t->active && !top && bottom == t->rows - 1 && t->history_line) {
+                t->history_line(t->history_ctx, cell(t, 0, top));
+            }
             uint16_t saved = p->line[top];
             memmove(&p->line[top], &p->line[top + 1], (height - 1) * sizeof(uint16_t));
             p->line[bottom] = saved;

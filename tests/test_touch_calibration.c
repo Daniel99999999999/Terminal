@@ -142,14 +142,36 @@ int main(void)
     release(); hold(LCD_WIDTH/2,LCD_HEIGHT-16); CHECK(!touch_ui_visible());
     touch_ui_init(true); CHECK(!touch_ui_visible()); /* Persistent calibration restored. */
     CHECK(!touch_ui_paused() && touch_ui_cr_newline());
-    release(); hold(20,LCD_HEIGHT-3); CHECK(touch_ui_paused());
-    /* A lost ADC sample during one contact must not toggle PAUZA twice. */
-    gesture_sample(0,0,false); hold(20,LCD_HEIGHT-3); CHECK(touch_ui_paused());
-    hold(20,LCD_HEIGHT-3); CHECK(touch_ui_paused()); /* One action per press. */
     release(); hold(20,LCD_HEIGHT-3); CHECK(!touch_ui_paused());
-    release(); hold(LCD_WIDTH/2,LCD_HEIGHT-3); CHECK(!touch_ui_cr_newline());
-    hold(LCD_WIDTH/2,LCD_HEIGHT-3); CHECK(!touch_ui_cr_newline());
-    release(); hold(LCD_WIDTH/2,LCD_HEIGHT-3); CHECK(touch_ui_cr_newline());
+    /* A lost ADC sample during one contact must not toggle PAUZA twice. */
+    gesture_sample(0,0,false); hold(20,LCD_HEIGHT-3); CHECK(!touch_ui_paused());
+    release(); CHECK(touch_ui_paused()); /* One action, committed on release. */
+    hold(20,LCD_HEIGHT-3); release(); CHECK(!touch_ui_paused());
+    hold(LCD_WIDTH/2,LCD_HEIGHT-3); CHECK(touch_ui_cr_newline());
+    release(); CHECK(!touch_ui_cr_newline());
+    hold(LCD_WIDTH/2,LCD_HEIGHT-3); release(); CHECK(touch_ui_cr_newline());
+    /* Vertical drags can start anywhere, including all footer controls. */
+    gesture_sample(100,100,true); gesture_sample(100,132,true);
+    CHECK(touch_ui_paused() && touch_ui_take_scroll()==4 && touch_ui_take_scroll()==0);
+    gesture_sample(100,108,true); CHECK(touch_ui_take_scroll()==-3);
+    release(); CHECK(touch_ui_paused());
+    hold(20,LCD_HEIGHT-3); release(); CHECK(!touch_ui_paused());
+    const unsigned starts[]={20,LCD_WIDTH/2,LCD_WIDTH-20};
+    for(unsigned i=0;i<3;++i){
+        gesture_sample(starts[i],LCD_HEIGHT-3,true);
+        gesture_sample(starts[i],LCD_HEIGHT-43,true);
+        CHECK(touch_ui_take_scroll()==-5 && touch_ui_paused());
+        release(); CHECK(!touch_ui_visible() && touch_ui_cr_newline() && touch_ui_cal_progress()==0);
+        hold(20,LCD_HEIGHT-3); release(); CHECK(!touch_ui_paused());
+    }
+    /* An invalid ADC reading with IRQ LOW keeps one contact, even >80 ms. */
+    hold(LCD_WIDTH/2,LCD_HEIGHT-3);
+    xpt2046_sample_t contact_only={.contact=true};
+    for(unsigned i=0;i<10;++i){touch_ui_update(&contact_only,now_ms);now_ms+=20;}
+    CHECK(touch_ui_cr_newline());release();CHECK(!touch_ui_cr_newline());
+    hold(LCD_WIDTH/2,LCD_HEIGHT-3);release();CHECK(touch_ui_cr_newline());
+    gesture_sample(20,LCD_HEIGHT-3,true);gesture_sample(70,LCD_HEIGHT-3,true);
+    release();CHECK(!touch_ui_paused() && touch_ui_take_scroll()==0); /* Horizontal cancels tap. */
     /* Entering CAL from a held press elsewhere cannot arm it. */
     release(); hold(20,100); hold(LCD_WIDTH-20,LCD_HEIGHT-3);
     CHECK(touch_ui_cal_progress() == 0 && !touch_ui_visible());

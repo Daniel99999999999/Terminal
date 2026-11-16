@@ -6,6 +6,7 @@
 #define GPIO_PULLUP_DISABLE 0
 #define GPIO_PULLDOWN_DISABLE 0
 #define GPIO_INTR_DISABLE 0
+#define GPIO_INTR_ANYEDGE 3
 typedef struct {
     uint64_t pin_bit_mask;
     int mode, pull_up_en, pull_down_en, intr_type;
@@ -14,3 +15,5 @@ esp_err_t gpio_set_level(int pin, unsigned level);
 esp_err_t gpio_set_direction(int pin, int direction);
 esp_err_t gpio_config(const gpio_config_t *config);
 int gpio_get_level(int pin);
+esp_err_t gpio_install_isr_service(int flags);
+esp_err_t gpio_isr_handler_add(int pin, void (*handler)(void *), void *ctx);

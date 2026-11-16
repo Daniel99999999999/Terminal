@@ -1,5 +1,13 @@
 # Faktyczny stan projektu / handoff
 
+## 16.11.2026 — v0.3.9: audyt startu LCD, IRQ i przewijanie
+
+**Źródła przygotowane, bez uploadu.** [Raport z uzasadnieniem czasów, źródłami i obsługą gestów](LCD_INIT_AUDIT_v0.3.9.md). LCD:150 ms po SLPOUT, CS2/2, start i surowe rejestry przy1 MHz, obraz przy10 MHz, pełna zawartość powitania przed DISPON i150 ms stabilizacji. Dotyk: IRQ GPIO36 budzi zadanie, bez ADC/GPIO w spoczynku; współrzędne podczas kontaktu w zadaniu. Historia128 wierszy + nieruchoma kopia pauzy, gest pionowy także nad paskiem; przyciski PAUZA/CR po puszczeniu. Mapa NVS zachowana.
+
+Kompilacja PlatformIO/ESP-IDF6.0.1: internal SUCCESS3,772 s, touch SUCCESS53,564 s; pamięć statyczna13712/14352 B, Flash180291/208327 B. Dodatkowy bufor historii/kopii75360 B jest przydzielany dynamicznie tylko w touch, nie zawiera się w liczbie statycznego RAM. Pierwszy build touch wykrył ostrzeżenie możliwego obcięcia napisu offsetu; bufor powiększony, ponowny build poprawny. Programy testów host skompilowane; wykonanie regresji dopiero po publikacji źródeł, wyniki zostaną dopisane osobno.
+
+**Płytka nadal v0.3.8 touch. Na najnowsze polecenie użytkownika testy sprzętowe później: brak otwierania COM5/COM14, resetu lub wgrywania.** Odczyty LCD_REG są zaimplementowane, lecz nie uzyskano jeszcze fizycznych wartości. Nie deklarujemy rozpoznanego kontrolera ani usuniętej przyczyny wcześniejszych białych ekranów/pasów.
+
 ## 16.11.2026 — v0.3.8: zegar LCD SPI
 
 **Odbiór czterech aktualnych zdjęć: układ ekranów02–05 zgodny ze wzorcem.** Menu z wybranym Kopiuj/F5, okno z wybranym OK, następnie Anuluj i ekran końcowy mają właściwe pozycje, kompletne ramki i tła zakrywające treść pod oknami. Brak widocznych wcześniejszych pasów, pozostałości powitania ani ograniczenia do połowy wyświetlacza. Lokalny pasek PAUZA/CR=NL/CAL jest kompletny. Użytkownik potwierdził, że tła okien na żywo są szare; turkusowy wygląd zdjęć nie jest podstawą do zmiany palety. [Porównanie i zakres odbioru](LCD_SPI_v0.3.8.md#odbiór-aktualnych-zdjęć). Wgrana v0.3.8 /10 MHz pozostawiona bez zmian; bez kolejnych resetów, transmisji i nowych testów sprzętowych. Odbiór tego pokazu nie wyjaśnia przyczyny poprzednich nieprawidłowych startów.

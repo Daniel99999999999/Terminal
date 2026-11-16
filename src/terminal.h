@@ -44,6 +44,11 @@ typedef struct {
     uint32_t utf_value, utf_min;
     uint8_t utf_left;
     uint32_t revision, control_sequences;
+    /* Optional observer: primary full-screen upward scroll only; called
+     * before recycling a row. Cells remain owned by this terminal. */
+    void (*history_line)(void *ctx, const terminal_cell_t *cells);
+    void (*history_clear)(void *ctx);
+    void *history_ctx;
 } terminal_t;
 
 bool terminal_init(terminal_t *t, uint16_t cols, uint16_t rows,

@@ -8,4 +8,5 @@ bool touch_ui_paused(void);
 bool touch_ui_cr_newline(void);
 unsigned touch_ui_cal_progress(void);
 uint32_t touch_ui_revision(void);
+int touch_ui_take_scroll(void); /* Positive rows: older history. */
 bool touch_ui_render_row(unsigned row, uint16_t *pixels, size_t capacity);

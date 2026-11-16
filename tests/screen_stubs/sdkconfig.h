@@ -1,0 +1,2 @@
+#pragma once
+#define CONFIG_RETRO_DISPLAY_CR_AS_NEWLINE 1

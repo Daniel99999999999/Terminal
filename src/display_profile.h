@@ -34,7 +34,10 @@
 #define RETRO_TOUCH_SPI_HZ 1000000
 #endif
 #ifndef RETRO_TOUCH_REQUIRE_IRQ
-#define RETRO_TOUCH_REQUIRE_IRQ 0 /* Pressure polling; IRQ remains diagnostic. */
+#define RETRO_TOUCH_REQUIRE_IRQ 1 /* IRQ wakes screen task; no polling fallback. */
+#endif
+#ifndef RETRO_SCROLLBACK_LINES
+#define RETRO_SCROLLBACK_LINES 128 /* 60 KiB at 40 columns, plus frozen live page. */
 #endif
 /* GPIO4 drives an external backlight driver's EN, never the LED load itself.
  * Leave OFF until that driver, polarity and module LED supply are verified. */
@@ -57,8 +60,11 @@
 #if RETRO_TFT_BACKLIGHT_ACTIVE_LEVEL != 0 && RETRO_TFT_BACKLIGHT_ACTIVE_LEVEL != 1
 #error "Backlight active level must be 0 or 1"
 #endif
-#if RETRO_TOUCH_REQUIRE_IRQ != 0 && RETRO_TOUCH_REQUIRE_IRQ != 1
-#error "RETRO_TOUCH_REQUIRE_IRQ must be 0 or 1"
+#if RETRO_TOUCH_REQUIRE_IRQ != 1
+#error "Touch requires GPIO interrupts; polling fallback has been removed"
+#endif
+#if RETRO_SCROLLBACK_LINES < 1 || RETRO_SCROLLBACK_LINES > 1024
+#error "RETRO_SCROLLBACK_LINES must be 1..1024; check RAM budget before increasing"
 #endif
 #if RETRO_TFT_SPI_HZ < 100000 || RETRO_TFT_SPI_HZ > 40000000 || RETRO_TOUCH_SPI_HZ < 100000 || RETRO_TOUCH_SPI_HZ > 2000000
 #error "SPI clock outside supported profile range"

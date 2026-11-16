@@ -14,7 +14,8 @@ import subprocess
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--cc", help="C compiler (GCC, Clang, or bcc64x)")
-    parser.add_argument("--suite", choices=("all", "bt", "led", "hci", "terminal", "hc05", "raster", "profiles", "xpt", "calibration", "lcd"), default="all")
+    parser.add_argument("--suite", choices=("all", "bt", "led", "hci", "terminal", "hc05", "raster", "profiles", "xpt", "calibration", "lcd", "history", "screen"), default="all")
+    parser.add_argument("--compile-only", action="store_true", help="Build executables without running tests")
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
     output = root / ".pio" / "host-tests"
@@ -45,7 +46,7 @@ def main():
         if suite == "raster":
             command[command.index("-o"):command.index("-o")] = [
                 str(root / "src/terminal.c"), str(root / "src/ansi_parser.c")]
-        for operation in (command, [str(executable)]):
+        for operation in ([command] if args.compile_only else [command, [str(executable)]]):
             result = subprocess.run(operation, cwd=output, capture_output=True, text=True)
             log.append(result.stdout + result.stderr)
             print(log[-1], end="")
@@ -63,7 +64,7 @@ def main():
                        str(root / "tests/test_bt_hci_diag.c"),
                        str(source / "bt_hci_diag.c"), str(source / "bt_hci_scan.c"),
                        "-o", str(executable)]
-            for operation in (command, [str(executable)]):
+            for operation in ([command] if args.compile_only else [command, [str(executable)]]):
                 result = subprocess.run(operation, cwd=output, capture_output=True, text=True)
                 log.append(result.stdout + result.stderr)
                 print(log[-1], end="")
@@ -71,6 +72,13 @@ def main():
                     (output / "result.txt").write_text("".join(log), encoding="utf-8")
                     return result.returncode
     extra = []
+    if args.suite in ("all", "screen"):
+        extra.append(("screen_flow", [root / "tests/test_screen_flow.c", root / "src/terminal_history.c",
+            root / "src/terminal.c", root / "src/ansi_parser.c", root / "src/terminal_raster.c"],
+            ["-DRETRO_TFT_PROFILE=2", "-DRETRO_TOUCH_ENABLE=1"], [root / "tests/screen_stubs"]))
+    if args.suite in ("all", "history"):
+        extra.append(("terminal_history", [root / "tests/test_terminal_history.c",
+            root / "src/terminal_history.c", root / "src/terminal.c", root / "src/ansi_parser.c"], [], []))
     if args.suite in ("all", "lcd"):
         extra.append(("lcd_startup", [root / "tests/test_lcd_startup.c", root / "src/lcd_panel.c",
             root / "vendor/esp_lcd_ili9341/esp_lcd_ili9341.c", root / "src/terminal_raster.c",
@@ -84,7 +92,7 @@ def main():
                           [root / "tests/test_display_profile.c"],
                           ["-DRETRO_TFT_PROFILE=" + str(profile)], []))
     if args.suite in ("all", "xpt"):
-        for require_irq in (0, 1):
+        for require_irq in (1,):
             extra.append(("xpt2046_" + str(require_irq),
                           [root / "tests/test_xpt2046.c", root / "src/xpt2046.c"],
                           ["-DRETRO_TFT_PROFILE=2", "-DRETRO_TOUCH_ENABLE=1",
@@ -102,9 +110,10 @@ def main():
                    *[str(p) for p in sources], "-o", str(executable)]
         if name == "touch_calibration" and Path(compiler).stem.lower() != "bcc64x":
             command.append("-lm")
-        operations = [command, [str(executable)]]
-        if name == "lcd_startup":
-            operations.extend(([str(executable), "init_error"], [str(executable), "dma_timeout"]))
+        operations = [command] if args.compile_only else [command, [str(executable)]]
+        if name == "lcd_startup" and not args.compile_only:
+            operations.extend([str(executable), mode] for mode in
+                              ("init_error", "dma_timeout", "color_error", "read_error", "recreate_error"))
         for operation in operations:
             result = subprocess.run(operation, cwd=output, capture_output=True, text=True)
             log.append(result.stdout + result.stderr)
@@ -112,10 +121,11 @@ def main():
             if result.returncode:
                 (output / "result.txt").write_text("".join(log), encoding="utf-8")
                 return result.returncode
-    if args.suite in ("all", "profiles"):
+    if args.suite in ("all", "profiles") and not args.compile_only:
         for defines, message in ((["-DRETRO_TFT_PROFILE=3"], "Unknown RETRO_TFT_PROFILE"),
                                  (["-DRETRO_TFT_PROFILE=1", "-DRETRO_TOUCH_ENABLE=1"], "require the SPI pin plan"),
-                                 (["-DRETRO_TFT_ROTATION=4"], "must be 0..3")):
+                                 (["-DRETRO_TFT_ROTATION=4"], "must be 0..3"),
+                                 (["-DRETRO_TOUCH_REQUIRE_IRQ=0"], "polling fallback has been removed")):
             command = [compiler, *flags, "-std=c11", *defines, "-I" + str(root / "src"),
                        "-E", str(root / "tests/test_display_profile.c")]
             result = subprocess.run(command, cwd=output, capture_output=True, text=True)

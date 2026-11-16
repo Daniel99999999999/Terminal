@@ -31,6 +31,17 @@ static bool s_wait_release = true, s_down, s_holding, s_nvs, s_saved, s_retry;
 static bool s_paused, s_cr_newline;
 static unsigned s_gap_resets, s_motion_resets, s_peak_samples;
 static uint32_t s_report_at, s_reset_gap;
+static int s_scroll_rows, s_scroll_y, s_start_y, s_start_x, s_tap = -1;
+static bool s_dragging;
+
+static void finish_gesture(void)
+{
+    if (s_page == TERMINAL && !s_dragging) {
+        if (s_tap == 0) { s_paused = !s_paused; ++s_revision; }
+        if (s_tap == 1) { s_cr_newline = !s_cr_newline; ++s_revision; }
+    }
+    s_tap = -1; s_dragging = false;
+}
 
 /* A missing ADC sample is not immediately a new physical press. Bound the
  * grace period so distinct taps and a real release still terminate gestures. */
@@ -111,6 +122,7 @@ static bool save(void)
 
 static void restart(void)
 {
+    s_tap = -1; s_dragging = false; s_scroll_rows = 0;
     s_page = CALIBRATE; s_point = s_releases = s_progress = 0;
     clear_measurement();
     s_gap_resets = s_motion_resets = s_peak_samples = 0;
@@ -121,6 +133,7 @@ static void restart(void)
 
 void touch_ui_init(bool cr_newline)
 {
+    s_tap = -1; s_dragging = false; s_scroll_rows = 0;
     s_paused = false; s_cr_newline = cr_newline;
     s_down = s_holding = false; s_contact_at = s_hold_progress = 0;
     s_wait_release = true; s_releases = 0;
@@ -166,14 +179,14 @@ void touch_ui_update(const xpt2046_sample_t *sample, uint32_t now)
 {
     if (!sample) { return; }
     if (!s_wait_release && (s_page == TEST || s_page == TERMINAL)) {
-        if (s_down && now - s_contact_at >= CONTACT_GRACE_MS) {
-            s_down = false; stop_hold();
+        if (s_down && !sample->contact && now - s_contact_at >= CONTACT_GRACE_MS) {
+            finish_gesture(); s_down = false; stop_hold();
         }
         if (!sample->pressed && s_down) { return; } /* Keep a short gap. */
     }
     if (sample->pressed) { s_contact_at = now; }
     if (s_wait_release) {
-        if (sample->pressed) { s_releases = 0; s_down = true; }
+        if (sample->pressed || sample->contact) { s_releases = 0; s_down = true; }
         else if (++s_releases >= 3 && (!s_down || now - s_contact_at >= CONTACT_GRACE_MS)) {
             s_wait_release = false; s_releases = 0; clear_measurement(); s_down = false; ++s_revision;
         }
@@ -227,6 +240,24 @@ void touch_ui_update(const xpt2046_sample_t *sample, uint32_t now)
                 x >= LCD_WIDTH / 2 - 48 && x <= LCD_WIDTH / 2 + 48) {
                 s_page = TERMINAL; ++s_revision;
             } else if (s_page == TERMINAL) {
+                if (!s_down) {
+                    s_start_x = x; s_start_y = s_scroll_y = y; s_dragging = false;
+                    s_tap = y >= LCD_HEIGHT - 8 && x < LCD_WIDTH * 2 / 3 ? (x < LCD_WIDTH / 3 ? 0 : 1) : -1;
+                }
+                int dy = (int)y - s_start_y, dx = (int)x - s_start_x;
+                if (dy >= 24 || dy <= -24) { s_dragging = true; s_tap = -1; }
+                if (dx >= 24 || dx <= -24) { s_tap = -1; }
+                if (s_dragging) {
+                    stop_hold();
+                    int rows = ((int)y - s_scroll_y) / 8;
+                    s_scroll_y += rows * 8;
+                    s_scroll_rows += rows;
+                    if (s_scroll_rows > 1024) { s_scroll_rows = 1024; }
+                    if (s_scroll_rows < -1024) { s_scroll_rows = -1024; }
+                    s_paused = true;
+                    s_down = true;
+                    return;
+                }
                 bool start_cal = !s_down && x >= LCD_WIDTH * 2 / 3 && y >= LCD_HEIGHT - 8;
                 /* Hysteresis only after arming on the actual CAL button. */
                 bool stay_cal = s_holding && x + 8 >= LCD_WIDTH * 2 / 3 && y >= LCD_HEIGHT - 24;
@@ -244,11 +275,8 @@ void touch_ui_update(const xpt2046_sample_t *sample, uint32_t now)
                     }
                 } else {
                     stop_hold();
-                    if (!s_down && y >= LCD_HEIGHT - 8 && x < LCD_WIDTH * 2 / 3) {
-                        if (x < LCD_WIDTH / 3) { s_paused = !s_paused; }
-                        else { s_cr_newline = !s_cr_newline; }
-                        ++s_revision;
-                    }
+                    /* Footer taps commit only on release: a drag may start
+                     * anywhere, including PAUZA/CR/CAL, without firing a tap. */
                 }
             } else { stop_hold(); }
         } else { stop_hold(); }
@@ -261,6 +289,7 @@ bool touch_ui_paused(void) { return s_paused; }
 bool touch_ui_cr_newline(void) { return s_cr_newline; }
 unsigned touch_ui_cal_progress(void) { return s_hold_progress; }
 uint32_t touch_ui_revision(void) { return s_revision; }
+int touch_ui_take_scroll(void) { int rows = s_scroll_rows; s_scroll_rows = 0; return rows; }
 
 bool touch_ui_render_row(unsigned row, uint16_t *pixels, size_t capacity)
 {
@@ -301,6 +330,7 @@ void touch_ui_init(bool cr_newline) { (void)cr_newline; }
 void touch_ui_update(const xpt2046_sample_t *sample, uint32_t now) { (void)sample; (void)now; }
 bool touch_ui_visible(void) { return false; }
 bool touch_ui_paused(void) { return false; }
+int touch_ui_take_scroll(void) { return 0; }
 bool touch_ui_cr_newline(void) { return false; }
 unsigned touch_ui_cal_progress(void) { return 0; }
 uint32_t touch_ui_revision(void) { return 0; }

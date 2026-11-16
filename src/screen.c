@@ -6,6 +6,7 @@
 #include "app_memory.h"
 #include "lcd_panel.h"
 #include "terminal.h"
+#include "terminal_history.h"
 #include "terminal_raster.h"
 #include "xpt2046.h"
 #include "touch_ui.h"
@@ -33,6 +34,10 @@ static uint32_t s_parsed, s_crc, s_controls;
 static uint32_t s_cursor, s_view;
 static terminal_t s_terminal;
 static terminal_cell_t *s_previous;
+#if RETRO_TOUCH_ENABLE
+static terminal_history_t s_history;
+#endif
+static uint32_t s_history_offset, s_history_lines;
 
 void screen_stream_gap(void) { ++s_sequence; }
 
@@ -72,13 +77,15 @@ void screen_log(void)
 {
     uint32_t cursor = __atomic_load_n(&s_cursor, __ATOMIC_RELAXED);
     uint32_t view = __atomic_load_n(&s_view, __ATOMIC_RELAXED);
-    ESP_LOGI("SCREEN", "parsed=%lu drop=%lu controls=%lu CRC32=%08lx cursor=%u,%u view=%s CR=%s",
+    ESP_LOGI("SCREEN", "parsed=%lu drop=%lu controls=%lu CRC32=%08lx cursor=%u,%u view=%s CR=%s history=%lu/%lu",
         (unsigned long)__atomic_load_n(&s_parsed, __ATOMIC_RELAXED),
         (unsigned long)__atomic_load_n(&s_drops, __ATOMIC_RELAXED),
         (unsigned long)__atomic_load_n(&s_controls, __ATOMIC_RELAXED),
         (unsigned long)__atomic_load_n(&s_crc, __ATOMIC_RELAXED),
         (unsigned)(cursor & 0xffff), (unsigned)(cursor >> 16),
-        view & 1 ? "PAUSE" : "LIVE", view & 2 ? "NL" : "CR");
+        view & 1 ? "PAUSE" : "LIVE", view & 2 ? "NL" : "CR",
+        (unsigned long)__atomic_load_n(&s_history_offset, __ATOMIC_RELAXED),
+        (unsigned long)__atomic_load_n(&s_history_lines, __ATOMIC_RELAXED));
 }
 
 #if RETRO_TFT_PROFILE != RETRO_TFT_NONE
@@ -119,12 +126,16 @@ static esp_err_t status_line(bool paused, bool cr_newline)
     char text[COLS + 1];
 #if RETRO_TOUCH_ENABLE
     char cal[15];
+    char pause_text[24];
+    unsigned offset = terminal_history_offset(&s_history);
+    if (paused && offset) { snprintf(pause_text, sizeof(pause_text), "[WZNOW %u]", offset); }
+    else { snprintf(pause_text, sizeof(pause_text), "%s", paused ? "[WZNOW]" : "[PAUZA]"); }
     unsigned progress = touch_ui_cal_progress();
     if (progress > 100) { progress = 100; }
     if (progress) { snprintf(cal, sizeof(cal), "[CAL %u%%]", progress); }
     else { snprintf(cal, sizeof(cal), "[CAL:2s]"); }
     snprintf(text, sizeof(text), "%-13.13s%-13.13s%-14.14s",
-             paused ? "[WZNOW]" : "[PAUZA]", cr_newline ? "[CR=NL]" : "[CR=CR]", cal);
+             pause_text, cr_newline ? "[CR=NL]" : "[CR=CR]", cal);
 #else
     (void)paused;
     snprintf(text, sizeof(text), "HC05 115200 8N1 | CR=%s", cr_newline ? "NL" : "CR");
@@ -150,6 +161,7 @@ static void screen_task(void *arg)
     int64_t welcome_until = 0;
 #if RETRO_TFT_PROFILE != RETRO_TFT_NONE
     if (lcd_error == ESP_OK) { lcd_error = welcome(&sequence); }
+    if (lcd_error == ESP_OK) { lcd_error = lcd_panel_show(); }
     if (lcd_error == ESP_OK) {
         welcome_until = esp_timer_get_time() + 3000000;
         ESP_LOGI("TFT", "Welcome visible; hold 3000 ms");
@@ -197,17 +209,24 @@ static void screen_task(void *arg)
         if (touch && now - touch_log_at >= 2000000) {
             touch_log_at = now;
             xpt2046_stats_t stats; xpt2046_get_stats(&stats);
-            ESP_LOGI("TOUCH_RAW", "poll=%lu irq_low=%lu valid=%lu weak=%lu bounds=%lu end_high=%lu io=%lu raw=%u,%u z=%u z1=%u z2=%u irq=%u require_irq=%d",
+            ESP_LOGI("TOUCH_RAW", "mode=IRQ samples=%lu irq_low=%lu valid=%lu weak=%lu bounds=%lu end_high=%lu io=%lu raw=%u,%u z=%u z1=%u z2=%u irq=%u edges=%lu",
                 (unsigned long)stats.polls, (unsigned long)stats.irq_low, (unsigned long)stats.valid,
                 (unsigned long)stats.weak, (unsigned long)stats.bounds, (unsigned long)stats.end_high,
                 (unsigned long)stats.io_errors, stats.last_x, stats.last_y, stats.last_pressure,
-                stats.last_z1, stats.last_z2, stats.last_irq_high ? 1u : 0u, RETRO_TOUCH_REQUIRE_IRQ);
+                stats.last_z1, stats.last_z2, stats.last_irq_high ? 1u : 0u, (unsigned long)stats.irq_edges);
         }
         bool next_paused = touch && touch_ui_paused();
         if (next_paused != paused) {
             paused = next_paused; status_drawn = false;
-            if (!paused) { memset(s_previous, 0, COLS * ROWS * sizeof(*s_previous)); }
+            memset(s_previous, 0, COLS * ROWS * sizeof(*s_previous));
         }
+        terminal_history_pause(&s_history, &s_terminal, paused);
+        int scroll_rows = touch_ui_take_scroll();
+        if (paused && scroll_rows) { terminal_history_move(&s_history, &s_terminal, scroll_rows); }
+        unsigned offset = terminal_history_offset(&s_history);
+        if (offset != __atomic_load_n(&s_history_offset, __ATOMIC_RELAXED)) { status_drawn = false; }
+        __atomic_store_n(&s_history_offset, offset, __ATOMIC_RELAXED);
+        __atomic_store_n(&s_history_lines, (uint32_t)(s_history.total < s_history.capacity ? s_history.total : s_history.capacity), __ATOMIC_RELAXED);
         bool next_cr = touch ? touch_ui_cr_newline() : cr_newline;
         if (next_cr != cr_newline) {
             cr_newline = next_cr; terminal_set_cr_newline(&s_terminal, cr_newline); status_drawn = false;
@@ -235,12 +254,16 @@ static void screen_task(void *arg)
 #endif
         if (lcd_error == ESP_OK && !welcome_until && !overlay) {
             const terminal_cursor_t *cursor = &s_terminal.page[s_terminal.active].cursor;
-            bool phase = ((now / 500000) & 1) == 0;
-            for (unsigned budget = 0; !paused && budget < 4; ++budget) {
+            bool phase = paused || ((now / 500000) & 1) == 0;
+            for (unsigned budget = 0; budget < 4; ++budget) {
                 unsigned row = next_row++ % ROWS;
+#if RETRO_TOUCH_ENABLE
+                const terminal_cell_t *cells = terminal_history_row(&s_history, &s_terminal, row);
+#else
                 const terminal_cell_t *cells = terminal_cell(&s_terminal, 0, row);
+#endif
                 terminal_cell_t *old = s_previous + row * COLS;
-                bool visible = s_terminal.cursor_visible && cursor->y == row && phase;
+                bool visible = !paused && s_terminal.cursor_visible && cursor->y == row && phase;
                 bool blinking = false;
                 for (unsigned x = 0; x < COLS; ++x) { blinking |= (cells[x].fg >> 24) & TERM_BLINK; }
                 if (memcmp(old, cells, COLS * sizeof(*old)) == 0 && old_cursor[row] == visible &&
@@ -259,7 +282,14 @@ static void screen_task(void *arg)
         (void)welcome_until;
         (void)paused;
 #endif
+#if RETRO_TOUCH_ENABLE
+        /* Rendering/UART still progress every 10 ms; a GPIO IRQ wakes this
+         * task earlier. Idle iterations never start touch ADC transactions. */
+        if (touch) { (void)ulTaskNotifyTake(pdTRUE, pdMS_TO_TICKS(10)); }
+        else { vTaskDelay(pdMS_TO_TICKS(10)); }
+#else
         vTaskDelay(pdMS_TO_TICKS(10));
+#endif
     }
 }
 
@@ -272,6 +302,12 @@ esp_err_t screen_start(void)
     s_input = xQueueCreate(64, sizeof(input_t));
     if (!primary || !alternate || !s_previous || !s_input) { return ESP_ERR_NO_MEM; }
     if (!terminal_init(&s_terminal, COLS, ROWS, primary, alternate)) { return ESP_ERR_INVALID_ARG; }
+#if RETRO_TOUCH_ENABLE
+    terminal_cell_t *history = heap_caps_calloc(RETRO_SCROLLBACK_LINES * COLS, sizeof(*history), APP_MEMORY_CAPS);
+    terminal_cell_t *snapshot = heap_caps_calloc(count, sizeof(*snapshot), APP_MEMORY_CAPS);
+    if (!history || !snapshot) { return ESP_ERR_NO_MEM; }
+    if (!terminal_history_init(&s_history, &s_terminal, history, RETRO_SCROLLBACK_LINES, snapshot)) { return ESP_ERR_INVALID_ARG; }
+#endif
     terminal_set_cr_newline(&s_terminal, DEFAULT_CR_NEWLINE);
     app_health_beat(HEALTH_SCREEN);
     if (xTaskCreate(screen_task, "screen", 6144, NULL, 4, NULL) != pdPASS) { return ESP_ERR_NO_MEM; }

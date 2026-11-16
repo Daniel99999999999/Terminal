@@ -2,7 +2,9 @@
 
 Projekt terminala szeregowego DIY opartego na **ESP32-WROVER (ESP32-D0WD-V3)**. Natywny **ESP-IDF 6.0.1 w PlatformIO**, język **C**, bez Arduino.
 
-Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.3.8**. [Nowa implementacja i konfiguracja](docs/REWRITE_v0.2.0.md), [opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
+Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja źródeł: **v0.3.9**. [Nowa implementacja i konfiguracja](docs/REWRITE_v0.2.0.md), [opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
+
+**v0.3.9:** [audyt inicjalizacji LCD, diagnostyka rejestrów, IRQ dotyku i historia przewijania](docs/LCD_INIT_AUDIT_v0.3.9.md). Start/odczyty LCD przy1 MHz, obraz przy10 MHz; pełne powitanie przed DISPON i zapas150 ms po SLPOUT. Dotyk w profilu `esp32dev_touch` uruchamia przerwanie GPIO36; gest pionowy w dowolnym miejscu terminala przegląda128 wierszy historii, WZNOW wraca do LIVE. Wyniki programowe w STATUS. **Bez uploadu; płytka pozostaje na v0.3.8, próby fizyczne odłożone na polecenie użytkownika.**
 
 **v0.3.8:** [próba LCD przy10 MHz](docs/LCD_SPI_v0.3.8.md) po trwałych pasach w pokazie VT100, częstotliwość wybrana przez użytkownika. Poprzednie20 MHz przekraczało limit10 MHz wynikający z minimalnego okresu100 ns w specyfikacji ILI9341. Stan kompilacji i próby fizycznej w STATUS; brak potwierdzenia naprawy na podstawie samego modelu.
 

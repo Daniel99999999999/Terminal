@@ -1,5 +1,13 @@
 # Historia wersji
 
+## v0.3.9 — 16.11.2026
+
+- Audyt resetu, SLPOUT, DISPON i SPI z porównaniem ILI9341 DS, Espressif, Adafruit i TFT_eSPI. Po SLPOUT co najmniej150 ms do kolejnej komendy; dotychczasowy odstęp po resecie zachowany. CS setup/hold po2 cykle. Start i diagnostyka przy1 MHz, obraz nadal10 MHz. Parametry analogowe/kolory/orientacja zachowane, bez modyfikacji vendor/SDK.
+- Kompletne powitanie trafia do GRAM przed DISPON; po150 ms stabilizacji i diagnostyce rozpoczyna się właściwe3 s powitania. Logi surowych rejestrów D3/09/0A/0B/0C przed i po włączeniu obrazu; brak odpowiedzi nie jest uznawany za identyfikację kontrolera.
+- XPT2046: IRQ GPIO36 budzi zadanie ekranu, brak odpytywania GPIO/ADC w spoczynku. Odczyty pozycji trwają tylko podczas kontaktu; SPI poza ISR. Jedna seria startowa uzbraja PENIRQ. Tryb bez wymagania IRQ usunięty.
+- Historia128 wierszy i nieruchoma kopia strony podczas pauzy; pionowy gest od24 pikseli w dowolnym miejscu terminala. Ruch w dół pokazuje starsze wiersze, w górę nowsze. WZNOW wraca do bieżącego modelu. Odbiór trwa, nadmiar historii nadpisuje najstarsze wiersze. Ekran alternatywny i częściowe obszary VT nie trafiają do historii.
+- Stuknięcia PAUZA/CR wykonywane po puszczeniu; przeciągnięcie nie uruchamia przycisku. Zachowany CAL po2 s, kalibracja NVS oraz piny WROVER. Przygotowano regresje czasu inicjalizacji/błędów DMA, IRQ, gestów i bufora historii. Próby fizyczne odłożone, bez uploadu.
+
 ## v0.3.8 — 16.11.2026
 
 - Domyślny zegar LCD SPI obniżony z20 do10 MHz zgodnie z wyborem użytkownika. ILI9341 DS V1.05 §18.3.4 podaje minimalny okres zapisu100 ns (10 MHz); dotychczasowe20 MHz przekraczało tę specyfikację. Próba odpowiada na zdjęcie pokazujące trwałe pasy zamiast obrazu pokazu VT100.

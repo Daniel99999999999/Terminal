@@ -1,6 +1,6 @@
 idf_component_register(
     SRCS "main.c" "app_health.c" "uart_input.c" "screen.c" "lcd_panel.c"
-         "ansi_parser.c" "terminal.c" "terminal_raster.c" "xpt2046.c"
+         "ansi_parser.c" "terminal.c" "terminal_raster.c" "terminal_history.c" "xpt2046.c"
          "touch_calibration.c" "touch_ui.c"
          "../vendor/esp_lcd_ili9341/esp_lcd_ili9341.c"
     INCLUDE_DIRS "." "../vendor/esp_lcd_ili9341/include"

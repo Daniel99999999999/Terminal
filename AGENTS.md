@@ -1,5 +1,8 @@
 # Instrukcje dla Codex — ESP32 RetroTerminal
 
+
+**Aktualizacja16.11.2026 — v0.3.9:** przygotowane IRQ XPT2046 i przewijanie128 wierszy gestem, audyt czasów LCD i logi rejestrów. [Opis](docs/LCD_INIT_AUDIT_v0.3.9.md), faktyczne wyniki w STATUS. Zlecenie użytkownika: testy sprzętowe później; bez uploadu/resetu/otwierania COM5/COM14 w tej zmianie. Na płytce pozostaje v0.3.8 touch10 MHz, ostatnie cztery zdjęcia zaakceptowane, wcześniejsze bielenie/pasy nadal bez potwierdzonej przyczyny. GPIO36 IRQ nie ma wewnętrznego podciągania; odczyty współrzędnych podczas kontaktu odbywają się w zadaniu, nie ISR. Native BT/Wi-Fi wyłączone, UART1→TFT; UART2 nieaktywny, piny PSRAM16/17 zarezerwowane. Zachować kompilacja / commit+push / testy programowe / osobny commit wyników. Starsze stany niżej są historią.
+
 ## Najnowszy stan 15.11.2026 — v0.1.19
 
 **Korekta użytkownika:** LCD nigdy wcześniej nie był fizycznie odłączany. Dopiero po próbie v0.1.18 odłączono go naprawdę; bezpośredni COM5 potwierdził ten sam wyjątek przed app_main. Wariant headless oznacza wyłączenie obsługi w kodzie, nie odłączenie sprzętu. LCD SPI używa 18/23/19/21/22/27, SDK PSRAM CLK17/CS16, Flash6..11: nie ma wspólnego GPIO w kodzie. Sprawdzony Flash 5E4016 / 4 MB / 3,3 V, status przed QIO 0x100000 (QE=0). Próby noflash/bariera/QIO z v0.1.13–18 nie naprawiły bootloopu. v0.1.19 usuwa eksperymentalne wrappery i linker fragment oraz wraca do standardowego startu SDK, zachowując QIO/40 MHz do próby. Stare nakazy testowania usuniętego check_psram_iram.py dotyczą historycznych wersji. Powitanie TFT 3 s i test COM14 do UART1 pozostają zlecone; nie deklarować ich fizycznego działania, zanim aplikacja ruszy. W chwili tej aktualizacji LCD jest odłączony. Bieżący wynik w STATUS.

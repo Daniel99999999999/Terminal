@@ -1,5 +1,8 @@
 # Prompt startowy do Codex
 
+
+**Aktualizacja16.11.2026 — v0.3.9:** przygotowane IRQ XPT2046 i przewijanie128 wierszy gestem, audyt czasów LCD i logi rejestrów. [Opis](docs/LCD_INIT_AUDIT_v0.3.9.md), faktyczne wyniki w STATUS. Zlecenie użytkownika: testy sprzętowe później; bez uploadu/resetu/otwierania COM5/COM14 w tej zmianie. Na płytce pozostaje v0.3.8 touch10 MHz, ostatnie cztery zdjęcia zaakceptowane, wcześniejsze bielenie/pasy nadal bez potwierdzonej przyczyny. GPIO36 IRQ nie ma wewnętrznego podciągania; odczyty współrzędnych podczas kontaktu odbywają się w zadaniu, nie ISR. Native BT/Wi-Fi wyłączone, UART1→TFT; UART2 nieaktywny, piny PSRAM16/17 zarezerwowane. Zachować kompilacja / commit+push / testy programowe / osobny commit wyników. Starsze stany niżej są historią.
+
 **Aktualnie v0.1.19:** usuwa nieskuteczne eksperymentalne noflash/wrappery i wraca do startu PSRAM z SDK; Flash QIO/40 MHz, piny PSRAM16/17 bez zmian. LCD SPI18/23/19/21/22/27 bez konfliktu. Użytkownik wyjaśnił, że LCD wcześniej nigdy nie był odłączany; faktyczna próba bez LCD odbyła się dopiero na v0.1.18 i także dała bootloop. Teraz LCD odłączony. Powitanie3s i COM14→HC-05→UART1 nadal wymagają działającego startu. Sprawdzić STATUS, nie powtarzać starych tez o naprawie/noFlash ani wcześniejszej izolacji.
 
 **v0.1.14 / 15.11.2026:** powitanie TFT 3 s, UART nadal działa. Użytkownik zatwierdził upload/test COM5 i pseudo dane COM14. COM14 łączy HC-05 **na UART1 GPIO32/34**, więc nie jest wejściem modelu TFT (UART2 RX). [Opis](docs/WELCOME_UART_v0.1.14.md). Test fizyczny v0.1.13 nadal bootloop; v0.1.14 rozszerza noflash na kod wywołujący. Sprawdzić STATUS przed deklaracją działania.

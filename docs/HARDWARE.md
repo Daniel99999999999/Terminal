@@ -1,5 +1,7 @@
 # Sprzęt, bezpieczeństwo i nieustalone połączenia
 
+**Aktualizacja16.11.2026:** LCD SDO→GPIO19 fizycznie podłączony według użytkownika; ostatnie cztery zdjęcia pokazu v0.3.8 poprawne, tło okien szare na żywo. Dotyk XPT2046 podłączony, pełna kalibracja ukończona wcześniej i odtwarzana z NVS. Przygotowana v0.3.9 wymaga IRQ na GPIO36/SVP, bez wewnętrznego pull-up; poziomy i nowa obsługa IRQ do sprawdzenia później. Płytka pozostaje v0.3.8, niczego nie przepinano ani nie wgrywano podczas tej zmiany. [Audyt i plan](LCD_INIT_AUDIT_v0.3.9.md), bieżące wyniki w STATUS. Starsze stany poniżej są historyczne.
+
 **Aktualizacja 15.11.2026:** użytkownik potwierdził podłączenie XPT2046. Użyto planu SPI2: CLK14/DIN13/DO39/CS33/IRQ36, osobnego od SPI3 LCD. Wgrano v0.3.1 `esp32dev_touch`, inicjalizacja i wejście w kalibrację w logu poprawne. Faktyczne współrzędne i wynik pięciu punktów jeszcze weryfikujemy; [bieżące wyniki](STATUS.md). Poniższy zapis o niepodłączonym dotyku opisuje poprzedni etap.
 
 **XPT2046 — v0.3.0:** użytkownik wybrał dotyk i kalibrację, ale dotyk nie jest jeszcze podłączony. [Aktualny plan](TOUCH_CALIBRATION_v0.3.0.md): osobne SPI2, T_CLK14/T_DIN13/T_DO39/T_CS33/T_IRQ36, sygnały 3,3 V. GPIO16/17 pozostają zarezerwowane także przy działającym wariancie bez PSRAM. Nie uznawać samej kompilacji za potwierdzenie działania dotyku.
