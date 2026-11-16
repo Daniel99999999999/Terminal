@@ -4,7 +4,7 @@ Projekt terminala szeregowego DIY opartego na **ESP32-WROVER (ESP32-D0WD-V3)**. 
 
 Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja: **v0.3.7**. [Nowa implementacja i konfiguracja](docs/REWRITE_v0.2.0.md), [opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
 
-**v0.3.7:** [odstęp po resecie LCD przed Sleep Out](docs/LCD_RESET_v0.3.7.md). Po zgłoszeniu całkowicie białego ekranu po EN/RESET wykryto zbyt wczesne wyjście ze snu:10 ms zamiast wymaganego odstępu120 ms przy resecie aktywnego panelu. Dodano150 ms zapasu przed inicjalizacją; stan prób fizycznych w STATUS.
+**v0.3.7:** [odstęp po resecie LCD przed Sleep Out](docs/LCD_RESET_v0.3.7.md). Po zgłoszeniu całkowicie białego ekranu po EN/RESET wykryto zbyt wczesne wyjście ze snu:10 ms zamiast wymaganego odstępu120 ms przy resecie aktywnego panelu. Dodano150 ms zapasu przed inicjalizacją; **użytkownik potwierdził powitanie i terminal po3/3 ręcznych resetach EN**. Wyniki w STATUS.
 
 **v0.3.6:** [pomiar punktów przy rzeczywistym tempie odpytywania](docs/TOUCH_SAMPLING_v0.3.6.md). Tolerancja krótkich braków80 ms, odrębne liczniki resetu przez przerwę/ruch; nadal osiem poprawnych próbek i100 ms. W v0.3.5 użytkownik ukończył całą kalibrację, ale zgłosił zerowanie postępu. Stan wdrożenia w STATUS.
 
@@ -20,7 +20,7 @@ Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/
 
 **Próby VT100/ANSI v0.3.1:** [20 przypadków, transport bez strat, potwierdzone przez użytkownika kolory/ramka/miganie](docs/VT100_TEST_2026-11-15.md). Zakres obejmuje zaimplementowany podzbiór; odpowiedzi DSR/DA nadal brak. Firmware i jego numer pozostają bez zmian.
 
-**XPT2046 podłączony:** użytkownik ukończył kalibrację w v0.3.5. v0.3.6 touch wgrana, stabilny start i odtworzenie mapy z NVS potwierdzone zapisem COM5. Zerowanie pomiaru przy25 ms odtworzone i poprawione; wygoda ponownej kalibracji wymaga jeszcze odbioru fizycznego. [Wyniki](docs/STATUS.md). Przyczyna odrzuceń ADC i wcześniejszego bielenia LCD nieustalona; [historia prób LCD](docs/TFT_TOUCH_TEST_2026-11-15.md).
+**XPT2046 podłączony:** użytkownik ukończył kalibrację w v0.3.5. v0.3.7 touch wgrana, stabilny start i odtworzenie mapy z NVS potwierdzone zapisem COM5. Zerowanie pomiaru przy25 ms odtworzone i poprawione; wygoda ponownej kalibracji wymaga jeszcze odbioru fizycznego. [Wyniki](docs/STATUS.md). Przyczyna odrzuceń ADC i wcześniejszego bielenia LCD nieustalona; [historia prób LCD](docs/TFT_TOUCH_TEST_2026-11-15.md).
 
 **v0.3.0:** [XPT2046: kalibracja pięciu punktów, niezależna walidacja, test dotyku i zapis ustawień](docs/TOUCH_CALIBRATION_v0.3.0.md). Osobny profil `esp32dev_touch` używa działającego RAM wewnętrznego. Obrót LCD 3 zachowany. Wariant bez dotyku nadal dostępny; użytkownik dopiero podłączy dotyk według opisanego planu.
 

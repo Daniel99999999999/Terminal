@@ -21,3 +21,11 @@ Czeka wyłącznie zadanie ekranu podczas startu. UART1 uruchamia się osobno i o
 `python tests/run_host_tests.py --suite lcd` kompiluje rzeczywiste `lcd_panel.c` i niezmieniony sterownik upstream. Wirtualne GPIO rejestruje zbocze RESX, SPI rejestruje pierwszą komendę SLPOUT. Regresja wymaga co najmniej120 ms, nie samej obecności funkcji delay. Osobne uruchomienia sprawdzają błąd init i zachowanie bufora po timeout DMA. Test nie modeluje elektrycznych połączeń ani odpowiedzi fizycznego panelu.
 
 Kolejność: build internal/touch → commit/push → regresja i analiza → upload aplikacji z zachowaniem NVS → zapis startu oraz próba przyciskiem EN → osobny commit wyników. Przy teście trzeba potwierdzić widoczne powitanie i terminal po kilku resetach, bez zmiany okablowania. Przechwycenie wyłącznie poprawnych logów nie wystarcza do uznania białego ekranu za naprawiony. Jeśli objaw pozostanie, kolejne pomiary dotyczą fizycznego RESX/CS/DC/zasilania i osobnej próby wolniejszego SPI; nie zakładamy wyniku z góry.
+
+## Wynik po publikacji
+
+Źródła78db372 opublikowano po udanych buildach obu profili i przed testami. Regresja z rzeczywistym sterownikiem: poprzedni lcd_panel.c daje10 ms i oczekiwany błąd testu; poprawiony160 ms i PASS. Błąd init oraz timeout DMA również PASS; Cppcheck obu profili bez zgłoszeń. Upstream zgodny z manifestem.
+
+Wgrano v0.3.7 touch. Zapis uruchomiony przed resetem potwierdził nową wersję, dodatkowe150 ms i odtworzenie mapy NVS. Następnie uruchomiono osobny zapis bez automatycznych resetów. Użytkownik trzykrotnie nacisnął EN i potwierdził widoczne powitanie oraz terminal po każdym. Log zawiera dokładnie3 starty,3 odstępy150 ms,3 odtworzenia NVS i3 zakończenia powitania. [Wyniki](logs/2026-11-16_v0.3.7_validation.json). Zapis zakończony; COM5 wolny.
+
+Wynik3/3 potwierdza ustąpienie zgłoszonego objawu w tej próbie po usunięciu niezgodności czasowej. Nie wykonano pomiaru przebiegu RESX oscyloskopem; nie przypisujemy automatycznie tej samej przyczyny wszystkim historycznym przypadkom bielenia LCD ani bootloopowi PSRAM.

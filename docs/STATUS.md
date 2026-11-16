@@ -2,7 +2,11 @@
 
 ## 16.11.2026 — v0.3.7: biały LCD po EN/RESET
 
-Użytkownik doprecyzował: po przycisku EN/RESET ekran pozostaje całkowicie biały, bez widocznego powitania. Log v0.3.6 z READY/Welcome potwierdza wyłącznie działanie programu i API; nie fizycznego panelu. [Diagnoza i poprawka](LCD_RESET_v0.3.7.md): sprzętowy reset upstream kończy się10 ms po RESX HIGH, a init zaczyna od0x11 SLPOUT. Przy resecie działającego panelu dokumentacja wymaga120 ms przed tym poleceniem. Aplikacja dodaje150 ms po powrocie reset API. Związek z całym objawem nadal do potwierdzenia fizycznego. Build internal/touch SUCCESS (27,479/21,782 s); test hosta również skompilowany, jeszcze nie uruchamiany. Przed publikacją i regresjami; na ESP32 v0.3.6. Zapisana kalibracja zachowana.
+**Wynik po publikacji `78db372`:** [kontrole](logs/2026-11-16_v0.3.7_validation.json), [regresja LCD](logs/2026-11-16_v0.3.7_host_lcd.txt) PASS. Ten sam test z zachowanym lcd_panel.c v0.3.6 odtwarza błąd: RESX HIGH→SLPOUT10 ms; z poprawką160 ms. Testy błędu init i timeout DMA PASS, Cppcheck11 C obu profili bez zgłoszeń. Upstream zgodny z trzema hashami manifestu.
+
+Wgrano aplikację204528 B przez COM5, hash zweryfikowany, NVS zachowane. [Start15 s](logs/2026-11-16_v0.3.7_touch_boot.txt): ELF e32af1099…, zmierzony odstęp po reset API150 ms, kalibracja wczytana, powitanie3007 ms, bez kolejnych restartów. **[Trzy ręczne EN/RESET](logs/2026-11-16_v0.3.7_manual_en_watch.txt):3 starty,3 odstępy150 ms,3 odtworzenia NVS,3 zakończenia powitania; użytkownik potwierdził widoczne powitanie i terminal za każdym razem.** Objaw po EN usunięty w tej próbie3/3. Nie wykonywano pomiaru elektrycznego RESX ani nowych testów transmisji UART. Wgrana v0.3.7 touch; COM5 zamknięty, zapis zakończony, pliki BIN/ELF/map zachowane.
+
+Użytkownik doprecyzował: po przycisku EN/RESET ekran pozostaje całkowicie biały, bez widocznego powitania. Log v0.3.6 z READY/Welcome potwierdza wyłącznie działanie programu i API; nie fizycznego panelu. [Diagnoza i poprawka](LCD_RESET_v0.3.7.md): sprzętowy reset upstream kończy się10 ms po RESX HIGH, a init zaczyna od0x11 SLPOUT. Przy resecie działającego panelu dokumentacja wymaga120 ms przed tym poleceniem. Aplikacja dodaje150 ms po powrocie reset API. Build internal/touch SUCCESS (27,479/21,782 s). Wyniki po publikacji i potwierdzenie fizyczne opisano powyżej. Zapisana kalibracja zachowana.
 
 ## 16.11.2026 — v0.3.6: filtr pomiaru punktów przy40 Hz
 

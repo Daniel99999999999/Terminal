@@ -1,0 +1,66 @@
+{
+  "version": "0.3.7",
+  "source_commit": "78db372",
+  "source_published_before_tests": true,
+  "builds": {
+    "internal": "SUCCESS 27.479 s",
+    "touch": "SUCCESS 21.782 s"
+  },
+  "integrated_host_test": {
+    "components": "actual application lcd_panel.c plus unchanged upstream ILI9341 driver; virtual GPIO/SPI/time",
+    "v036_release_to_slpout_ms": 10,
+    "v036_expected_timing_failure": true,
+    "v037_release_to_slpout_ms": 160,
+    "required_min_ms": 120,
+    "normal_init_and_row": "PASS",
+    "init_error": "PASS",
+    "dma_timeout_buffer_retention": "PASS"
+  },
+  "cppcheck": {
+    "internal": "11 active C, exit 0, no diagnostics",
+    "touch": "11 active C, exit 0, no diagnostics"
+  },
+  "upstream_manifest": "All three Git blob SHA1 hashes verified; no changes to vendor driver",
+  "upload": {
+    "port": "COM5",
+    "app_offset": "0x10000",
+    "bytes": 204528,
+    "hash_verified": true,
+    "nvs_erased": false
+  },
+  "boot": {
+    "elf_sha_prefix": "e32af1099",
+    "duration_s": 15,
+    "unexpected_restarts": 0,
+    "post_api_guard_ms": 150,
+    "welcome_ms": 3007,
+    "existing_calibration_loaded": true
+  },
+  "manual_en_test": {
+    "reset_headers": 3,
+    "v037_starts": 3,
+    "reset_guards": 3,
+    "welcome_completed": 3,
+    "nvs_loaded": 3,
+    "panic": false,
+    "closed": true,
+    "user_confirmed": "Welcome and terminal visible after every one of three EN resets",
+    "post_api_guard_ms_each": [
+      150,
+      150,
+      150
+    ]
+  },
+  "scope_limit": "Three manual warm resets confirm the reported symptom cleared in this trial. No electrical waveform measurement; earlier white-screen episodes may have other causes.",
+  "uart_regression": "Not repeated; startup guard only in screen task, parser and UART unchanged",
+  "deployed_profile": "esp32dev_touch",
+  "console_state": "COM5 closed, no active recorder",
+  "artifacts": {
+    "internal.bin": "fd85704fd6a905ec18fc1c84fe2f865bc9ff19c8459d5f6e23c5be5486379ceb",
+    "internal.elf": "ae79e49e24d32f703fb64da398c9b9a6aaeb9e156c96dd1a5a210130b61f6f7d",
+    "internal.map": "c5ba0c48269d3602b827f480b745861bb2f1be5f25e8c4c0c5c718e56fcef1bb",
+    "touch.bin": "f3ea364c37c89959eb0a900c2f84d4d47713dd83ea4b33518dc7b0b090b9645b",
+    "touch.elf": "e32af1099997370728a97e5eb38ca382cc3913c4d928d9f8e479d3cbe0151d05",
+    "touch.map": "668427a5ae4007125d9d68ff86d57c14428089ef7d3c8d804a34d00da650e204"
+  }
+}
