@@ -55,7 +55,9 @@ Historia otrzymuje tylko wiersze wychodzące przez górę podczas przewijania ca
 
 ## Weryfikacja i późniejszy odbiór
 
-Stan kompilacji i testów po publikacji źródeł zapisujemy osobno w STATUS. Regresje obejmują rzeczywisty driver Espressif z wirtualnym SPI/czasem, brak odczytów dotyku w spoczynku, puszczenie/odrzucony ADC/timeout, gesty rozpoczynane nad każdym przyciskiem, kalibrację i przepełnienie historii. To nie potwierdza poziomów elektrycznych ani fizycznego obrazu.
+Źródła opublikowane przed testami: `e94b1b2`, końcowa korekta CAL `53dca96`. [Wyniki i hashe](logs/2026-11-16_v0.3.9_validation.json): oba buildy SUCCESS, testy host PASS, Cppcheck12 C w każdym profilu bez zgłoszeń. Regresje obejmują rzeczywisty driver Espressif z wirtualnym SPI/czasem, brak odczytów dotyku w spoczynku, puszczenie/odrzucony ADC/timeout, gesty rozpoczynane nad każdym przyciskiem, kalibrację i przepełnienie historii. screen.c:634 porównania pełnego obrazu przy30 zdarzeniach; model VT10020 przypadków, pokaz5 ramek/5800 komórek PASS. To nie potwierdza poziomów elektrycznych ani fizycznego obrazu.
+
+Dodatkowy test CAL pokazał konieczność rozróżnienia ciągłego kontaktu od ciągłej obserwacji pozycji. W końcowej wersji brak poprawnych współrzędnych przez80 ms anuluje przytrzymanie CAL nawet przy IRQ LOW lub pierwszej poprawnej próbce po długiej przerwie zadania. Kontakt/gest pozostaje ten sam aż do puszczenia; nie uzbrajamy nowego CAL tylko dlatego, że ADC wznowił pomiar. Regresja tej sytuacji i dotychczasowe testy gestów przechodzą.
 
 **W tej zmianie nie otwieramy COM5/COM14, nie resetujemy i nie wgrywamy firmware.** Płytka pozostaje na v0.3.8. Później: zapis COM5 rozpoczęty przed resetem, porównanie obu zestawów LCD_REG, kilka EN i zimnych startów, identyczny pokaz VT100, następnie gesty nad całą powierzchnią podczas ciągłego strumienia HC-05. Kryteria: powtarzalny obraz, brak strat UART, brak samoczynnych PAUZA/CR/CAL, brak próbek ADC w spoczynku, poprawny powrót LIVE i zachowana kalibracja.
 

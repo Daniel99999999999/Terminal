@@ -1,0 +1,84 @@
+Processing esp32dev_internal (platform: espressif32@7.0.1; board: esp32dev; framework: espidf)
+--------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/espressif32/esp32dev.html
+PLATFORM: Espressif 32 (7.0.1) > Espressif ESP32 Dev Module
+HARDWARE: ESP32 240MHz, 320KB RAM, 4MB Flash
+DEBUG: Current (cmsis-dap) External (cmsis-dap, esp-bridge, esp-prog, iot-bus-jtag, jlink, minimodule, olimex-arm-usb-ocd, olimex-arm-usb-ocd-h, olimex-arm-usb-tiny-h, olimex-jtag-tiny, tumpa)
+PACKAGES:
+ - framework-espidf @ 4.60001.0 (6.0.1)
+ - tool-cmake @ 3.30.2
+ - tool-esp-rom-elfs @ 0.0.1+20241011
+ - tool-esptoolpy @ 2.41100.0 (4.11.0)
+ - tool-idf @ 1.0.1
+ - tool-mconf @ 1.4060000.20190628 (406.0.0)
+ - tool-ninja @ 1.9.0
+ - tool-openocd-esp32 @ 2.1100.20220706 (11.0)
+ - tool-riscv32-esp-elf-gdb @ 11.2.0+20220823
+ - tool-xtensa-esp-elf-gdb @ 11.2.0+20230208
+ - toolchain-esp32ulp @ 1.23800.240113 (2.38.0)
+ - toolchain-xtensa-esp-elf @ 15.2.0+20251204
+Reading CMake configuration...
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Found 0 compatible libraries
+Scanning dependencies...
+No dependencies
+Building in release mode
+Compiling .pio\build\esp32dev_internal\src\touch_ui.c.o
+Linking .pio\build\esp32dev_internal\firmware.elf
+Retrieving maximum program size .pio\build\esp32dev_internal\firmware.elf
+Checking size .pio\build\esp32dev_internal\firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [          ]   4.2% (used 13712 bytes from 327680 bytes)
+Flash: [==        ]  17.2% (used 180291 bytes from 1048576 bytes)
+========================= [SUCCESS] Took 3.99 seconds =========================
+
+Processing esp32dev_touch (platform: espressif32@7.0.1; board: esp32dev; framework: espidf)
+--------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/espressif32/esp32dev.html
+PLATFORM: Espressif 32 (7.0.1) > Espressif ESP32 Dev Module
+HARDWARE: ESP32 240MHz, 320KB RAM, 4MB Flash
+DEBUG: Current (cmsis-dap) External (cmsis-dap, esp-bridge, esp-prog, iot-bus-jtag, jlink, minimodule, olimex-arm-usb-ocd, olimex-arm-usb-ocd-h, olimex-arm-usb-tiny-h, olimex-jtag-tiny, tumpa)
+PACKAGES:
+ - framework-espidf @ 4.60001.0 (6.0.1)
+ - tool-cmake @ 3.30.2
+ - tool-esp-rom-elfs @ 0.0.1+20241011
+ - tool-esptoolpy @ 2.41100.0 (4.11.0)
+ - tool-idf @ 1.0.1
+ - tool-mconf @ 1.4060000.20190628 (406.0.0)
+ - tool-ninja @ 1.9.0
+ - tool-openocd-esp32 @ 2.1100.20220706 (11.0)
+ - tool-riscv32-esp-elf-gdb @ 11.2.0+20220823
+ - tool-xtensa-esp-elf-gdb @ 11.2.0+20230208
+ - toolchain-esp32ulp @ 1.23800.240113 (2.38.0)
+ - toolchain-xtensa-esp-elf @ 15.2.0+20251204
+Reading CMake configuration...
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Found 0 compatible libraries
+Scanning dependencies...
+No dependencies
+Building in release mode
+Compiling .pio\build\esp32dev_touch\src\touch_ui.c.o
+Linking .pio\build\esp32dev_touch\firmware.elf
+Retrieving maximum program size .pio\build\esp32dev_touch\firmware.elf
+Checking size .pio\build\esp32dev_touch\firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [          ]   4.4% (used 14352 bytes from 327680 bytes)
+Flash: [==        ]  19.9% (used 208339 bytes from 1048576 bytes)
+Building .pio\build\esp32dev_touch\firmware.bin with action:
+  "$PYTHONEXE" "$OBJCOPY" --chip esp32 elf2image --flash_mode ${__get_board_flash_mode(__env__)} --flash_freq ${__get_board_f_image(__env__)} --flash_size 4MB --elf-sha256-offset 0xb0 -o $TARGET $SOURCES
+Building .pio\build\esp32dev_touch\firmware.bin
+esptool.py v4.11.0
+Creating esp32 image...
+Merged 3 ELF sections
+Successfully created esp32 image.
+========================= [SUCCESS] Took 4.68 seconds =========================
+
+Environment        Status    Duration
+-----------------  --------  ------------
+esp32dev_internal  SUCCESS   00:00:03.994
+esp32dev_touch     SUCCESS   00:00:04.681
+========================= 2 succeeded in 00:00:08.675 =========================

@@ -1,0 +1,43 @@
+Archived v0.1.10 regression (excluded from current firmware): bt
+Embarcadero C++ 7.70 for Win64/COFF Copyright (c) 2012-2024 Embarcadero Technologies, Inc.
+PASS: 16 Bluetooth TX/session regression scenarios
+Embarcadero C++ 7.70 for Win64/COFF Copyright (c) 2012-2024 Embarcadero Technologies, Inc.
+PASS: 11 LED timing/heartbeat regression scenarios
+Archived v0.1.10 regression (excluded from current firmware): hci
+Embarcadero C++ 7.70 for Win64/COFF Copyright (c) 2012-2024 Embarcadero Technologies, Inc.
+PASS: 13 HCI parser/FIFO/confirmation scenarios
+Embarcadero C++ 7.70 for Win64/COFF Copyright (c) 2012-2024 Embarcadero Technologies, Inc.
+terminal: 23 scenarios PASS (all split points, UTF-8, ANSI/VT100, colors, guards, adversarial stream)
+Embarcadero C++ 7.70 for Win64/COFF Copyright (c) 2012-2024 Embarcadero Technologies, Inc.
+PASS: HC-05 unknown/STATE/debounce/session/AT/wrap policies
+Embarcadero C++ 7.70 for Win64/COFF Copyright (c) 2012-2024 Embarcadero Technologies, Inc.
+PASS: RGB565/glyph orientation/attributes/cursor/Unicode fallback/raster bounds
+Embarcadero C++ 7.70 for Win64/COFF Copyright (c) 2012-2024 Embarcadero Technologies, Inc.
+PASS: HCI adapter forwarding, callback/return preservation, nonblocking observation and disable path
+Embarcadero C++ 7.70 for Win64/COFF Copyright (c) 2012-2024 Embarcadero Technologies, Inc.
+PASS: HCI adapter forwarding, callback/return preservation, nonblocking observation and disable path
+Embarcadero C++ 7.70 for Win64/COFF Copyright (c) 2012-2024 Embarcadero Technologies, Inc.
+PASS actual screen.c: 634 pixel comparisons, 381 writes, 30 events; SGR/CUP/CR/LF/scroll/alternate/cursor/blink/frozen pause/history gestures/overlay; virtual LCD, no physical test
+Embarcadero C++ 7.70 for Win64/COFF Copyright (c) 2012-2024 Embarcadero Technologies, Inc.
+PASS history: logical row rotation, colors/UTF8, ring wrap, paused RX/CUP, overflow clamp, full erase scroll, reset, ALT/regions excluded
+Embarcadero C++ 7.70 for Win64/COFF Copyright (c) 2012-2024 Embarcadero Technologies, Inc.
+PASS LCD: reset/wake/display guards, full GRAM before DISPON, 1 MHz raw reads, 10 MHz writes, CS margins, informational read errors
+PASS LCD: init/transport error propagated; display remains off
+PASS LCD: DMA timeout/queue error latched; no reuse, second byte swap or DISPON
+PASS LCD: DMA timeout/queue error latched; no reuse, second byte swap or DISPON
+PASS LCD: reset/wake/display guards, full GRAM before DISPON, 1 MHz raw reads, 10 MHz writes, CS margins, informational read errors
+PASS LCD: init/transport error propagated; display remains off
+Embarcadero C++ 7.70 for Win64/COFF Copyright (c) 2012-2024 Embarcadero Technologies, Inc.
+PASS: profile 0 GPIO ownership, PSRAM/UART/LED and pin capabilities
+Embarcadero C++ 7.70 for Win64/COFF Copyright (c) 2012-2024 Embarcadero Technologies, Inc.
+PASS: profile 1 GPIO ownership, PSRAM/UART/LED and pin capabilities
+Embarcadero C++ 7.70 for Win64/COFF Copyright (c) 2012-2024 Embarcadero Technologies, Inc.
+PASS: profile 2 GPIO ownership, PSRAM/UART/LED and pin capabilities
+Embarcadero C++ 7.70 for Win64/COFF Copyright (c) 2012-2024 Embarcadero Technologies, Inc.
+PASS XPT: IRQ wakes owner; no idle ADC/GPIO polling; held acquisition, self-edge suppression, weak/bounds/contact/release and retained timeout descriptor
+Embarcadero C++ 7.70 for Win64/COFF Copyright (c) 2012-2024 Embarcadero Technologies, Inc.
+PASS: affine/verification/NVS guards; calibration at 25/30 ms with missing polls; release/gap/moved-contact sum reset; debounced single-action taps; CAL missing samples/jitter/progress, real release/drag/gap cancellation; render bounds
+PASS: rejected invalid configuration -DRETRO_TFT_PROFILE=3
+PASS: rejected invalid configuration -DRETRO_TFT_PROFILE=1 -DRETRO_TOUCH_ENABLE=1
+PASS: rejected invalid configuration -DRETRO_TFT_ROTATION=4
+PASS: rejected invalid configuration -DRETRO_TOUCH_REQUIRE_IRQ=0

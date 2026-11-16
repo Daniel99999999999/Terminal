@@ -1,0 +1,115 @@
+{
+  "version": "0.3.9",
+  "source_commit": "53dca96",
+  "initial_source_commit": "e94b1b2",
+  "source_published_before_tests": true,
+  "upload_performed": false,
+  "serial_ports_opened": false,
+  "physical_tests_deferred_by_user": true,
+  "board_firmware_unchanged": "0.3.8 esp32dev_touch 10 MHz",
+  "lcd_controller_identified": false,
+  "root_cause_of_previous_white_strips_established": false,
+  "builds": {
+    "internal": {
+      "result": "SUCCESS",
+      "seconds": 3.994,
+      "static_ram_bytes": 13712,
+      "flash_bytes": 180291,
+      "idf": "6.0.1"
+    },
+    "touch": {
+      "result": "SUCCESS",
+      "seconds": 4.681,
+      "static_ram_bytes": 14352,
+      "flash_bytes": 208339,
+      "idf": "6.0.1"
+    }
+  },
+  "artifacts": {
+    "internal.bin": {
+      "bytes": 180720,
+      "sha256": "672987fc91b4b3e534cef22787d294bfcdd2ecf7ad2728c99cf4eab4d7d3ed93"
+    },
+    "internal.elf": {
+      "bytes": 3245948,
+      "sha256": "ff2f870adad9ecbae8ab991a88af87e0501a4ebb5a1e767947bbd318816e8817"
+    },
+    "internal.map": {
+      "bytes": 3665904,
+      "sha256": "57da5caa1e8bdddf3f16e491c12e636b2d41014ee5d9bed356468da923882cb9"
+    },
+    "touch.bin": {
+      "bytes": 208768,
+      "sha256": "950f55e1091790d63d2cd14cb4fae239726444334f8f598a2b5178b1d56a58f9"
+    },
+    "touch.elf": {
+      "bytes": 3896960,
+      "sha256": "06590579c6eef85644cc4f562eee5467db5217ba4fc1ff1d3e24cdf640381731"
+    },
+    "touch.map": {
+      "bytes": 3676963,
+      "sha256": "89f2fe7bd2fe69abe73e295ae732000e4d0189a02536533e8ef38171fa235149"
+    }
+  },
+  "cppcheck": {
+    "internal": {
+      "exit_code": 0,
+      "source_files": 12,
+      "diagnostics": "",
+      "platform": "unix32",
+      "touch_defines_added_to_export": false
+    },
+    "touch": {
+      "exit_code": 0,
+      "source_files": 12,
+      "diagnostics": "",
+      "platform": "unix32",
+      "touch_defines_added_to_export": true
+    }
+  },
+  "vendor_git_blob_sha1": {
+    "esp_lcd_ili9341.c": "99a0c320fcef93a040b085074f38f2b5bc51700d",
+    "include/esp_lcd_ili9341.h": "3d729bfc3540f4bc1041a125eb8243becdda8734",
+    "LICENSE": "d645695673349e3947e8e5ae42332d0ac3164cd7"
+  },
+  "host": {
+    "all_suites": "PASS after e94b1b2",
+    "final_calibration": "PASS after 53dca96; includes long IRQ-LOW ADC gap",
+    "screen_flow": {
+      "full_image_comparisons": 634,
+      "events": 30,
+      "strip_writes": 381,
+      "result": "PASS"
+    },
+    "history": "PASS ring, frozen snapshot, overflow, UTF8/colors, ALT/regions/reset",
+    "lcd": "PASS startup guards, full welcome before DISPON, 1 MHz reads, 10 MHz writes, CS2/2, init/recreate/color/read errors, DMA timeout",
+    "xpt": "PASS interrupt owner wake, zero idle GPIO/ADC reads, held sampling, own-edge suppression, invalid ADC/release/timeout",
+    "vt100_model_cases": 20,
+    "demo_model_frames": 5,
+    "demo_cells_checked": 5800,
+    "physical_pixels_or_electrical_signals_tested": false
+  },
+  "history_memory": {
+    "capacity_lines": 128,
+    "columns": 40,
+    "viewport_rows": 29,
+    "extra_dynamic_bytes": 75360,
+    "physical_free_heap_not_measured": true
+  },
+  "lcd": {
+    "write_hz": 10000000,
+    "init_read_hz": 1000000,
+    "cs_setup_cycles": 2,
+    "cs_hold_cycles": 2,
+    "post_slpout_min_ms": 150,
+    "post_dispon_min_ms": 150,
+    "startup_registers": [
+      "D3",
+      "09",
+      "0A",
+      "0B",
+      "0C"
+    ],
+    "physical_register_values_acquired": false
+  }
+}
