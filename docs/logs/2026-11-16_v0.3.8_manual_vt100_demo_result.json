@@ -1,0 +1,93 @@
+{
+  "passed": true,
+  "frames": [
+    {
+      "frame": "01_nc_panels",
+      "passed": true,
+      "sent_total": 2885,
+      "snapshot": {
+        "rx": 2885,
+        "errors": 0,
+        "rx_crc": 1879743197,
+        "parsed": 2885,
+        "drop": 0,
+        "controls": 238,
+        "parsed_crc": 1879743197
+      }
+    },
+    {
+      "frame": "02_nc_menu",
+      "passed": true,
+      "sent_total": 6716,
+      "snapshot": {
+        "rx": 6716,
+        "errors": 0,
+        "rx_crc": 2078922624,
+        "parsed": 6716,
+        "drop": 0,
+        "controls": 544,
+        "parsed_crc": 2078922624
+      }
+    },
+    {
+      "frame": "03_dialog_ok",
+      "passed": true,
+      "sent_total": 10489,
+      "snapshot": {
+        "rx": 10489,
+        "errors": 0,
+        "rx_crc": 761170303,
+        "parsed": 10489,
+        "drop": 0,
+        "controls": 842,
+        "parsed_crc": 761170303
+      }
+    },
+    {
+      "frame": "04_dialog_cancel",
+      "passed": true,
+      "sent_total": 14262,
+      "snapshot": {
+        "rx": 14262,
+        "errors": 0,
+        "rx_crc": 3495919850,
+        "parsed": 14262,
+        "drop": 0,
+        "controls": 1140,
+        "parsed_crc": 3495919850
+      }
+    },
+    {
+      "frame": "05_demo_done",
+      "passed": true,
+      "sent_total": 18037,
+      "snapshot": {
+        "rx": 18037,
+        "errors": 0,
+        "rx_crc": 3344325755,
+        "parsed": 18037,
+        "drop": 0,
+        "controls": 1438,
+        "parsed_crc": 3344325755
+      }
+    }
+  ],
+  "sent": 18037,
+  "baseline": {
+    "rx": 0,
+    "errors": 0,
+    "rx_crc": 0,
+    "parsed": 0,
+    "drop": 0,
+    "controls": 0,
+    "parsed_crc": 0
+  },
+  "seconds_per_frame": 7.0,
+  "unexpected_reply_bytes": 0,
+  "restart_or_panic": false,
+  "firmware_upload": false,
+  "physical_display": "User reported strips and remaining welcome text",
+  "source_commit": "081ca4c",
+  "lcd_spi_requested_hz": 10000000,
+  "payload_sha256": "34c519547598ada1c0c60a504273f04857f3f218da5c61eed13acea3146a6bc0"
+}

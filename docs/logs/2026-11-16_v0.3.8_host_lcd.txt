@@ -1,0 +1,7 @@
+Embarcadero C++ 7.70 for Win64/COFF Copyright (c) 2012-2024 Embarcadero Technologies, Inc.
+RESX release -> first SLPOUT: 160 ms (required >=120)
+PASS: warm-reset guard with actual upstream reset/init; completed row DMA and bounds
+RESX release -> first SLPOUT: 160 ms (required >=120)
+PASS: initialization error is propagated; display remains off
+RESX release -> first SLPOUT: 160 ms (required >=120)
+PASS: timeout retains buffer, blocks resubmission and second byte swap

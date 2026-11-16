@@ -1,0 +1,56 @@
+{
+  "version": "0.3.8",
+  "source_commit": "081ca4c",
+  "source_published_before_tests": true,
+  "lcd_spi_requested_hz": 10000000,
+  "builds": {
+    "internal": "SUCCESS 4.237 s",
+    "touch": "SUCCESS 5.580 s"
+  },
+  "host_lcd": "PASS reset guard, row transfer, init error, DMA timeout buffer retention",
+  "host_profiles": "PASS NONE/I80/SPI and invalid configuration guards",
+  "upload": {
+    "port": "COM5",
+    "app_offset": "0x10000",
+    "bytes": 204608,
+    "hash_verified": true,
+    "nvs_erased": false
+  },
+  "boot": {
+    "duration_s": 15,
+    "elf_sha_prefix": "f728ca03d",
+    "clock_log": "10000000 Hz",
+    "unexpected_restarts": 0,
+    "post_api_guard_ms": 150,
+    "welcome_ms": 3009,
+    "existing_calibration_loaded": true
+  },
+  "physical_display": "Initial white screen, then strips after recorded manual reset, then user confirmed working on last replay; new photos pending",
+  "artifacts": {
+    "internal.bin": "16e0e14ea223a412ac13391c277233ce3a9e1c2ff0255119b85d52070900ebad",
+    "internal.elf": "b6c76f1a1fa440773b320e6ca5789ee05de4e17814e5cfcb27fe657cfb161c24",
+    "internal.map": "33f4777d429655cce71a9eda9850d069502a0a01a6392ee8177ba097a5d760e8",
+    "touch.bin": "12704595e7931d7186cc5d2a3257e0e4fa398c437f08040771b0f710819801e5",
+    "touch.elf": "f728ca03d410a914b87c7955fbb67f9d9b863e9e901a82bb3f0a23d2657c59f0",
+    "touch.map": "c047967c31a212ebc9fb25ac42747cb7c4bfbbb35017ceefc0f2bb01eaa28d37"
+  },
+  "demo": {
+    "passed_transport": true,
+    "sent": 18037,
+    "controls": 1438,
+    "crc32": "c7565c7b",
+    "frames": 5,
+    "seconds_per_frame": 7,
+    "new_errors": 0,
+    "drops": 0,
+    "restarts": 0
+  },
+  "console_state": "COM5 and COM14 closed; final demo screen left on LCD",
+  "manual_reset_capture": "New boot observed and saved before replay; calibration loaded",
+  "replay_sessions": 3,
+  "continuity_note": "Between second and third captures RX reset from18037 to0; another startup occurred outside captured intervals, cause unestablished",
+  "lcd_sdo_gpio19_confirmed_by_user": true,
+  "lcd_register_readback_performed": false,
+  "root_cause_established": false,
+  "scope_limit": "10 MHz selected and working in latest user observation; changing frequency alone did not immediately clear all symptoms; exact physical display review pending"
+}
