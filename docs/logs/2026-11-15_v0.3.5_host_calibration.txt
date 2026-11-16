@@ -1,0 +1,2 @@
+Embarcadero C++ 7.70 for Win64/COFF Copyright (c) 2012-2024 Embarcadero Technologies, Inc.
+PASS: affine/verification/NVS guards; calibration sample loss; debounced single-action taps; CAL missing samples/jitter/progress, real release/drag/gap cancellation; render bounds

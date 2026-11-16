@@ -1,5 +1,13 @@
 # Faktyczny stan projektu / handoff
 
+## 16.11.2026 — v0.3.5: wyniki i zatrzymanie pomiaru punktu 3
+
+Wgrano `esp32dev_touch` po publikacji `744214b`/`a8ff5f4`. [Kontrole](logs/2026-11-16_v0.3.5_validation.json): oba buildy SUCCESS, test kalibracji/UI PASS po korekcie bramki puszczenia, Cppcheck 11 C w obu profilach bez zgłoszeń. [Start](logs/2026-11-15_v0.3.5_touch_boot.txt): ELF ac6963022…, brak restartu, powitanie3008 ms, mapa NVS wczytana. Pliki BIN/ELF/map zachowane lokalnie przed kolejnym buildem. UART nie był ponownie testowany w tej wersji.
+
+**Korekta zapisu:** po uploadzie przechwycono start, ale nie uruchomiono zapisu późniejszej ręcznej kalibracji. Użytkownik dostarczył własny log (zachowany lokalnie w `.pio/audit/v0305_user_calibration.txt`, niepublikowany). CAL przyjęty po2021 ms; zapisane punkty1 i2. Do końca logu nie ma punktu3 ani nowego zapisu NVS. Użytkownik opisuje postęp do70%, zerowanie i poprawę po przerwie; ewentualne późniejsze przejście nie jest zawarte w pliku.
+
+W oknie56399–64437 ms:324 odpytywania i324 IRQ LOW,206 przyjętych,105 weak i13 bounds, bez błędów API SPI. Tempo40,3 Hz. Filtr punktów nadal zeruje zbieranie po50 ms bez poprawnej próbki: jeden brak przy odstępie25 ms wystarcza do resetu przy następnej poprawnej. To wykryta wada tolerancji tempa; dwusekundowe migawki nie rozstrzygają przyczyny każdego konkretnego resetu. Krótkie braki <50 ms zachowują próbki, ale zmiana miejsca poza120 jednostek ADC lub dłuższa przerwa rozpoczyna nowy zbiór i zeruje sumy. Nie ma nieograniczonego dodawania czasów oddzielnych naciśnięć. **Użytkownik następnie potwierdził ukończenie całej kalibracji, punktu kontrolnego i GOTOWE.** Przerywanie zbierania próbek pozostaje zgłoszoną usterką wygody obsługi.
+
 ## 15.11.2026 — v0.3.5: gest CAL i pojedyncze zaniki próbek
 
 Korekta po pierwszej regresji UI: bramka wymaganego puszczenia jest oddzielna od obsługi gestu; po aktywnym kontakcie wymaga trzech braków i80 ms od ostatniej poprawnej próbki. Pierwszy test ujawnił brak przejścia GOTOWE przy wcześniejszym połączeniu obu bramek. Końcowy build obu wariantów SUCCESS; ponowny test dopiero po publikacji korekty. v0.3.5 nie była jeszcze wgrywana.

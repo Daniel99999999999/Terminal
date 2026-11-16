@@ -1,0 +1,55 @@
+{
+  "version": "0.3.5",
+  "source_commits": [
+    "744214b",
+    "a8ff5f4"
+  ],
+  "builds": {
+    "internal": "SUCCESS 4.876 s",
+    "touch": "SUCCESS 5.322 s"
+  },
+  "host_calibration": "PASS after release-gate correction; earlier GOTOWE assertion failed",
+  "cppcheck": {
+    "internal": "11 active C, exit 0, no diagnostics",
+    "touch": "11 active C, exit 0, no diagnostics"
+  },
+  "upload": "COM5 application only, 203968 bytes, hash verified, NVS preserved",
+  "boot": {
+    "elf_sha_prefix": "ac6963022",
+    "observed_s": 15,
+    "restarts": 0,
+    "welcome_ms": 3008,
+    "nvs_loaded": true
+  },
+  "recording_correction": "Boot capture was run; no live recording was started for the subsequent manual calibration. Evidence supplied by user.",
+  "physical_user_log": {
+    "cal_hold_ms": 2021,
+    "points_accepted": [
+      1,
+      2
+    ],
+    "next_target": 3,
+    "verification_or_save_in_log": false,
+    "user_confirmed_full_calibration_after_log": true,
+    "window_ms": [
+      56399,
+      64437
+    ],
+    "polls": 324,
+    "irq_low": 324,
+    "valid": 206,
+    "weak": 105,
+    "bounds": 13,
+    "spi_api_errors": 0
+  },
+  "uart_test": "Not repeated on v0.3.5; v0.3.4 transport results remain historical",
+  "deployed_profile": "esp32dev_touch",
+  "artifacts": {
+    "internal.bin": "3970c14edcf75825999cfd6f37f57994e9b1dc2584c799a669087176a92ac87f",
+    "internal.elf": "96e87b83a605d034346baa9bb4789f245021dd02d546bc2377ed1cc4d217993d",
+    "internal.map": "7bd6f51821ca302689ad3362bec74664c299655a6f942d565f1b4a1f2954aaf1",
+    "touch.bin": "1f4462f1b7ffe5edd65e17bf92b32e421f1a567af062cf841a486c44d87a4d94",
+    "touch.elf": "ac69630225d3ca98acba41e6d8022e9f0c52dfb598f7e181e5d5a0a28f988264",
+    "touch.map": "2cfa33501754c03dc2efa457c1de712ec4a2c3a71398f3fb0318bc3b4652d6fe"
+  }
+}
