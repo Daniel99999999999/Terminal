@@ -34,7 +34,32 @@ Sprawdzony lokalny transport ESP-IDF6.0.1 utrzymuje CS pomiędzy komendą odczyt
 
 Nowe odstępy w v0.3.9 nie wystarczyły w tej próbie. Brak podstaw do dalszego zwiększania opóźnień bez sprawdzenia sygnałów. Nie powracamy do diagnozy PSRAM ani wbudowanego BT; aplikacja działa w wariancie internal.
 
-Użytkownik został poproszony o napięcia **VCC, RESET i CS na złączu samego TFT względem jego GND, przy białym ekranie, bez kolejnego resetu**. Wyniki są potrzebne do rozdzielenia zasilania/stale aktywnego resetu od problemu transmisji; nie zgadujemy wartości pomiarów. Sam wysoki poziom RESET/CS nie potwierdzi impulsów ani poprawnych pakietów — przy prawidłowych napięciach potrzebne będą wiarygodne odczyty SPI lub przebiegi RESET/CS/DC/SCK/MOSI.
+Użytkownik podał pomiary przy białym ekranie, bez kolejnego resetu:
+
+| Miejsce pomiaru | Wynik użytkownika |
+|---|---:|
+| TFT VCC względem TFT GND |3,243 V |
+| TFT RESET względem TFT GND |3,258 V |
+| TFT CS względem TFT GND |−24,8 mV |
+| GPIO21 na ESP32 względem ESP32 GND |−24 mV |
+
+VCC i zwolniony RESET mają prawidłowy nominalny poziom3,3 V. Pomiar DC nie wyklucza krótkich spadków napięcia ani błędnego impulsu resetu. CS i GPIO21 są natomiast bliskie0 V. W naszym transporcie aktywne LOW jest zachowywane tylko pomiędzy komendą a parametrami/danymi; ostatnia część transferu nie ma KEEP_ACTIVE. Przy nieruchomym terminalu w spoczynku oczekujemy HIGH. Mruganie kursora nie powinno dawać średniej bliskiej0 V: pojedynczy pasek jest wysyłany tylko przez małą część czasu. To konkretna niezgodność stanu linii z oczekiwanym zachowaniem, lecz jeszcze nie dowód zwarcia albo błędu peryferium.
+
+Po wyłączeniu zasilania i odłączeniu wyłącznie przewodu GPIO21↔CS LCD użytkownik zmierzył nieobciążone GPIO21 po ponownym starcie/5 s: **0 V**. Zgłoszony niski poziom pozostaje więc również bez tego przewodu. Nie przesądza to o zwarciu, uszkodzeniu GPIO ani błędzie konfiguracji SPI.
+
+### Próba GPIO przez bootloader ROM
+
+Bez zapisu Flash i bez ładowania stuba przełączono ESP32 przez COM5 do bootloadera ROM. Zmieniono wyłącznie rejestry dotyczące GPIO21: zwykłe wyjście push-pull, HIGH, wejście padu włączone, bez pull-up/pull-down. Przewód LCD CS pozostaje odłączony według ostatniej procedury użytkownika. Readback: `GPIO_OUT[21]=1`, `GPIO_ENABLE[21]=1`, **`GPIO_IN[21]=1`**, matrix `0x500`, mux `0x2a00`, pin `0x0`. To odczyt cyfrowy wewnątrz ESP32 podczas próby, nie pomiar napięcia na złączu płytki.
+
+Pierwsza próba miała limit180 s i automatycznie zakończyła się resetem do aplikacji. Użytkownik odpowiedział „jakieś mili Volty”, ale nie zapisano momentu przyłożenia sondy względem końca próby. **Nie wolno zestawiać tych wyników jako pewnej równoczesnej sprzeczności.** Nie potwierdzają ani sprawności wyprowadzenia na PCB, ani jego uszkodzenia.
+
+Powtórka rozpoczęta16.11.2026 o20:35:00 UTC (21:35:00 CET) miała limit900 s, zapis czasu ustawienia i kontrolny odczyt wejścia co15 s. W trakcie aktywnego wymuszenia użytkownik podał **GPIO21=5 mV**, a następnie kontrolnie **3V3=3,257 V** z tą samą masą i zakresem napięcia stałego. Odczyt wejścia pozostawał HIGH przed i po zgłoszeniu5 mV. Tym razem nie zachodzi wcześniejsza niepewność, czy próba już wygasła. Nie jest to analogowy pomiar napięcia padu przez ESP32: zestawiamy cyfrowy readback z pomiarem użytkownika na wyprowadzeniu.
+
+O20:43:08 UTC wykonano dodatkowo LOW→HIGH. W obu stanach wejście podążyło za wyjściem: `requested/input/latch/enable=0/0/0/1`, następnie `1/1/1/1`. Miernik nie obserwował osobno tej krótkiej zmiany; potwierdza ona wyłącznie cyfrowe odczyty. Następnie poleceniem `reset` przywrócono start aplikacji i zamknięto COM5; zakończenie20:43:08,628 UTC potwierdzone przez helper. Flash nie był zapisywany.
+
+**Wniosek ograniczony:** zasilanie i odniesienie pomiaru zostały sprawdzone, ale pozostaje rozbieżność pomiędzy wejściem GPIO21 w układzie a napięciem zgłoszonym na wyprowadzeniu PCB. Kolejny krok to identyfikacja dokładnego punktu pomiarowego i sprawdzenie jego połączenia z GPIO21. Możliwe przyczyny obejmują inny punkt pomiarowy, kontakt sondy/złącza lub przerwę połączenia; nie wykluczono usterki sprzętowej. Nie rozpoznano uszkodzenia GPIO, błędu SPI ani przyczyny białego LCD. Nie zmieniać jeszcze pinoutu i nie wgrywać kolejnej poprawki na podstawie samej tej rozbieżności. Przewód LCD CS nadal odłączony według ostatniego potwierdzonego stanu.
+
+Lokalne artefakty: `.pio/audit/gpio21_rom_result.json` (pierwsza próba), `.pio/audit/gpio21_rom_result_v2.json` (powtórka). Firmware nadal v0.3.9; brak nowego uploadu.
 
 Sprawdzono również [potwierdzony przez autora M5GFX problem inicjalizacji padów w IDF6](https://github.com/m5stack/M5GFX/issues/192): tam SPI zachowywało wcześniejszy tryb open-drain po detekcji płytki. Nasz kod nie wykonuje tej detekcji i nie ustawia OD na SCK/MOSI, więc nie przenosimy tamtej diagnozy na tę płytkę. Zrzut rzeczywistej konfiguracji GPIO przed/po SPI byłby użyteczną diagnostyką ewentualnej kolejnej wersji.
 

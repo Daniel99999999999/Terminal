@@ -1,5 +1,11 @@
 # Faktyczny stan projektu / handoff
 
+## 16.11.2026 — pomiary CS przy białym ekranie
+
+Użytkownik: TFT VCC3,243 V, RESET3,258 V, CS−24,8 mV; bezpośrednio GPIO21 ESP32−24 mV. Po wyłączeniu zasilania, odłączeniu tylko przewodu GPIO21↔LCD CS i ponownym starcie/5 s: **GPIO21=0 V**. [Interpretacja i próba ROM](LCD_WHITE_v0.3.9.md). Przewód CS pozostaje odłączony; pozostałe połączenia bez zmian według ostatniej procedury. Nie przesądza to zwarcia ani winy kodu.
+
+Próba ROM bez zapisu Flash ustawiła GPIO21 push-pull HIGH, z włączonym wejściem padu; odczyt wejścia/latch/enable=1/1/1. Pierwsza próba180 s miała nieustaloną chwilę pomiaru względem resetu. **Powtórka20:35–20:43 UTC:** podczas aktywnego HIGH użytkownik zmierzył **GPIO21=5 mV**, kontrolnie **3V3=3,257 V** z tą samą masą. Cykliczny readback wejścia pozostawał1; końcowe krótkie LOW→HIGH dało wejście0→1. Rozbieżność wymaga identyfikacji punktu pomiarowego i połączenia wyprowadzenia z GPIO21; nie rozpoznano uszkodzenia GPIO ani przyczyny białego LCD. Helper zakończony poleceniem reset o20:43:08 UTC, COM5 zamknięty; brak nowego firmware, na Flash v0.3.9 touch. Przewód LCD CS pozostaje odłączony.
+
 ## 16.11.2026 — ponownie biały ekran, COM5 potwierdza v0.3.9
 
 **v0.3.9 touch jest już na płytce**, ELF06590579c… zgodny z przygotowanym artefaktem. W tej sesji nie wykonywano uploadu. Pasywny odczyt COM5 oraz jeden kontrolowany reset z aktywnym zapisem potwierdziły działającą aplikację internal RAM, zachowaną kalibrację, brak wyjątków/błędów DMA/UART w zapisie; użytkownik po tym resecie nadal widzi biały ekran. [Dane i ograniczenia diagnostyki](LCD_WHITE_v0.3.9.md): odczyty rejestrów niespójne, D3 najpierw zerowe, później54/54/2A/2A, pozostałe po DISPON powtarzają54/2A. Nie ma wiarygodnej identyfikacji kontrolera. Poprzednie oznaczenie wspólnego dummy-byte wymaga korekty dla SPI i nie uprawnia do automatycznej interpretacji bajtów. Nowe odstępy nie wystarczyły; nie uznajemy przyczyny za ustaloną.
