@@ -179,16 +179,13 @@ void touch_ui_update(const xpt2046_sample_t *sample, uint32_t now)
 {
     if (!sample) { return; }
     if (!s_wait_release && (s_page == TEST || s_page == TERMINAL)) {
-        if (s_down && !sample->contact && now - s_contact_at >= CONTACT_GRACE_MS) {
-            finish_gesture(); s_down = false; stop_hold();
+        if (s_down && now - s_contact_at >= CONTACT_GRACE_MS) {
+            /* Contact is not proof of position during a long ADC/task gap.
+             * Cancel CAL even when the next observation is already valid. */
+            stop_hold();
+            if (!sample->contact && !sample->pressed) { finish_gesture(); s_down = false; }
         }
-        if (!sample->pressed && s_down) {
-            /* IRQ LOW proves contact, not that the finger stayed on CAL.
-             * Keep gesture identity, but never count an unobserved position
-             * for an arbitrarily long calibration hold. */
-            if (now - s_contact_at >= CONTACT_GRACE_MS) { stop_hold(); }
-            return;
-        }
+        if (!sample->pressed && s_down) { return; } /* Preserve contact identity. */
     }
     if (sample->pressed) { s_contact_at = now; }
     if (s_wait_release) {
