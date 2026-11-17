@@ -68,6 +68,15 @@
     }
   },
   "preview": "2026-11-17_v0.3.12_toolbar_preview.png: actual C RGB565, three states, nearest-neighbor 3x; visually checked",
-  "physical": "not uploaded; physical toolbar and STATE transitions pending",
+  "physical": {
+    "result": "user confirmed graphical toolbar, blue dot, pause/scroll/resume, CAL progress and cancel, blue-gray-blue link indication",
+    "details": "2026-11-17_v0.3.12_panel_result.json",
+    "uart_bytes": 3821,
+    "uart_crc32": "ab3ebb7a",
+    "errors": 0,
+    "drops": 0,
+    "calibration": "restored from NVS after upload and manual reset",
+    "ports_closed": true
+  },
   "known_limit": "Paused anchor expires after old history fully overwritten; firmware history algorithm unchanged."
 }

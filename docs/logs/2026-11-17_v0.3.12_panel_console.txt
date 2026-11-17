@@ -1,0 +1,673 @@
+
+# CAPTURE SEGMENT 2026-11-17T20:59:36.179617+00:00
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0040,len:6272
+load:0x40078000,len:15848
+load:0x40080400,len:3920
+entry 0x4008063c
+I (27) boot: ESP-IDF 6.0.1 2nd stage bootloader
+I (27) boot: compile time Nov 17 2026 21:47:34
+I (28) boot: Multicore bootloader
+I (29) boot: chip revision: v3.0
+I (31) boot.esp32: SPI Speed      : 40MHz
+I (35) boot.esp32: SPI Mode       : DIO
+I (39) boot.esp32: SPI Flash Size : 4MB
+I (42) boot: Enabling RNG early entropy source...
+I (47) boot: Partition Table:
+I (49) boot: ## Label            Usage          Type ST Offset   Length
+I (56) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+I (62) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+I (69) boot:  2 factory          factory app      00 00 00010000 00100000
+I (75) boot: End of partition table
+I (79) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=0b6a0h ( 46752) map
+I (103) esp_image: segment 1: paddr=0001b6c8 vaddr=3ffb0000 size=02a10h ( 10768) load
+I (107) esp_image: segment 2: paddr=0001e0e0 vaddr=40080000 size=01f38h (  7992) load
+I (111) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=18250h ( 98896) map
+I (149) esp_image: segment 4: paddr=00038278 vaddr=40081f38 size=0afd0h ( 45008) load
+I (168) esp_image: segment 5: paddr=00043250 vaddr=50000000 size=00028h (    40) load
+I (175) boot: Loaded app from partition at offset 0x10000
+I (175) boot: Disabling RNG early entropy source...
+I (186) cpu_start: Multicore app
+I (194) cpu_start: GPIO 3 and 1 are used as console UART I/O pins
+I (194) cpu_start: Pro cpu start user code
+I (194) cpu_start: cpu freq: 160000000 Hz
+I (196) app_init: Application information:
+I (200) app_init: Project name:     Terminal
+I (204) app_init: App version:      0.3.12
+I (208) app_init: Compile time:     Nov 17 2026 21:52:07
+I (213) app_init: ELF file SHA256:  22ef38b44...
+I (217) app_init: ESP-IDF:          6.0.1
+I (221) efuse_init: Min chip rev:     v3.0
+I (225) efuse_init: Max chip rev:     v3.99 
+I (229) efuse_init: Chip rev:         v3.0
+I (233) heap_init: Initializing. RAM available for dynamic allocation:
+I (239) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM
+I (244) heap_init: At 3FFB3818 len 0002C7E8 (177 KiB): DRAM
+I (249) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+I (255) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+I (260) heap_init: At 4008CF08 len 000130F8 (76 KiB): IRAM
+I (266) spi_flash: detected chip: generic
+I (269) spi_flash: flash io: dio
+I (273) main_task: Started on CPU0
+I (276) main_task: Calling app_main()
+I (278) START: LED OK
+I (280) START: RetroTerminal v0.3.12 stage=2; native BT/Wi-Fi OFF; PSRAM pins16/17 reserved
+I (289) START: internal RAM heap=317592 bytes; 16 KiB check=ESP_OK
+I (294) START: internal RAM OK
+I (299) TFT: SPI3 requested clock=1000000 Hz; CS=GPIO4 setup/hold=2 cycles
+I (303) ili9341: LCD panel create success, version: 2.1.0
+I (308) SCREEN: ANSI/VT100 40x27; internal RAM cells; profile=2 touch=1
+I (315) START: screen task OK
+I (318) uart: ESP_INTR_FLAG_IRAM flag not set while CONFIG_UART_ISR_IN_IRAM is enabled, flag updated
+I (326) uart: queue free spaces: 32
+I (330) HC05: TX32/RX34 115200 8N1; HC-05 input -> TFT; UART2 untouched
+I (336) START: HC-05 UART1 OK
+I (338) START: READY stage=2
+I (478) TFT: LCD reset GPIO27; init guard=150 ms (minimum 120 ms); panel response unverified
+I (478) TFT: SLPOUT guard >=150 ms before next command/data
+I (632) LCD_REG: configured/off cmd=d3 n=4 status=ESP_OK raw=00 00 00 00 00 (dummy included; ID unverified)
+I (632) LCD_REG: configured/off cmd=09 n=5 status=ESP_OK raw=fa 29 80 00 00 (dummy included; ID unverified)
+I (640) LCD_REG: configured/off cmd=0a n=2 status=ESP_OK raw=98 00 00 00 00 (dummy included; ID unverified)
+I (649) LCD_REG: configured/off cmd=0b n=2 status=ESP_OK raw=e8 00 00 00 00 (dummy included; ID unverified)
+I (659) LCD_REG: configured/off cmd=0c n=2 status=ESP_OK raw=05 ff 00 00 00 (dummy included; ID unverified)
+I (669) TFT: SPI3 requested clock=10000000 Hz; CS=GPIO4 setup/hold=2 cycles
+I (978) TFT: DISPON settled >=150 ms; complete welcome frame submitted
+I (978) TFT: SPI3 requested clock=1000000 Hz; CS=GPIO4 setup/hold=2 cycles
+I (979) LCD_REG: display/on cmd=d3 n=4 status=ESP_OK raw=00 00 00 00 00 (dummy included; ID unverified)
+I (988) LCD_REG: display/on cmd=09 n=5 status=ESP_OK raw=fa 29 82 00 00 (dummy included; ID unverified)
+I (998) LCD_REG: display/on cmd=0a n=2 status=ESP_OK raw=9c 00 00 00 00 (dummy included; ID unverified)
+I (1007) LCD_REG: display/on cmd=0b n=2 status=ESP_OK raw=e8 00 00 00 00 (dummy included; ID unverified)
+I (1016) LCD_REG: display/on cmd=0c n=2 status=ESP_OK raw=05 ff 00 00 00 (dummy included; ID unverified)
+I (1025) TFT: SPI3 requested clock=10000000 Hz; CS=GPIO4 setup/hold=2 cycles
+I (1032) TFT: Welcome visible; hold 3000 ms
+I (1073) TOUCH: Calibration loaded for rotation=3 320x240
+I (2274) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=0 edges=0
+I (4034) TFT: Welcome complete; opening terminal
+I (4281) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (5276) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (5276) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (5276) HC05: STATE GPIO35 connected=1
+I (5279) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (6282) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (8283) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (10284) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (10288) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (10290) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (10295) HC05: STATE GPIO35 connected=1
+I (10299) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (12285) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (14286) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (15308) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (15308) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (15308) HC05: STATE GPIO35 connected=1
+I (15311) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (16287) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (18288) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (20289) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (20320) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (20320) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (20320) HC05: STATE GPIO35 connected=1
+I (20323) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (22290) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (24291) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (25332) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (25332) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (25332) HC05: STATE GPIO35 connected=0
+I (25335) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (26294) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (28306) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (30306) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (30344) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (30344) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (30344) HC05: STATE GPIO35 connected=1
+I (30347) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (32309) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (34315) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (35356) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (35356) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (35356) HC05: STATE GPIO35 connected=0
+I (35359) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (36318) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (38324) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (40330) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (40368) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (40368) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (40368) HC05: STATE GPIO35 connected=1
+I (40371) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (42332) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (44333) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (45380) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (45380) HC05: RX=1992 errors=0 CRC32=f304d0d2; UART2 inactive
+I (45380) HC05: STATE GPIO35 connected=1
+I (45383) SCREEN: parsed=1992 drop=0 controls=2 CRC32=f304d0d2 cursor=0,26 view=LIVE CR=NL history=0/38
+I (46334) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (48334) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (50335) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (50393) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (50393) HC05: RX=2209 errors=0 CRC32=3bf4a8be; UART2 inactive
+I (50393) HC05: STATE GPIO35 connected=1
+I (50396) SCREEN: parsed=2209 drop=0 controls=2 CRC32=3bf4a8be cursor=0,26 view=LIVE CR=NL history=0/45
+I (52336) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (54346) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (54808) TOUCH: UI press raw=1569,1409 screen=90,145 tap=0
+I (55066) TOUCH: Tap release -> PAUSE
+I (55406) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (55406) HC05: RX=2426 errors=0 CRC32=378f1c02; UART2 inactive
+I (55406) HC05: STATE GPIO35 connected=1
+I (55409) SCREEN: parsed=2426 drop=0 controls=2 CRC32=378f1c02 cursor=0,26 view=PAUSE CR=NL history=0/52
+I (56353) TOUCH_RAW: mode=IRQ samples=18 irq_low=18 valid=17 weak=0 bounds=0 end_high=1 io=0 raw=1579,1427 z=1819 z1=495 z2=2771 irq=1 edges=4
+I (58198) TOUCH: UI press raw=1402,1762 screen=122,155 tap=-1
+I (58354) TOUCH_RAW: mode=IRQ samples=22 irq_low=22 valid=21 weak=0 bounds=0 end_high=1 io=0 raw=1351,1755 z=815 z1=211 z2=3491 irq=1 edges=8
+I (58896) TOUCH: UI press raw=1349,1751 screen=121,159 tap=-1
+I (59782) TOUCH: UI press raw=2739,1539 screen=103,69 tap=-1
+I (60368) TOUCH_RAW: mode=IRQ samples=89 irq_low=89 valid=85 weak=1 bounds=0 end_high=3 io=0 raw=1205,1448 z=1626 z1=348 z2=2817 irq=1 edges=89
+I (60419) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (60419) HC05: RX=2612 errors=0 CRC32=10c8086d; UART2 inactive
+I (60419) HC05: STATE GPIO35 connected=1
+I (60422) SCREEN: parsed=2612 drop=0 controls=2 CRC32=10c8086d cursor=0,26 view=PAUSE CR=NL history=12/58
+I (60625) TOUCH: UI press raw=2984,1648 screen=113,53 tap=-1
+I (62369) TOUCH_RAW: mode=IRQ samples=100 irq_low=100 valid=95 weak=1 bounds=0 end_high=4 io=0 raw=1713,1593 z=1614 z1=464 z2=2945 irq=1 edges=249
+I (63670) TOUCH: UI press raw=307,1232 screen=73,226 tap=1
+I (63899) TOUCH: Tap release -> LIVE
+I (64376) TOUCH_RAW: mode=IRQ samples=115 irq_low=115 valid=109 weak=1 bounds=0 end_high=5 io=0 raw=303,1195 z=1254 z1=70 z2=2911 irq=1 edges=252
+I (65432) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (65432) HC05: RX=2829 errors=0 CRC32=fb240d84; UART2 inactive
+I (65432) HC05: STATE GPIO35 connected=1
+I (65435) SCREEN: parsed=2829 drop=0 controls=2 CRC32=fb240d84 cursor=0,26 view=LIVE CR=NL history=0/65
+I (66378) TOUCH_RAW: mode=IRQ samples=115 irq_low=115 valid=109 weak=1 bounds=0 end_high=5 io=0 raw=303,1195 z=1254 z1=70 z2=2911 irq=1 edges=252
+I (68395) TOUCH_RAW: mode=IRQ samples=115 irq_low=115 valid=109 weak=1 bounds=0 end_high=5 io=0 raw=303,1195 z=1254 z1=70 z2=2911 irq=1 edges=252
+I (70402) TOUCH_RAW: mode=IRQ samples=115 irq_low=115 valid=109 weak=1 bounds=0 end_high=5 io=0 raw=303,1195 z=1254 z1=70 z2=2911 irq=1 edges=252
+I (70445) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (70445) HC05: RX=3015 errors=0 CRC32=6cf73ea1; UART2 inactive
+I (70445) HC05: STATE GPIO35 connected=1
+I (70448) SCREEN: parsed=3015 drop=0 controls=2 CRC32=6cf73ea1 cursor=0,26 view=LIVE CR=NL history=0/71
+I (72404) TOUCH_RAW: mode=IRQ samples=115 irq_low=115 valid=109 weak=1 bounds=0 end_high=5 io=0 raw=303,1195 z=1254 z1=70 z2=2911 irq=1 edges=252
+I (74406) TOUCH_RAW: mode=IRQ samples=115 irq_low=115 valid=109 weak=1 bounds=0 end_high=5 io=0 raw=303,1195 z=1254 z1=70 z2=2911 irq=1 edges=252
+I (75458) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (75458) HC05: RX=3232 errors=0 CRC32=611bc520; UART2 inactive
+I (75458) HC05: STATE GPIO35 connected=1
+I (75461) SCREEN: parsed=3232 drop=0 controls=2 CRC32=611bc520 cursor=0,26 view=LIVE CR=NL history=0/78
+I (76408) TOUCH_RAW: mode=IRQ samples=115 irq_low=115 valid=109 weak=1 bounds=0 end_high=5 io=0 raw=303,1195 z=1254 z1=70 z2=2911 irq=1 edges=252
+I (78410) TOUCH_RAW: mode=IRQ samples=115 irq_low=115 valid=109 weak=1 bounds=0 end_high=5 io=0 raw=303,1195 z=1254 z1=70 z2=2911 irq=1 edges=252
+I (80417) TOUCH_RAW: mode=IRQ samples=115 irq_low=115 valid=109 weak=1 bounds=0 end_high=5 io=0 raw=303,1195 z=1254 z1=70 z2=2911 irq=1 edges=252
+I (80471) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (80471) HC05: RX=3449 errors=0 CRC32=aac511e1; UART2 inactive
+I (80471) HC05: STATE GPIO35 connected=1
+I (80474) SCREEN: parsed=3449 drop=0 controls=2 CRC32=aac511e1 cursor=0,26 view=LIVE CR=NL history=0/85
+I (82424) TOUCH_RAW: mode=IRQ samples=115 irq_low=115 valid=109 weak=1 bounds=0 end_high=5 io=0 raw=303,1195 z=1254 z1=70 z2=2911 irq=1 edges=252
+I (84426) TOUCH_RAW: mode=IRQ samples=115 irq_low=115 valid=109 weak=1 bounds=0 end_high=5 io=0 raw=303,1195 z=1254 z1=70 z2=2911 irq=1 edges=252
+I (85484) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (85484) HC05: RX=3635 errors=0 CRC32=b89f5f5d; UART2 inactive
+I (85484) HC05: STATE GPIO35 connected=1
+I (85487) SCREEN: parsed=3635 drop=0 controls=2 CRC32=b89f5f5d cursor=0,26 view=LIVE CR=NL history=0/91
+I (86428) TOUCH_RAW: mode=IRQ samples=115 irq_low=115 valid=109 weak=1 bounds=0 end_high=5 io=0 raw=303,1195 z=1254 z1=70 z2=2911 irq=1 edges=252
+I (88430) TOUCH_RAW: mode=IRQ samples=115 irq_low=115 valid=109 weak=1 bounds=0 end_high=5 io=0 raw=303,1195 z=1254 z1=70 z2=2911 irq=1 edges=252
+I (90432) TOUCH_RAW: mode=IRQ samples=115 irq_low=115 valid=109 weak=1 bounds=0 end_high=5 io=0 raw=303,1195 z=1254 z1=70 z2=2911 irq=1 edges=252
+I (90497) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (90497) HC05: RX=3821 errors=0 CRC32=ab3ebb7a; UART2 inactive
+I (90497) HC05: STATE GPIO35 connected=1
+I (90500) SCREEN: parsed=3821 drop=0 controls=2 CRC32=ab3ebb7a cursor=0,26 view=LIVE CR=NL history=0/97
+I (92434) TOUCH_RAW: mode=IRQ samples=115 irq_low=115 valid=109 weak=1 bounds=0 end_high=5 io=0 raw=303,1195 z=1254 z1=70 z2=2911 irq=1 edges=252
+I (94436) TOUCH_RAW: mode=IRQ samples=115 irq_low=115 valid=109 weak=1 bounds=0 end_high=5 io=0 raw=303,1195 z=1254 z1=70 z2=2911 irq=1 edges=252
+I (95510) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (95510) HC05: RX=3821 errors=0 CRC32=ab3ebb7a; UART2 inactive
+I (95510) HC05: STATE GPIO35 connected=1
+I (95513) SCREEN: parsed=3821 drop=0 controls=2 CRC32=ab3ebb7a cursor=0,26 view=LIVE CR=NL history=0/97
+I (96438) TOUCH_RAW: mode=IRQ samples=115 irq_low=115 valid=109 weak=1 bounds=0 end_high=5 io=0 raw=303,1195 z=1254 z1=70 z2=2911 irq=1 edges=252
+I (98440) TOUCH_RAW: mode=IRQ samples=115 irq_low=115 valid=109 weak=1 bounds=0 end_high=5 io=0 raw=303,1195 z=1254 z1=70 z2=2911 irq=1 edges=252
+I (100442) TOUCH_RAW: mode=IRQ samples=115 irq_low=115 valid=109 weak=1 bounds=0 end_high=5 io=0 raw=303,1195 z=1254 z1=70 z2=2911 irq=1 edges=252
+I (100523) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (100523) HC05: RX=3821 errors=0 CRC32=ab3ebb7a; UART2 inactive
+I (100523) HC05: STATE GPIO35 connected=1
+I (100527) SCREEN: parsed=3821 drop=0 controls=2 CRC32=ab3ebb7a cursor=0,26 view=LIVE CR=NL history=0/97
+I (102444) TOUCH_RAW: mode=IRQ samples=115 irq_low=115 valid=109 weak=1 bounds=0 end_high=5 io=0 raw=303,1195 z=1254 z1=70 z2=2911 irq=1 edges=252
+I (104446) TOUCH_RAW: mode=IRQ samples=115 irq_low=115 valid=109 weak=1 bounds=0 end_high=5 io=0 raw=303,1195 z=1254 z1=70 z2=2911 irq=1 edges=252
+I (105536) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (105536) HC05: RX=3821 errors=0 CRC32=ab3ebb7a; UART2 inactive
+I (105536) HC05: STATE GPIO35 connected=1
+I (105540) SCREEN: parsed=3821 drop=0 controls=2 CRC32=ab3ebb7a cursor=0,26 view=LIVE CR=NL history=0/97
+I (106448) TOUCH_RAW: mode=IRQ samples=115 irq_low=115 valid=109 weak=1 bounds=0 end_high=5 io=0 raw=303,1195 z=1254 z1=70 z2=2911 irq=1 edges=252
+I (108450) TOUCH_RAW: mode=IRQ samples=115 irq_low=115 valid=109 weak=1 bounds=0 end_high=5 io=0 raw=303,1195 z=1254 z1=70 z2=2911 irq=1 edges=252
+I (110452) TOUCH_RAW: mode=IRQ samples=115 irq_low=115 valid=109 weak=1 bounds=0 end_high=5 io=0 raw=303,1195 z=1254 z1=70 z2=2911 irq=1 edges=252
+I (110549) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (110549) HC05: RX=3821 errors=0 CRC32=ab3ebb7a; UART2 inactive
+I (110549) HC05: STATE GPIO35 connected=1
+I (110553) SCREEN: parsed=3821 drop=0 controls=2 CRC32=ab3ebb7a cursor=0,26 view=LIVE CR=NL history=0/97
+I (112454) TOUCH_RAW: mode=IRQ samples=115 irq_low=115 valid=109 weak=1 bounds=0 end_high=5 io=0 raw=303,1195 z=1254 z1=70 z2=2911 irq=1 edges=252
+I (114456) TOUCH_RAW: mode=IRQ samples=115 irq_low=115 valid=109 weak=1 bounds=0 end_high=5 io=0 raw=303,1195 z=1254 z1=70 z2=2911 irq=1 edges=252
+I (115562) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (115562) HC05: RX=3821 errors=0 CRC32=ab3ebb7a; UART2 inactive
+I (115562) HC05: STATE GPIO35 connected=1
+I (115566) SCREEN: parsed=3821 drop=0 controls=2 CRC32=ab3ebb7a cursor=0,26 view=LIVE CR=NL history=0/97
+I (116266) TOUCH: UI press raw=338,2943 screen=229,224 tap=-1
+I (116266) TOUCH: CAL hold started screen=229,224
+I (116464) TOUCH_RAW: mode=IRQ samples=134 irq_low=134 valid=128 weak=1 bounds=0 end_high=5 io=0 raw=336,2938 z=917 z1=143 z2=3321 irq=0 edges=253
+I (118273) TOUCH: CAL hold accepted; starting calibration
+I (118466) TOUCH_RAW: mode=IRQ samples=287 irq_low=287 valid=281 weak=1 bounds=0 end_high=5 io=0 raw=292,2950 z=884 z1=132 z2=3343 irq=0 edges=253
+I (120467) TOUCH_RAW: mode=IRQ samples=294 irq_low=294 valid=288 weak=1 bounds=0 end_high=5 io=0 raw=328,2950 z=742 z1=110 z2=3463 irq=1 edges=254
+I (120575) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (120575) HC05: RX=3821 errors=0 CRC32=ab3ebb7a; UART2 inactive
+I (120575) HC05: STATE GPIO35 connected=1
+I (120579) SCREEN: parsed=3821 drop=0 controls=2 CRC32=ab3ebb7a cursor=0,26 view=LIVE CR=NL history=0/97
+I (122469) TOUCH_RAW: mode=IRQ samples=294 irq_low=294 valid=288 weak=1 bounds=0 end_high=5 io=0 raw=328,2950 z=742 z1=110 z2=3463 irq=1 edges=254
+I (124471) TOUCH_RAW: mode=IRQ samples=294 irq_low=294 valid=288 weak=1 bounds=0 end_high=5 io=0 raw=328,2950 z=742 z1=110 z2=3463 irq=1 edges=254
+I (125588) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (125588) HC05: RX=3821 errors=0 CRC32=ab3ebb7a; UART2 inactive
+I (125588) HC05: STATE GPIO35 connected=1
+I (125592) SCREEN: parsed=3821 drop=0 controls=2 CRC32=ab3ebb7a cursor=0,26 view=LIVE CR=NL history=0/97
+I (126473) TOUCH_RAW: mode=IRQ samples=294 irq_low=294 valid=288 weak=1 bounds=0 end_high=5 io=0 raw=328,2950 z=742 z1=110 z2=3463 irq=1 edges=254
+I (128475) TOUCH_RAW: mode=IRQ samples=294 irq_low=294 valid=288 weak=1 bounds=0 end_high=5 io=0 raw=328,2950 z=742 z1=110 z2=3463 irq=1 edges=254
+I (130477) TOUCH_RAW: mode=IRQ samples=294 irq_low=294 valid=288 weak=1 bounds=0 end_high=5 io=0 raw=328,2950 z=742 z1=110 z2=3463 irq=1 edges=254
+I (130601) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (130601) HC05: RX=3821 errors=0 CRC32=ab3ebb7a; UART2 inactive
+I (130601) HC05: STATE GPIO35 connected=1
+I (130605) SCREEN: parsed=3821 drop=0 controls=2 CRC32=ab3ebb7a cursor=0,26 view=LIVE CR=NL history=0/97
+I (131587) TOUCH_CAL: point=1 verify=0 accepted=0 samples=5 peak=5 gap_resets=1 motion_resets=0 last_gap_ms=82
+I (132485) TOUCH_RAW: mode=IRQ samples=299 irq_low=299 valid=293 weak=1 bounds=0 end_high=5 io=0 raw=1640,3580 z=863 z1=576 z2=3808 irq=1 edges=260
+I (133212) TOUCH_CAL: point=1 verify=0 accepted=0 samples=3 peak=5 gap_resets=1 motion_resets=1 last_gap_ms=82
+I (134485) TOUCH_RAW: mode=IRQ samples=313 irq_low=313 valid=307 weak=1 bounds=0 end_high=5 io=0 raw=1746,3548 z=621 z1=395 z2=3869 irq=1 edges=271
+I (135614) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (135614) HC05: RX=3821 errors=0 CRC32=ab3ebb7a; UART2 inactive
+I (135614) HC05: STATE GPIO35 connected=1
+I (135618) SCREEN: parsed=3821 drop=0 controls=2 CRC32=ab3ebb7a cursor=0,26 view=LIVE CR=NL history=0/97
+I (136487) TOUCH_RAW: mode=IRQ samples=313 irq_low=313 valid=307 weak=1 bounds=0 end_high=5 io=0 raw=1746,3548 z=621 z1=395 z2=3869 irq=1 edges=271
+I (138489) TOUCH_RAW: mode=IRQ samples=313 irq_low=313 valid=307 weak=1 bounds=0 end_high=5 io=0 raw=1746,3548 z=621 z1=395 z2=3869 irq=1 edges=271
+I (140497) TOUCH_RAW: mode=IRQ samples=313 irq_low=313 valid=307 weak=1 bounds=0 end_high=5 io=0 raw=1746,3548 z=621 z1=395 z2=3869 irq=1 edges=281
+I (140627) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (140627) HC05: RX=3821 errors=0 CRC32=ab3ebb7a; UART2 inactive
+I (140627) HC05: STATE GPIO35 connected=1
+I (140631) SCREEN: parsed=3821 drop=0 controls=2 CRC32=ab3ebb7a cursor=0,26 view=LIVE CR=NL history=0/97
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0040,len:6272
+load:0x40078000,len:15848
+load:0x40080400,len:3920
+entry 0x4008063c
+I (27) boot: ESP-IDF 6.0.1 2nd stage bootloader
+I (27) boot: compile time Nov 17 2026 21:47:34
+I (28) boot: Multicore bootloader
+I (29) boot: chip revision: v3.0
+I (31) boot.esp32: SPI Speed      : 40MHz
+I (35) boot.esp32: SPI Mode       : DIO
+I (39) boot.esp32: SPI Flash Size : 4MB
+I (42) boot: Enabling RNG early entropy source...
+I (47) boot: Partition Table:
+I (49) boot: ## Label            Usage          Type ST Offset   Length
+I (56) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+I (62) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+I (69) boot:  2 factory          factory app      00 00 00010000 00100000
+I (75) boot: End of partition table
+I (79) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=0b6a0h ( 46752) map
+I (103) esp_image: segment 1: paddr=0001b6c8 vaddr=3ffb0000 size=02a10h ( 10768) load
+I (107) esp_image: segment 2: paddr=0001e0e0 vaddr=40080000 size=01f38h (  7992) load
+I (111) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=18250h ( 98896) map
+I (149) esp_image: segment 4: paddr=00038278 vaddr=40081f38 size=0afd0h ( 45008) load
+I (168) esp_image: segment 5: paddr=00043250 vaddr=50000000 size=00028h (    40) load
+I (175) boot: Loaded app from partition at offset 0x10000
+I (175) boot: Disabling RNG early entropy source...
+I (186) cpu_start: Multicore app
+I (194) cpu_start: GPIO 3 and 1 are used as console UART I/O pins
+I (194) cpu_start: Pro cpu start user code
+I (194) cpu_start: cpu freq: 160000000 Hz
+I (196) app_init: Application information:
+I (200) app_init: Project name:     Terminal
+I (204) app_init: App version:      0.3.12
+I (208) app_init: Compile time:     Nov 17 2026 21:52:07
+I (213) app_init: ELF file SHA256:  22ef38b44...
+I (217) app_init: ESP-IDF:          6.0.1
+I (221) efuse_init: Min chip rev:     v3.0
+I (225) efuse_init: Max chip rev:     v3.99 
+I (229) efuse_init: Chip rev:         v3.0
+I (233) heap_init: Initializing. RAM available for dynamic allocation:
+I (239) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM
+I (244) heap_init: At 3FFB3818 len 0002C7E8 (177 KiB): DRAM
+I (249) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+I (255) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+I (260) heap_init: At 4008CF08 len 000130F8 (76 KiB): IRAM
+I (266) spi_flash: detected chip: generic
+I (269) spi_flash: flash io: dio
+I (273) main_task: Started on CPU0
+I (276) main_task: Calling app_main()
+I (278) START: LED OK
+I (280) START: RetroTerminal v0.3.12 stage=2; native BT/Wi-Fi OFF; PSRAM pins16/17 reserved
+I (289) START: internal RAM heap=317592 bytes; 16 KiB check=ESP_OK
+I (294) START: internal RAM OK
+I (299) TFT: SPI3 requested clock=1000000 Hz; CS=GPIO4 setup/hold=2 cycles
+I (303) ili9341: LCD panel create success, version: 2.1.0
+I (308) SCREEN: ANSI/VT100 40x27; internal RAM cells; profile=2 touch=1
+I (315) START: screen task OK
+I (318) uart: ESP_INTR_FLAG_IRAM flag not set while CONFIG_UART_ISR_IN_IRAM is enabled, flag updated
+I (326) uart: queue free spaces: 32
+I (330) HC05: TX32/RX34 115200 8N1; HC-05 input -> TFT; UART2 untouched
+I (336) START: HC-05 UART1 OK
+I (338) START: READY stage=2
+I (478) TFT: LCD reset GPIO27; init guard=150 ms (minimum 120 ms); panel response unverified
+I (478) TFT: SLPOUT guard >=150 ms before next command/data
+I (632) LCD_REG: configured/off cmd=d3 n=4 status=ESP_OK raw=00 00 00 00 00 (dummy included; ID unverified)
+I (632) LCD_REG: configured/off cmd=09 n=5 status=ESP_OK raw=fa 29 80 00 00 (dummy included; ID unverified)
+I (640) LCD_REG: configured/off cmd=0a n=2 status=ESP_OK raw=98 00 00 00 00 (dummy included; ID unverified)
+I (649) LCD_REG: configured/off cmd=0b n=2 status=ESP_OK raw=e8 00 00 00 00 (dummy included; ID unverified)
+I (659) LCD_REG: configured/off cmd=0c n=2 status=ESP_OK raw=05 ff 00 00 00 (dummy included; ID unverified)
+I (669) TFT: SPI3 requested clock=10000000 Hz; CS=GPIO4 setup/hold=2 cycles
+I (978) TFT: DISPON settled >=150 ms; complete welcome frame submitted
+I (978) TFT: SPI3 requested clock=1000000 Hz; CS=GPIO4 setup/hold=2 cycles
+I (979) LCD_REG: display/on cmd=d3 n=4 status=ESP_OK raw=00 00 00 00 00 (dummy included; ID unverified)
+I (988) LCD_REG: display/on cmd=09 n=5 status=ESP_OK raw=fa 29 82 00 00 (dummy included; ID unverified)
+I (998) LCD_REG: display/on cmd=0a n=2 status=ESP_OK raw=9c 00 00 00 00 (dummy included; ID unverified)
+I (1007) LCD_REG: display/on cmd=0b n=2 status=ESP_OK raw=e8 00 00 00 00 (dummy included; ID unverified)
+I (1016) LCD_REG: display/on cmd=0c n=2 status=ESP_OK raw=05 ff 00 00 00 (dummy included; ID unverified)
+I (1025) TFT: SPI3 requested clock=10000000 Hz; CS=GPIO4 setup/hold=2 cycles
+I (1032) TFT: Welcome visible; hold 3000 ms
+I (1072) TOUCH: Calibration loaded for rotation=3 320x240
+I (2267) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=0 edges=5
+I (4037) TFT: Welcome complete; opening terminal
+I (4274) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=5
+I (5276) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (5276) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (5276) HC05: STATE GPIO35 connected=1
+I (5279) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0040,len:6272
+load:0x40078000,len:15848
+load:0x40080400,len:3920
+entry 0x4008063c
+I (27) boot: ESP-IDF 6.0.1 2nd stage bootloader
+I (27) boot: compile time Nov 17 2026 21:47:34
+I (28) boot: Multicore bootloader
+I (29) boot: chip revision: v3.0
+I (31) boot.esp32: SPI Speed      : 40MHz
+I (35) boot.esp32: SPI Mode       : DIO
+I (39) boot.esp32: SPI Flash Size : 4MB
+I (42) boot: Enabling RNG early entropy source...
+I (47) boot: Partition Table:
+I (49) boot: ## Label            Usage          Type ST Offset   Length
+I (56) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+I (62) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+I (69) boot:  2 factory          factory app      00 00 00010000 00100000
+I (75) boot: End of partition table
+I (79) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=0b6a0h ( 46752) map
+I (103) esp_image: segment 1: paddr=0001b6c8 vaddr=3ffb0000 size=02a10h ( 10768) load
+I (107) esp_image: segment 2: paddr=0001e0e0 vaddr=40080000 size=01f38h (  7992) load
+I (111) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=18250h ( 98896) map
+I (149) esp_image: segment 4: paddr=00038278 vaddr=40081f38 size=0afd0h ( 45008) load
+I (168) esp_image: segment 5: paddr=00043250 vaddr=50000000 size=00028h (    40) load
+I (175) boot: Loaded app from partition at offset 0x10000
+I (175) boot: Disabling RNG early entropy source...
+I (186) cpu_start: Multicore app
+I (194) cpu_start: GPIO 3 and 1 are used as console UART I/O pins
+I (194) cpu_start: Pro cpu start user code
+I (194) cpu_start: cpu freq: 160000000 Hz
+I (196) app_init: Application information:
+I (200) app_init: Project name:     Terminal
+I (204) app_init: App version:      0.3.12
+I (208) app_init: Compile time:     Nov 17 2026 21:52:07
+I (213) app_init: ELF file SHA256:  22ef38b44...
+I (217) app_init: ESP-IDF:          6.0.1
+I (221) efuse_init: Min chip rev:     v3.0
+I (225) efuse_init: Max chip rev:     v3.99 
+I (229) efuse_init: Chip rev:         v3.0
+I (233) heap_init: Initializing. RAM available for dynamic allocation:
+I (239) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM
+I (244) heap_init: At 3FFB3818 len 0002C7E8 (177 KiB): DRAM
+I (249) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+I (255) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+I (260) heap_init: At 4008CF08 len 000130F8 (76 KiB): IRAM
+I (266) spi_flash: detected chip: generic
+I (269) spi_flash: flash io: dio
+I (273) main_task: Started on CPU0
+I (276) main_task: Calling app_main()
+I (278) START: LED OK
+I (280) START: RetroTerminal v0.3.12 stage=2; native BT/Wi-Fi OFF; PSRAM pins16/17 reserved
+I (289) START: internal RAM heap=317592 bytes; 16 KiB check=ESP_OK
+I (294) START: internal RAM OK
+I (299) TFT: SPI3 requested clock=1000000 Hz; CS=GPIO4 setup/hold=2 cycles
+I (303) ili9341: LCD panel create success, version: 2.1.0
+I (308) SCREEN: ANSI/VT100 40x27; internal RAM cells; profile=2 touch=1
+I (315) START: screen task OK
+I (318) uart: ESP_INTR_FLAG_IRAM flag not set while CONFIG_UART_ISR_IN_IRAM is enabled, flag updated
+I (326) uart: queue free spaces: 32
+I (330) HC05: TX32/RX34 115200 8N1; HC-05 input -> TFT; UART2 untouched
+I (336) START: HC-05 UART1 OK
+I (338) START: READY stage=2
+I (478) TFT: LCD reset GPIO27; init guard=150 ms (minimum 120 ms); panel response unverified
+I (478) TFT: SLPOUT guard >=150 ms before next command/data
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0040,len:6272
+load:0x40078000,len:15848
+load:0x40080400,len:3920
+entry 0x4008063c
+I (27) boot: ESP-IDF 6.0.1 2nd stage bootloader
+I (27) boot: compile time Nov 17 2026 21:47:34
+I (28) boot: Multicore bootloader
+I (29) boot: chip revision: v3.0
+I (31) boot.esp32: SPI Speed      : 40MHz
+I (35) boot.esp32: SPI Mode       : DIO
+I (39) boot.esp32: SPI Flash Size : 4MB
+I (42) boot: Enabling RNG early entropy source...
+I (47) boot: Partition Table:
+I (49) boot: ## Label            Usage          Type ST Offset   Length
+I (56) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+I (62) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+I (69) boot:  2 factory          factory app      00 00 00010000 00100000
+I (75) boot: End of partition table
+I (79) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=0b6a0h ( 46752) map
+I (103) esp_image: segment 1: paddr=0001b6c8 vaddr=3ffb0000 size=02a10h ( 10768) load
+I (107) esp_image: segment 2: paddr=0001e0e0 vaddr=40080000 size=01f38h (  7992) load
+I (111) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=18250h ( 98896) map
+I (149) esp_image: segment 4: paddr=00038278 vaddr=40081f38 size=0afd0h ( 45008) load
+I (168) esp_image: segment 5: paddr=00043250 vaddr=50000000 size=00028h (    40) load
+I (175) boot: Loaded app from partition at offset 0x10000
+I (175) boot: Disabling RNG early entropy source...
+I (186) cpu_start: Multicore app
+I (194) cpu_start: GPIO 3 and 1 are used as console UART I/O pins
+I (194) cpu_start: Pro cpu start user code
+I (194) cpu_start: cpu freq: 160000000 Hz
+I (196) app_init: Application information:
+I (200) app_init: Project name:     Terminal
+I (204) app_init: App version:      0.3.12
+I (208) app_init: Compile time:     Nov 17 2026 21:52:07
+I (213) app_init: ELF file SHA256:  22ef38b44...
+I (217) app_init: ESP-IDF:          6.0.1
+I (221) efuse_init: Min chip rev:     v3.0
+I (225) efuse_init: Max chip rev:     v3.99 
+I (229) efuse_init: Chip rev:         v3.0
+I (233) heap_init: Initializing. RAM available for dynamic allocation:
+I (239) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM
+I (244) heap_init: At 3FFB3818 len 0002C7E8 (177 KiB): DRAM
+I (249) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+I (255) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+I (260) heap_init: At 4008CF08 len 000130F8 (76 KiB): IRAM
+I (266) spi_flash: detected chip: generic
+I (269) spi_flash: flash io: dio
+I (273) main_task: Started on CPU0
+I (276) main_task: Calling app_main()
+I (278) START: LED OK
+I (280) START: RetroTerminal v0.3.12 stage=2; native BT/Wi-Fi OFF; PSRAM pins16/17 reserved
+I (289) START: internal RAM heap=317592 bytes; 16 KiB check=ESP_OK
+I (294) START: internal RAM OK
+I (299) TFT: SPI3 requested clock=1000000 Hz; CS=GPIO4 setup/hold=2 cycles
+I (303) ili9341: LCD panel create success, version: 2.1.0
+I (308) SCREEN: ANSI/VT100 40x27; internal RAM cells; profile=2 touch=1
+I (315) START: screen task OK
+I (318) uart: ESP_INTR_FLAG_IRAM flag not set while CONFIG_UART_ISR_IN_IRAM is enabled, flag updated
+I (326) uart: queue free spaces: 32
+I (330) HC05: TX32/RX34 115200 8N1; HC-05 input -> TFT; UART2 untouched
+I (336) START: HC-05 UART1 OK
+I (338) START: READY stage=2
+I (478) TFT: LCD reset GPIO27; init guard=150 ms (minimum 120 ms); panel response unverified
+I (478) TFT: SLPOUT guard >=150 ms before next command/data
+I (632) LCD_REG: configured/off cmd=d3 n=4 status=ESP_OK raw=ff ff ff ff 00 (dummy included; ID unverified)
+I (632) LCD_REG: configured/off cmd=09 n=5 status=ESP_OK raw=fa 29 80 00 00 (dummy included; ID unverified)
+I (640) LCD_REG: configured/off cmd=0a n=2 status=ESP_OK raw=98 00 00 00 00 (dummy included; ID unverified)
+I (649) LCD_REG: configured/off cmd=0b n=2 status=ESP_OK raw=e8 00 00 00 00 (dummy included; ID unverified)
+I (659) LCD_REG: configured/off cmd=0c n=2 status=ESP_OK raw=05 ff 00 00 00 (dummy included; ID unverified)
+I (669) TFT: SPI3 requested clock=10000000 Hz; CS=GPIO4 setup/hold=2 cycles
+I (978) TFT: DISPON settled >=150 ms; complete welcome frame submitted
+I (978) TFT: SPI3 requested clock=1000000 Hz; CS=GPIO4 setup/hold=2 cycles
+I (979) LCD_REG: display/on cmd=d3 n=4 status=ESP_OK raw=00 00 00 00 00 (dummy included; ID unverified)
+I (988) LCD_REG: display/on cmd=09 n=5 status=ESP_OK raw=fa 29 82 00 00 (dummy included; ID unverified)
+I (998) LCD_REG: display/on cmd=0a n=2 status=ESP_OK raw=9c 00 00 00 00 (dummy included; ID unverified)
+I (1007) LCD_REG: display/on cmd=0b n=2 status=ESP_OK raw=e8 00 00 00 00 (dummy included; ID unverified)
+I (1016) LCD_REG: display/on cmd=0c n=2 status=ESP_OK raw=05 ff 00 00 00 (dummy included; ID unverified)
+I (1025) TFT: SPI3 requested clock=10000000 Hz; CS=GPIO4 setup/hold=2 cycles
+I (1032) TFT: Welcome visible; hold 3000 ms
+I (1073) TOUCH: Calibration loaded for rotation=3 320x240
+I (2274) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=0 edges=0
+I (4034) TFT: Welcome complete; opening terminal
+I (4281) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (5276) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (5276) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (5276) HC05: STATE GPIO35 connected=1
+I (5279) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (6282) TOUCH_RAW: mode=IRQ samples=0 irq_low=0 valid=0 weak=0 bounds=0 end_high=0 io=0 raw=0,0 z=0 z1=0 z2=0 irq=1 edges=0
+I (8040) TOUCH: UI press raw=312,3216 screen=254,225 tap=-1
+I (8040) TOUCH: CAL hold started screen=254,225
+I (8293) TOUCH_RAW: mode=IRQ samples=22 irq_low=22 valid=22 weak=0 bounds=0 end_high=0 io=0 raw=314,3220 z=618 z1=115 z2=3592 irq=0 edges=1
+I (8829) TOUCH: CAL cancelled screen=254,225
+I (10288) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (10288) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (10288) HC05: STATE GPIO35 connected=1
+I (10291) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (10301) TOUCH_RAW: mode=IRQ samples=60 irq_low=60 valid=59 weak=0 bounds=0 end_high=1 io=0 raw=313,3214 z=704 z1=128 z2=3519 irq=1 edges=3
+I (11705) TOUCH: UI press raw=367,2799 screen=216,222 tap=-1
+I (11705) TOUCH: CAL hold started screen=216,222
+I (12303) TOUCH_RAW: mode=IRQ samples=111 irq_low=111 valid=110 weak=0 bounds=0 end_high=1 io=0 raw=358,2790 z=919 z1=137 z2=3313 irq=0 edges=6
+I (12661) TOUCH: CAL cancelled screen=216,223
+I (12684) TOUCH: UI press raw=361,2800 screen=216,222 tap=-1
+I (12684) TOUCH: CAL hold started screen=216,222
+I (12863) TOUCH: CAL cancelled screen=215,222
+I (14308) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (15300) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (15300) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (15300) HC05: STATE GPIO35 connected=1
+I (15303) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (16310) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (18317) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (20312) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (20312) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (20312) HC05: STATE GPIO35 connected=1
+I (20315) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (20324) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (22327) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (24334) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (25324) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (25324) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (25324) HC05: STATE GPIO35 connected=1
+I (25327) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (26341) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (28343) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (30336) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (30336) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (30336) HC05: STATE GPIO35 connected=1
+I (30339) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (30345) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (32351) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (34353) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (35348) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (35348) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (35348) HC05: STATE GPIO35 connected=1
+I (35351) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (36355) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (38357) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (40359) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (40360) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (40366) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (40372) HC05: STATE GPIO35 connected=1
+I (40376) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (42361) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (44363) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (45384) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (45384) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (45384) HC05: STATE GPIO35 connected=1
+I (45387) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (46365) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (48367) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (50369) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (50396) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (50396) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (50396) HC05: STATE GPIO35 connected=1
+I (50399) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (52371) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (54373) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (55408) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (55408) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (55408) HC05: STATE GPIO35 connected=1
+I (55411) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (56375) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (58377) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (60379) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (60420) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (60420) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (60420) HC05: STATE GPIO35 connected=1
+I (60423) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (62381) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (64383) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (65432) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (65432) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (65432) HC05: STATE GPIO35 connected=1
+I (65435) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (66385) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (68387) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (70389) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (70444) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (70444) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (70444) HC05: STATE GPIO35 connected=1
+I (70447) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (72391) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (74393) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (75456) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (75456) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (75456) HC05: STATE GPIO35 connected=1
+I (75459) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (76395) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (78397) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (80399) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (80468) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (80468) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (80468) HC05: STATE GPIO35 connected=1
+I (80471) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (82401) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (84403) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (85480) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (85480) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (85480) HC05: STATE GPIO35 connected=1
+I (85483) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (86405) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (88407) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (90409) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (90492) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (90492) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (90492) HC05: STATE GPIO35 connected=1
+I (90495) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (92411) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (94413) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (95504) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (95504) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (95504) HC05: STATE GPIO35 connected=1
+I (95507) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0
+I (96415) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (98417) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (100419) TOUCH_RAW: mode=IRQ samples=142 irq_low=142 valid=140 weak=0 bounds=0 end_high=2 io=0 raw=363,2792 z=440 z1=65 z2=3720 irq=1 edges=21
+I (100516) HEALTH: alive stage=2 internal_free=148744 PSRAM_free=0
+I (100516) HC05: RX=0 errors=0 CRC32=00000000; UART2 inactive
+I (100516) HC05: STATE GPIO35 connected=1
+I (100519) SCREEN: parsed=0 drop=0 controls=0 CRC32=00000000 cursor=0,0 view=LIVE CR=NL history=0/0

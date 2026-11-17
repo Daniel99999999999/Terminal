@@ -35,3 +35,15 @@ Plan kontroli po publikacji: mapowanie pełnych przycisków, ponowne tapnięcia/
 Źródła `9ef8c9c` opublikowane po kompilacjach internal/touch SUCCESS (5,007/49,488 s w końcowym przebiegu) i przed uruchomieniem testów. Efektywne konfiguracje: touch STATE=y/ACTIVE_HIGH=y, internal STATE wyłączone. Touch BIN209568 B, ELF SHA256 `22ef38b44563f3852ac1140d60b88a6afa2fcd9efc009172568894385fee6da8`. Artefakty BIN/ELF/map zachowane lokalnie; [manifest i wyniki](logs/2026-11-17_v0.3.12_validation.json).
 
 Po publikacji: [toolbar](logs/2026-11-17_v0.3.12_toolbar.txt), [kalibracja/UI](logs/2026-11-17_v0.3.12_calibration.txt), [renderer](logs/2026-11-17_v0.3.12_screen.txt) i [historia](logs/2026-11-17_v0.3.12_history.txt) PASS. Renderer674 porównania obrazu/32 zdarzenia, w tym kropka podczas zmiany połączenia bez danych UART. Test grafiki sprawdza także orientację powiększonego glifu, barwy trzech stanów, pełne granice hitboxów, postęp CAL i strażników pamięci. [Podgląd rzeczywistego modułu C](logs/2026-11-17_v0.3.12_toolbar_preview.png) obejrzany: kolejno LIVE/nieznany, PAUSE/rozłączony, PAUSE/połączony. Nowej wersji nie wgrano; fizyczny obraz i przejścia STATE wymagają odbioru po uploadzie.
+
+## Próba fizyczna — 17.11.2026, wynik późniejszy
+
+Na osobne zlecenie użytkownika **wgrano v0.3.12 `esp32dev_touch` przez COM5**. [Upload](logs/2026-11-17_v0.3.12_upload.txt) SUCCESS9,351 s, hash zapisu zweryfikowany. [Log](logs/2026-11-17_v0.3.12_panel_console.txt) potwierdza0.3.12 / ELF22ef38b44…,40×27, native BT/Wi-Fi OFF oraz mapę kalibracji odtworzoną z NVS. Jeden zamierzony reset po uploadzie pozwolił przechwycić start od początku.
+
+Użytkownik potwierdził poprawny pasek i niebieską kropkę, pauzę tapnięciem, przewijanie i duży WZNOW. Strumień COM14→HC-05→UART1:123 wiersze, **3821 B, CRC32ab3ebb7a**, RX=parsed, errors=drop0; cursor0,26 i historia97 przed późniejszym resetem. Po zakończeniu strumienia zamknięto COM14.
+
+Użytkownik potwierdził zielony postęp KALIBR. po krótkim przytrzymaniu i znikanie po puszczeniu. Log zawiera też przyjęcie pełnego gestu CAL po2007 ms. Użytkownik potwierdził ręczny reset ESP32 podczas prób, a po nim mapa NVS została ponownie wczytana. Zapis zawiera dodatkowe sekwencje POWERON_RESET, więc nie jest próbą nieprzerwanej stabilności; nie utożsamiamy ich z samoistną awarią.
+
+Próba odłączenia i ponownego zasilenia drugiego HC-05: użytkownik potwierdził **niebieska→szara→niebieska**. COM5 rejestrował oba stany `STATE GPIO35 connected=0/1`; [wynik](logs/2026-11-17_v0.3.12_panel_result.json) zachowuje serię zmian i obserwacje. Dotyk zgłaszał io0, wolny wewnętrzny heap w zarejestrowanych próbkach148744 B. To krótki odbiór funkcjonalny, bez deklaracji pełnej zgodności VT ani długotrwałej stabilności.
+
+**Końcowy stan:** na płytce v0.3.12 touch, kalibracja zachowana, T_CS33/STATE35, kontrolka i przyciski odebrane fizycznie. Zapis zakończono poprawnie, COM5/COM14 wolne. Znany problem zakresu historii podczas długiej pauzy nadal pozostaje osobnym zadaniem. Powyższe oczekiwanie na upload opisuje stan sprzed tej próby.

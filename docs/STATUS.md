@@ -1,5 +1,11 @@
 # Faktyczny stan projektu / handoff
 
+## 17.11.2026 — v0.3.12 wgrana i odebrana fizycznie
+
+Zatwierdzony upload `esp32dev_touch` przez COM5 **SUCCESS9,351 s**, zapis z poprawnym hashem. [Log startu i próby](logs/2026-11-17_v0.3.12_panel_console.txt): wersja0.3.12, ELF22ef38b44…,40×27, NVS odtworzone, native BT/Wi-Fi OFF. [Wynik](logs/2026-11-17_v0.3.12_panel_result.json), [pełny opis](TOOLBAR_v0.3.12.md). Użytkownik potwierdził poprawny pasek/kropkę, pauzę, gesty, duży WZNOW, zielony postęp CAL/anulowanie i zmianę kropki **niebieska→szara→niebieska**. STATE GPIO35=0/1 potwierdzone logiem, końcowo connected=1. T_CS naGPIO33.
+
+COM14 wysłał123 wiersze / **3821 B, CRC32ab3ebb7a**, RX=parsed, errors=drop0; przed ręcznym resetem historia97, cursor0,26. W trakcie prób zarejestrowano także pełne wejście CAL po2007 ms oraz dodatkowe POWERON_RESET; użytkownik potwierdził ręczny reset, po którym kalibracja została ponownie wczytana. Zapis nie jest testem nieprzerwanej stabilności. Dotyk io0, obserwowany heap148744 B. **COM5 i COM14 zamknięte**, na płytce pozostaje v0.3.12 touch; bez kolejnych zmian firmware. Znany problem zakresu gestów przy długiej pauzie po nadpisaniu starej historii pozostaje osobnym zadaniem. Poniższe oczekiwanie na upload jest historyczne.
+
 ## 17.11.2026 — odebrane v0.3.11, przygotowywana v0.3.12
 
 Kompilacje v0.3.12 internal/touch **SUCCESS** (5,007/49,488 s w końcowym przebiegu); efektywna konfiguracja potwierdza STATE w touch i brak w internal. Źródła **`9ef8c9c` opublikowane przed testami**. Toolbar, kalibracja/UI, renderer674 porównania/32 zdarzenia i historia **PASS**. Podgląd z rzeczywistego modułu C obejrzany, trzy stany kontrolki zgodne. [Wyniki i hasze](logs/2026-11-17_v0.3.12_validation.json), [opis](TOOLBAR_v0.3.12.md). Nowa wersja nie jest jeszcze wgrana; próba panelu i fizycznych zmian STATE pozostaje oczekiwana.

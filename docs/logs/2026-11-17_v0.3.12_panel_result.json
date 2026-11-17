@@ -1,0 +1,145 @@
+{
+  "firmware": "0.3.12",
+  "source_commit": "9ef8c9c",
+  "upload": "approved COM5, SUCCESS, written hash verified",
+  "elf_sha256": "22ef38b44563f3852ac1140d60b88a6afa2fcd9efc009172568894385fee6da8",
+  "observations": {
+    "toolbar_visual": "user confirmed correct large buttons and blue dot",
+    "tap_scroll_resume": "user confirmed correct",
+    "cal_progress": "User confirmed green progress and cancellation on release before 2 s",
+    "link_down_up": "User confirmed blue -> gray -> blue after peer HC-05 power off/on",
+    "full_calibration": "Log confirms CAL accepted at 2 s; user manually reset ESP32 afterwards",
+    "restart": "User confirmed manual reset; not a spontaneous restart"
+  },
+  "flow": {
+    "mode": "v0.3.12 manual tap/resume/scroll",
+    "started_utc": "2026-11-17T21:00:17.795158+00:00",
+    "baseline": {
+      "rx": 0,
+      "errors": 0,
+      "rx_crc": 0,
+      "parsed": 0,
+      "drop": 0,
+      "controls": 0,
+      "parsed_crc": 0,
+      "cursor": [
+        0,
+        0
+      ],
+      "view": "LIVE",
+      "cr": "NL",
+      "offset": 0,
+      "history": 0,
+      "utc": "2026-11-17T21:00:16.674976+00:00"
+    },
+    "visual_result": "User confirmed graphical buttons, blue connection dot, tap pause, scrolling and WZNOW.",
+    "complete": true,
+    "last_line_sent": 123,
+    "sent_bytes": 3821,
+    "expected_crc": "ab3ebb7a",
+    "final": {
+      "rx": 3821,
+      "errors": 0,
+      "rx_crc": 2873015162,
+      "parsed": 3821,
+      "drop": 0,
+      "controls": 2,
+      "parsed_crc": 2873015162,
+      "cursor": [
+        0,
+        26
+      ],
+      "view": "LIVE",
+      "cr": "NL",
+      "offset": 0,
+      "history": 97,
+      "utc": "2026-11-17T21:01:06.798236+00:00"
+    },
+    "finished_utc": "2026-11-17T21:01:06.881955+00:00",
+    "transport_passed": true
+  },
+  "captured_state_transitions": [
+    {
+      "connected": true,
+      "utc": "2026-11-17T20:59:41.579342+00:00"
+    },
+    {
+      "connected": false,
+      "utc": "2026-11-17T21:00:01.633272+00:00"
+    },
+    {
+      "connected": true,
+      "utc": "2026-11-17T21:00:06.644439+00:00"
+    },
+    {
+      "connected": false,
+      "utc": "2026-11-17T21:00:11.655202+00:00"
+    },
+    {
+      "connected": true,
+      "utc": "2026-11-17T21:00:16.666353+00:00"
+    }
+  ],
+  "nvs_calibration_load_count": 3,
+  "heap_values": [
+    148744
+  ],
+  "capture_final": {
+    "started_utc": "2026-11-17T20:59:36.179617+00:00",
+    "active": false,
+    "boot_markers": [
+      "ets Jul 29 2019 12:21:46\r",
+      "rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)\r",
+      "ets Jul 29 2019 12:21:46\r",
+      "rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)\r",
+      "ets Jul 29 2019 12:21:46\r",
+      "rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)\r"
+    ],
+    "expected_reset_boot_markers": [
+      "ets Jul 29 2019 12:21:46\r",
+      "rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)\r"
+    ],
+    "last_log_utc": "2026-11-17T21:03:44.729601+00:00",
+    "runtime_version": "0.3.12",
+    "nvs_loaded_log": "I (1073) TOUCH: Calibration loaded for rotation=3 320x240\r",
+    "touch": {
+      "samples": 142,
+      "valid": 140,
+      "io": 0,
+      "irq": 1,
+      "edges": 21,
+      "utc": "2026-11-17T21:03:44.622986+00:00"
+    },
+    "rx": {
+      "rx": 0,
+      "errors": 0,
+      "rx_crc": 0
+    },
+    "link": {
+      "connected": true,
+      "utc": "2026-11-17T21:03:44.721064+00:00"
+    },
+    "snapshot": {
+      "rx": 0,
+      "errors": 0,
+      "rx_crc": 0,
+      "parsed": 0,
+      "drop": 0,
+      "controls": 0,
+      "parsed_crc": 0,
+      "cursor": [
+        0,
+        0
+      ],
+      "view": "LIVE",
+      "cr": "NL",
+      "offset": 0,
+      "history": 0,
+      "utc": "2026-11-17T21:03:44.729601+00:00"
+    },
+    "finished_utc": "2026-11-17T21:03:45.721883+00:00"
+  },
+  "scope": "Physical toolbar and HC-05 STATE indication; manual resets during test, not an uninterrupted stability run. History expiry behavior unchanged.",
+  "ports_closed": true,
+  "console_sha256": "39a84d7ec393b6d7641414564aaf8386e44e0f774791910ea3eb6b11f94737f2"
+}
