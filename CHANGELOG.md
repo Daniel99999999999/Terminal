@@ -1,5 +1,11 @@
 # Historia wersji
 
+## v0.3.10 — 17.11.2026
+
+- Na polecenie użytkownika LCD SPI CS przeniesiony z GPIO21/P21 na **GPIO4/P4**. Dotyczy profili SPI, w tym `esp32dev_touch` i `esp32dev_internal`; alternatywne I80 zachowuje swój pinout. Log SPI podaje rzeczywisty numer CS.
+- Zwolniono dawną, nieużywaną rezerwację GPIO4 dla EN drivera podświetlenia. GPIO sterowania podświetleniem nie ma przydziału; próba włączenia tej opcji kończy kompilację czytelnym błędem, aby nie sterować równocześnie CS i podświetleniem. LED modułu nadal zasilane3,3 V.
+- UART1, dotyk/IRQ, LED GPIO2, rezerwacje PSRAM16/17 i UART2, zegary oraz procedura inicjalizacji LCD zachowane. Zmiana omija P21; nie oznacza rozpoznania usterki GPIO ani potwierdzonej naprawy białego ekranu. Wyniki kompilacji i testów w STATUS; upload wymaga zlecenia i przepięcia przewodu CS przy wyłączonym zasilaniu.
+
 ## v0.3.9 — 16.11.2026
 
 - Audyt resetu, SLPOUT, DISPON i SPI z porównaniem ILI9341 DS, Espressif, Adafruit i TFT_eSPI. Po SLPOUT co najmniej150 ms do kolejnej komendy; dotychczasowy odstęp po resecie zachowany. CS setup/hold po2 cykle. Start i diagnostyka przy1 MHz, obraz nadal10 MHz. Parametry analogowe/kolory/orientacja zachowane, bez modyfikacji vendor/SDK.

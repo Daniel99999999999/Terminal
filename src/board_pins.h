@@ -26,7 +26,7 @@
 #define TFT_SPI_SCLK_GPIO 18
 #define TFT_SPI_MOSI_GPIO 23
 #define TFT_SPI_MISO_GPIO 19
-#define TFT_BACKLIGHT_EN_GPIO 4 /* External driver EN only, optional. */
+#define TFT_BACKLIGHT_EN_GPIO (-1) /* Unassigned: GPIO4 now selects the SPI LCD. */
 #define TOUCH_SPI_SCLK_GPIO 14
 #define TOUCH_SPI_MOSI_GPIO 13
 #define TOUCH_SPI_MISO_GPIO 39
@@ -35,10 +35,14 @@
 
 #if RETRO_TFT_PROFILE == RETRO_TFT_ILI9341_SPI
 #define TFT_DC_GPIO 22
-#define TFT_CS_GPIO 21
+#define TFT_CS_GPIO 4 /* P4; GPIO21 bypassed since v0.3.10. */
 #define TFT_RST_GPIO 27
 #else
 #define TFT_DC_GPIO 15
 #define TFT_CS_GPIO 5
 #define TFT_RST_GPIO 4
+#endif
+
+#if RETRO_TFT_BACKLIGHT_CONTROL && TFT_BACKLIGHT_EN_GPIO < 0
+#error "No GPIO assigned for backlight control; GPIO4 is SPI LCD CS"
 #endif

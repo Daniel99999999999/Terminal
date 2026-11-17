@@ -1,5 +1,7 @@
 # Sprzęt, bezpieczeństwo i nieustalone połączenia
 
+**Najnowszy przydział17.11.2026 / v0.3.10:** LCD SPI **CS→GPIO4/P4 zamiast GPIO21/P21**, na polecenie użytkownika. Zmienia się tylko przewód CS; przepiąć przy wyłączonych zasilaniach. LED LCD nadal zasilane3,3 V. GPIO4 nie jest już rezerwą EN podświetlenia; sterowanie podświetleniem przez GPIO pozostaje bez przydziału i zablokowane. [Aktualny pinout](TFT_PROFILES_v0.1.12.md), [CSV](PINOUT_SPI.csv). Inne sygnały bez zmiany; przydział I80 jest osobną alternatywą. Nowy firmware nie był wgrywany, połączenie P4 i efekt fizyczny jeszcze niepotwierdzone.
+
 **Doprecyzowanie17.11.2026:** użytkownik mierzył5 mV bezpośrednio na goldpinie P21 ESP32. Punkt pomiaru potwierdzony; do sprawdzenia połączenie goldpinu z jego własnym polem lutowniczym i rezystancja P21↔GND przy całkowicie wyłączonym zasilaniu. Wyniki oczekiwane. Przewód LCD CS pozostaje odłączony. [Bieżący zapis](STATUS.md).
 
 **Nowsze pomiary16.11.2026:** na płytce v0.3.9 touch, LCD ponownie biały. Po odłączeniu samego przewodu LCD CS użytkownik zgłosił GPIO21=0 V w aplikacji, następnie5 mV podczas wymuszonego HIGH w ROM; kontrolne3V3=3,257 V. Cyfrowy odczyt GPIO21 podążał LOW→HIGH. Dokładny punkt pomiaru i połączenie na PCB wymagają sprawdzenia; nie rozpoznano uszkodzenia GPIO. Próba ROM zakończona, COM5 zamknięty, CS nadal odłączony. [Dane](LCD_WHITE_v0.3.9.md), STATUS. Poniższy stan v0.3.8 jest historyczny.

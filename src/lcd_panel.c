@@ -87,7 +87,7 @@ static esp_err_t spi_clock(unsigned hz)
     esp_err_t err = esp_lcd_new_panel_io_spi(SPI3_HOST, &io, &s_io);
     if (err == ESP_OK) {
         s_clock = hz;
-        ESP_LOGI("TFT", "SPI3 requested clock=%u Hz; CS setup/hold=2 cycles", hz);
+        ESP_LOGI("TFT", "SPI3 requested clock=%u Hz; CS=GPIO%d setup/hold=2 cycles", hz, TFT_CS_GPIO);
     }
     return err;
 }

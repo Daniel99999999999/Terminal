@@ -1,5 +1,11 @@
 # Faktyczny stan projektu / handoff
 
+## 17.11.2026 — v0.3.10: LCD CS na GPIO4/P4
+
+**Nowe polecenie użytkownika: przypisać inny pin zamiast kontynuować pomiary P21.** W profilach SPI LCD CS przeniesiono z21 na **4**. GPIO4 było wyłącznie nieużywaną rezerwą EN podświetlenia; ta rezerwa usunięta, `TFT_BACKLIGHT_EN_GPIO=-1`, opcja CONTROL=1 odrzucana podczas kompilacji. LED LCD pozostaje zasilane3,3 V. [Aktualna tabela](TFT_PROFILES_v0.1.12.md) i [CSV](PINOUT_SPI.csv). I80 zachowuje alternatywny pinout; GPIO16/17, Flash6–11, UART1/2, GPIO2 i dotyk pozostają zarezerwowane jak wcześniej. Log SPI pokazuje CS=GPIO4.
+
+Kompilacja PlatformIO / ESP-IDF6.0.1 **SUCCESS** dla `esp32dev_internal` (30,804 s) i `esp32dev_touch` (23,137 s), przed publikacją źródeł i testami programowymi. Artefakty BIN/ELF/map zachowane w `.pio/audit/v0310_*_prepared.*`. Kontrole profili GPIO i LCD po commicie/pushu, osobny zapis wyników. Bez uploadu, otwierania COM5/COM14 i resetu w tej zmianie. Ostatni potwierdzony firmware na płytce v0.3.9 touch; ostatni potwierdzony stan przewodu CS: odłączony. Użytkownik ma przy wyłączonym zasilaniu połączyć LCD CS z P4, a nowe przypisanie wymaga wgrania v0.3.10. Nie rozpoznano przyczyny rozbieżności P21 i nie potwierdzono naprawy białego obrazu.
+
 ## 17.11.2026 — punkt pomiaru potwierdzony: goldpin P21
 
 Użytkownik potwierdził, że pomiar5 mV wykonano **bezpośrednio na goldpinie P21**, nie na odłączonym przewodzie CS. Nie prosić ponownie o ustalenie tego samego punktu. Ponowne porównanie helpera ROM z nagłówkami zainstalowanego ESP-IDF potwierdziło10 adresów rejestrów, bazy GPIO/IO_MUX, funkcję GPIO21=2 i bit wejścia9; nie znaleziono pomyłki w tych stałych. Nie otwierano portu ani nie powtarzano próby sprzętowej.

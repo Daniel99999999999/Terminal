@@ -40,11 +40,11 @@ Użytkownik potwierdził **VCC i LED = 3,3 V**. To inny moduł niż dotychczasow
 | SDI (MOSI) | **GPIO23** | SPI3 MOSI |
 | DC | **GPIO22** | dane / komenda |
 | RESET | **GPIO27** | reset aktywny LOW |
-| CS | **GPIO21** | wybór LCD aktywny LOW |
+| CS | **GPIO4 (P4)** | wybór LCD aktywny LOW; od v0.3.10 zamiast GPIO21 |
 | GND | **GND** | wspólna masa |
 | VCC | **3V3** | zasilanie modułu |
 
-Szyna 3V3 musi zasilać także podświetlenie; jej wydajność prądowa powinna uwzględniać ten pobór. GPIO4 jest jedynie rezerwą na **EN zewnętrznego drivera podświetlenia**. `RETRO_TFT_BACKLIGHT_CONTROL=0` domyślnie nie steruje GPIO4. Nie łączyć LED wprost z GPIO4. Dla późniejszego drivera ustawić CONTROL=1 i właściwe ACTIVE_LEVEL; driver ma być odpowiedni dla rzeczywistego połączenia anody/katody modułu. Przy LED stale na 3V3 pozostawić CONTROL=0.
+Szyna 3V3 musi zasilać także podświetlenie; jej wydajność prądowa powinna uwzględniać ten pobór. **Od v0.3.10 GPIO4 jest LCD CS**; nie jest już rezerwą dla EN drivera podświetlenia. LED pozostaje na potwierdzonym zasilaniu3,3 V, nie na GPIO. `RETRO_TFT_BACKLIGHT_CONTROL=0`; brak przydzielonego wyjścia podświetlenia jest chroniony błędem kompilacji przy próbie włączenia tej opcji. Przy wyłączonych zasilaniach przepiąć wyłącznie LCD CS z P21 na P4. Nowy pinout wymaga firmware v0.3.10; poprzednie wersje SPI nadal używają P21.
 
 ## XPT2046 — druga magistrala SPI
 

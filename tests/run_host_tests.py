@@ -122,7 +122,8 @@ def main():
                 (output / "result.txt").write_text("".join(log), encoding="utf-8")
                 return result.returncode
     if args.suite in ("all", "profiles") and not args.compile_only:
-        for defines, message in ((["-DRETRO_TFT_PROFILE=3"], "Unknown RETRO_TFT_PROFILE"),
+        for defines, message in ((["-DRETRO_TFT_PROFILE=2", "-DRETRO_TFT_BACKLIGHT_CONTROL=1"], "No GPIO assigned for backlight control"),
+                                 (["-DRETRO_TFT_PROFILE=3"], "Unknown RETRO_TFT_PROFILE"),
                                  (["-DRETRO_TFT_PROFILE=1", "-DRETRO_TOUCH_ENABLE=1"], "require the SPI pin plan"),
                                  (["-DRETRO_TFT_ROTATION=4"], "must be 0..3"),
                                  (["-DRETRO_TOUCH_REQUIRE_IRQ=0"], "polling fallback has been removed")):

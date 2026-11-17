@@ -1,5 +1,7 @@
 # Instrukcje dla Codex — ESP32 RetroTerminal
 
+**Najnowsze zlecenie17.11.2026 / v0.3.10:** użytkownik wybrał inny pin zamiast dalszych pomiarów P21. LCD SPI CS przeniesione na **GPIO4/P4**; nieużywana rezerwa GPIO4 dla EN podświetlenia usunięta, LED na3,3 V. [Bieżący pinout](docs/TFT_PROFILES_v0.1.12.md), wyniki w STATUS. Nowy przydział wymaga przepięcia tylko CS przy wyłączonym zasilaniu i nowego firmware. Nie wykonywać automatycznego uploadu ani dalszych testów ROM/P21. Ostatnia potwierdzona płytka v0.3.9 touch i CS odłączony; nie deklarować poprawy obrazu. Zachować kompilacja / commit+push / testy / osobny zapis wyników. Starsze przydziały CS21 są historyczne.
+
 **Nowszy wynik16.11.2026:** COM5 potwierdził już wgraną v0.3.9 touch / ELF06590579c…; aplikacja działa, LCD biały. VCC/RESET około3,25 V, CS około0 V. Przewód LCD CS odłączony; wymuszony HIGH w ROM daje wejście GPIO21=1, użytkownik mierzy5 mV na wyprowadzeniu, kontrolnie3V3=3,257 V. Końcowe LOW→HIGH daje wejście0→1. Próba zakończona resetem, COM5 zamknięty, bez zapisu Flash. Kolejny krok: dokładny punkt pomiaru i jego połączenie na PCB; nie rozpoznano uszkodzenia GPIO ani przyczyny LCD. [Dane](docs/LCD_WHITE_v0.3.9.md), STATUS. Nie utożsamiać wcześniejszego „testy później / v0.3.8” z bieżącym stanem. Nie ogłaszać naprawy po samym READY ani statusie API.
 
 

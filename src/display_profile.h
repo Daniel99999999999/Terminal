@@ -39,8 +39,8 @@
 #ifndef RETRO_SCROLLBACK_LINES
 #define RETRO_SCROLLBACK_LINES 128 /* 60 KiB at 40 columns, plus frozen live page. */
 #endif
-/* GPIO4 drives an external backlight driver's EN, never the LED load itself.
- * Leave OFF until that driver, polarity and module LED supply are verified. */
+/* GPIO4 is SPI LCD CS. No backlight control GPIO is assigned in this pin plan;
+ * keep this OFF and supply the module LED from its verified 3.3 V source. */
 #ifndef RETRO_TFT_BACKLIGHT_CONTROL
 #define RETRO_TFT_BACKLIGHT_CONTROL 0
 #endif

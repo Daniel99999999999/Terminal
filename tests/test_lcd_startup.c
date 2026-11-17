@@ -35,7 +35,7 @@ esp_err_t spi_bus_initialize(int host,const spi_bus_config_t *c,int dma){
  CHECK(c->sclk_io_num==18&&c->mosi_io_num==23&&c->miso_io_num==19);return ESP_OK;
 }
 esp_err_t esp_lcd_new_panel_io_spi(int host,const esp_lcd_panel_io_spi_config_t *c,esp_lcd_panel_io_handle_t *io){
- CHECK(host==SPI3_HOST&&c->cs_gpio_num==21&&c->dc_gpio_num==22&&c->trans_queue_depth==1);
+ CHECK(host==SPI3_HOST&&c->cs_gpio_num==4&&c->dc_gpio_num==22&&c->trans_queue_depth==1);
  CHECK((c->pclk_hz==1000000||c->pclk_hz==RETRO_TFT_SPI_HZ)&&c->spi_mode==0);
  CHECK(c->lcd_cmd_bits==8&&c->lcd_param_bits==8&&c->cs_ena_pretrans==2&&c->cs_ena_posttrans==2);
  if(recreate_fault&&created){return ESP_FAIL;}
