@@ -1,5 +1,11 @@
 # Historia wersji
 
+## v0.3.12 — 17.11.2026
+
+- Graficzny pasek24 px: duże WZNOW/LIVE i KALIBR., kontrolka BT po prawej. Jednolite pola grafiki/dotyku; CAL nadal po2 s, pauza przez tapnięcie w tekst, wznowienie przez przycisk. Terminal z dotykiem40×27; wariant bez dotyku zachowuje40×29. Ustawienie CR=NL zachowane w konfiguracji, bez osobnego przycisku w nowym układzie.
+- Kontrolka korzysta ze stanu HC-05 STATE, wspólnego z debug LED: niebieska/połączony, szara/rozłączony, obrys/stan nieznany. Touch domyślnie włącza STATE GPIO35 HIGH po potwierdzeniu przewodu i3,24 V. Zmiana kontrolki nie wymaga danych UART. T_CS GPIO33 potwierdzone po poprawieniu okablowania; pozostałe piny, LCD i IRQ bez zmian.
+- [Opis i ograniczenia](docs/TOOLBAR_v0.3.12.md), [fizyczne próby v0.3.11 i bufora](docs/SCROLL_TEST_2026-11-17.md). Ten etap nie zmienia algorytmu historii; długotrwała pauza po nadpisaniu jej starej zawartości nadal wymaga WZNOW przed przeglądaniem aktualnej historii.
+
 ## v0.3.11 — 17.11.2026
 
 - Zgodnie z wyborem użytkownika zwykłe tapnięcie w obszar tekstu zatrzymuje obraz, po puszczeniu palca. Powtórne tapnięcie pozostawia pauzę; wznowienie wyłącznie przez WZNOW na dole po lewej. W stanie bieżącego odbioru pasek pokazuje LIVE. Pionowe gesty nadal zatrzymują i przewijają historię; odbiór UART trwa w tle.

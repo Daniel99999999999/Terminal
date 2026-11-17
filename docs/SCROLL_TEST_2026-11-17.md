@@ -1,5 +1,17 @@
 # Przewijanie, pauza i nadpisanie historii — 17.11.2026
 
+## Nowsza próba v0.3.11 i potwierdzenie zawartości
+
+Użytkownik zatwierdził upload v0.3.11 `esp32dev_touch` przez COM5. [Upload](logs/2026-11-17_v0.3.11_upload.txt) SUCCESS, hash zapisu zweryfikowany. Start potwierdził wersję0.3.11 / ELF74ae0b2d4… i kalibrację odtworzoną z NVS. Użytkownik potwierdził pauzę tapnięciem, przewijanie i WZNOW; mały napis WZNOW utrudniał trafienie. [Log próby](logs/2026-11-17_v0.3.11_panel_console.txt), [wynik](logs/2026-11-17_v0.3.11_panel_result.json):166 wierszy /5154 B, CRCee9cd095, zero błędów/strat. Automatyczne wstrzymanie nadawania po10 s PAUSE w tej pierwszej próbie chroniło jej dawną historię przed nadpisaniem.
+
+Następnie na osobne polecenie wykonano samo nadpisanie: przy PAUSE wysłano512 wierszy BUF, **15360 B**, bez RIS/resetu/uploadu. Stan końcowy RX=parsed20514 B, CRC**5230b961**, errors=drop0, limit128 zachowany. [Zapis COM5](logs/2026-11-17_v0.3.11_overflow_console.txt), [wynik](logs/2026-11-17_v0.3.11_overflow_result.json). Użytkownik potwierdził dokładnie **BUF0485…0512 po WZNOW oraz BUF0357 przy maksymalnym przewinięciu128**. Potwierdza to zachowanie ostatnich danych po wielokrotnym obiegu pierścienia, także fizycznie na LCD.
+
+Helper nadawania po zakończeniu wysyłania napotkał PermissionError przy czytaniu pliku statusu w Windows. Zapis COM5 pracował dalej. Wynik uzgodniono po liczbie bajtów i CRC **bez ponownego nadawania**; zachowano błąd helpera w JSON. Oba porty zamknięto poprawnie.
+
+**Ograniczenie podczas długiej pauzy:** stare dane sprzed zamrożonej strony zostają nadpisane, lecz anchor tej strony nie przesuwa się. Zakres dostępnego przewijania spada do0. Odtworzono to na rzeczywistym module C: total8/anchor8/top6, po20 nowych wierszach total28/anchor8/top8, gesty±2 nie przesuwają top. Sam pierścień zachowuje najnowsze dane, dostępne po WZNOW i ponownej pauzie. Poprzednie zgłoszenie „nie reaguje” dotyczyło przewijania/WZNOW, nie potwierdzonego białego ekranu ani uszkodzonych pasów. Nowy przycisk WZNOW v0.3.11 działa według użytkownika, błąd kotwiczenia historii nadal pozostaje do poprawy. Algorytmu nie zmieniano w zleconym samym teście.
+
+Bufor zawiera **128×40=5120 komórek ×12 B =61440 B (60 KiB)**. Komórka przechowuje Unicode, kolor i atrybuty; nie jest to5120 surowych bajtów UART. Do tego v0.3.11 ma29 bieżących wierszy, osobną kopię pauzy i ekran alternatywny. Poniższe oczekiwanie na fizyczny odbiór opisuje wcześniejszy etap; aktualne potwierdzenie jest powyżej.
+
 ## Zakres i potwierdzone wyniki
 
 Próba na działającym firmware z LCD CS4, przed zmianą UI v0.3.11. Zapis COM5 uruchomiony przed transmisją przez COM14/HC-05 do UART1. Oba porty115200 8N1. Bez wgrywania, resetowania ESP32, kasowania NVS i konfiguracji modułów HC-05. Początkowe RIS zerowało model terminala, nie ESP32; paczka BUF nie zawierała RIS, aby zachować pauzę.

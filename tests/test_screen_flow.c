@@ -6,7 +6,7 @@
 #include "../src/screen.c"
 static int64_t fake_now, last_inject, next_inject=4000000;
 static unsigned event_no, comparisons, writes;
-static bool mock_pause, mock_overlay;
+static bool mock_pause, mock_overlay, mock_connected;
 static int mock_scroll;
 static uint32_t mock_revision=1;
 static uint16_t strip[LCD_STRIP_PIXELS], frame[LCD_WIDTH*LCD_HEIGHT], expected[LCD_STRIP_PIXELS];
@@ -19,13 +19,14 @@ static const char *commands[]={
  "\x1b[29;1Hline\r\nscroll\r\nscroll2", "\x1b[2;20r\x1b[20;1Hregion\r\nnext", "\x1b[?1049hALT PAGE",
  "\x1b[?1049l", "\x1b[3;3H\x1b[5mBLINK\x1b[0m", "\x1b[?25h\x1b[3;30HCURSOR",
  "\x1b[r\x1b[29;1H\r\nA\r\nB\r\nC\r\nD\r\nE\r\nF", "older", "history receives edits", "newer", "resume", "pause", "received while paused\r\n", "resume", "overlay", "received behind overlay", "exit overlay",
- "\x1b[0m\x1b[2J\x1b[HFINAL\r\nOK"
+ "connected", "disconnected", "\x1b[0m\x1b[2J\x1b[HFINAL\r\nOK"
 };
 void test_log(const char *tag,const char *fmt,...) {(void)tag;(void)fmt;}
 const char *esp_err_to_name(esp_err_t err){(void)err;return "mock";}
 const esp_app_desc_t *esp_app_get_description(void){static const esp_app_desc_t d={"probe-v0.3.9"};return &d;}
 void *heap_caps_calloc(size_t n,size_t size,unsigned caps){(void)caps;return calloc(n,size);}
 void app_health_beat(health_channel_t c){(void)c;}
+bool app_health_is_connected(void){return mock_connected;}
 void app_health_fault(void){fprintf(stderr,"Unexpected health fault\n");exit(2);}
 int64_t esp_timer_get_time(void){return fake_now;}
 uint32_t esp_rom_crc32_le(uint32_t crc,const uint8_t *data,uint32_t n){while(n--)crc=crc*33+*data++;return crc;}
@@ -59,6 +60,7 @@ static void compare_frame(void){
    fprintf(stderr,"FAIL event=%u row=%u x=%u y=%u expected=%04x actual=%04x cursor=%u,%u\n",event_no,row,i%LCD_WIDTH,i/LCD_WIDTH,expected[i],frame[row*LCD_STRIP_PIXELS+i],c->x,c->y);exit(1);
   }
  }
+ assert(frame[(LCD_HEIGHT-12)*LCD_WIDTH+LCD_WIDTH-20]==terminal_rgb565(mock_connected?0x2080ff:0x384858));
  ++comparisons;
 }
 void vTaskDelay(TickType_t ticks){
@@ -72,6 +74,8 @@ void vTaskDelay(TickType_t ticks){
    else if(!strcmp(s,"resume"))mock_pause=false;
    else if(!strcmp(s,"overlay")){mock_overlay=true;++mock_revision;}
    else if(!strcmp(s,"exit overlay"))mock_overlay=false;
+   else if(!strcmp(s,"connected"))mock_connected=true;
+   else if(!strcmp(s,"disconnected"))mock_connected=false;
    else for(size_t pos=0,len=strlen(s);pos<len;){size_t n=1+(pos%7);if(n>len-pos)n=len-pos;screen_input((const uint8_t *)s+pos,n);pos+=n;}
    next_inject=fake_now+700000;last_inject=fake_now;
   }else if(fake_now-last_inject>1400000)longjmp(finished,1);

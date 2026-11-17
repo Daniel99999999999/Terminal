@@ -1,0 +1,49 @@
+{
+  "mode": "v0.3.11 manual tap/resume/scroll",
+  "started_utc": "2026-11-17T20:25:29.227156+00:00",
+  "baseline": {
+    "rx": 0,
+    "errors": 0,
+    "rx_crc": 0,
+    "parsed": 0,
+    "drop": 0,
+    "controls": 0,
+    "parsed_crc": 0,
+    "cursor": [
+      0,
+      0
+    ],
+    "view": "LIVE",
+    "cr": "NL",
+    "offset": 0,
+    "history": 0,
+    "utc": "2026-11-17T20:25:24.497867+00:00"
+  },
+  "visual_result": "User confirmed tap pause, scrolling, and WZNOW resume; WZNOW is difficult to hit. Body tap while paused intentionally leaves pause.",
+  "complete": true,
+  "last_line_sent": 166,
+  "held_at_line": 93,
+  "sent_bytes": 5154,
+  "expected_crc": "ee9cd095",
+  "final": {
+    "rx": 5154,
+    "errors": 0,
+    "rx_crc": 4003254421,
+    "parsed": 5154,
+    "drop": 0,
+    "controls": 2,
+    "parsed_crc": 4003254421,
+    "cursor": [
+      0,
+      28
+    ],
+    "view": "LIVE",
+    "cr": "NL",
+    "offset": 0,
+    "history": 128,
+    "utc": "2026-11-17T20:26:54.655040+00:00"
+  },
+  "finished_utc": "2026-11-17T20:26:54.790388+00:00",
+  "transport_passed": true,
+  "next_changes": "User requested holding footer enlargement; no v0.3.12 source changes or upload."
+}

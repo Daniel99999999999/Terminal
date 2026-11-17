@@ -8,6 +8,7 @@
 #include "terminal.h"
 #include "terminal_history.h"
 #include "terminal_raster.h"
+#include "terminal_toolbar.h"
 #include "xpt2046.h"
 #include "touch_ui.h"
 #include "esp_app_desc.h"
@@ -21,7 +22,8 @@
 
 #define HAS_LCD (RETRO_TFT_PROFILE != RETRO_TFT_NONE)
 #define COLS (HAS_LCD ? LCD_WIDTH / 8 : 80)
-#define ROWS (HAS_LCD ? LCD_HEIGHT / 8 - 1 : 24)
+#define STATUS_ROWS (RETRO_TOUCH_ENABLE ? TERMINAL_TOOLBAR_HEIGHT / 8 : 1)
+#define ROWS (HAS_LCD ? LCD_HEIGHT / 8 - STATUS_ROWS : 24)
 #ifdef CONFIG_RETRO_DISPLAY_CR_AS_NEWLINE
 #define DEFAULT_CR_NEWLINE true
 #else
@@ -121,25 +123,33 @@ static esp_err_t welcome(uint32_t *sequence)
     return ESP_OK;
 }
 
+#if RETRO_TOUCH_ENABLE
+static int connection_state(void)
+{
+#ifdef CONFIG_RETRO_HC05_STATE_ENABLE
+    return app_health_is_connected() ? 1 : 0;
+#else
+    return -1; /* No STATE wire: never infer a Bluetooth link from UART traffic. */
+#endif
+}
+#endif
+
 static esp_err_t status_line(bool paused, bool cr_newline)
 {
-    char text[COLS + 1];
 #if RETRO_TOUCH_ENABLE
-    char cal[15];
-    char pause_text[24];
-    unsigned offset = terminal_history_offset(&s_history);
-    if (paused && offset) { snprintf(pause_text, sizeof(pause_text), "[WZNOW %u]", offset); }
-    else { snprintf(pause_text, sizeof(pause_text), "%s", paused ? "[WZNOW]" : "LIVE"); }
+    (void)cr_newline;
     unsigned progress = touch_ui_cal_progress();
-    if (progress > 100) { progress = 100; }
-    if (progress) { snprintf(cal, sizeof(cal), "[CAL %u%%]", progress); }
-    else { snprintf(cal, sizeof(cal), "[CAL:2s]"); }
-    snprintf(text, sizeof(text), "%-13.13s%-13.13s%-14.14s",
-             pause_text, cr_newline ? "[CR=NL]" : "[CR=CR]", cal);
+    for (unsigned strip = 0; strip < STATUS_ROWS; ++strip) {
+        if (!terminal_toolbar_row(strip, LCD_WIDTH, paused, connection_state(), progress,
+                                  lcd_panel_pixels(), LCD_STRIP_PIXELS)) { return ESP_ERR_INVALID_SIZE; }
+        esp_err_t err = lcd_panel_write_row((ROWS + strip) * 8);
+        if (err != ESP_OK) { return err; }
+    }
+    return ESP_OK;
 #else
+    char text[COLS + 1];
     (void)paused;
     snprintf(text, sizeof(text), "HC05 115200 8N1 | CR=%s", cr_newline ? "NL" : "CR");
-#endif
     size_t length = strlen(text);
     terminal_cell_t cells[COLS];
     for (unsigned x = 0; x < COLS; ++x) {
@@ -147,6 +157,7 @@ static esp_err_t status_line(bool paused, bool cr_newline)
             .fg = 0xaaaaaa, .bg = 0x101010 };
     }
     return draw(ROWS, cells, 0, false, true);
+#endif
 }
 #endif
 
@@ -178,6 +189,7 @@ static void screen_task(void *arg)
     unsigned ui_next = 0;
     bool overlay_was_visible = false;
     unsigned cal_progress = 0;
+    int old_link = -2;
     int64_t touch_log_at = 0;
 #endif
     if (lcd_error != ESP_OK) {
@@ -206,6 +218,8 @@ static void screen_task(void *arg)
         }
         unsigned next_cal_progress = touch_ui_cal_progress();
         if (next_cal_progress != cal_progress) { cal_progress = next_cal_progress; status_drawn = false; }
+        int link = connection_state();
+        if (link != old_link) { old_link = link; status_drawn = false; }
         if (touch && now - touch_log_at >= 2000000) {
             touch_log_at = now;
             xpt2046_stats_t stats; xpt2046_get_stats(&stats);

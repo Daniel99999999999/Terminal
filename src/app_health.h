@@ -7,4 +7,5 @@ typedef enum { HEALTH_MAIN, HEALTH_UART1, HEALTH_SCREEN, HEALTH_COUNT } health_c
 esp_err_t app_health_init(void);
 void app_health_beat(health_channel_t channel);
 void app_health_connected(bool connected);
+bool app_health_is_connected(void);
 void IRAM_ATTR app_health_fault(void);

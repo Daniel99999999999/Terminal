@@ -1,5 +1,15 @@
 # Faktyczny stan projektu / handoff
 
+## 17.11.2026 — odebrane v0.3.11, przygotowywana v0.3.12
+
+Kompilacje v0.3.12 internal/touch **SUCCESS** (5,007/49,488 s w końcowym przebiegu); efektywna konfiguracja potwierdza STATE w touch i brak w internal. Testy host toolbar/UI/screen skompilowane bez uruchamiania. Źródła publikowane przed końcowymi testami. Nowa wersja nie jest jeszcze wgrana.
+
+**Rzeczywista płytka:** upload v0.3.11 touch SUCCESS, hash zweryfikowany, log wersji/ELF74ae0b2d4… i odtworzenia NVS. Użytkownik potwierdził tapnięcie→PAUSE, gesty i WZNOW (mały napis trudno trafić). Próba166 wierszy:5154 B, CRCee9cd095, bez błędów/strat. Kolejna próba512 BUF:15360 B, narastająco20514 B i CRC5230b961, RX=parsed, errors=drop0, historia128. Użytkownik potwierdził **BUF0485…0512 po WZNOW i BUF0357 przy maksymalnym offset128**. [Raport](SCROLL_TEST_2026-11-17.md), [walidacja](logs/2026-11-17_v0.3.11_validation.json). To zaliczony transport, nadpisywanie i zawartość krańców historii. Długa PAUSE nadal traci zakres przewijania po nadpisaniu całej starej historii; WZNOW i ponowne wejście w historię udostępniają aktualne dane. Odtworzone w module C; algorytmu nie zmieniano.
+
+**Okablowanie:** użytkownik skorygował T_CS zP35 na **P33** i potwierdził dotyk. Końcowo potwierdził **STATE HC-05 naP35**,3,24 V przy aktywnym BT. Biały ekran przy przepinaniu ustąpił po poprawieniu niełączących przewodów według użytkownika; konkretnej sieci nie zidentyfikowano. Odczyt COM5 przy zgłoszeniu potwierdził v0.3.11, start aplikacji/NVS i pojedynczy restart zasilania, nie bootloop. Nie rozpoznano uszkodzenia GPIO ani błędu obsługi STATE (w v0.3.11 była wyłączona).
+
+**v0.3.12 w przygotowaniu:** graficzny pasek24 px z WZNOW/LIVE, KALIBR. i kropką BT;40×27 tekstu w touch, bez dotyku40×29. [Opis](TOOLBAR_v0.3.12.md). Profil touch włącza STATE HIGH GPIO35 po potwierdzeniu okablowania; pełna niebieska=połączony, szara=rozłączony, obrys=obsługa wyłączona. Piny, LCD init/SPI, IRQ, parser i NVS zachowane. Kompilacja/publikacja i kontrole zapisane poniżej po wykonaniu; nowego firmware nie wgrano. **COM5 i COM14 zamknięte**. Poniższe zapowiedzi wgrania i odbioru v0.3.11 są historyczne.
+
 ## 17.11.2026 — v0.3.11: pauza tapnięciem, wznowienie przez WZNOW
 
 Użytkownik wybrał pauzę przez zwykłe tapnięcie w tekst; powtórne tapnięcie pozostawia pauzę, tylko WZNOW przywraca LIVE. Pole WZNOW/CR powiększone z8 do24 px. Zapisane kontakty y222–231 były poza dawnym y>=232. Kalibracja/NVS i piny bez zmian, LCD CS4. Kompilacje internal/touch SUCCESS (28,860/29,496 s). Po publikacji `7e22aab`: testy UI/kalibracji, renderera (634 porównania pikseli/30 zdarzeń) i historii PASS. Ten sam test ze starym UI wykrywa nietrafienie WZNOW przy y222, nowy kod PASS. [Wyniki](logs/2026-11-17_v0.3.11_validation.json). Próba nowej obsługi na panelu jeszcze oczekuje. Nowej wersji nie wgrano.

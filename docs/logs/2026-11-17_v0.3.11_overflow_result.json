@@ -1,0 +1,55 @@
+{
+  "mode": "overflow",
+  "baseline": {
+    "rx": 5154,
+    "errors": 0,
+    "rx_crc": 4003254421,
+    "parsed": 5154,
+    "drop": 0,
+    "controls": 2,
+    "parsed_crc": 4003254421,
+    "cursor": [
+      0,
+      28
+    ],
+    "view": "PAUSE",
+    "cr": "NL",
+    "offset": 0,
+    "history": 128,
+    "utc": "2026-11-17T20:33:25.331247+00:00"
+  },
+  "started_utc": "2026-11-17T20:33:28.965294+00:00",
+  "expected_lines": 512,
+  "visual_result": {
+    "confirmed_by_user": true,
+    "live_first": "BUF 0485",
+    "live_last": "BUF 0512",
+    "oldest_at_offset_128": "BUF 0357"
+  },
+  "complete": true,
+  "sender_helper_error": "PermissionError(13, 'Permission denied')",
+  "final": {
+    "rx": 20514,
+    "errors": 0,
+    "rx_crc": 1378924897,
+    "parsed": 20514,
+    "drop": 0,
+    "controls": 2,
+    "parsed_crc": 1378924897,
+    "cursor": [
+      0,
+      28
+    ],
+    "view": "PAUSE",
+    "cr": "NL",
+    "offset": 0,
+    "history": 128,
+    "utc": "2026-11-17T20:33:50.377033+00:00"
+  },
+  "sent_bytes": 15360,
+  "expected_crc": "5230b961",
+  "expected_history": 128,
+  "transport_passed": true,
+  "history_count_passed": true,
+  "reconciled_without_retransmission": true
+}

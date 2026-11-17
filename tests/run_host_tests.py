@@ -14,7 +14,7 @@ import subprocess
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--cc", help="C compiler (GCC, Clang, or bcc64x)")
-    parser.add_argument("--suite", choices=("all", "bt", "led", "hci", "terminal", "hc05", "raster", "profiles", "xpt", "calibration", "lcd", "history", "screen"), default="all")
+    parser.add_argument("--suite", choices=("all", "bt", "led", "hci", "terminal", "hc05", "raster", "profiles", "xpt", "calibration", "lcd", "history", "screen", "toolbar"), default="all")
     parser.add_argument("--compile-only", action="store_true", help="Build executables without running tests")
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
@@ -74,7 +74,7 @@ def main():
     extra = []
     if args.suite in ("all", "screen"):
         extra.append(("screen_flow", [root / "tests/test_screen_flow.c", root / "src/terminal_history.c",
-            root / "src/terminal.c", root / "src/ansi_parser.c", root / "src/terminal_raster.c"],
+            root / "src/terminal.c", root / "src/ansi_parser.c", root / "src/terminal_raster.c", root / "src/terminal_toolbar.c"],
             ["-DRETRO_TFT_PROFILE=2", "-DRETRO_TOUCH_ENABLE=1"], [root / "tests/screen_stubs"]))
     if args.suite in ("all", "history"):
         extra.append(("terminal_history", [root / "tests/test_terminal_history.c",
@@ -99,10 +99,13 @@ def main():
                            "-DRETRO_TOUCH_REQUIRE_IRQ=" + str(require_irq)], [root / "tests/spi_stubs"]))
     if args.suite in ("all", "calibration"):
         extra.append(("touch_calibration", [root / "tests/test_touch_calibration.c",
-            root / "src/touch_calibration.c", root / "src/touch_ui.c",
+            root / "src/touch_calibration.c", root / "src/touch_ui.c", root / "src/terminal_toolbar.c",
             root / "src/terminal_raster.c", root / "src/terminal.c", root / "src/ansi_parser.c"],
             ["-DRETRO_TFT_PROFILE=2", "-DRETRO_TOUCH_ENABLE=1"],
             [root / "tests/touch_ui_stubs", root / "tests/spi_stubs"]))
+    if args.suite in ("all", "toolbar"):
+        extra.append(("terminal_toolbar", [root / "tests/test_terminal_toolbar.c", root / "src/terminal_toolbar.c",
+            root / "src/terminal_raster.c", root / "src/terminal.c", root / "src/ansi_parser.c"], [], []))
     for name, sources, defines, includes in extra:
         executable = output / ("test_" + name + (".exe" if os.name == "nt" else ""))
         command = [compiler, *flags, "-std=c11", "-Wall", "-Wextra", "-Werror", *defines,

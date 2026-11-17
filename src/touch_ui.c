@@ -1,4 +1,5 @@
 #include "touch_ui.h"
+#include "terminal_toolbar.h"
 #include "sdkconfig.h"
 #include "display_profile.h"
 #if RETRO_TOUCH_ENABLE
@@ -15,7 +16,7 @@
 #include "nvs_flash.h"
 
 enum { CALIBRATE, VERIFY, TEST, TERMINAL };
-enum { TAP_NONE = -1, TAP_PAUSE, TAP_RESUME, TAP_CR };
+enum { TAP_NONE = -1, TAP_PAUSE, TAP_RESUME };
 typedef struct {
     uint32_t magic, version, rotation;
     touch_calibration_t map;
@@ -37,11 +38,11 @@ static bool s_dragging;
 
 static int tap_action(uint16_t x, uint16_t y)
 {
-    /* The text is 8 px high, but a finger needs a larger touch target.
-     * Recorded footer taps mapped to y=222..231, above the old y>=232 zone. */
-    bool footer = y >= LCD_HEIGHT - 24;
-    if (footer && x >= LCD_WIDTH / 3 && x < LCD_WIDTH * 2 / 3) { return TAP_CR; }
-    if (s_paused) { return footer && x < LCD_WIDTH / 3 ? TAP_RESUME : TAP_NONE; }
+    terminal_toolbar_button_t button = terminal_toolbar_hit(x, y, LCD_WIDTH, LCD_HEIGHT);
+    if (y >= LCD_HEIGHT - TERMINAL_TOOLBAR_HEIGHT) {
+        return s_paused && button == TOOLBAR_RESUME ? TAP_RESUME : TAP_NONE;
+    }
+    if (s_paused) { return TAP_NONE; }
     return TAP_PAUSE; /* A plain terminal tap freezes; only WZNOW resumes. */
 }
 
@@ -51,10 +52,6 @@ static void finish_gesture(void)
         if (s_tap == TAP_PAUSE || s_tap == TAP_RESUME) {
             s_paused = s_tap == TAP_PAUSE; ++s_revision;
             ESP_LOGI("TOUCH", "Tap release -> %s", s_paused ? "PAUSE" : "LIVE");
-        }
-        if (s_tap == TAP_CR) {
-            s_cr_newline = !s_cr_newline; ++s_revision;
-            ESP_LOGI("TOUCH", "CR tap release -> %s", s_cr_newline ? "NL" : "CR");
         }
     }
     s_tap = TAP_NONE; s_dragging = false;
@@ -279,9 +276,11 @@ void touch_ui_update(const xpt2046_sample_t *sample, uint32_t now)
                     s_down = true;
                     return;
                 }
-                bool start_cal = !s_down && x >= LCD_WIDTH * 2 / 3 && y >= LCD_HEIGHT - 8;
+                bool start_cal = !s_down &&
+                    terminal_toolbar_hit(x, y, LCD_WIDTH, LCD_HEIGHT) == TOOLBAR_CALIBRATE;
                 /* Hysteresis only after arming on the actual CAL button. */
-                bool stay_cal = s_holding && x + 8 >= LCD_WIDTH * 2 / 3 && y >= LCD_HEIGHT - 24;
+                bool stay_cal = s_holding && x + 8 >= (LCD_WIDTH - 40) / 2 &&
+                    x < LCD_WIDTH - 32 && y >= LCD_HEIGHT - TERMINAL_TOOLBAR_HEIGHT - 8;
                 if (start_cal || stay_cal) {
                     if (!s_holding) {
                         s_hold_since = now; s_holding = true;
@@ -297,7 +296,7 @@ void touch_ui_update(const xpt2046_sample_t *sample, uint32_t now)
                 } else {
                     stop_hold();
                     /* Footer taps commit only on release: a drag may start
-                     * anywhere, including PAUZA/CR/CAL, without firing a tap. */
+                     * anywhere, including WZNOW/CAL/BT, without firing a tap. */
                 }
             } else { stop_hold(); }
         } else { stop_hold(); }

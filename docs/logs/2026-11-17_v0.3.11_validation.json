@@ -67,5 +67,23 @@
     "old_source_output": "FAIL line 149: !touch_ui_paused()\n",
     "expected_failure": "old 8 px footer rejects resume at y222"
   },
-  "physical_test": "not uploaded; pending new UI panel test"
+  "physical_test": {
+    "upload": "approved COM5 SUCCESS; verified image hash; log 0.3.11 / ELF74ae0b2d4",
+    "calibration": "restored from NVS",
+    "manual_ui": "user confirms tap pause, both scroll directions, resume via WZNOW; small label difficult to hit",
+    "flow_bytes": 5154,
+    "flow_crc": "ee9cd095",
+    "overflow_bytes": 15360,
+    "cumulative_crc": "5230b961",
+    "uart_errors": 0,
+    "parser_drops": 0,
+    "history_lines": 128,
+    "user_confirmed_live_lines": [
+      485,
+      512
+    ],
+    "user_confirmed_oldest_line": 357,
+    "current_wiring": "T_CS GPIO33, STATE GPIO35; 3.24 V active link confirmed; loose wires corrected by user",
+    "ports": "COM5 and COM14 closed"
+  }
 }

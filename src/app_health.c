@@ -23,6 +23,11 @@ void app_health_connected(bool connected)
     __atomic_store_n(&s_connected, connected, __ATOMIC_RELEASE);
 }
 
+bool app_health_is_connected(void)
+{
+    return __atomic_load_n(&s_connected, __ATOMIC_ACQUIRE) != 0;
+}
+
 void app_health_beat(health_channel_t channel)
 {
     if ((unsigned)channel >= HEALTH_COUNT) { return; }

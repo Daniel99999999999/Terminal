@@ -145,7 +145,7 @@ int main(void)
     /* Real footer contacts from COM5: y=222..231 missed the old 8 px zone. */
     const unsigned footer_y[] = {222, 227, 231};
     for (unsigned i = 0; i < sizeof(footer_y) / sizeof(footer_y[0]); ++i) {
-        release(); hold(20,LCD_HEIGHT-3); release(); CHECK(touch_ui_paused());
+        release(); hold(20,100); release(); CHECK(touch_ui_paused());
         hold(35,footer_y[i]); release(); CHECK(!touch_ui_paused());
     }
     /* A plain tap pauses anywhere in the terminal; repeat taps stay paused.
@@ -158,14 +158,14 @@ int main(void)
         hold(LCD_WIDTH/2,LCD_HEIGHT/2); release(); CHECK(touch_ui_paused());
         hold(35,222); release(); CHECK(!touch_ui_paused());
     }
-    release(); hold(20,LCD_HEIGHT-3); CHECK(!touch_ui_paused());
+    release(); hold(20,100); CHECK(!touch_ui_paused());
     /* A lost ADC sample during one contact must not toggle PAUZA twice. */
-    gesture_sample(0,0,false); hold(20,LCD_HEIGHT-3); CHECK(!touch_ui_paused());
+    gesture_sample(0,0,false); hold(20,100); CHECK(!touch_ui_paused());
     release(); CHECK(touch_ui_paused()); /* One action, committed on release. */
     hold(20,LCD_HEIGHT-3); release(); CHECK(!touch_ui_paused());
-    hold(LCD_WIDTH/2,LCD_HEIGHT-3); CHECK(touch_ui_cr_newline());
-    release(); CHECK(!touch_ui_cr_newline());
-    hold(LCD_WIDTH/2,LCD_HEIGHT-3); release(); CHECK(touch_ui_cr_newline());
+    /* Short CAL and indicator taps do not pause or change CR handling. */
+    hold(210,LCD_HEIGHT-3); release(); CHECK(touch_ui_cr_newline() && !touch_ui_paused());
+    hold(LCD_WIDTH-20,LCD_HEIGHT-3); release(); CHECK(!touch_ui_paused());
     /* Vertical drags can start anywhere, including all footer controls. */
     gesture_sample(100,100,true); gesture_sample(100,132,true);
     CHECK(touch_ui_paused() && touch_ui_take_scroll()==4 && touch_ui_take_scroll()==0);
@@ -181,41 +181,41 @@ int main(void)
         hold(20,LCD_HEIGHT-3); release(); CHECK(!touch_ui_paused());
     }
     /* An invalid ADC reading with IRQ LOW keeps one contact, even >80 ms. */
-    hold(LCD_WIDTH/2,LCD_HEIGHT-3);
+    hold(90,120);
     xpt2046_sample_t contact_only={.contact=true};
     for(unsigned i=0;i<10;++i){touch_ui_update(&contact_only,now_ms);now_ms+=20;}
-    CHECK(touch_ui_cr_newline());release();CHECK(!touch_ui_cr_newline());
-    hold(LCD_WIDTH/2,LCD_HEIGHT-3);release();CHECK(touch_ui_cr_newline());
+    CHECK(!touch_ui_paused());release();CHECK(touch_ui_paused());
+    hold(20,LCD_HEIGHT-3);release();CHECK(!touch_ui_paused() && touch_ui_cr_newline());
     gesture_sample(20,LCD_HEIGHT-3,true);gesture_sample(70,LCD_HEIGHT-3,true);
     release();CHECK(!touch_ui_paused() && touch_ui_take_scroll()==0); /* Horizontal cancels tap. */
     /* Entering CAL from a held press elsewhere cannot arm it. */
-    release(); hold(20,100); hold(LCD_WIDTH-20,LCD_HEIGHT-3);
+    release(); hold(20,100); hold(210,LCD_HEIGHT-3);
     CHECK(touch_ui_cal_progress() == 0 && !touch_ui_visible());
-    release(); hold(LCD_WIDTH-20,LCD_HEIGHT-3); CHECK(touch_ui_cal_progress() > 0);
+    release(); hold(210,LCD_HEIGHT-3); CHECK(touch_ui_cal_progress() > 0);
     hold(20,100); CHECK(touch_ui_cal_progress() == 0 && !touch_ui_visible());
-    hold(LCD_WIDTH-20,LCD_HEIGHT-3); CHECK(touch_ui_cal_progress() == 0);
+    hold(210,LCD_HEIGHT-3); CHECK(touch_ui_cal_progress() == 0);
     /* Elapsed time without observations is not evidence of a continuous hold. */
-    release(); hold(LCD_WIDTH-20,LCD_HEIGHT-3);
-    now_ms += 2100; hold(LCD_WIDTH-20,LCD_HEIGHT-3);
+    release(); hold(210,LCD_HEIGHT-3);
+    now_ms += 2100; hold(210,LCD_HEIGHT-3);
     CHECK(!touch_ui_visible() && touch_ui_cal_progress() < 50);
     /* A still-LOW IRQ cannot certify the position during a long ADC gap. */
-    release(); hold(LCD_WIDTH-20,LCD_HEIGHT-3);
+    release(); hold(210,LCD_HEIGHT-3);
     for(unsigned i=0;i<110;++i){touch_ui_update(&contact_only,now_ms);now_ms+=20;}
-    hold(LCD_WIDTH-20,LCD_HEIGHT-3);
+    hold(210,LCD_HEIGHT-3);
     CHECK(!touch_ui_visible() && touch_ui_cal_progress()==0);
     /* Two separate 1.2 second holds must not combine into CAL. */
     release();
-    for (unsigned i=0;i<60;++i) { gesture_sample(LCD_WIDTH-20,LCD_HEIGHT-3,true); }
+    for (unsigned i=0;i<60;++i) { gesture_sample(210,LCD_HEIGHT-3,true); }
     release();
-    for (unsigned i=0;i<60;++i) { gesture_sample(LCD_WIDTH-20,LCD_HEIGHT-3,true); }
+    for (unsigned i=0;i<60;++i) { gesture_sample(210,LCD_HEIGHT-3,true); }
     CHECK(!touch_ui_visible());
     /* Real two-second hold: periodic missing samples and modest inward jitter
      * after arming must preserve the timer, with visible progress. */
-    release(); gesture_sample(LCD_WIDTH-20,LCD_HEIGHT-3,true);
+    release(); gesture_sample(210,LCD_HEIGHT-3,true);
     for (unsigned i=0;i<105 && !touch_ui_visible();++i) {
         if (i % 3 == 1) { gesture_sample(0,0,false); }
-        else if (i % 4 == 0) { gesture_sample(LCD_WIDTH*2/3-5,LCD_HEIGHT-20,true); }
-        else { gesture_sample(LCD_WIDTH-20,LCD_HEIGHT-3,true); }
+        else if (i % 4 == 0) { gesture_sample(205,LCD_HEIGHT-20,true); }
+        else { gesture_sample(210,LCD_HEIGHT-3,true); }
         if (i == 49) { CHECK(!touch_ui_visible() && touch_ui_cal_progress() >= 40 && touch_ui_cal_progress() <= 50); }
     }
     CHECK(touch_ui_visible() && touch_ui_cal_progress() == 0);

@@ -12,7 +12,7 @@ config RETRO_DISPLAY_CR_AS_NEWLINE
         CR moves to column zero on the next row; an immediately following LF
         is consumed, including across UART chunks. Raw UART bytes and CRC are
         unchanged. Disable for strict VT carriage-return/progress-line output.
-        A calibrated touchscreen can toggle this display option at runtime.
+        This setting is independent of the touchscreen toolbar.
 
 config RETRO_HC05_STATE_ENABLE
     bool "STATE wired to GPIO35 and verified at 3.3 V"

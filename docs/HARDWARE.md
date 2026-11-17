@@ -1,5 +1,7 @@
 # Sprzęt, bezpieczeństwo i nieustalone połączenia
 
+**Najnowsze potwierdzenie17.11.2026:** użytkownik odkrył T_CS naP35, przeniósł na **GPIO33/P33** i potwierdził działanie. Następnie potwierdził końcowo **HC-05 STATE→GPIO35/P35**, napięcie3,24 V przy aktywnym BT i działający sprzęt po poprawieniu niełączących przewodów. Nie zamieniać tych funkcji: GPIO35 jest tylko wejściem, CS wymaga wyjścia. Wcześniejsze działanie dotyku naP35 nie potwierdzało poprawności selekcji kontrolera. [Opis i źródła](TOOLBAR_v0.3.12.md). LCD CS4, UART TX32/RX34, IRQ36, rezerwacje PSRAM i Flash zachowane. Żadnego nowego firmware nie wgrano przy tej korekcie okablowania.
+
 **Próba17.11.2026:** użytkownik potwierdził przewijanie w obu kierunkach i automatyczną pauzę gestem, odczyty uruchamia IRQ. Kontakty przy dolnym napisie trafiały na y222–231, poza dawnym8-pikselowym polem; v0.3.11 zmienia UI, bez przepinania przewodów ani kasowania NVS. [Raport i ograniczenia](SCROLL_TEST_2026-11-17.md). CS LCD pozostaje GPIO4; pierwotna przyczyna problemu P21 nadal nieustalona.
 
 **Potwierdzenie17.11.2026:** użytkownik zgłosił działający LCD przy **CS→P4**. Przyjmujemy ten pinout do dalszych prób. Przyczyna problemu P21 nieustalona; nowa obsługa IRQ i przewijania gestami jeszcze bez fizycznego odbioru. [Aktualne wyniki](STATUS.md). Poniższa zapowiedź oczekiwanej próby opisuje stan sprzed potwierdzenia.

@@ -58,6 +58,9 @@ void uart_input_log(void)
         (unsigned long)__atomic_load_n(&s_received, __ATOMIC_RELAXED),
         (unsigned long)__atomic_load_n(&s_errors, __ATOMIC_RELAXED),
         (unsigned long)__atomic_load_n(&s_crc, __ATOMIC_RELAXED));
+#ifdef CONFIG_RETRO_HC05_STATE_ENABLE
+    ESP_LOGI("HC05", "STATE GPIO35 connected=%u", app_health_is_connected() ? 1u : 0u);
+#endif
     screen_log();
 }
 
