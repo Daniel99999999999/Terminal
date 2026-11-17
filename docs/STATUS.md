@@ -1,5 +1,11 @@
 # Faktyczny stan projektu / handoff
 
+## 17.11.2026 — punkt pomiaru potwierdzony: goldpin P21
+
+Użytkownik potwierdził, że pomiar5 mV wykonano **bezpośrednio na goldpinie P21**, nie na odłączonym przewodzie CS. Nie prosić ponownie o ustalenie tego samego punktu. Ponowne porównanie helpera ROM z nagłówkami zainstalowanego ESP-IDF potwierdziło10 adresów rejestrów, bazy GPIO/IO_MUX, funkcję GPIO21=2 i bit wejścia9; nie znaleziono pomyłki w tych stałych. Nie otwierano portu ani nie powtarzano próby sprzętowej.
+
+Następny pomiar zlecony przy całkowicie wyłączonym zasilaniu ESP32 i LCD (także USB), z przewodem CS nadal odłączonym: rezystancja goldpin P21↔jego własne pole lutownicze od spodu PCB oraz P21↔GND ESP32. Oczekiwane wyniki liczbowe/OL. Pierwszy sprawdza połączenie złącza, drugi ewentualne niskoomowe połączenie z masą; nie zastępują sprawdzenia całej ścieżki do modułu ani nie identyfikują przyczyny białego LCD. Nie rozpoznano uszkodzenia GPIO.
+
 ## 16.11.2026 — pomiary CS przy białym ekranie
 
 Użytkownik: TFT VCC3,243 V, RESET3,258 V, CS−24,8 mV; bezpośrednio GPIO21 ESP32−24 mV. Po wyłączeniu zasilania, odłączeniu tylko przewodu GPIO21↔LCD CS i ponownym starcie/5 s: **GPIO21=0 V**. [Interpretacja i próba ROM](LCD_WHITE_v0.3.9.md). Przewód CS pozostaje odłączony; pozostałe połączenia bez zmian według ostatniej procedury. Nie przesądza to zwarcia ani winy kodu.

@@ -61,6 +61,12 @@ O20:43:08 UTC wykonano dodatkowo LOW→HIGH. W obu stanach wejście podążyło 
 
 Lokalne artefakty: `.pio/audit/gpio21_rom_result.json` (pierwsza próba), `.pio/audit/gpio21_rom_result_v2.json` (powtórka). Firmware nadal v0.3.9; brak nowego uploadu.
 
+### Doprecyzowanie17.11.2026 — bezpośrednio goldpin P21
+
+Użytkownik potwierdził pomiar napięcia **bezpośrednio na goldpinie P21**. Nie chodzi o odłączony koniec przewodu CS. Ponownie sprawdzono stałe helpera z rzeczywistymi nagłówkami SDK:10 adresów OUT/SET/CLEAR/ENABLE/EN_SET/EN_CLEAR/IN/PIN21/MATRIX21/MUX21, obie bazy, funkcja GPIO21=2 i FUN_IE bit9 są zgodne. Sprawdzono również sygnatury `esptool.read_reg(addr)` oraz `write_reg(addr,value,mask)`; helper używa ich w prawidłowej kolejności. Nie jest to niezależne potwierdzenie napięcia na PCB ani kompletnej sprawności GPIO. Nie otwierano COM5/COM14.
+
+Zlecono dwa pomiary rezystancji przy całkowicie odłączonym zasilaniu ESP32 i LCD, także USB, z przewodem CS nadal odłączonym: goldpin P21↔jego własne pole lutownicze na spodzie PCB oraz P21↔GND ESP32. Wyniki oczekiwane. Połączenie goldpinu z własnym polem powinno mieć rezystancję zbliżoną do zwarcia sond. Sam taki wynik nie sprawdzi ciągłości dalszej ścieżki do modułu. Nie zalecano lutowania ani wymiany GPIO.
+
 Sprawdzono również [potwierdzony przez autora M5GFX problem inicjalizacji padów w IDF6](https://github.com/m5stack/M5GFX/issues/192): tam SPI zachowywało wcześniejszy tryb open-drain po detekcji płytki. Nasz kod nie wykonuje tej detekcji i nie ustawia OD na SCK/MOSI, więc nie przenosimy tamtej diagnozy na tę płytkę. Zrzut rzeczywistej konfiguracji GPIO przed/po SPI byłby użyteczną diagnostyką ewentualnej kolejnej wersji.
 
 Surowe lokalne zapisy: `.pio/audit/2026-11-16_white_screen_passive_com5.txt` oraz `.pio/audit/2026-11-16_white_screen_reset_com5.txt`. COM5 zamknięty po obu odczytach. Brak nowej zmiany kodu i brak deklaracji naprawy.
