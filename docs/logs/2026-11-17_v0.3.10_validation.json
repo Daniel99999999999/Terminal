@@ -1,0 +1,66 @@
+{
+  "version": "0.3.10",
+  "lcd_cs_gpio": 4,
+  "uploaded": false,
+  "profiles": {
+    "esp32dev_internal": {
+      "static_ram": 13712,
+      "flash_used": 180311,
+      "duration_s": 30.8,
+      "artifacts": {
+        "bin": {
+          "file": ".pio\\audit\\v0310_internal_prepared.bin",
+          "size": 180736,
+          "sha256": "a1f881eef848e5a499f8fc13e011395d9759614f8ca4741c37ac21a6c5a44c75"
+        },
+        "elf": {
+          "file": ".pio\\audit\\v0310_internal_prepared.elf",
+          "size": 3245956,
+          "sha256": "1db6cce67cbb46a73d66bfa4c19d22a77c55c4eeb67fb290c791426be4033dda"
+        },
+        "map": {
+          "file": ".pio\\audit\\v0310_internal_prepared.map",
+          "size": 3665944,
+          "sha256": "56fb617011538f16cada17c757699c262aca918df03c2f079c6dfb7da102ee65"
+        }
+      }
+    },
+    "esp32dev_touch": {
+      "static_ram": 14352,
+      "flash_used": 208359,
+      "duration_s": 23.14,
+      "artifacts": {
+        "bin": {
+          "file": ".pio\\audit\\v0310_touch_prepared.bin",
+          "size": 208784,
+          "sha256": "ac1f09a52e92b0fe91e1d8fd546c66dfc3da11f1ba04dd90e721fccd0bf5985f"
+        },
+        "elf": {
+          "file": ".pio\\audit\\v0310_touch_prepared.elf",
+          "size": 3896968,
+          "sha256": "e06fe30a89855d6b8159d8906b9315542dd8c8997376952f7f8b704c71c87ac9"
+        },
+        "map": {
+          "file": ".pio\\audit\\v0310_touch_prepared.map",
+          "size": 3676963,
+          "sha256": "8ded625861c138ef502ea94d1e3f07c7c1cc6923322d4f17a9dbe06168186678"
+        }
+      }
+    }
+  },
+  "source_commit": "b81397217551578d31f8d2a67e12cf8d2ab56e6f",
+  "source_pushed_before_host_tests": true,
+  "validation_date": "2026-11-17",
+  "hardware_tested": false,
+  "serial_ports_opened": false,
+  "checks": {
+    "profiles": {
+      "exit_code": 0,
+      "log": "docs/logs/2026-11-17_v0.3.10_profiles.txt"
+    },
+    "lcd": {
+      "exit_code": 0,
+      "log": "docs/logs/2026-11-17_v0.3.10_lcd.txt"
+    }
+  }
+}

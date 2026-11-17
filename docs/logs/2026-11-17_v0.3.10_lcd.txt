@@ -1,0 +1,7 @@
+Embarcadero C++ 7.70 for Win64/COFF Copyright (c) 2012-2024 Embarcadero Technologies, Inc.
+PASS LCD: reset/wake/display guards, full GRAM before DISPON, 1 MHz raw reads, 10 MHz writes, CS margins, informational read errors
+PASS LCD: init/transport error propagated; display remains off
+PASS LCD: DMA timeout/queue error latched; no reuse, second byte swap or DISPON
+PASS LCD: DMA timeout/queue error latched; no reuse, second byte swap or DISPON
+PASS LCD: reset/wake/display guards, full GRAM before DISPON, 1 MHz raw reads, 10 MHz writes, CS margins, informational read errors
+PASS LCD: init/transport error propagated; display remains off
