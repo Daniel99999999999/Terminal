@@ -2,7 +2,7 @@
 
 ## 17.11.2026 — odebrane v0.3.11, przygotowywana v0.3.12
 
-Kompilacje v0.3.12 internal/touch **SUCCESS** (5,007/49,488 s w końcowym przebiegu); efektywna konfiguracja potwierdza STATE w touch i brak w internal. Testy host toolbar/UI/screen skompilowane bez uruchamiania. Źródła publikowane przed końcowymi testami. Nowa wersja nie jest jeszcze wgrana.
+Kompilacje v0.3.12 internal/touch **SUCCESS** (5,007/49,488 s w końcowym przebiegu); efektywna konfiguracja potwierdza STATE w touch i brak w internal. Źródła **`9ef8c9c` opublikowane przed testami**. Toolbar, kalibracja/UI, renderer674 porównania/32 zdarzenia i historia **PASS**. Podgląd z rzeczywistego modułu C obejrzany, trzy stany kontrolki zgodne. [Wyniki i hasze](logs/2026-11-17_v0.3.12_validation.json), [opis](TOOLBAR_v0.3.12.md). Nowa wersja nie jest jeszcze wgrana; próba panelu i fizycznych zmian STATE pozostaje oczekiwana.
 
 **Rzeczywista płytka:** upload v0.3.11 touch SUCCESS, hash zweryfikowany, log wersji/ELF74ae0b2d4… i odtworzenia NVS. Użytkownik potwierdził tapnięcie→PAUSE, gesty i WZNOW (mały napis trudno trafić). Próba166 wierszy:5154 B, CRCee9cd095, bez błędów/strat. Kolejna próba512 BUF:15360 B, narastająco20514 B i CRC5230b961, RX=parsed, errors=drop0, historia128. Użytkownik potwierdził **BUF0485…0512 po WZNOW i BUF0357 przy maksymalnym offset128**. [Raport](SCROLL_TEST_2026-11-17.md), [walidacja](logs/2026-11-17_v0.3.11_validation.json). To zaliczony transport, nadpisywanie i zawartość krańców historii. Długa PAUSE nadal traci zakres przewijania po nadpisaniu całej starej historii; WZNOW i ponowne wejście w historię udostępniają aktualne dane. Odtworzone w module C; algorytmu nie zmieniano.
 

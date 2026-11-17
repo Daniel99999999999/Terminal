@@ -1,0 +1,73 @@
+{
+  "version": "0.3.12",
+  "source_commit": "9ef8c9c",
+  "build": {
+    "esp32dev_internal": {
+      "version": "0.3.12",
+      "state_enabled": false,
+      "artifacts": {
+        "bin": {
+          "path": ".pio\\audit\\v0312_internal_prepared.bin",
+          "size": 180736,
+          "sha256": "40018ee19c3d37081370fd9649e89699963eb1a14a4baea787dcb459dc00b865"
+        },
+        "elf": {
+          "path": ".pio\\audit\\v0312_internal_prepared.elf",
+          "size": 3246116,
+          "sha256": "b2d5173381f1bc69364eb165f10e54e95b5f5a7f1673a756fbd19ce4fb410141"
+        },
+        "map": {
+          "path": ".pio\\audit\\v0312_internal_prepared.map",
+          "size": 3668781,
+          "sha256": "a657320bd12ebb050561f4f7efd88bd733ed2b4090229dee5692e9a72144826d"
+        }
+      }
+    },
+    "esp32dev_touch": {
+      "version": "0.3.12",
+      "state_enabled": true,
+      "artifacts": {
+        "bin": {
+          "path": ".pio\\audit\\v0312_touch_prepared.bin",
+          "size": 209568,
+          "sha256": "146571ea2f00613aebeb1feaac46c7823cd7d4045fa1f55338938afa8edd4bed"
+        },
+        "elf": {
+          "path": ".pio\\audit\\v0312_touch_prepared.elf",
+          "size": 3911516,
+          "sha256": "22ef38b44563f3852ac1140d60b88a6afa2fcd9efc009172568894385fee6da8"
+        },
+        "map": {
+          "path": ".pio\\audit\\v0312_touch_prepared.map",
+          "size": 3681937,
+          "sha256": "abb9dbceba9c2833108c5ae4ce3a29744b1c1479836298f136252156bedc3389"
+        }
+      }
+    }
+  },
+  "host": {
+    "toolbar": {
+      "exit_code": 0,
+      "seconds": 0.5,
+      "log": ".pio\\audit\\2026-11-17_v0.3.12_toolbar.txt"
+    },
+    "calibration": {
+      "exit_code": 0,
+      "seconds": 0.609,
+      "log": ".pio\\audit\\2026-11-17_v0.3.12_calibration.txt"
+    },
+    "screen": {
+      "exit_code": 0,
+      "seconds": 0.703,
+      "log": ".pio\\audit\\2026-11-17_v0.3.12_screen.txt"
+    },
+    "history": {
+      "exit_code": 0,
+      "seconds": 0.422,
+      "log": ".pio\\audit\\2026-11-17_v0.3.12_history.txt"
+    }
+  },
+  "preview": "2026-11-17_v0.3.12_toolbar_preview.png: actual C RGB565, three states, nearest-neighbor 3x; visually checked",
+  "physical": "not uploaded; physical toolbar and STATE transitions pending",
+  "known_limit": "Paused anchor expires after old history fully overwritten; firmware history algorithm unchanged."
+}

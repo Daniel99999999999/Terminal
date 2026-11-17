@@ -1,0 +1,2 @@
+Embarcadero C++ 7.70 for Win64/COFF Copyright (c) 2012-2024 Embarcadero Technologies, Inc.
+PASS actual screen.c: 674 pixel comparisons, 392 writes, 32 events; SGR/CUP/CR/LF/scroll/alternate/cursor/blink/frozen pause/history gestures/overlay; virtual LCD, no physical test

@@ -4,7 +4,7 @@ Projekt terminala szeregowego DIY opartego na **ESP32-WROVER (ESP32-D0WD-V3)**. 
 
 Repozytorium: [Daniel99999999999/Terminal](https://github.com/Daniel99999999999/Terminal). Bieżąca wersja źródeł: **v0.3.12**. [Nowa implementacja i konfiguracja](docs/REWRITE_v0.2.0.md), [opis wersji](CHANGELOG.md), [praca z Git/GitHub](docs/GITHUB.md).
 
-**v0.3.12 — graficzny pasek:** duże WZNOW i KALIBR., kontrolka BT po prawej, wspólne pola grafiki i dotyku. Pasek24 px, tekst40×27 w profilu touch. Potwierdzone T_CS→P33, HC-05 STATE→P35 i3,24 V; touch włącza STATE HIGH. Niebieska kropka oznacza połączenie, szara rozłączenie, obrys stan nieznany przy wyłączonej opcji. [Opis, konfiguracja i ograniczenia](docs/TOOLBAR_v0.3.12.md). Na płytce nadal v0.3.11; nowy pasek wymaga osobnego odbioru po wgraniu. Kompilacja i wyniki w STATUS.
+**v0.3.12 — graficzny pasek:** duże WZNOW i KALIBR., kontrolka BT po prawej, wspólne pola grafiki i dotyku. Pasek24 px, tekst40×27 w profilu touch. Potwierdzone T_CS→P33, HC-05 STATE→P35 i3,24 V; touch włącza STATE HIGH. Niebieska kropka oznacza połączenie, szara rozłączenie, obrys stan nieznany przy wyłączonej opcji. [Opis, konfiguracja i ograniczenia](docs/TOOLBAR_v0.3.12.md). Na płytce nadal v0.3.11; nowy pasek wymaga osobnego odbioru po wgraniu. Kompilacje oraz testy paska/UI/ekranu/historii PASS; [podgląd](docs/logs/2026-11-17_v0.3.12_toolbar_preview.png), wyniki w STATUS.
 
 **Próby v0.3.11:** użytkownik potwierdził pauzę/gesty/WZNOW oraz dokładne krańce historii po512 nowych wierszach;15360 B bez strat, limit128 zachowany. [Raport](docs/SCROLL_TEST_2026-11-17.md). Dawne oczekiwanie na próbę v0.3.11 poniżej jest historyczne.
 
