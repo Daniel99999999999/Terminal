@@ -1,0 +1,199 @@
+{
+  "date": "2026-11-17",
+  "scope": "physical scrolling and history ring overwrite before v0.3.11; firmware not uploaded/reset",
+  "flow": {
+    "mode": "flow",
+    "baseline": {
+      "rx": 0,
+      "errors": 0,
+      "rx_crc": 0,
+      "parsed": 0,
+      "drop": 0,
+      "controls": 0,
+      "parsed_crc": 0,
+      "cursor": [
+        0,
+        0
+      ],
+      "view": "LIVE",
+      "cr": "NL",
+      "offset": 0,
+      "history": 0,
+      "utc": "2026-11-17T18:50:45.952498+00:00"
+    },
+    "started_utc": "2026-11-17T18:50:47.164364+00:00",
+    "expected_lines": 140,
+    "visual_result": "Gestures pause and scroll both directions: user confirmed. Footer PAUZA/WZNOW tap: user reported not working.",
+    "complete": true,
+    "last_line_sent": 140,
+    "final": {
+      "rx": 4488,
+      "errors": 0,
+      "rx_crc": 20719448,
+      "parsed": 4488,
+      "drop": 0,
+      "controls": 2,
+      "parsed_crc": 20719448,
+      "cursor": [
+        0,
+        28
+      ],
+      "view": "LIVE",
+      "cr": "NL",
+      "offset": 0,
+      "history": 112,
+      "utc": "2026-11-17T18:51:51.065193+00:00"
+    },
+    "sent_bytes": 4488,
+    "expected_crc": "013c2758",
+    "expected_history": 112,
+    "peer_reply_bytes": 0,
+    "finished_utc": "2026-11-17T18:51:51.096732+00:00",
+    "transport_passed": true,
+    "history_count_passed": true
+  },
+  "continued": {
+    "mode": "continued manual flow",
+    "baseline": {
+      "rx": 4488,
+      "errors": 0,
+      "rx_crc": 20719448,
+      "parsed": 4488,
+      "drop": 0,
+      "controls": 2,
+      "parsed_crc": 20719448,
+      "cursor": [
+        0,
+        28
+      ],
+      "view": "LIVE",
+      "cr": "NL",
+      "offset": 0,
+      "history": 112,
+      "utc": "2026-11-17T18:53:26.242633+00:00"
+    },
+    "visual_result": "Gestures pause and scroll both directions: user confirmed. Footer PAUZA/WZNOW tap: user reported not working.",
+    "started_utc": "2026-11-17T18:53:27.992393+00:00",
+    "last_line_sent": 425,
+    "sent_bytes": 9120,
+    "final": {
+      "rx": 13608,
+      "errors": 0,
+      "rx_crc": 1981031095,
+      "parsed": 13608,
+      "drop": 0,
+      "controls": 2,
+      "parsed_crc": 1981031095,
+      "cursor": [
+        0,
+        28
+      ],
+      "view": "PAUSE",
+      "cr": "NL",
+      "offset": 0,
+      "history": 128,
+      "utc": "2026-11-17T18:57:01.645540+00:00"
+    },
+    "expected_crc": "761422b7",
+    "transport_passed": true,
+    "finished_utc": "2026-11-17T18:57:02.193206+00:00"
+  },
+  "overflow": {
+    "mode": "overflow",
+    "baseline": {
+      "rx": 13608,
+      "errors": 0,
+      "rx_crc": 1981031095,
+      "parsed": 13608,
+      "drop": 0,
+      "controls": 2,
+      "parsed_crc": 1981031095,
+      "cursor": [
+        0,
+        28
+      ],
+      "view": "PAUSE",
+      "cr": "NL",
+      "offset": 10,
+      "history": 128,
+      "utc": "2026-11-17T19:03:37.384454+00:00"
+    },
+    "started_utc": "2026-11-17T19:03:37.469474+00:00",
+    "expected_lines": 512,
+    "visual_result": "pending user",
+    "complete": true,
+    "final": {
+      "rx": 28968,
+      "errors": 0,
+      "rx_crc": 2137175773,
+      "parsed": 28968,
+      "drop": 0,
+      "controls": 2,
+      "parsed_crc": 2137175773,
+      "cursor": [
+        0,
+        28
+      ],
+      "view": "PAUSE",
+      "cr": "NL",
+      "offset": 0,
+      "history": 128,
+      "utc": "2026-11-17T19:03:42.394017+00:00"
+    },
+    "sent_bytes": 15360,
+    "expected_crc": "7f62b6dd",
+    "expected_history": 128,
+    "peer_reply_bytes": 0,
+    "finished_utc": "2026-11-17T19:03:42.476944+00:00",
+    "transport_passed": true,
+    "history_count_passed": true
+  },
+  "capture_final": {
+    "started_utc": "2026-11-17T19:03:18.316400+00:00",
+    "active": false,
+    "boot_markers": [],
+    "touch": {
+      "samples": 784,
+      "valid": 428,
+      "io": 0,
+      "irq": 1,
+      "edges": 3208,
+      "utc": "2026-11-17T19:05:30.038050+00:00"
+    },
+    "last_log_utc": "2026-11-17T19:05:30.038050+00:00",
+    "rx": {
+      "rx": 28968,
+      "errors": 0,
+      "rx_crc": 2137175773
+    },
+    "snapshot": {
+      "rx": 28968,
+      "errors": 0,
+      "rx_crc": 2137175773,
+      "parsed": 28968,
+      "drop": 0,
+      "controls": 2,
+      "parsed_crc": 2137175773,
+      "cursor": [
+        0,
+        28
+      ],
+      "view": "PAUSE",
+      "cr": "NL",
+      "offset": 0,
+      "history": 128,
+      "utc": "2026-11-17T19:05:27.589995+00:00"
+    },
+    "finished_utc": "2026-11-17T19:05:31.335098+00:00"
+  },
+  "internal_heap_values": [
+    144656
+  ],
+  "raw_log_sha256": "6035ace258b1bfcef8f1566599af97b6137e03787d9c1e5919a0c07d168ecf74",
+  "limits": [
+    "visual overflow confirmation pending user",
+    "resume button failed on old firmware",
+    "history line identities not visually checked",
+    "UART FIFO overload was not forced"
+  ]
+}

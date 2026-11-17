@@ -1,0 +1,2 @@
+Embarcadero C++ 7.70 for Win64/COFF Copyright (c) 2012-2024 Embarcadero Technologies, Inc.
+PASS: affine/verification/NVS guards; calibration at 25/30 ms with missing polls; release/gap/moved-contact sum reset; debounced single-action taps; CAL missing samples/jitter/progress, real release/drag/gap cancellation; render bounds

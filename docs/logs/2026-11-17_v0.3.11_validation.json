@@ -1,0 +1,71 @@
+{
+  "version": "0.3.11",
+  "source_commit": "7e22aab",
+  "builds": {
+    "esp32dev_internal": {
+      "project_version": "0.3.11",
+      "artifacts": {
+        "bin": {
+          "path": ".pio\\audit\\v0311_internal_prepared.bin",
+          "size": 180736,
+          "sha256": "0e4a1d7a4a61a279ab9a142740908e0f110bed91befc2d5975f0bb0dfe57ea91"
+        },
+        "elf": {
+          "path": ".pio\\audit\\v0311_internal_prepared.elf",
+          "size": 3245956,
+          "sha256": "c1aa253b447f76a70e661c2e7a109dcc43ce141cf11a7f4397b4f470efff88c7"
+        },
+        "map": {
+          "path": ".pio\\audit\\v0311_internal_prepared.map",
+          "size": 3665944,
+          "sha256": "dca562c6660ac9f5a9614ed4ff8d141d76772ed77770fac2dd6d7aae558efd78"
+        }
+      }
+    },
+    "esp32dev_touch": {
+      "project_version": "0.3.11",
+      "artifacts": {
+        "bin": {
+          "path": ".pio\\audit\\v0311_touch_prepared.bin",
+          "size": 209040,
+          "sha256": "c3c5d7dd3fd223854c6ceae3c1454bd4650aa752fccadfa92d55b42f42e0c24a"
+        },
+        "elf": {
+          "path": ".pio\\audit\\v0311_touch_prepared.elf",
+          "size": 3902164,
+          "sha256": "74ae0b2d42f9a4a531fc7f940d8e4bc9e329e325b9d0d2c162370deaf6b7112b"
+        },
+        "map": {
+          "path": ".pio\\audit\\v0311_touch_prepared.map",
+          "size": 3677328,
+          "sha256": "67f740793094aa0181fba4804b5c58dc6dc15a5230a12fe3b042d86a00ea5087"
+        }
+      }
+    }
+  },
+  "host": {
+    "calibration": {
+      "exit_code": 0,
+      "seconds": 0.797,
+      "log": ".pio\\audit\\2026-11-17_v0.3.11_calibration.txt"
+    },
+    "screen": {
+      "exit_code": 0,
+      "seconds": 0.641,
+      "log": ".pio\\audit\\2026-11-17_v0.3.11_screen.txt"
+    },
+    "history": {
+      "exit_code": 0,
+      "seconds": 0.39,
+      "log": ".pio\\audit\\2026-11-17_v0.3.11_history.txt"
+    }
+  },
+  "red_green": {
+    "source_commit": "7e22aab",
+    "old_source_compile_exit": 0,
+    "old_source_test_exit": 1,
+    "old_source_output": "FAIL line 149: !touch_ui_paused()\n",
+    "expected_failure": "old 8 px footer rejects resume at y222"
+  },
+  "physical_test": "not uploaded; pending new UI panel test"
+}

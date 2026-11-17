@@ -2,7 +2,7 @@
 
 ## 17.11.2026 — v0.3.11: pauza tapnięciem, wznowienie przez WZNOW
 
-Użytkownik wybrał pauzę przez zwykłe tapnięcie w tekst; powtórne tapnięcie pozostawia pauzę, tylko WZNOW przywraca LIVE. Pole WZNOW/CR powiększone z8 do24 px. Zapisane kontakty y222–231 były poza dawnym y>=232. Kalibracja/NVS i piny bez zmian, LCD CS4. Kompilacje internal/touch SUCCESS (28,860/29,496 s); kontrole po publikacji i próba nowej obsługi na panelu jeszcze oczekują. Nowej wersji nie wgrano.
+Użytkownik wybrał pauzę przez zwykłe tapnięcie w tekst; powtórne tapnięcie pozostawia pauzę, tylko WZNOW przywraca LIVE. Pole WZNOW/CR powiększone z8 do24 px. Zapisane kontakty y222–231 były poza dawnym y>=232. Kalibracja/NVS i piny bez zmian, LCD CS4. Kompilacje internal/touch SUCCESS (28,860/29,496 s). Po publikacji `7e22aab`: testy UI/kalibracji, renderera (634 porównania pikseli/30 zdarzeń) i historii PASS. Ten sam test ze starym UI wykrywa nietrafienie WZNOW przy y222, nowy kod PASS. [Wyniki](logs/2026-11-17_v0.3.11_validation.json). Próba nowej obsługi na panelu jeszcze oczekuje. Nowej wersji nie wgrano.
 
 **Próby fizyczne poprzedniego firmware:** [raport](SCROLL_TEST_2026-11-17.md). Użytkownik potwierdził gesty w obu kierunkach i pauzę gestem, zgłosił brak reakcji PAUZA/WZNOW. Wysłano425 wierszy LOG i512 BUF: **28968 B, CRC32=7f62b6dd, RX=parsed, errors=drop=0**, historia osiągnęła i zachowała128 wierszy. Podczas PAUSE odbiór trwał; nadpisywanie ograniczyło offset10→0. To PASS transportu i limitu historii, nie pełny odbiór przycisku, zawartości krańców historii ani celowo przepełnionego FIFO UART. Końcowa ocena obrazu po paczce BUF oczekuje odpowiedzi użytkownika.
 

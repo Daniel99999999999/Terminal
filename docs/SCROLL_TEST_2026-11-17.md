@@ -27,11 +27,18 @@ Na polecenie użytkownika:
 - Pola WZNOW i CR sięgają24 px od dołu; pionowy ruch anuluje tapnięcie i przewija historię.
 - CAL zachowuje własne przytrzymanie2 s. Kalibracja/NVS, IRQ, piny, historia i parser pozostają zgodne z dotychczasowym firmware.
 
-Kompilacje v0.3.11 `esp32dev_internal` i `esp32dev_touch`: SUCCESS,28,860 s i29,496 s. Kontrole programowe po publikacji zostaną zapisane osobnym commitem. Nowego firmware nie wgrano; obsługa nowych tapnięć nie jest jeszcze potwierdzona na panelu.
+Kompilacje v0.3.11 `esp32dev_internal` i `esp32dev_touch`: SUCCESS,28,860 s i29,496 s. Źródła opublikowane w commicie `7e22aab`, następnie kontrole:
+
+- Kalibracja/UI PASS: nowe tapnięcia, powtórne tapnięcie podczas pauzy, WZNOW przy y222/227/231, istniejące gesty/CR/CAL i odtwarzanie NVS.
+- Renderer PASS:634 porównania pikseli w30 zdarzeniach na wirtualnym LCD, w tym zamrożenie, historia i gesty.
+- Historia PASS: nadpisywanie pierścienia, ograniczenie offsetu, odbiór podczas pauzy, odrębność ekranu alternatywnego/regionów VT.
+- Ten sam nowy test połączony z zachowanym starym `touch_ui.c` kompiluje się, ale poprawnie wykrywa błąd: `FAIL line149: !touch_ui_paused()` przy WZNOW na y222. Nowy kod przechodzi ten przypadek. To regresja odtwarzająca zgłoszenie, nie tylko test bieżącej implementacji.
+
+[Wyniki i hasze BIN/ELF](logs/2026-11-17_v0.3.11_validation.json), logi [UI](logs/2026-11-17_v0.3.11_calibration.txt), [renderera](logs/2026-11-17_v0.3.11_screen.txt), [historii](logs/2026-11-17_v0.3.11_history.txt). Touch BIN209040 B, ELF SHA256 `74ae0b2d42f9a4a531fc7f940d8e4bc9e329e325b9d0d2c162370deaf6b7112b`. Nowego firmware nie wgrano; obsługa nowych tapnięć nie jest jeszcze potwierdzona na panelu.
 
 ## Materiał pomiarowy i ograniczenia
 
-Lokalny materiał w `.pio/audit/scroll_v0310_2026-11-17/`: `console.txt`, `timeline.jsonl`, trzy pliki `*_result.json`, wysłane pliki `*_sent.bin` i zamknięty `status.json`. Katalog `.pio` jest ignorowany przez Git; trwały skrót wyników stanowi ten raport.
+Lokalny materiał w `.pio/audit/scroll_v0310_2026-11-17/`: `console.txt`, `timeline.jsonl`, trzy pliki `*_result.json`, wysłane pliki `*_sent.bin` i zamknięty `status.json`. Katalog `.pio` jest ignorowany przez Git; do repozytorium zachowano także [surowy zapis COM5](logs/2026-11-17_scroll_console.txt) i [zbiorcze wyniki fizyczne](logs/2026-11-17_scroll_results.json).
 
 Pierwszy helper zapisu zakończył się błędem Windows PermissionError o19:01:52 UTC. Nie zachowano tracebacku tej pierwszej awarii, więc dokładna przyczyna pozostaje niepotwierdzona. Próba wysyłania BUF wykryła nieaktywny zapis i zatrzymała się przed transmisją. Po dodaniu tolerancji krótkiego zablokowania pliku statusu wznowiono dopisywanie logów bez resetu ESP32; liczniki zachowały13608 B. W przerwie niczego nie nadawano. Dopiero potem wysłano512 wierszy. Końcowy zapis zakończono poprawnie; **COM5 i COM14 są zamknięte**.
 
