@@ -15,6 +15,7 @@
 #include "nvs_flash.h"
 
 enum { CALIBRATE, VERIFY, TEST, TERMINAL };
+enum { TAP_NONE = -1, TAP_PAUSE, TAP_RESUME, TAP_CR };
 typedef struct {
     uint32_t magic, version, rotation;
     touch_calibration_t map;
@@ -31,16 +32,32 @@ static bool s_wait_release = true, s_down, s_holding, s_nvs, s_saved, s_retry;
 static bool s_paused, s_cr_newline;
 static unsigned s_gap_resets, s_motion_resets, s_peak_samples;
 static uint32_t s_report_at, s_reset_gap;
-static int s_scroll_rows, s_scroll_y, s_start_y, s_start_x, s_tap = -1;
+static int s_scroll_rows, s_scroll_y, s_start_y, s_start_x, s_tap = TAP_NONE;
 static bool s_dragging;
+
+static int tap_action(uint16_t x, uint16_t y)
+{
+    /* The text is 8 px high, but a finger needs a larger touch target.
+     * Recorded footer taps mapped to y=222..231, above the old y>=232 zone. */
+    bool footer = y >= LCD_HEIGHT - 24;
+    if (footer && x >= LCD_WIDTH / 3 && x < LCD_WIDTH * 2 / 3) { return TAP_CR; }
+    if (s_paused) { return footer && x < LCD_WIDTH / 3 ? TAP_RESUME : TAP_NONE; }
+    return TAP_PAUSE; /* A plain terminal tap freezes; only WZNOW resumes. */
+}
 
 static void finish_gesture(void)
 {
     if (s_page == TERMINAL && !s_dragging) {
-        if (s_tap == 0) { s_paused = !s_paused; ++s_revision; }
-        if (s_tap == 1) { s_cr_newline = !s_cr_newline; ++s_revision; }
+        if (s_tap == TAP_PAUSE || s_tap == TAP_RESUME) {
+            s_paused = s_tap == TAP_PAUSE; ++s_revision;
+            ESP_LOGI("TOUCH", "Tap release -> %s", s_paused ? "PAUSE" : "LIVE");
+        }
+        if (s_tap == TAP_CR) {
+            s_cr_newline = !s_cr_newline; ++s_revision;
+            ESP_LOGI("TOUCH", "CR tap release -> %s", s_cr_newline ? "NL" : "CR");
+        }
     }
-    s_tap = -1; s_dragging = false;
+    s_tap = TAP_NONE; s_dragging = false;
 }
 
 /* A missing ADC sample is not immediately a new physical press. Bound the
@@ -122,7 +139,7 @@ static bool save(void)
 
 static void restart(void)
 {
-    s_tap = -1; s_dragging = false; s_scroll_rows = 0;
+    s_tap = TAP_NONE; s_dragging = false; s_scroll_rows = 0;
     s_page = CALIBRATE; s_point = s_releases = s_progress = 0;
     clear_measurement();
     s_gap_resets = s_motion_resets = s_peak_samples = 0;
@@ -133,7 +150,7 @@ static void restart(void)
 
 void touch_ui_init(bool cr_newline)
 {
-    s_tap = -1; s_dragging = false; s_scroll_rows = 0;
+    s_tap = TAP_NONE; s_dragging = false; s_scroll_rows = 0;
     s_paused = false; s_cr_newline = cr_newline;
     s_down = s_holding = false; s_contact_at = s_hold_progress = 0;
     s_wait_release = true; s_releases = 0;
@@ -237,7 +254,8 @@ void touch_ui_update(const xpt2046_sample_t *sample, uint32_t now)
         if (touch_calibration_map(&s_map, sample->x, sample->y, &x, &y)) {
             if (x != s_x || y != s_y) { s_x = x; s_y = y; ++s_revision; }
             if (!s_down) {
-                ESP_LOGI("TOUCH", "UI press raw=%u,%u screen=%u,%u", sample->x, sample->y, x, y);
+                ESP_LOGI("TOUCH", "UI press raw=%u,%u screen=%u,%u tap=%d", sample->x, sample->y, x, y,
+                         s_page == TERMINAL ? tap_action(x, y) : TAP_NONE);
             }
             if (s_page == TEST && !s_down && y >= LCD_HEIGHT - 32 &&
                 x >= LCD_WIDTH / 2 - 48 && x <= LCD_WIDTH / 2 + 48) {
@@ -245,11 +263,11 @@ void touch_ui_update(const xpt2046_sample_t *sample, uint32_t now)
             } else if (s_page == TERMINAL) {
                 if (!s_down) {
                     s_start_x = x; s_start_y = s_scroll_y = y; s_dragging = false;
-                    s_tap = y >= LCD_HEIGHT - 8 && x < LCD_WIDTH * 2 / 3 ? (x < LCD_WIDTH / 3 ? 0 : 1) : -1;
+                    s_tap = tap_action(x, y);
                 }
                 int dy = (int)y - s_start_y, dx = (int)x - s_start_x;
-                if (dy >= 24 || dy <= -24) { s_dragging = true; s_tap = -1; }
-                if (dx >= 24 || dx <= -24) { s_tap = -1; }
+                if (dy >= 24 || dy <= -24) { s_dragging = true; s_tap = TAP_NONE; }
+                if (dx >= 24 || dx <= -24) { s_tap = TAP_NONE; }
                 if (s_dragging) {
                     stop_hold();
                     int rows = ((int)y - s_scroll_y) / 8;

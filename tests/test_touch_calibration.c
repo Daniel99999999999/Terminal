@@ -142,6 +142,22 @@ int main(void)
     release(); hold(LCD_WIDTH/2,LCD_HEIGHT-16); CHECK(!touch_ui_visible());
     touch_ui_init(true); CHECK(!touch_ui_visible()); /* Persistent calibration restored. */
     CHECK(!touch_ui_paused() && touch_ui_cr_newline());
+    /* Real footer contacts from COM5: y=222..231 missed the old 8 px zone. */
+    const unsigned footer_y[] = {222, 227, 231};
+    for (unsigned i = 0; i < sizeof(footer_y) / sizeof(footer_y[0]); ++i) {
+        release(); hold(20,LCD_HEIGHT-3); release(); CHECK(touch_ui_paused());
+        hold(35,footer_y[i]); release(); CHECK(!touch_ui_paused());
+    }
+    /* A plain tap pauses anywhere in the terminal; repeat taps stay paused.
+     * Only the enlarged WZNOW target returns to LIVE. */
+    const unsigned tap_x[] = {10, LCD_WIDTH/2, LCD_WIDTH-10};
+    const unsigned tap_y[] = {10, LCD_HEIGHT/2, LCD_HEIGHT-25};
+    for (unsigned i = 0; i < 3; ++i) {
+        hold(tap_x[i],tap_y[i]); CHECK(!touch_ui_paused());
+        release(); CHECK(touch_ui_paused());
+        hold(LCD_WIDTH/2,LCD_HEIGHT/2); release(); CHECK(touch_ui_paused());
+        hold(35,222); release(); CHECK(!touch_ui_paused());
+    }
     release(); hold(20,LCD_HEIGHT-3); CHECK(!touch_ui_paused());
     /* A lost ADC sample during one contact must not toggle PAUZA twice. */
     gesture_sample(0,0,false); hold(20,LCD_HEIGHT-3); CHECK(!touch_ui_paused());

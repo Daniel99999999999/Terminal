@@ -129,7 +129,7 @@ static esp_err_t status_line(bool paused, bool cr_newline)
     char pause_text[24];
     unsigned offset = terminal_history_offset(&s_history);
     if (paused && offset) { snprintf(pause_text, sizeof(pause_text), "[WZNOW %u]", offset); }
-    else { snprintf(pause_text, sizeof(pause_text), "%s", paused ? "[WZNOW]" : "[PAUZA]"); }
+    else { snprintf(pause_text, sizeof(pause_text), "%s", paused ? "[WZNOW]" : "LIVE"); }
     unsigned progress = touch_ui_cal_progress();
     if (progress > 100) { progress = 100; }
     if (progress) { snprintf(cal, sizeof(cal), "[CAL %u%%]", progress); }

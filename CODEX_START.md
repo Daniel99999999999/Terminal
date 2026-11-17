@@ -1,5 +1,7 @@
 # Prompt startowy do Codex
 
+**17.11.2026 / v0.3.11:** pauza przez tapnięcie w tekst, wznowienie tylko przez WZNOW; pole trafienia WZNOW/CR24 px. Kompilacje internal/touch SUCCESS, nowej wersji nie wgrano. Użytkownik potwierdził gesty przewijania obu kierunków na poprzednim firmware, ale nie przycisk. Zapisane y222–231 nie mieściły się w dawnych8 px. Próba UART/historii:937 wierszy,28968 B, CRC zgodne, zero strat/błędów, limit128 zachowany. [Raport i pozostałe kryteria](docs/SCROLL_TEST_2026-11-17.md), [STATUS](docs/STATUS.md). COM5/COM14 zamknięte, NVS zachowane, CS4. Starsze zapowiedzi prób niżej są historią.
+
 **Potwierdzenie17.11.2026:** LCD działa na **P4** według użytkownika. Następny etap to fizyczny odbiór IRQ XPT2046 oraz przewijania128 wierszy gestami, testy programowe PASS. Wcześniejsza kalibracja i mapa NVS zachowane. [STATUS](docs/STATUS.md). W tej sesji odnotowano wynik i odpowiedziano na pytanie o stan testów; bez uploadu/resetu/otwierania COM5/COM14. Przyczyna problemu P21 nieustalona.
 
 **Najnowszy przydział17.11.2026 / v0.3.10:** na polecenie użytkownika LCD SPI CS teraz **GPIO4/P4**, zamiast P21. Dawna nieużywana rezerwacja GPIO4 dla EN podświetlenia usunięta; LED na3,3 V. [Pinout](docs/TFT_PROFILES_v0.1.12.md), STATUS. Przepiąć tylko CS przy wyłączonym zasilaniu, użyć v0.3.10 `esp32dev_touch`; bez automatycznego uploadu i kolejnych prób ROM/P21. Ostatni potwierdzony program na płytce v0.3.9 touch, CS odłączony. Kompilacja, commit+push przed testami, osobny zapis wyników. Nie deklarować naprawy białego obrazu bez próby.

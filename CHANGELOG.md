@@ -1,5 +1,11 @@
 # Historia wersji
 
+## v0.3.11 — 17.11.2026
+
+- Zgodnie z wyborem użytkownika zwykłe tapnięcie w obszar tekstu zatrzymuje obraz, po puszczeniu palca. Powtórne tapnięcie pozostawia pauzę; wznowienie wyłącznie przez WZNOW na dole po lewej. W stanie bieżącego odbioru pasek pokazuje LIVE. Pionowe gesty nadal zatrzymują i przewijają historię; odbiór UART trwa w tle.
+- Pole dotykowe WZNOW i CR ma24 piksele wysokości. Zarejestrowane kontakty y222–231 były poza dawnym polem y232–239. Kalibracja NVS, przytrzymanie CAL, sterownik IRQ, połączenia i LCD CS4 zachowane. Regresje obejmują rzeczywiste współrzędne oraz tapnięcia w różnych częściach tekstu.
+- Kompilacje `esp32dev_internal` i `esp32dev_touch` SUCCESS przed publikacją. [Wyniki fizycznych prób przewijania i nadpisywania historii oraz ograniczenia](docs/SCROLL_TEST_2026-11-17.md). Kontrole programowe i nowa próba panelu zapisane osobno po publikacji; brak automatycznego uploadu.
+
 ## v0.3.10 — 17.11.2026
 
 - Na polecenie użytkownika LCD SPI CS przeniesiony z GPIO21/P21 na **GPIO4/P4**. Dotyczy profili SPI, w tym `esp32dev_touch` i `esp32dev_internal`; alternatywne I80 zachowuje swój pinout. Log SPI podaje rzeczywisty numer CS.
