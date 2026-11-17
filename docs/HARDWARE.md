@@ -1,5 +1,7 @@
 # Sprzęt, bezpieczeństwo i nieustalone połączenia
 
+**Potwierdzenie17.11.2026:** użytkownik zgłosił działający LCD przy **CS→P4**. Przyjmujemy ten pinout do dalszych prób. Przyczyna problemu P21 nieustalona; nowa obsługa IRQ i przewijania gestami jeszcze bez fizycznego odbioru. [Aktualne wyniki](STATUS.md). Poniższa zapowiedź oczekiwanej próby opisuje stan sprzed potwierdzenia.
+
 **Najnowszy przydział17.11.2026 / v0.3.10:** LCD SPI **CS→GPIO4/P4 zamiast GPIO21/P21**, na polecenie użytkownika. Zmienia się tylko przewód CS; przepiąć przy wyłączonych zasilaniach. LED LCD nadal zasilane3,3 V. GPIO4 nie jest już rezerwą EN podświetlenia; sterowanie podświetleniem przez GPIO pozostaje bez przydziału i zablokowane. [Aktualny pinout](TFT_PROFILES_v0.1.12.md), [CSV](PINOUT_SPI.csv). Inne sygnały bez zmiany; przydział I80 jest osobną alternatywą. Nowy firmware nie był wgrywany, połączenie P4 i efekt fizyczny jeszcze niepotwierdzone.
 
 **Doprecyzowanie17.11.2026:** użytkownik mierzył5 mV bezpośrednio na goldpinie P21 ESP32. Punkt pomiaru potwierdzony; do sprawdzenia połączenie goldpinu z jego własnym polem lutowniczym i rezystancja P21↔GND przy całkowicie wyłączonym zasilaniu. Wyniki oczekiwane. Przewód LCD CS pozostaje odłączony. [Bieżący zapis](STATUS.md).

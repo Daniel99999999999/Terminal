@@ -1,5 +1,13 @@
 # Faktyczny stan projektu / handoff
 
+## 17.11.2026 — użytkownik potwierdził działanie LCD na P4
+
+Użytkownik: **„Działa na p4”** po przeniesieniu LCD CS z P21 na P4. Przyjmujemy działający obraz z nowym przypisaniem, potwierdzony przez użytkownika; w tej sesji nie otwierano COM5/COM14, nie wgrywano i nie resetowano. Nie wykonano nowego odczytu wersji/ELF. Przyczyna rozbieżności P21 nadal nieustalona; dalsze pomiary P21 zastąpiono zmianą pinu na polecenie użytkownika.
+
+Etap przerwany białym ekranem to **fizyczny odbiór IRQ XPT2046 oraz gestów przewijania historii**. Dotychczas potwierdzono UART1/HC-05, podstawowy wzór VT100, kolory/miganie i pełne ekrany pokazu z menu oraz OK/Anuluj (ostatnie zdjęcia v0.3.8), a także wcześniejsze ukończenie kalibracji i odtwarzanie mapy NVS. Obsługa IRQ, historia128 wierszy, gesty i powrót LIVE mają testy programowe PASS; na panelu po tych zmianach jeszcze niezaliczone.
+
+Następna próba: zwykłe numerowane wiersze przez COM14, aby wytworzyć rzeczywistą historię pełnego przewijania; palec w dół pokazuje starsze wiersze, w górę nowsze, WZNOW wraca do LIVE. Sprawdzić odbiór UART podczas pauzy, gest rozpoczynany nad paskiem bez przypadkowego CR/CAL oraz brak bezczynnych pomiarów ADC w trybie IRQ. Bieżąca wiadomość użytkownika pyta o status; nie uruchamiano automatycznie tej próby.
+
 ## 17.11.2026 — v0.3.10: LCD CS na GPIO4/P4
 
 **Nowe polecenie użytkownika: przypisać inny pin zamiast kontynuować pomiary P21.** W profilach SPI LCD CS przeniesiono z21 na **4**. GPIO4 było wyłącznie nieużywaną rezerwą EN podświetlenia; ta rezerwa usunięta, `TFT_BACKLIGHT_EN_GPIO=-1`, opcja CONTROL=1 odrzucana podczas kompilacji. LED LCD pozostaje zasilane3,3 V. [Aktualna tabela](TFT_PROFILES_v0.1.12.md) i [CSV](PINOUT_SPI.csv). I80 zachowuje alternatywny pinout; GPIO16/17, Flash6–11, UART1/2, GPIO2 i dotyk pozostają zarezerwowane jak wcześniej. Log SPI pokazuje CS=GPIO4.

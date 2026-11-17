@@ -1,5 +1,7 @@
 # Biały LCD po restarcie v0.3.9 — 16.11.2026
 
+**Późniejszy wynik17.11.2026:** użytkownik potwierdził **działanie LCD na P4**. Nowy przydział przyjęty do dalszych prób, bez rozpoznania przyczyny rozbieżności P21. Wracamy do odbioru IRQ i przewijania gestami; [bieżący STATUS](STATUS.md). Poniższe oczekiwanie na próbę nowego pinu jest już historyczne.
+
 **Decyzja użytkownika17.11.2026:** zamiast dalszych pomiarów P21 przypisać inny pin. Źródła **v0.3.10** używają **LCD CS=GPIO4/P4**; dawna nieużywana rezerwacja GPIO4 dla EN podświetlenia usunięta. [Aktualny pinout](TFT_PROFILES_v0.1.12.md), STATUS. Nowy przydział wymaga przepięcia samego przewodu CS przy wyłączonym zasilaniu i wgrania v0.3.10. Nie jest to rozpoznanie usterki P21 ani potwierdzona naprawa białego ekranu. Poniższe pomiary opisują poprzedni przydział.
 
 **Objaw nadal występuje.** Po zgłoszeniu użytkownika odczytano COM5 bez resetu przez12 s, a następnie wykonano jeden kontrolowany EN przez RTS przy aktywnym zapisie. Użytkownik potwierdził, że po tym resecie ekran nadal jest biały. Nie wgrywano firmware, nie otwierano COM14 i nie wysyłano danych HC-05.
